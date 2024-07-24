@@ -291,16 +291,16 @@ public class FrogCpu : MonoBehaviour {
         if (_swicthRandomJump == SwicthRandomJump.Hard) {
             //確率計算
             _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
-            //80%でジャンプ
-            if (_randamJump >= 2000) {
+            //50%でジャンプ
+            if (_randamJump >= 5000) {
                 Jump2();
             }
 
         } else if (_swicthRandomJump == SwicthRandomJump.Harf) {
             //確率計算
             _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
-            //90%でジャンプ
-            if (_randamJump >= 1000) {
+            //70%でジャンプ
+            if (_randamJump >= 3000) {
                 Jump2();
             }
         }
@@ -426,7 +426,14 @@ public class FrogCpu : MonoBehaviour {
                     PriictionAbility();
                 }
             }
-            StartCoroutine(CollisionEffect());
+            if (!_isWaterAbility) {
+                if (this.gameObject.activeSelf) {
+                    StartCoroutine(CollisionEffect());
+                }
+            }
+
+          
+           
         }
         if (!_isPridictionAbility) {
             //粘液の床
