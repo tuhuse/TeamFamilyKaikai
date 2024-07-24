@@ -56,7 +56,7 @@ public class WireTonguePlayer : MonoBehaviour
         else if (!_isFrogCatch) {
             _underAttack = false;
             //ƒxƒ‚Ìk¬
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes&&_isAttack) {
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMESPEED;
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;
@@ -67,7 +67,7 @@ public class WireTonguePlayer : MonoBehaviour
         else 
         {
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMESPEED;
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;

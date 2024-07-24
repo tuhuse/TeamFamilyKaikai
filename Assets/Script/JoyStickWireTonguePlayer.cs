@@ -34,21 +34,8 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
         _playerRB = GetComponentInParent<Rigidbody2D>();
         _tongueScaleY = this.transform.localScale.y;
     }
-    void Update() {
-        float vartical = Input.GetAxis("R_Stick_Vartical");
-        float horizontal = Input.GetAxis("R_Stick_Horizontal");
-
-        float degree = Mathf.Atan2(horizontal, -vartical) * Mathf.Rad2Deg;
-
-        if (degree < 0) {
-            degree += 360;
-        }
-
-        if (!_isAttack) {
-            this.transform.localRotation = Quaternion.Euler(0, 0, -degree);
-        }
-
-
+    void Update() 
+    {
 
         if (_isExtension) {
             //ÉxÉçÇêLÇŒÇ∑
@@ -59,7 +46,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
         else if (!_isFrogCatch) {
             //ÉxÉçÇÃèkè¨
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes&&_isAttack) {
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
             } else if (_isAttack && !_isJustOnes) {
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
@@ -70,7 +57,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
 
         } else {
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes&&_isAttack) {
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;
@@ -88,7 +75,8 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
 
 
 
-        if (vartical <= 0.1f && horizontal >= 0.1f) {
+        if (Input.GetButtonDown("TongueAttack")) 
+        {
             //ÉxÉçÇêLÇŒÇµénÇﬂÇÈ
             if (!_isAttack) {
                 _isAttack = true;

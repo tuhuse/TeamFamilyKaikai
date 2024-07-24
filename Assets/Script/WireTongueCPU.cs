@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WireTongueCPU : MonoBehaviour {
-  
-
-
     public bool _isExtension = false;
     private bool _isAttack = false;
     public bool _isCoolDown = true;
@@ -20,7 +17,7 @@ public class WireTongueCPU : MonoBehaviour {
     [Header("CPU2")] [SerializeField] private GameObject _enemy2 = default;
     [Header("CPU3")] [SerializeField] private GameObject _enemy3 = default;
 
-    [SerializeField] private GameObject _mySelf = default;
+    [SerializeField] GameObject _mySelf = default;
 
 
     private Rigidbody2D _cpuRB = default;
@@ -103,6 +100,7 @@ public class WireTongueCPU : MonoBehaviour {
 
         }
         if (collision.gameObject.tag == "Player" && _underAttack) {
+
             collision.gameObject.GetComponent<PlayercontrollerScript>().PositionChange(_mySelf, collision.gameObject);
             _isExtension = false;
             _isFrogCatch = true;
