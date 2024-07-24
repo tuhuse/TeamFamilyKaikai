@@ -64,8 +64,8 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private const float ITEMSELECTWAIT = 3f;
     private const float MOVEJUMP = 35f;
-    private const float FROGJUMPY = 115f;//斜め飛びのＹ
 
+    private const float TIMEDELTATIME = 1000f;
 
     private SpriteRenderer _pridictionSpriterenderer = default;
     [SerializeField] private ItemSelects _itemSelectScript = default;
@@ -134,7 +134,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     //移動速度を徐々に元に戻す
                     _downEffect.gameObject.SetActive(true);
                     _rb.velocity = new Vector3(-_movespeed, _rb.velocity.y, 0); //* Time.deltaTime ;
-                    _movespeed = Mathf.Abs(_movespeed + _returnSpeed); //* Time.deltaTime;
+                    _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed* Time.deltaTime*TIMEDELTATIME);
 
                 }
 
@@ -160,7 +160,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     //移動速度を徐々に元に戻す
                     _downEffect.gameObject.SetActive(true);
                     _rb.velocity = new Vector3(_movespeed, _rb.velocity.y, 0); //* Time.deltaTime ;
-                    _movespeed = Mathf.Abs(_movespeed + _returnSpeed); //* Time.deltaTime ;
+                    _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
                 }
             }
 

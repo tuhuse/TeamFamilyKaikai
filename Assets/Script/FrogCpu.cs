@@ -86,6 +86,7 @@ public class FrogCpu : MonoBehaviour {
     private const float MOVEJUMPMAX = 200f;
     private const float JUMPMIN = 17f;//粘液踏んだ時のジャンプ力
     private const float MOVEJUMP = 35f;
+    private const float TIMEDELTATIME = 1000f;
     private Animator _mucasFrogCPUAnim;
 
     private AudioSource _frogSE = default;
@@ -699,7 +700,7 @@ public class FrogCpu : MonoBehaviour {
             _downEffect.gameObject.SetActive(true);
             //右に移動
             _rb.velocity = new Vector3(_movespeed, _rb.velocity.y, 0);
-            _movespeed = Mathf.Abs(_movespeed + _returnCPUSpeed);
+            _movespeed = Mathf.Abs(_movespeed) + (_returnCPUSpeed*Time.deltaTime*TIMEDELTATIME);
         }
     }
     //初動のカエルたち
