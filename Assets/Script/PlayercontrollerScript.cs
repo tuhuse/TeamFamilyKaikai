@@ -580,13 +580,17 @@ public class PlayercontrollerScript : MonoBehaviour {
 
   
     public void SpeedUp(bool speed) {
-        if (speed) {
-            _movespeed = MOVESPEED;
-            _speedUp = 100f;
-            StartCoroutine(Timecount());
-        } else {
-            _speedUp = 0;
+        if (!_isInvincivle) {
+            if (speed) {
+                _movespeed = MOVESPEED;
+                _speedUp = 100f;
+                StartCoroutine(Timecount());
+            } else {
+                _speedUp = 0;
+            }
         }
+
+      
 
     }
     private IEnumerator Timecount() {

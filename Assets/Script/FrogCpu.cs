@@ -771,15 +771,18 @@ public class FrogCpu : MonoBehaviour {
     }
 
     public void SpeedUp(bool speedup) {
-        if (speedup) {
-            if (_isWaterAbility) {
-                _isWaterAbility = false;
+        if (!_isPridictionAbility) {
+            if (speedup) {
+                if (_isWaterAbility) {
+                    _isWaterAbility = false;
+                }
+                _speedUp = 100f;
+                StartCoroutine(Timecount());
+            } else {
+                _speedUp = 0f;
             }
-            _speedUp = 100f;
-            StartCoroutine(Timecount());
-        } else {
-            _speedUp = 0f;
         }
+        
 
     }
     private IEnumerator Timecount() {
