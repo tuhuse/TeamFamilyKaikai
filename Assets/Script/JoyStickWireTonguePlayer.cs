@@ -98,9 +98,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "CPU" && _underAttack) {
-            _playerposition = _player.transform.position;
-            _player.transform.position = collision.gameObject.transform.position;
-            collision.gameObject.transform.position = _playerposition;
+            _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
             _isExtension = false;
             _isFrogCatch = true;
         }
