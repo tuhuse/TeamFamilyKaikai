@@ -68,6 +68,7 @@ public class FrogCpu : MonoBehaviour {
     private float _downSpeed;
     //スピードダウンから立て直す速さ
     private float _returnCPUSpeed = 0.07f;
+    private float _speedUp = 0;
 
     //確率
     private int _randamJump = 0;
@@ -696,7 +697,7 @@ public class FrogCpu : MonoBehaviour {
             }
             _downEffect.gameObject.SetActive(false);
             //右に移動
-            _rb.velocity = new Vector3(_movespeed, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(_movespeed+_speedUp, _rb.velocity.y, 0);
         }
         //移動速度を徐々に元に戻す
         else {
@@ -706,7 +707,7 @@ public class FrogCpu : MonoBehaviour {
             }
             _downEffect.gameObject.SetActive(true);
             //右に移動
-            _rb.velocity = new Vector3(_movespeed, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(_movespeed+_speedUp, _rb.velocity.y, 0);
             _movespeed = Mathf.Abs(_movespeed) + (_returnCPUSpeed*Time.deltaTime*TIMEDELTATIME);
         }
     }
@@ -769,17 +770,20 @@ public class FrogCpu : MonoBehaviour {
         _tongue._isExtension=false;
     }
 
-    public void PositionChange(GameObject partner, GameObject myself) //partnerには前にテレポートさせる対象、
-                                                                      //myselfは後ろにテレポートさせる対象
-     {
-        if (!_isPridictionAbility) 
-        {
-            Vector3 teleportDestination = partner.transform.position;
-            partner.transform.position = this.transform.position;
-            this.transform.position = teleportDestination;
-
+    public void SpeedUp(bool speedup) {
+        if (speedup) {
+            if (_isWaterAbility) {
+                _isWaterAbility = false;
+            }
+            _speedUp = 100f;
+            StartCoroutine(Timecount());
+        } else {
+            _speedUp = 0f;
         }
 
     }
-
+    private IEnumerator Timecount() {
+        yield return new WaitForSeconds(0.3f);
+        SpeedUp(false);
+    }
 }

@@ -47,6 +47,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private float _downSpeed;　//実際の減少するスピード
     private float _returnSpeed = 0.07f;//スピードダウンから立て直す速さ
     private float _randomItemLottery = default;//アイテムで使うRandom.Rangeの値を入れる
+    private float _speedUp = 0;
 
     [Header("プレイヤー速度")] [SerializeField] private float _movespeed = 100;
     [Header("プレイヤージャンプ")] [SerializeField] private float _jumppower = 200f;
@@ -124,7 +125,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     SEReproduction();
 
                     _downEffect.gameObject.SetActive(false);
-                    _rb.velocity = new Vector3(-_movespeed, _rb.velocity.y, 0);//*Time.deltaTime;
+                    _rb.velocity = new Vector3(-_movespeed-_speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
                 }
 
                 //スピードダウンした時
@@ -133,7 +134,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     SpeedDownSE();
                     //移動速度を徐々に元に戻す
                     _downEffect.gameObject.SetActive(true);
-                    _rb.velocity = new Vector3(-_movespeed, _rb.velocity.y, 0); //* Time.deltaTime ;
+                    _rb.velocity = new Vector3(-_movespeed-_speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
                     _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed* Time.deltaTime*TIMEDELTATIME);
 
                 }
@@ -150,7 +151,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     SEReproduction();
 
                     _downEffect.gameObject.SetActive(false);
-                    _rb.velocity = new Vector3(_movespeed, _rb.velocity.y, 0); //* Time.deltaTime ;
+                    _rb.velocity = new Vector3(_movespeed+_speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
                 }
 
                 //スピードダウンした時
@@ -159,7 +160,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
                     //移動速度を徐々に元に戻す
                     _downEffect.gameObject.SetActive(true);
-                    _rb.velocity = new Vector3(_movespeed, _rb.velocity.y, 0); //* Time.deltaTime ;
+                    _rb.velocity = new Vector3(_movespeed+ _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
                     _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
                 }
             }
@@ -577,15 +578,22 @@ public class PlayercontrollerScript : MonoBehaviour {
         _rank = nowrank;
     }
 
-    public void PositionChange(GameObject partner, GameObject myself) //partnerには前にテレポートさせる対象、
-                                                                      //myselfは後ろにテレポートさせる対象
-    {
-        if (!_isInvincivle) {
-            Vector3 teleportDestination = partner.transform.position;
-            partner.transform.position = this.transform.position;
-            this.transform.position = teleportDestination;
-
+  
+    public void SpeedUp(bool speed) {
+        if (speed) {
+            _movespeed = MOVESPEED;
+            _speedUp = 100f;
+            StartCoroutine(Timecount());
+        } else {
+            _speedUp = 0;
         }
 
     }
+    private IEnumerator Timecount() {
+        yield return new WaitForSeconds(0.3f);
+        SpeedUp(false);
+    }
+
+
+
 }

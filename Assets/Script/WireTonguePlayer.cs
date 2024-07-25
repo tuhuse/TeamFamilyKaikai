@@ -23,7 +23,7 @@ public class WireTonguePlayer : MonoBehaviour
     private const float TONGUEMAXEXTENSION = 10f;
     private const float JUMPMULTIPLE = 1.5f;
 
-    private const float FAILEDTONGUECATCH = 1f;
+    private const float FAILEDTONGUECATCH = 8f;
     private const float SUCCESSTONGUECATCH = 8f;
 
     private const float TONGUESCALEX = 3f;
@@ -133,7 +133,8 @@ public class WireTonguePlayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "CPU" && _underAttack) 
         {
-            collision.gameObject.GetComponent<FrogCpu>().PositionChange(_player, collision.gameObject);
+            
+            _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
             _isExtension = false;
             _isFrogCatch = true;
         }

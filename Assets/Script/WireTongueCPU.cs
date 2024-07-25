@@ -101,14 +101,14 @@ public class WireTongueCPU : MonoBehaviour {
         }
         if (collision.gameObject.tag == "Player" && _underAttack) {
 
-            collision.gameObject.GetComponent<PlayercontrollerScript>().PositionChange(_mySelf, collision.gameObject);
+            _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
             _isExtension = false;
             _isFrogCatch = true;
             _isJudge = true;
         }
 
         if (collision.gameObject.tag == "CPU" && _underAttack) {
-            collision.gameObject.GetComponent<FrogCpu>().PositionChange(_mySelf, collision.gameObject);
+            _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
             _isExtension = false;
             _isFrogCatch = true;
             _isJudge = true;
