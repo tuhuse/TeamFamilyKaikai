@@ -471,31 +471,26 @@ public class PlayercontrollerScript : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == 9 && !_isInvincivle && !_isGetWater)//ïEÇ…ìñÇΩÇ¡ÇƒÇ©Ç¬ÅAñ≥ìGÇ∂Ç·Ç»Ç¢éû
         {
-            if (_projectile != null && collision.gameObject != _projectile.gameObject) {
+            if (_projectile == null) {
                 _frogSE.PlayOneShot(_damageSE);
                 _movespeed = SPEEDMIN;
-            }
-            else 
-            {
+            } else if (collision.gameObject != _projectile.gameObject) {
                 _frogSE.PlayOneShot(_damageSE);
                 _movespeed = SPEEDMIN;
-
             }
 
         }
         if (collision.gameObject.layer == 7 && !_isInvincivle)//îSâtÇÃè∞
        {
 
-            if (_projectile != null && collision.gameObject != _projectile.gameObject) {
+            if (_projectile == null) {
                 _isMucusJump = true;
                 StartCoroutine(MucusJumpTime());
-            } 
-            else 
+            } else if(collision.gameObject!=_projectile.gameObject) 
             {
                 _isMucusJump = true;
                 StartCoroutine(MucusJumpTime());
             }
-
         }
         if (collision.gameObject.CompareTag("Enemy") && !_isInvincivle) {
             StartCoroutine(CollisionEffect());

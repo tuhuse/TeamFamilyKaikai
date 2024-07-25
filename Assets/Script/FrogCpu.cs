@@ -403,16 +403,16 @@ public class FrogCpu : MonoBehaviour {
         if (collision.gameObject.layer == 9) {
             if (!_isPridictionAbility&&!_isWaterAbility) 
             {
-                if (_projectile != null && collision.gameObject != _projectile.gameObject) {
-                    //ïEÇ…ìñÇΩÇ¡ÇΩéûÇÃå¯â 
-                    _movespeed = SPEEDMIN;
-                    _frogSE.PlayOneShot(_damageSE);
-                } 
-                else 
+
+                if (_projectile == null) 
                 {
                     _movespeed = SPEEDMIN;
                     _frogSE.PlayOneShot(_damageSE);
-
+                } 
+                else if (collision.gameObject != _projectile.gameObject) 
+                {
+                    _movespeed = SPEEDMIN;
+                    _frogSE.PlayOneShot(_damageSE);
                 }
                
             }
@@ -440,11 +440,12 @@ public class FrogCpu : MonoBehaviour {
             //îSâtÇÃè∞
             if (collision.gameObject.layer == 7  ) 
             {
-                if (_projectile != null && collision.gameObject != _projectile.gameObject) {
+                if (_projectile == null) 
+                {
                     _isMucusJump = true;
                     StartCoroutine(MucusJumpTime());
-                }
-                else 
+                } 
+                else if(collision.gameObject != _projectile.gameObject) 
                 {
                     _isMucusJump = true;
                     StartCoroutine(MucusJumpTime());
