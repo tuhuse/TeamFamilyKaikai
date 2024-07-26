@@ -243,8 +243,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Flor" ) {
-            _isFrogjump = false;
-           
+            _isFrogjump = false;          
         }
 
     }
@@ -492,7 +491,8 @@ public class PlayercontrollerScript : MonoBehaviour {
                 StartCoroutine(MucusJumpTime());
             }
         }
-        if (collision.gameObject.CompareTag("Enemy") && !_isInvincivle) {
+        if ((collision.gameObject.CompareTag("Enemy") &&
+            !_isInvincivle&& !_waterEffect.activeSelf)){
             StartCoroutine(CollisionEffect());
         }
 
