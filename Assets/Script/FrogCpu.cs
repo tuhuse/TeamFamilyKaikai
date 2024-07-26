@@ -67,7 +67,7 @@ public class FrogCpu : MonoBehaviour {
     //実際の減少するスピード
     private float _downSpeed;
     //スピードダウンから立て直す速さ
-    private float _returnCPUSpeed = 0.07f;
+    private float _returnCPUSpeed = 0.035f;
     private float _speedUp = 0;
 
     //確率
