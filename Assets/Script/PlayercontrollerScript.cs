@@ -54,7 +54,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private const float WATERSPEEDUPMULTIPLE = 1.2f; //水アイテム使用時のスピードアップ倍率
     private const float MOVESPEED = 100f;//プレイヤーのスピードの基準
-    private const float JUMPMIN = 17f;//粘液踏んだ時のジャンプ力
+    private const float JUMPMIN = 10f;//粘液踏んだ時のジャンプ力
     private const float JUMPMAX = 200f;
     private const float SPEEDMIN = 80f;
     private const float SPEEDRESETWAITTIME = 3f; //スピードアップしている時間
@@ -183,17 +183,17 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping){
                 _isJump = true;
-            } 
+            }
             //else {
             //    _isJump = false;
             //}
 
-            //if (this._rb.velocity.y > 50) {
-            //    if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Submit")) {
-            //        _rb.velocity = new Vector3(_rb.velocity.x, _jumppower / 12, 0); //* Time.deltaTime ;
-            //    }
+            if (this._rb.velocity.y > 50) {
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Submit")) {
+                    _rb.velocity = new Vector3(_rb.velocity.x, _jumppower / 20, 0); //* Time.deltaTime ;
+                }
 
-            //}
+            }
             if (this._rb.velocity.x != 0) {
 
                 _pridictionFrogAnim.SetBool("Run", true);
