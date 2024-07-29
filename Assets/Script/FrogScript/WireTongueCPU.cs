@@ -100,15 +100,24 @@ public class WireTongueCPU : MonoBehaviour {
 
         }
         if (collision.gameObject.tag == "Player" && _underAttack) {
+            if (_mySelf.gameObject.GetComponent<FrogCpu>()!=null) {
+                _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
+            } else  {
+                _mySelf.gameObject.GetComponent<FrogCpuMulti>().SpeedUp(true);
+            }
 
-            _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
+
             _isExtension = false;
             _isFrogCatch = true;
             _isJudge = true;
         }
 
         if (collision.gameObject.tag == "CPU" && _underAttack) {
-            _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
+            if (_mySelf.gameObject.GetComponent<FrogCpu>() != null) {
+                _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
+            } else  {
+                _mySelf.gameObject.GetComponent<FrogCpuMulti>().SpeedUp(true);
+            }
             _isExtension = false;
             _isFrogCatch = true;
             _isJudge = true;

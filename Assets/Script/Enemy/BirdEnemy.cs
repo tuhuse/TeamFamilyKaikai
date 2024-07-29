@@ -12,11 +12,12 @@ public class BirdEnemy : MonoBehaviour {
         if (collision.gameObject.layer == 12)//Mucusflog—p
         {
             collision.gameObject.GetComponent<PlayercontrollerScript>().ObstacleCollision(_speedDown);
-        } 
-        //CPU—p
-        if (collision.gameObject.layer == 14)//Mucusflog—p
-        {
+        }
+        if (collision.gameObject.GetComponent<FrogCpu>()!=null) {
             collision.gameObject.GetComponent<FrogCpu>().ObstacleCollision(_speedDown);
+        } 
+        else  {
+            collision.gameObject.GetComponent<FrogCpuMulti>().ObstacleCollision(_speedDown);
         }
     }
 

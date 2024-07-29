@@ -88,7 +88,7 @@ public class FrogCpuMulti : MonoBehaviour {
     private const float JUMPMIN = 17f;//”S‰t“¥‚ñ‚¾Žž‚ÌƒWƒƒƒ“ƒv—Í
     private const float MOVEJUMP = 35f;
     private const float TIMEDELTATIME = 1000f;
-    private Animator _mucasFrogCPUAnim;
+    public Animator _mucasFrogCPUAnim;
 
     private AudioSource _frogSE = default;
 
