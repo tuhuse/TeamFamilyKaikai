@@ -45,7 +45,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private float _downMultipl = 1f;　//障害物に当たった時の抵抗力
     private float _downSpeed;　//実際の減少するスピード
-    private float _returnSpeed = 0.07f;//スピードダウンから立て直す速さ
+    private float _returnSpeed = 0.035f;//スピードダウンから立て直す速さ
     private float _randomItemLottery = default;//アイテムで使うRandom.Rangeの値を入れる
     private float _speedUp = 0;
 
@@ -184,15 +184,17 @@ public class PlayercontrollerScript : MonoBehaviour {
             if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping){
                 _isJump = true;
             }
+            //else {
+            //    _isJump = false;
+            //}
 
-
-            //if (this._rb.velocity.y > 70) {
+            //if (this._rb.velocity.y > 50) {
             //    if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Submit")) {
             //        _rb.velocity = new Vector3(_rb.velocity.x, _jumppower / 20, 0); //* Time.deltaTime ;
             //    }
 
-            //    }
-                if (this._rb.velocity.x != 0) {
+            //}
+            if (this._rb.velocity.x != 0) {
 
                 _pridictionFrogAnim.SetBool("Run", true);
             } else {
@@ -241,8 +243,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Flor" ) {
-            _isFrogjump = false;
-           
+            _isFrogjump = false;          
         }
 
     }
@@ -490,7 +491,8 @@ public class PlayercontrollerScript : MonoBehaviour {
                 StartCoroutine(MucusJumpTime());
             }
         }
-        if (collision.gameObject.CompareTag("Enemy") && !_isInvincivle) {
+        if ((collision.gameObject.CompareTag("Enemy") &&
+            !_isInvincivle&& !_waterEffect.activeSelf)){
             StartCoroutine(CollisionEffect());
         }
 

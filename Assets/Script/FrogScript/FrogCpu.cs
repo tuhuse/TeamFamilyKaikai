@@ -45,7 +45,7 @@ public class FrogCpu : MonoBehaviour {
     private bool _isPridictionStart = true;
     private bool _isMucus = false;
     private bool _isBeard = false;
-    private bool _isUseItem=false;
+    private bool _isUseItem = false;
     private bool _isJumping = false;
     public bool _isBehindTrigger = false;
     public bool _isEnemyJump = false;
@@ -67,7 +67,7 @@ public class FrogCpu : MonoBehaviour {
     //実際の減少するスピード
     private float _downSpeed;
     //スピードダウンから立て直す速さ
-    private float _returnCPUSpeed = 0.07f;
+    private float _returnCPUSpeed = 0.035f;
     private float _speedUp = 0;
 
     //確率
@@ -113,10 +113,10 @@ public class FrogCpu : MonoBehaviour {
         Nomal,
         Bad
     }
-    
+
     private SwicthRandomJump _swicthRandomJump = default;
     private RandomItem _randomItem = default;
-    
+
     // Start is called before the first frame update
     void Start() {
         _frogSE = GetComponent<AudioSource>();
@@ -148,7 +148,7 @@ public class FrogCpu : MonoBehaviour {
         float player = _player.transform.localPosition.x;
         float cpu1 = _distancetoCPU1.transform.localPosition.x;
         float cpu2 = _distancetoCPU2.transform.localPosition.x;
-     
+
         //自分の順位を把握
         if (mySelf > player && mySelf > cpu1 && mySelf > cpu2) {
             _randomItem = RandomItem.Bad;//一位の時
@@ -185,23 +185,21 @@ public class FrogCpu : MonoBehaviour {
             MucusAttack();
             UseAbility();
             //プレイヤーとの距離が離れている場合
-            if (distancetoplayer > DISTANCEPLAYER) 
-            {
-                
+            if (distancetoplayer > DISTANCEPLAYER) {
+
                 //プレイヤーが自分よりも後ろにいた場合
                 if (player < mySelf) {
 
                     _swicthRandomJump = SwicthRandomJump.Hard;
                 }
                 //プレイヤーが自分よりも前にいた場合
-                if (mySelf < player) 
-                {
+                if (mySelf < player) {
                     _swicthRandomJump = SwicthRandomJump.Easy;
 
                 }
 
             }
-            if (_randomItem == RandomItem.Great || _randomItem == RandomItem.Good|| _randomItem == RandomItem.Nomal) {
+            if (_randomItem == RandomItem.Great || _randomItem == RandomItem.Good || _randomItem == RandomItem.Nomal) {
                 ISEXtension();
             }
 
@@ -223,16 +221,16 @@ public class FrogCpu : MonoBehaviour {
                 _mucasFrogCPUAnim.SetBool("Run", true);
             } else {
                 _mucasFrogCPUAnim.SetBool("Run", false);
-            }          
+            }
         }
         //CPUのジャンプ挙動
         if ((_isEnemyJump && _isJump)) {
-            
+
             EnemyJump();
         }
         if (_isWaterball) {
             _item.ItemIcon(1);
-        } 
+        }
         if (_isBeardAbility) {
             _item.ItemIcon(2);
         }
@@ -264,7 +262,7 @@ public class FrogCpu : MonoBehaviour {
     private void Jump() {
         if (_isJump) {
             _isJump = false;
-            _frogSE.PlayOneShot(_jumpSE);           
+            _frogSE.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
         }
     }
@@ -275,8 +273,8 @@ public class FrogCpu : MonoBehaviour {
             _frogSE.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
             _isEnemyJump = false;
-        }           
-        
+        }
+
     }
 
     private void EnemyJump() {
@@ -306,7 +304,7 @@ public class FrogCpu : MonoBehaviour {
             }
         }
     }
- 
+
     private void CliffJump() {
         if (_swicthRandomJump == SwicthRandomJump.Easy) {
             //確率計算
@@ -367,28 +365,28 @@ public class FrogCpu : MonoBehaviour {
             }
         }
     }
- 
-   
+
+
     private void OnTriggerEnter2D(Collider2D collision) {
         //ルート分岐が来た時のCPUのジャンプ挙動
         if (collision.gameObject.CompareTag("ChooseSelect") && _isJump) {
-            
+
             ChooseSelct();
 
         } //CPUのジャンプ挙動
         //小さい崖
         if (collision.gameObject.CompareTag("cliff") && _isJump) {
-            
+
             CliffJump();
         }
-       
+
         if (collision.gameObject.CompareTag("Fly")) {
             _frogSE.PlayOneShot(_getFlySE);
             if (!_ishavingItem) {
                 _isUseItem = false;
                 _ishavingItem = true;
                 StartCoroutine(ItemWait());
-               
+
             }
 
         }
@@ -401,23 +399,19 @@ public class FrogCpu : MonoBehaviour {
         }
         //髭
         if (collision.gameObject.layer == 9) {
-            if (!_isPridictionAbility&&!_isWaterAbility) 
-            {
+            if (!_isPridictionAbility && !_isWaterAbility) {
 
-                if (_projectile == null) 
-                {
+                if (_projectile == null) {
                     _movespeed = SPEEDMIN;
                     _frogSE.PlayOneShot(_damageSE);
-                } 
-                else if (collision.gameObject != _projectile.gameObject) 
-                {
+                } else if (collision.gameObject != _projectile.gameObject) {
                     _movespeed = SPEEDMIN;
                     _frogSE.PlayOneShot(_damageSE);
                 }
-               
+
             }
         }
-       
+
         if (collision.gameObject.CompareTag("edge")) {
             _isAlive = false;//壁端でジャンプしないようにするやつ
         }
@@ -427,36 +421,30 @@ public class FrogCpu : MonoBehaviour {
                     PriictionAbility();
                 }
             }
-            if (!_isWaterAbility) {
-                if (this.gameObject.activeSelf) {
-                    StartCoroutine(CollisionEffect());
-                }
+            if (this.gameObject.activeSelf && !_isWaterAbility && !_isPridictionAbility) {
+                StartCoroutine(CollisionEffect());
             }
 
-          
-           
+
+
         }
         if (!_isPridictionAbility) {
             //粘液の床
-            if (collision.gameObject.layer == 7  ) 
-            {
-                if (_projectile == null) 
-                {
+            if (collision.gameObject.layer == 7) {
+                if (_projectile == null) {
                     _isMucusJump = true;
                     StartCoroutine(MucusJumpTime());
-                } 
-                else if(collision.gameObject != _projectile.gameObject) 
-                {
+                } else if (collision.gameObject != _projectile.gameObject) {
                     _isMucusJump = true;
                     StartCoroutine(MucusJumpTime());
                 }
-               
+
             }
 
         }
 
     }
-   
+
     private void GetItem() {
 
         // アイテムの確立
@@ -467,16 +455,16 @@ public class FrogCpu : MonoBehaviour {
                 //80%
                 if (_randomITEM >= 2000) {
                     _isWaterball = true;
-                    
-                   
+
+
                 }//15% 
                 else if (_randomITEM > 500 && _randomITEM < 2000) {
                     _isBeardAbility = true;
-                 
+
                 }//5%
                 else {
                     _isPridictionAbility = true;
-                  
+
 
                 }
                 break;
@@ -486,20 +474,20 @@ public class FrogCpu : MonoBehaviour {
                 //50%
                 if (_randomITEM >= 5000) {
                     _isWaterball = true;
-                  
+
                 }//30%
                 else if (_randomITEM >= 2000 && _randomITEM < 5000) {
                     _isBeardAbility = true;
-                    
+
                 }//15% 
                 else if (_randomITEM >= 500 && _randomITEM < 2000) {
                     _isPridictionAbility = true;
-                 
+
                 }//5% 
                 else {
                     _isMucusAbility = true;
-                  
-                    
+
+
                 }
                 break;
             //二位の時
@@ -508,19 +496,19 @@ public class FrogCpu : MonoBehaviour {
                 //20%
                 if (_randomITEM >= 8000) {
                     _isWaterball = true;
-                  
+
                 }//50%
                 else if (_randomITEM >= 3000 && _randomITEM < 8000) {
                     _isBeardAbility = true;
-                   
+
                 }//20% 
                 else if (_randomITEM >= 1000 && _randomITEM < 3000) {
                     _isPridictionAbility = true;
-                  
+
                 }//10% 
                 else {
                     _isMucusAbility = true;
-                    
+
                 }
                 break;
             //一位の時
@@ -529,26 +517,26 @@ public class FrogCpu : MonoBehaviour {
                 //5%
                 if (_randomITEM >= 9500) {
                     _isWaterball = true;
-                    
+
                 }//5%
                 else if (_randomITEM >= 9000 && _randomITEM < 9500) {
                     _isBeardAbility = true;
-                  
+
                 }//30% 
                 else if (_randomITEM >= 6000 && _randomITEM < 9000) {
                     _isPridictionAbility = true;
-                   
+
                 }//60% 
                 else {
                     _isMucusAbility = true;
-                   
+
                 }
                 break;
         }
 
-       
+
     }
- 
+
 
     #region 無敵能力
     //無敵発動
@@ -588,7 +576,7 @@ public class FrogCpu : MonoBehaviour {
     #region 粘液能力
     //粘液出す条件
     private void MucusAttack() {
-        if ((!_isUseItem &&_isMucusAbility && _randomItem == RandomItem.Bad) ||
+        if ((!_isUseItem && _isMucusAbility && _randomItem == RandomItem.Bad) ||
             (!_isUseItem && _isMucusAbility && _randomItem == RandomItem.Good) ||
             (!_isUseItem && _isMucusAbility && _randomItem == RandomItem.Nomal)) {
             StartCoroutine(MucusWaitTime());
@@ -698,7 +686,7 @@ public class FrogCpu : MonoBehaviour {
             }
             _downEffect.gameObject.SetActive(false);
             //右に移動
-            _rb.velocity = new Vector3(_movespeed+_speedUp, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0);
         }
         //移動速度を徐々に元に戻す
         else {
@@ -708,8 +696,8 @@ public class FrogCpu : MonoBehaviour {
             }
             _downEffect.gameObject.SetActive(true);
             //右に移動
-            _rb.velocity = new Vector3(_movespeed+_speedUp, _rb.velocity.y, 0);
-            _movespeed = Mathf.Abs(_movespeed) + (_returnCPUSpeed*Time.deltaTime*TIMEDELTATIME);
+            _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0);
+            _movespeed = Mathf.Abs(_movespeed) + (_returnCPUSpeed * Time.deltaTime * TIMEDELTATIME);
         }
     }
     //初動のカエルたち
@@ -724,9 +712,9 @@ public class FrogCpu : MonoBehaviour {
 
     //障害物に当たった時の減速
     public void ObstacleCollision(float speedDownValue) {
-        if (!_isPridictionAbility&&!_isWaterAbility) {
+        if (!_isPridictionAbility && !_isWaterAbility) {
             _frogSE.PlayOneShot(_damageSE);
-         
+
             _movespeed = speedDownValue;
         }
     }
@@ -739,15 +727,15 @@ public class FrogCpu : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision) {
         //床に足が着いてるとき
-        
-        if (collision.gameObject.CompareTag("Flor")||collision.gameObject.CompareTag("CPU")||collision.gameObject.CompareTag("Player")) {
+
+        if (collision.gameObject.CompareTag("Flor") || collision.gameObject.CompareTag("CPU") || collision.gameObject.CompareTag("Player")) {
             _mucasFrogCPUAnim.SetBool("Jump", false);
             _isJumping = false;
             _movejump = MOVEJUMPMAX;
         }
     }
     private void OnCollisionExit2D(Collision2D collision) {
-        
+
         //床から足が離れたとき
         if (collision.gameObject.CompareTag("Flor") || collision.gameObject.CompareTag("CPU") || collision.gameObject.CompareTag("Player")) {
             _mucasFrogCPUAnim.SetBool("Jump", true);
@@ -755,20 +743,20 @@ public class FrogCpu : MonoBehaviour {
         }
 
     }
-    private void ISEXtension() 
-    {
-        
+    
+    private void ISEXtension() {
+
         if (!_tongue._isCoolDown) {
-            
+
             _tongue._isCoolDown = true;
             _tongue._isExtension = true;
             _tongue._underAttack = true;
             //StartCoroutine(ISExtension());
-       }     
+        }
     }
     private IEnumerator ISExtension() {
         yield return new WaitForSeconds(0.11f);
-        _tongue._isExtension=false;
+        _tongue._isExtension = false;
     }
 
     public void SpeedUp(bool speedup) {
@@ -783,7 +771,7 @@ public class FrogCpu : MonoBehaviour {
                 _speedUp = 0f;
             }
         }
-        
+
 
     }
     private IEnumerator Timecount() {
