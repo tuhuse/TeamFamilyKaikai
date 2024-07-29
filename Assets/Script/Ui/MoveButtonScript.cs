@@ -36,13 +36,15 @@ public class MoveButtonScript : MonoBehaviour {
         if (Input.GetAxis("L_Stick_Horizontal") > 0f && !_isButtonSelect && !_isWaitSelect) {
             _isButtonSelect = true;
             _isWaitSelect = true;
-            if (_situation == Situation.Every) 
-            {
+            if (_situation == Situation.Every) {
+               
                 _soroButtonMethod.OnButtonClick();
+               
             } 
-            else if (_situation == Situation.One) 
-            {
+            else if (_situation == Situation.One) {
+                
                 _multiButtonMethod.OnButtonClick();
+               
             }
 
 
@@ -53,8 +55,10 @@ public class MoveButtonScript : MonoBehaviour {
             _isButtonSelect = true;
             _isWaitSelect = true;
             if (_situation == Situation.Every) {
+                
                 _soroButtonMethod.OnButtonClick();
             } else if (_situation == Situation.One) {
+                
                 _multiButtonMethod.OnButtonClick();
             }
         } 
@@ -66,9 +70,12 @@ public class MoveButtonScript : MonoBehaviour {
 
         if (Input.GetButtonDown("Submit")&&!_isWaitSelect&&!_isButtonSelect) {
             if (_situation == Situation.One) {
-               
+                _selectCharacterScript.SITUATION(true);
                 _selectCharacterScript.SummonSneak();
-                
+
+            } else {
+                _selectCharacterScript.SITUATION(false);
+                _selectCharacterScript.SummonSneak();
             }
 
         }
