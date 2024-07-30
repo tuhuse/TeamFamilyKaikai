@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayercontrollerScript : MonoBehaviour {
+public class Player2 : MonoBehaviour
+{
     [SerializeField] private GameObject _downEffect;
     [SerializeField] private GameObject _tongue;
     [SerializeField] private GameObject _pruduction;
@@ -109,12 +110,12 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
-       
+
 
         if (_isAlive && !_isFrogjump)//生きてる時に動けるように
         {
             //移動
-            if (Input.GetKey(KeyCode.A) || Input.GetAxis("L_Stick_Horizontal") < 0) {
+            if (Input.GetKey(KeyCode.LeftArrow)) {
                 //反対に向かせる
                 if (!_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = true;
@@ -125,7 +126,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     SEReproduction();
 
                     _downEffect.gameObject.SetActive(false);
-                    _rb.velocity = new Vector3(-_movespeed-_speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
+                    _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
                 }
 
                 //スピードダウンした時
@@ -134,13 +135,13 @@ public class PlayercontrollerScript : MonoBehaviour {
                     SpeedDownSE();
                     //移動速度を徐々に元に戻す
                     _downEffect.gameObject.SetActive(true);
-                    _rb.velocity = new Vector3(-_movespeed-_speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
-                    _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed* Time.deltaTime*TIMEDELTATIME);
+                    _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
+                    _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
 
                 }
 
             }
-            if (Input.GetKey(KeyCode.D) || Input.GetAxis("L_Stick_Horizontal") > 0) {
+            if (Input.GetKey(KeyCode.RightArrow)) {
                 //反対に向かせる
                 if (_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = false;
@@ -151,7 +152,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     SEReproduction();
 
                     _downEffect.gameObject.SetActive(false);
-                    _rb.velocity = new Vector3(_movespeed+_speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
+                    _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
                 }
 
                 //スピードダウンした時
@@ -160,7 +161,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
                     //移動速度を徐々に元に戻す
                     _downEffect.gameObject.SetActive(true);
-                    _rb.velocity = new Vector3(_movespeed+ _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
+                    _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
                     _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
                 }
             }
@@ -168,20 +169,20 @@ public class PlayercontrollerScript : MonoBehaviour {
             //ジャンプ
 
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit")) {
+            if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
 
 
                 if (_isJump) {
-                    
+
                     _isJump = false;
-                   
+
                     _frogSE.PlayOneShot(_jumpSE);
                     _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
                 }
             }
 
 
-            if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping){
+            if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping) {
                 _isJump = true;
             }
             //else {
@@ -230,11 +231,11 @@ public class PlayercontrollerScript : MonoBehaviour {
     private void OnCollisionStay2D(Collision2D collision) {
         //床に足が着いてるとき
         if (collision.gameObject.CompareTag("Flor")) {
-            _rb.gravityScale = 10;           
+            _rb.gravityScale = 10;
             _jumppower = JUMPMAX;
             _pridictionFrogAnim.SetBool("Jump", false);
             _isJumping = false;
-            
+
         }
 
 
@@ -242,8 +243,8 @@ public class PlayercontrollerScript : MonoBehaviour {
 
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Flor" ) {
-            _isFrogjump = false;          
+        if (collision.gameObject.tag == "Flor") {
+            _isFrogjump = false;
         }
 
     }
@@ -251,7 +252,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision) {
 
         //床から足が離れたとき
-        if (collision.gameObject.CompareTag("Flor") ) {
+        if (collision.gameObject.CompareTag("Flor")) {
             //_isJump = false;
             _isJumping = true;
             _isJump = false;
@@ -259,7 +260,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             if (_player.activeSelf) {
                 StartCoroutine(JUMP());
             }
-            
+
 
         }
 
@@ -298,7 +299,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
 
 
-           
+
 
 
             //４位の時
@@ -404,7 +405,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Beard() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.Keypad0)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -465,7 +466,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         }
     }
 
-   
+
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == 9 && !_isInvincivle && !_isGetWater)//髭に当たってかつ、無敵じゃない時
@@ -485,14 +486,13 @@ public class PlayercontrollerScript : MonoBehaviour {
             if (_projectile == null) {
                 _isMucusJump = true;
                 StartCoroutine(MucusJumpTime());
-            } else if(collision.gameObject!=_projectile.gameObject) 
-            {
+            } else if (collision.gameObject != _projectile.gameObject) {
                 _isMucusJump = true;
                 StartCoroutine(MucusJumpTime());
             }
         }
         if ((collision.gameObject.CompareTag("Enemy") &&
-            !_isInvincivle&& !_waterEffect.activeSelf)){
+            !_isInvincivle && !_waterEffect.activeSelf)) {
             StartCoroutine(CollisionEffect());
         }
 
@@ -517,10 +517,10 @@ public class PlayercontrollerScript : MonoBehaviour {
         yield return new WaitForSeconds(3);
         _isMucusJump = false;
     }
-   
+
     public void ObstacleCollision(float speedDownValue) {
         //無敵じゃなかったら
-        if (!_isInvincivle&& !_isGetWater) {
+        if (!_isInvincivle && !_isGetWater) {
             //障害物に当たった時
 
             _frogSE.PlayOneShot(_damageSE);
@@ -573,7 +573,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         _rank = nowrank;
     }
 
-  
+
     public void SpeedUp(bool speed) {
         if (!_isInvincivle) {
             if (speed) {
@@ -585,7 +585,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             }
         }
 
-      
+
 
     }
     private IEnumerator Timecount() {

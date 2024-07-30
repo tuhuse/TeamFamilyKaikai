@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class JoyStickWireTonguePlayer : MonoBehaviour
-{
+public class JoyStickWireTonguePlayer : MonoBehaviour {
     private bool _isExtension = false;
     private bool _isAttack = false;
 
@@ -34,8 +33,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
         _playerRB = GetComponentInParent<Rigidbody2D>();
         _tongueScaleY = this.transform.localScale.y;
     }
-    void Update() 
-    {
+    void Update() {
 
         if (_isExtension) {
             //ベロを伸ばす
@@ -46,7 +44,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
         else if (!_isFrogCatch) {
             //ベロの縮小
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes&&_isAttack) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
             } else if (_isAttack && !_isJustOnes) {
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
@@ -57,7 +55,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
 
         } else {
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes&&_isAttack) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;
@@ -75,8 +73,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
 
 
 
-        if (Input.GetButtonDown("TongueAttack")) 
-        {
+        if (Input.GetButtonDown("TongueAttack")) {
             //ベロを伸ばし始める
             if (!_isAttack) {
                 _isAttack = true;
@@ -98,7 +95,12 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "CPU" && _underAttack) {
-            _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
+            if (_player.GetComponent<PlayercontrollerScript>() != null) {
+                _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
+            }
+            else if (_player.GetComponent<Player2>() != null) {
+                _player.GetComponent<Player2>().SpeedUp(true);
+            }
             _isExtension = false;
             _isFrogCatch = true;
         }
@@ -118,7 +120,13 @@ public class JoyStickWireTonguePlayer : MonoBehaviour
     private void ControllScriptOn() {
         //コントロールスクリプトの復活
         if (_player != null) {
-            GetComponentInParent<PlayercontrollerScript>().enabled = true;
+            if (_player.GetComponent<PlayercontrollerScript>() != null) {
+                GetComponentInParent<PlayercontrollerScript>().enabled = true;
+            }
+           
+        }
+        if (_player.GetComponent<Player2>() != null) {
+            GetComponentInParent<Player2>().enabled = true;
         }
 
     }

@@ -131,20 +131,30 @@ public class WireTonguePlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Flor") && !_isAttack) {
             _isExtension = false;
         }
-        if (collision.gameObject.tag == "CPU" && _underAttack) 
-        {
-            
-            _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
+        if (collision.gameObject.tag == "CPU" && _underAttack) {
+            if (_player.GetComponent<PlayercontrollerScript>() != null) {
+                _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
+            } else if (_player.GetComponent<Player2>() != null) {
+                _player.GetComponent<Player2>().SpeedUp(true);
+            }
+
             _isExtension = false;
             _isFrogCatch = true;
         }
     }
 
     private void ControllScriptOff() {
-        //コントロールスクリプトの一時停止
-        if (_player != null) {
-            GetComponentInParent<PlayercontrollerScript>().enabled = false;
+        if (_player.GetComponent<PlayercontrollerScript>() != null) {
+            if (_player != null) {
+                GetComponentInParent<PlayercontrollerScript>().enabled = false;
+            }
+        } else if (_player.GetComponent<Player2>() != null) {
+            if (_player != null) {
+                GetComponentInParent<Player2>().enabled = false;
+            }
         }
+        //コントロールスクリプトの一時停止
+       
 
 
         //カエルの一時停止
@@ -152,9 +162,15 @@ public class WireTonguePlayer : MonoBehaviour
     }
 
     private void ControllScriptOn() {
-        //コントロールスクリプトの復活
-        if (_player != null) {
-            GetComponentInParent<PlayercontrollerScript>().enabled = true;
+
+        if (_player.GetComponent<PlayercontrollerScript>() != null) {
+            if (_player != null) {
+                GetComponentInParent<PlayercontrollerScript>().enabled = true;
+            }
+        } else if (_player.GetComponent<Player2>() != null) {
+            if (_player != null) {
+                GetComponentInParent<Player2>().enabled = false;
+            }
         }
 
     }
