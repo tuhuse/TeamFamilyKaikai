@@ -140,7 +140,7 @@ public class Player2 : MonoBehaviour
                 }
 
             }
-            if (Input.GetKey(KeyCode.RightArrow)) {
+            if (Input.GetKey(KeyCode.RightArrow) ) {
                 //”½‘Î‚ÉŒü‚©‚¹‚é
                 if (_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = false;
@@ -168,7 +168,7 @@ public class Player2 : MonoBehaviour
             //ƒWƒƒƒ“ƒv
 
 
-            if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
+            if (Input.GetKeyDown(KeyCode.KeypadEnter)/* || Input.GetButtonDown("fire2")*/) {
 
 
                 if (_isJump) {
@@ -399,7 +399,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Beard() {
-        if (Input.GetKeyDown(KeyCode.Keypad0)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0) ) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -413,7 +413,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Mucas() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -427,7 +427,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Pridiction() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -443,7 +443,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Water() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 
