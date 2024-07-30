@@ -26,7 +26,7 @@ public class GameOverMan : MonoBehaviour {
     [SerializeField] private JoyStickGameOverSelect _joyStickGameOver = default;
    // Start is called before the first frame update
    void Start() {
-        for (int number = 0; number < 2; number++) {
+        for (int number = 0; number < _playerParent.transform.childCount; number++) {
             _players.Add(_playerParent.transform.GetChild(number).gameObject);
         }
 

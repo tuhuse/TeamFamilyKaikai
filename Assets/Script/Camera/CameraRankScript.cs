@@ -50,6 +50,7 @@ public class CameraRankScript : MonoBehaviour
     private const float MAXCAMERAYMOVE = 5f;
 
     private PlayercontrollerScript _playerControll = default;
+    private Player2 _player2=default;
     // Start is called before the first frame update
     void Start()
     {
@@ -191,6 +192,7 @@ public class CameraRankScript : MonoBehaviour
                 _firstPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
 
                 _playerControll = _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>();
+
                 _playerControll.RankChange(FIRST);
 
 
