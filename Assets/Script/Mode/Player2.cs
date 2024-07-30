@@ -297,12 +297,7 @@ public class Player2 : MonoBehaviour
             yield return new WaitForSeconds(ITEMSELECTWAIT);
             //アイテムを持っていなかったら抽選する
 
-
-
-
-
-
-            //４位の時
+           //４位の時
             if (_rank == 4) {
                 _randomItemLottery = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
 

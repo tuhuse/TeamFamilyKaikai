@@ -14,6 +14,10 @@ public class ObstacleScript : MonoBehaviour
         if (collision.gameObject.layer == 12)
         {
             collision.gameObject.GetComponent<PlayercontrollerScript>().ObstacleCollision(_speedDown);
+        } //プレイヤー2
+        if (collision.gameObject.layer == 13)
+        {
+            collision.gameObject.GetComponent<Player2>().ObstacleCollision(_speedDown);
         }
        
         //CPU用
