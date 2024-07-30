@@ -11,19 +11,25 @@ public class GameOverMan : MonoBehaviour {
    
     private List<GameObject> _frogs = new List<GameObject>();
     private List<Rigidbody2D> _frogsrb2d = new List<Rigidbody2D>();
-   [SerializeField]
+    [SerializeField] private List<GameObject> _players = new List<GameObject>();
+    [SerializeField]
     private GameObject _playerObject = default;
+    [SerializeField]
+    private GameObject _playerParent = default;
 
     private float _playerFallMin = -60f;
     private float _sizeLimit = 20;
     private float _countTime = default;
     private float _time = 80;
-    public int _switchNumber = 1;
+    public int _switchNumber = 0;
 
     [SerializeField] private JoyStickGameOverSelect _joyStickGameOver = default;
    // Start is called before the first frame update
    void Start() {
-        
+        for (int number = 0; number < 2; number++) {
+            _players.Add(_playerParent.transform.GetChild(number).gameObject);
+        }
+
     }
 
     // Update is called once per frame
@@ -36,15 +42,29 @@ public class GameOverMan : MonoBehaviour {
         //プレイヤーがゲームオーバーしたら、カメラをズームアップ
         switch (_switchNumber) {
             //プレイヤーが落下、もしくはカメラの左端に当たればゲームオーバー処理開始
-            case 1:
+            case 0:
 
-                if(_countTime >= _time){
+                //敵オブジェクトの入った配列の中身がnullか
+                if (_players.Count == 0) {
+                    _switchNumber = 2;
+                } else {
+                    _switchNumber = 1;
+                }
+                break;
+            case 1:
+                if (_countTime >= _time) {
                     _cameraRimit = 80f;
                 }
-                if (_playerObject.transform.position.y < _playerFallMin ||
-                            _playerObject.transform.position.x < _camera.transform.position.x - _cameraRimit) {
-
-                    _switchNumber = 2;
+                //敵オブジェクトを取得
+                foreach (GameObject arrayEnamy in _players) {
+                    //落下もしくは画面端にぶつかると配列から削除
+                    if (arrayEnamy.transform.position.y < _playerFallMin ||
+                                arrayEnamy.transform.position.x < _camera.transform.position.x - _cameraRimit) {
+                        _players.Remove(arrayEnamy);
+                        arrayEnamy.SetActive(false);
+                        _switchNumber = 0;
+                        break;
+                    }
                 }
                 break;
             case 2:

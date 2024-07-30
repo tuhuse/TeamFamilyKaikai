@@ -24,7 +24,7 @@ public class ClearMan : MonoBehaviour {
     void Start() {
 
      
-        for (int number = 0; number < 3; number++) {
+        for (int number = 0; number < _cpuParent.transform.childCount; number++) {
             _anotherEnamys.Add(_cpuParent.transform.GetChild(number).gameObject);
         }
 

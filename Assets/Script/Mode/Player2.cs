@@ -44,7 +44,6 @@ public class Player2 : MonoBehaviour
 
     private int _rank = default;
 
-    private float _downMultipl = 1f;　//障害物に当たった時の抵抗力
     private float _downSpeed;　//実際の減少するスピード
     private float _returnSpeed = 0.035f;//スピードダウンから立て直す速さ
     private float _randomItemLottery = default;//アイテムで使うRandom.Rangeの値を入れる
@@ -84,7 +83,7 @@ public class Player2 : MonoBehaviour
 
     private AudioSource _frogSE = default;
 
-    private Vector3 _cpuposition = default;
+   
 
     // Start is called before the first frame update
 

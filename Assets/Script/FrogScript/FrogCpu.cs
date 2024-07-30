@@ -740,6 +740,7 @@ public class FrogCpu : MonoBehaviour {
         if (collision.gameObject.CompareTag("Flor") || collision.gameObject.CompareTag("CPU") || collision.gameObject.CompareTag("Player")) {
             _mucasFrogCPUAnim.SetBool("Jump", true);
             _isJumping = true;
+            _isJump = false;
         }
 
     }
