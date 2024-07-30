@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StageRoopManFixed : MonoBehaviour {
-
     [SerializeField] private List<GameObject> _prefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> _addPrefabs = new List<GameObject>();
     [SerializeField] private GameObject _playerObjct = null;
@@ -48,6 +47,7 @@ public class StageRoopManFixed : MonoBehaviour {
     private float _nextTime = 55f;
 
     public bool _isRoop = false;
+    private bool _isReadyGo;
     private void Start() {
         _camera = Camera.main;
         _startSize = _camera.orthographicSize;
@@ -65,7 +65,11 @@ public class StageRoopManFixed : MonoBehaviour {
         {
             _countTime += 100;
         }
-        _countTime += Time.deltaTime;
+        if (_isReadyGo) {
+            print(_countTime);
+            _countTime += Time.deltaTime;
+        }
+     
 
         float playerNowposition = _first.transform.position.x;
 
@@ -176,7 +180,9 @@ public class StageRoopManFixed : MonoBehaviour {
         _hurryUpText.SetActive(false);
         _count._bgm.pitch = 1.4f;
     }
-   
+    public void ReadyGo() {
+        _isReadyGo = true;
+    }
 
 }
 
