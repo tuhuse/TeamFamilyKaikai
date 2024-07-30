@@ -16,7 +16,7 @@ public class BirdEnemy : MonoBehaviour {
         if (collision.gameObject.GetComponent<FrogCpu>()!=null) {
             collision.gameObject.GetComponent<FrogCpu>().ObstacleCollision(_speedDown);
         } 
-        else  {
+        else if(collision.gameObject.GetComponent<FrogCpuMulti>()!=null){
             collision.gameObject.GetComponent<FrogCpuMulti>().ObstacleCollision(_speedDown);
         }
     }

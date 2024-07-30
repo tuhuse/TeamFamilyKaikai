@@ -19,16 +19,13 @@ public class ObstacleScript : MonoBehaviour
         //CPU—p
         if (collision.gameObject.layer == 14)//Mucusflog—p
         {
-            if (collision.gameObject.GetComponent<FrogCpu>() != null) {
+            if (collision.gameObject.GetComponent<FrogCpu>() != null){
                 collision.gameObject.GetComponent<FrogCpu>().ObstacleCollision(_speedDown);
             } 
-            else {
+            else if (collision.gameObject.GetComponent<FrogCpuMulti>()!=null){
                 collision.gameObject.GetComponent<FrogCpuMulti>().ObstacleCollision(_speedDown);
             }
         }
-
-
-
 
     }
 }
