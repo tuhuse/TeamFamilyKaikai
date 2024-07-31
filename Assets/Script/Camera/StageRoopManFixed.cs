@@ -58,7 +58,7 @@ public class StageRoopManFixed : MonoBehaviour {
     }
     void Update() 
     {
-        print(_stageNowPosition);
+        
         if (Input.GetKeyDown(KeyCode.Escape)) {
             _countTime += 100;
         }

@@ -8,6 +8,7 @@ public class Player2 : MonoBehaviour
     [SerializeField] private GameObject _tongue;
     [SerializeField] private GameObject _pruduction;
     [SerializeField] private GameObject _enemyEffect;
+    [SerializeField] private GameObject _mucusEffect;
     [SerializeField] private GameObject _itemIcon = default;
     [SerializeField] private GameObject _player = default;
 
@@ -508,8 +509,10 @@ public class Player2 : MonoBehaviour
 
 
     private IEnumerator MucusJumpTime() {
+        _mucusEffect.SetActive(true);
         yield return new WaitForSeconds(3);
         _isMucusJump = false;
+        _mucusEffect.SetActive(false);
     }
 
     public void ObstacleCollision(float speedDownValue) {

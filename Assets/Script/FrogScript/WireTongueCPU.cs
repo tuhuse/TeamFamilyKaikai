@@ -83,7 +83,7 @@ public class WireTongueCPU : MonoBehaviour {
     }
     public void JudgeCoolDown(bool judge) {
         if (judge) {
-            _isExtension = false;
+            
             Judge();
             judge = false;
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayercontrollerScript : MonoBehaviour {
     [SerializeField] private GameObject _downEffect;
     [SerializeField] private GameObject _tongue;
+    [SerializeField] private GameObject _mucusEffect;
     [SerializeField] private GameObject _pruduction;
     [SerializeField] private GameObject _enemyEffect;
     [SerializeField] private GameObject _itemIcon = default;
@@ -514,8 +515,10 @@ public class PlayercontrollerScript : MonoBehaviour {
 
 
     private IEnumerator MucusJumpTime() {
+        _mucusEffect.SetActive(true);
         yield return new WaitForSeconds(3);
         _isMucusJump = false;
+        _mucusEffect.SetActive(false);
     }
    
     public void ObstacleCollision(float speedDownValue) {
