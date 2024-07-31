@@ -23,6 +23,8 @@ public class SelectCharacter : MonoBehaviour
      [SerializeField] private GameOverMan _gameoverManScript;
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _frogcutin;
+
+    [SerializeField] CameraRankScript _cameraScript = default;
     private enum Sitiuation {
     One,
     Every
@@ -102,7 +104,9 @@ public class SelectCharacter : MonoBehaviour
 
                     _pauseManager.SetActive(true);
                     _pauseManager.SetActive(true);
-                
+
+                _cameraScript.SceneStart();
+
                 break;
             case Sitiuation.Every:
                 _audiomanager.PlayAudio(3);
@@ -114,10 +118,12 @@ public class SelectCharacter : MonoBehaviour
                     _player = _frog[0];
 
                     _frog[4].SetActive(true);
+                _cameraScript.SecondPlayerOn(_frog[4]);
 
                     _gameoverManScript.InFrogs(_frog[4]);
                     _clearManScript.InFrogs(_frog[4]);
                     _player = _frog[4];
+
 
                 Destroy(_frog[1].GetComponent<FrogCpu>());
                 _frog[1].GetComponent<FrogCpuMulti>().enabled = true;
@@ -136,6 +142,8 @@ public class SelectCharacter : MonoBehaviour
                 _gameoverManScript.InFrogs(_frog[2]);
                     _clearManScript.InFrogs(_frog[2]);
                     _cpu = _frog[2];
+
+                _cameraScript.SceneStart();
               
                 break;
         }
