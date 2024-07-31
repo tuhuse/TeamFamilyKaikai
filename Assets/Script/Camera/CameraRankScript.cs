@@ -53,6 +53,8 @@ public class CameraRankScript : MonoBehaviour
     private const int PLAYERLAYER = 12;
     private const int SECONDPLAYERLAYER = 13;
 
+    [SerializeField] private StageRoopManFixed _stageRoopManage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,9 +102,13 @@ public class CameraRankScript : MonoBehaviour
                     //ÉvÉåÉCÉÑÅ[2ÇÇPà Ç…è„Ç∞ÇÈ
                     _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(FIRST);
                 }
+
+
                 _dummy = _ranking[ORIGINFIRST];
                 _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
                 _ranking[ORIGINSECOND] = _dummy;
+
+                _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
             }
 
             //ÇQà ÇÃèÍèäÇÃåvéZ

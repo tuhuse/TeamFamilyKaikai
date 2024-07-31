@@ -58,6 +58,7 @@ public class StageRoopManFixed : MonoBehaviour {
     }
     void Update() 
     {
+        print(_stageNowPosition);
         if (Input.GetKeyDown(KeyCode.Escape)) {
             _countTime += 100;
         }
@@ -102,6 +103,7 @@ public class StageRoopManFixed : MonoBehaviour {
             _randomMax = _prefabs.Count - 2;
 
             _arrayNumber = Random.Range(_randomMin, _randomMax);
+
             //idou
             _stageNowPosition += _stageXPosition;
 
@@ -182,6 +184,11 @@ public class StageRoopManFixed : MonoBehaviour {
     }
     public void ReadyGo() {
         _isReadyGo = true;
+    }
+
+    public void FirstChange(GameObject newFarstFrog) 
+    {
+        _first = newFarstFrog;
     }
 
 }
