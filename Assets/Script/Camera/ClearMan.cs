@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class ClearMan : MonoBehaviour {
     [SerializeField] private GameObject _cpuParent;
+    [SerializeField] private GameObject _playerParent = default;
     [SerializeField] private GameObject _camera;
     [SerializeField] private GameObject _gameClearUI;
     [SerializeField] private float _cameraRimit = default;
@@ -12,6 +13,7 @@ public class ClearMan : MonoBehaviour {
     private List<Rigidbody2D> _frogsrb2d = new  List<Rigidbody2D>();
   
     [SerializeField] private List<GameObject> _anotherEnamys = new List<GameObject>();
+    [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>();
     private float _fallMin = -60f;
     public int _switchNumber = 1;
     private float _sizeLimit = 20;
@@ -24,8 +26,12 @@ public class ClearMan : MonoBehaviour {
     void Start() {
 
      
-        for (int number = 0; number < _cpuParent.transform.childCount; number++) {
+        for (int number = 0; number < _cpuParent.transform.childCount; number++) 
+        {
             _anotherEnamys.Add(_cpuParent.transform.GetChild(number).gameObject);
+        }
+        for (int number = 0; number < _playerParent.transform.childCount; number++) {
+            _anotherPlayers.Add(_playerParent.transform.GetChild(number).gameObject);
         }
 
     }
@@ -40,10 +46,11 @@ public class ClearMan : MonoBehaviour {
         switch (_switchNumber) {
             case 0:
 
-                //敵オブジェクトの入った配列の中身がnullか
-                if (_anotherEnamys.Count == 0) {
+                //敵オブジェクトの入った配列の中身がnullかつ残りプレイヤーの数が1か
+                if (_anotherEnamys.Count == 0 && _anotherPlayers.Count == 1) 
+                {
                     _switchNumber = 2;
-                } 
+                }
                 else {
                     _switchNumber = 1;
                 }
@@ -59,6 +66,17 @@ public class ClearMan : MonoBehaviour {
                                 arrayEnamy.transform.position.x < _camera.transform.position.x - _cameraRimit) {
                         _anotherEnamys.Remove(arrayEnamy);
                         arrayEnamy.SetActive(false);
+                        _switchNumber = 0;
+                        break;
+                    }
+                }
+                //プレイヤーオブジェクトを取得
+                foreach (GameObject arrayPlayer in _anotherPlayers) {
+                    //落下もしくは画面端にぶつかると配列から削除
+                    if (arrayPlayer.transform.position.y < _fallMin ||
+                                arrayPlayer.transform.position.x < _camera.transform.position.x - _cameraRimit) {
+                        _anotherPlayers.Remove(arrayPlayer);
+                        arrayPlayer.SetActive(false);
                         _switchNumber = 0;
                         break;
                     }

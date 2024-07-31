@@ -44,7 +44,7 @@ public class GameOverMan : MonoBehaviour {
             //プレイヤーが落下、もしくはカメラの左端に当たればゲームオーバー処理開始
             case 0:
 
-                //敵オブジェクトの入った配列の中身がnullか
+                //プレイヤーオブジェクトの入った配列の中身がnullか
                 if (_players.Count == 0) {
                     _switchNumber = 2;
                 } else {
@@ -55,13 +55,13 @@ public class GameOverMan : MonoBehaviour {
                 if (_countTime >= _time) {
                     _cameraRimit = 80f;
                 }
-                //敵オブジェクトを取得
-                foreach (GameObject arrayEnamy in _players) {
+                //プレイヤーオブジェクトを取得
+                foreach (GameObject arrayPlayer in _players) {
                     //落下もしくは画面端にぶつかると配列から削除
-                    if (arrayEnamy.transform.position.y < _playerFallMin ||
-                                arrayEnamy.transform.position.x < _camera.transform.position.x - _cameraRimit) {
-                        _players.Remove(arrayEnamy);
-                        arrayEnamy.SetActive(false);
+                    if (arrayPlayer.transform.position.y < _playerFallMin ||
+                                arrayPlayer.transform.position.x < _camera.transform.position.x - _cameraRimit) {
+                        _players.Remove(arrayPlayer);
+                        arrayPlayer.SetActive(false);
                         _switchNumber = 0;
                         break;
                     }
