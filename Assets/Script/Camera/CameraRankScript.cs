@@ -49,8 +49,6 @@ public class CameraRankScript : MonoBehaviour
     private const float CAMERAYMOVE = 0.05f;
     private const float MAXCAMERAYMOVE = 5f;
 
-    private PlayercontrollerScript _playerControll = default;
-    private Player2 _player2=default;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,13 +73,13 @@ public class CameraRankScript : MonoBehaviour
                 if (_ranking[ORIGINFIRST].gameObject.tag == "Player")
                 {
                     //プレイヤーを２位に下げる
-                    _playerControll.RankChange(SECOND);
+                    _ranking[ORIGINFIRST].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }
                 //プレイヤーが２位だったら
                 else if (_ranking[ORIGINSECOND].gameObject.tag == "Player") 
                 {
                     //プレイヤーを１位に上げる
-                    _playerControll.RankChange(FIRST);
+                    _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(FIRST);
                 }
 
                 _dummy = _ranking[ORIGINFIRST];
@@ -105,13 +103,13 @@ public class CameraRankScript : MonoBehaviour
                 if (_ranking[ORIGINSECOND].gameObject.tag == "Player") 
                 {
                     //プレイヤーを３位に下げる
-                    _playerControll.RankChange(THIRD);
+                   _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                 }
                 //プレイヤーが3位だったら
-                else if (_ranking[THIRD].gameObject.tag == "Player") 
+                else if (_ranking[ORIGINTHIRD].gameObject.tag == "Player") 
                 {
                     //プレイヤーを２位に上げる
-                    _playerControll.RankChange(SECOND);
+                   _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }
 
                 _dummy = _ranking[ORIGINSECOND];
@@ -134,13 +132,13 @@ public class CameraRankScript : MonoBehaviour
                 if (_ranking[ORIGINTHIRD].gameObject.tag == "Player")
                 {
                     //プレイヤーを４位に下げる
-                    _playerControll.RankChange(FORTH);
+                    _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
                 }
                 //プレイヤーが４位だったら
                 else if (_ranking[ORIGINFORTH].gameObject.tag == "Player") 
                 {
                     //プレイヤーを３位に上げる
-                    _playerControll.RankChange(THIRD);
+                   _ranking[ORIGINFORTH].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                 }
 
                 _dummy = _ranking[ORIGINTHIRD];
@@ -191,15 +189,18 @@ public class CameraRankScript : MonoBehaviour
             {
                 _firstPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
 
-                _playerControll = _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>();
-
-                _playerControll.RankChange(FIRST);
-
+                _frogs[_rankingValue].GetComponent<PlayercontrollerScript>().RankChange(FIRST);
 
             } 
             else if (_rankingValue == 1)
             {
                 _secondPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
+
+                if (_frogs[_rankingValue].gameObject.CompareTag("Player")) 
+                {
+                    _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(SECOND);
+                }
+
             }
             else if (_rankingValue == 2)
             {
