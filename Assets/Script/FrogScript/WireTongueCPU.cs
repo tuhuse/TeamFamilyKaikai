@@ -26,7 +26,7 @@ public class WireTongueCPU : MonoBehaviour {
 
     private const float DELTATIMEMULTIPLE = 1000f;
     private const float PLUSSCALESPEEDY = 0.1f;
-    private const float TONGUEMAXEXTENSION = 15f;
+    private const float TONGUEMAXEXTENSION = 10f;
     private const float TONGUESCALEX = 3f;
     private const float TONGUESCALEY = 0.01f;
     // Start is called before the first frame update
@@ -81,6 +81,14 @@ public class WireTongueCPU : MonoBehaviour {
             StartCoroutine(CoolDown());
         }
     }
+    public void JudgeCoolDown(bool judge) {
+        if (judge) {
+            _isExtension = false;
+            Judge();
+            judge = false;
+        }
+       
+    }
     private IEnumerator CoolDown() {
 
         yield return new WaitForSeconds(8);
@@ -97,7 +105,6 @@ public class WireTongueCPU : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Flor")) {
             _isExtension = false;
-
         }
         if (collision.gameObject.tag == "Player" && _underAttack) {
             if (_mySelf.gameObject.GetComponent<FrogCpu>()!=null) {

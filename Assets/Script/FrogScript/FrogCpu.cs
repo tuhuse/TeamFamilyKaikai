@@ -31,6 +31,7 @@ public class FrogCpu : MonoBehaviour {
     [SerializeField] private WireTongueCPU _tongue;
     [SerializeField] private GameObject _itemIcon;
     [SerializeField] private ItemSelects _item;
+    [SerializeField] private Difficulty _difficulty;
     private GameObject _projectile = default;
 
 
@@ -71,8 +72,10 @@ public class FrogCpu : MonoBehaviour {
     private float _speedUp = 0;
 
     //確率
-    private int _randamJump = 0;
+    private int _randomJump = 0;
     private int _randomITEM = 0;
+    private int _randomnumber= 0;
+    private int _cpunumber = 0;
     private const int MINRANDOMRANGE = 1;
     private const int MAXRANDOMRANGE = 10001;
     private Rigidbody2D _rb;
@@ -106,6 +109,11 @@ public class FrogCpu : MonoBehaviour {
         Hard,
         Harf
     }
+    private enum Difficultys {
+        easy,
+        nomal,
+        hard
+    }
     //アイテムの確立
     private enum RandomItem {
         Great,
@@ -116,7 +124,7 @@ public class FrogCpu : MonoBehaviour {
 
     private SwicthRandomJump _swicthRandomJump = default;
     private RandomItem _randomItem = default;
-
+    private Difficultys _difficultynumber = default;
     // Start is called before the first frame update
     void Start() {
         _frogSE = GetComponent<AudioSource>();
@@ -124,7 +132,14 @@ public class FrogCpu : MonoBehaviour {
         //スタートするまで動けなくする
         StartCoroutine(StartWait());
         _mucasFrogCPUAnim = this.GetComponent<Animator>();
-
+        //_cpunumber = GameObject.FindGameObjectWithTag("Mode").GetComponent<Difficulty>()._cpunumber;
+        if (_difficulty._cpunumber == 1) {
+            _difficultynumber = Difficultys.easy;
+        } else if (_difficulty._cpunumber == 2) {
+            _difficultynumber = Difficultys.nomal;
+        } else if (_difficulty._cpunumber == 3) {
+            _difficultynumber = Difficultys.hard;
+        }
     }
     private void FixedUpdate() {
         if (!_isJump && !_isMucusJump) {
@@ -184,6 +199,7 @@ public class FrogCpu : MonoBehaviour {
             WaterBall();
             MucusAttack();
             UseAbility();
+            ModeCpu(); 
             //プレイヤーとの距離が離れている場合
             if (distancetoplayer > DISTANCEPLAYER) {
 
@@ -198,9 +214,6 @@ public class FrogCpu : MonoBehaviour {
 
                 }
 
-            }
-            if (_randomItem == RandomItem.Great || _randomItem == RandomItem.Good || _randomItem == RandomItem.Nomal) {
-                ISEXtension();
             }
 
             //プレイヤーのとの距離が近いとき
@@ -259,6 +272,29 @@ public class FrogCpu : MonoBehaviour {
     //    _frogSE.PlayOneShot(_jumpSE);
     //    _rb.velocity = new Vector3(55, _movejump[0], 0);
     //}
+
+    //CPUの強さ調整
+    private void ModeCpu() {
+        switch (_difficultynumber) {
+            case Difficultys.easy:
+                if (_randomItem == RandomItem.Great) {
+                    ISEXtensionHard();
+                }
+                break;
+            case Difficultys.nomal:
+                ISEXTensionNomal();
+                break;
+            case Difficultys.hard:              
+                    if (_randomItem == RandomItem.Great ||
+                        _randomItem == RandomItem.Good ||
+                        _randomItem == RandomItem.Nomal) 
+                    {
+                        ISEXtensionHard();
+                    }
+                break;
+        }
+
+    }
     private void Jump() {
         if (_isJump) {
             _isJump = false;
@@ -281,25 +317,25 @@ public class FrogCpu : MonoBehaviour {
 
         if (_swicthRandomJump == SwicthRandomJump.Easy) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //95%でジャンプ
-            if (_randamJump >= 500) {
+            if (_randomJump >= 500) {
                 Jump2();
             }
         }
         if (_swicthRandomJump == SwicthRandomJump.Hard) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //50%でジャンプ
-            if (_randamJump >= 5000) {
+            if (_randomJump >= 5000) {
                 Jump2();
             }
 
         } else if (_swicthRandomJump == SwicthRandomJump.Harf) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //70%でジャンプ
-            if (_randamJump >= 3000) {
+            if (_randomJump >= 3000) {
                 Jump2();
             }
         }
@@ -308,9 +344,9 @@ public class FrogCpu : MonoBehaviour {
     private void CliffJump() {
         if (_swicthRandomJump == SwicthRandomJump.Easy) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //96%でジャンプ
-            if (_randamJump >= 400) {
+            if (_randomJump >= 400) {
                 Jump();
             } //else {
             //    FrogJump();
@@ -318,9 +354,9 @@ public class FrogCpu : MonoBehaviour {
             //}
         } else if (_swicthRandomJump == SwicthRandomJump.Hard) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //95%でジャンプ
-            if (_randamJump >= 500) {
+            if (_randomJump >= 500) {
                 Jump();
             }// else {
 
@@ -329,9 +365,9 @@ public class FrogCpu : MonoBehaviour {
 
         } else if (_swicthRandomJump == SwicthRandomJump.Harf) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //90%でジャンプ
-            if (_randamJump >= 1000) {
+            if (_randomJump >= 1000) {
                 Jump();
             } //else {
 
@@ -343,24 +379,24 @@ public class FrogCpu : MonoBehaviour {
     private void ChooseSelct() {
         if (_swicthRandomJump == SwicthRandomJump.Easy) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //60%でジャンプ
-            if (_randamJump >= 4000) {
+            if (_randomJump >= 4000) {
                 Jump();
             }
         } else if (_swicthRandomJump == SwicthRandomJump.Hard) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //55%でジャンプ
-            if (_randamJump >= 4500) {
+            if (_randomJump >= 4500) {
                 Jump();
             }
 
         } else if (_swicthRandomJump == SwicthRandomJump.Harf) {
             //確率計算
-            _randamJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //50%でジャンプ
-            if (_randamJump >= 5000) {
+            if (_randomJump >= 5000) {
                 Jump();
             }
         }
@@ -425,8 +461,6 @@ public class FrogCpu : MonoBehaviour {
                 StartCoroutine(CollisionEffect());
             }
 
-
-
         }
         if (!_isPridictionAbility) {
             //粘液の床
@@ -444,7 +478,6 @@ public class FrogCpu : MonoBehaviour {
         }
 
     }
-
     private void GetItem() {
 
         // アイテムの確立
@@ -744,8 +777,8 @@ public class FrogCpu : MonoBehaviour {
         }
 
     }
-    
-    private void ISEXtension() {
+
+    private void ISEXtensionHard() {
 
         if (!_tongue._isCoolDown) {
 
@@ -753,6 +786,29 @@ public class FrogCpu : MonoBehaviour {
             _tongue._isExtension = true;
             _tongue._underAttack = true;
             //StartCoroutine(ISExtension());
+        }
+    }  private void ISEXTensionNomal() {
+
+        if (!_tongue._isCoolDown) {
+            //確率計算
+            _randomnumber = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            //50%で舌
+            if (_randomnumber >= 5000) {
+                if (_randomItem == RandomItem.Great ||
+                    _randomItem == RandomItem.Good ||
+                    _randomItem == RandomItem.Nomal) 
+                {
+                    _tongue._isCoolDown = true;
+                    _tongue._isExtension = true;
+                    _tongue._underAttack = true;
+                    //StartCoroutine(ISExtension());
+                }
+            } else {
+                _tongue._isCoolDown = true;
+                _tongue._isExtension = false;
+                _tongue.JudgeCoolDown(true);
+            }
+           
         }
     }
     private IEnumerator ISExtension() {

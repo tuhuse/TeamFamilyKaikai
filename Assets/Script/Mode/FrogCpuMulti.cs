@@ -31,6 +31,7 @@ public class FrogCpuMulti : MonoBehaviour {
     [SerializeField] private WireTongueCPU _tongue;
     [SerializeField] private GameObject _itemIcon;
     [SerializeField] private ItemSelects _item;
+    [SerializeField] private Difficulty _difficulty;
     private GameObject _projectile = default;
 
 
@@ -73,6 +74,8 @@ public class FrogCpuMulti : MonoBehaviour {
     //確率
     private int _randamJump = 0;
     private int _randomITEM = 0;
+    private int _randomnumber = 0;
+    private int _cpu = default;
     private const int MINRANDOMRANGE = 1;
     private const int MAXRANDOMRANGE = 10001;
     private Rigidbody2D _rb;
@@ -106,6 +109,11 @@ public class FrogCpuMulti : MonoBehaviour {
         Hard,
         Harf
     }
+    private enum Difficultys {
+        easy,
+        nomal,
+        hard
+    }
     //アイテムの確立
     private enum RandomItem {
         Great,
@@ -116,7 +124,7 @@ public class FrogCpuMulti : MonoBehaviour {
 
     private SwicthRandomJump _swicthRandomJump = default;
     private RandomItem _randomItem = default;
-
+    private Difficultys _difficultynumber = default;
     // Start is called before the first frame update
     void Start() {
         _frogSE = GetComponent<AudioSource>();
@@ -124,7 +132,7 @@ public class FrogCpuMulti : MonoBehaviour {
         //スタートするまで動けなくする
         StartCoroutine(StartWait());
         _mucasFrogCPUAnim = this.GetComponent<Animator>();
-
+        _cpu = _difficulty._cpunumber;
     }
     private void FixedUpdate() {
         if (!_isJump && !_isMucusJump) {
@@ -148,7 +156,7 @@ public class FrogCpuMulti : MonoBehaviour {
         float player = _player.transform.localPosition.x;
         float cpu1 = _distancetoCPU1.transform.localPosition.x;
         float player2 = _distancetoPlayer2.transform.localPosition.x;
-        
+
         //自分の順位を把握
         if (mySelf > player && mySelf > cpu1 && mySelf > player2) {
             _randomItem = RandomItem.Bad;//一位の時
@@ -184,6 +192,7 @@ public class FrogCpuMulti : MonoBehaviour {
             WaterBall();
             MucusAttack();
             UseAbility();
+            ModeCpu();
             //プレイヤーとの距離が離れている場合
             if (distancetoplayer > DISTANCEPLAYER) {
 
@@ -198,9 +207,6 @@ public class FrogCpuMulti : MonoBehaviour {
 
                 }
 
-            }
-            if (_randomItem == RandomItem.Great || _randomItem == RandomItem.Good || _randomItem == RandomItem.Nomal) {
-                ISEXtension();
             }
 
             //プレイヤーのとの距離が近いとき
@@ -259,6 +265,27 @@ public class FrogCpuMulti : MonoBehaviour {
     //    _frogSE.PlayOneShot(_jumpSE);
     //    _rb.velocity = new Vector3(55, _movejump[0], 0);
     //}
+    private void ModeCpu() {
+        switch (_difficultynumber) {
+            case Difficultys.easy:
+                if (_randomItem == RandomItem.Great) {
+                    ISEXtensionHard();
+                }
+
+                break;
+            case Difficultys.nomal:
+                ISEXTensionNomal();
+                break;
+            case Difficultys.hard:
+                if (_randomItem == RandomItem.Great ||
+                    _randomItem == RandomItem.Good ||
+                    _randomItem == RandomItem.Nomal) {
+                    ISEXtensionHard();
+                }
+                break;
+        }
+
+    }
     private void Jump() {
         if (_isJump) {
             _isJump = false;
@@ -744,7 +771,7 @@ public class FrogCpuMulti : MonoBehaviour {
 
     }
 
-    private void ISEXtension() {
+    private void ISEXtensionHard() {
 
         if (!_tongue._isCoolDown) {
 
@@ -754,10 +781,31 @@ public class FrogCpuMulti : MonoBehaviour {
             //StartCoroutine(ISExtension());
         }
     }
-    private IEnumerator ISExtension() {
-        yield return new WaitForSeconds(0.11f);
-        _tongue._isExtension = false;
+    private void ISEXTensionNomal() {
+
+        if (!_tongue._isCoolDown) {
+            //確率計算
+            _randomnumber = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            //50%で舌
+            if (_randomnumber >= 5000) {
+                if (_randomItem == RandomItem.Great ||
+                    _randomItem == RandomItem.Good ||
+                    _randomItem == RandomItem.Nomal) {
+
+                    _tongue._isCoolDown = true;
+                    _tongue._isExtension = true;
+                    _tongue._underAttack = true;
+                    //StartCoroutine(ISExtension());
+                }
+            } else {
+                _tongue._isCoolDown = true;
+                _tongue._isExtension = false;
+                _tongue.JudgeCoolDown(true);
+            }
+
+        }
     }
+
 
     public void SpeedUp(bool speedup) {
         if (!_isPridictionAbility) {
