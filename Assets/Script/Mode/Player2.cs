@@ -414,7 +414,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Mucas() {
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -428,7 +428,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Pridiction() {
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -444,7 +444,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Water() {
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0)) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 

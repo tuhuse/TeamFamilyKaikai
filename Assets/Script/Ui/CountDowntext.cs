@@ -5,12 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 
 public class CountDowntext : MonoBehaviour {
-    [SerializeField] private int _countTime;
-    [SerializeField] private TextMeshProUGUI _countTimeText;
-    [SerializeField] private Animator _animator;
-    [SerializeField] private GameObject _startText;
-   
-   public AudioSource _bgm;
+ 
+     public AudioSource _bgm;
     // Start is called before the first frame update
     void Start() {
         _bgm = GetComponent<AudioSource>();
@@ -22,17 +18,5 @@ public class CountDowntext : MonoBehaviour {
     void Update() {
        
     }
-    public void AnimationCountDown() {
-        _countTime--;
-        if (_countTime >= 1) {
-            _countTimeText.text = "" + _countTime;
-            _animator.Play("CountDownText");
-        }
- 
-       else  {
-            _startText.SetActive(true);
-            _countTimeText.enabled = false;
-            //this.gameObject.SetActive(false);
-        }
-    }
+   
 }

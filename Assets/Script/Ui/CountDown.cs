@@ -7,6 +7,7 @@ public class CountDown : MonoBehaviour
     [SerializeField] private GameObject _count1;
     [SerializeField] private GameObject _count2;
     [SerializeField] private GameObject _count3;
+    [SerializeField] private GameObject _startText;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +29,6 @@ public class CountDown : MonoBehaviour
     public void Count3() {
         _count3.SetActive(false);
         _count2.SetActive(true);
+        _startText.SetActive(true);
     }
 }
