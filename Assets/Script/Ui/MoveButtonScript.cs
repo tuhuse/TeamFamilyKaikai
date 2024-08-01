@@ -33,7 +33,7 @@ public class MoveButtonScript : MonoBehaviour {
 
     void Update() 
     {
-        if (Input.GetAxis("L_Stick_Horizontal") > 0f && !_isButtonSelect && !_isWaitSelect) {
+        if (Input.GetAxis("1pLstickHorizontal") > 0f && !_isButtonSelect && !_isWaitSelect) {
             _isButtonSelect = true;
             _isWaitSelect = true;
             if (_situation == Situation.Every) {
@@ -49,7 +49,7 @@ public class MoveButtonScript : MonoBehaviour {
 
 
         } 
-        else if (Input.GetAxis("L_Stick_Horizontal") < 0 && !_isButtonSelect&&!_isWaitSelect) 
+        else if (Input.GetAxis("1pLstickHorizontal") < 0 && !_isButtonSelect&&!_isWaitSelect) 
         {
 
             _isButtonSelect = true;
@@ -62,13 +62,13 @@ public class MoveButtonScript : MonoBehaviour {
                 _multiButtonMethod.OnButtonClick();
             }
         } 
-        else if (Input.GetAxis("L_Stick_Horizontal") == 0) 
+        else if (Input.GetAxis("1pLstickHorizontal") == 0) 
         {
             _isButtonSelect = false;
         }
         SwSituation();
 
-        if (Input.GetButtonDown("Submit")&&!_isWaitSelect&&!_isButtonSelect) {
+        if (Input.GetButtonDown("1pA") &&!_isWaitSelect&&!_isButtonSelect) {
             if (_situation == Situation.One) {
                 _selectCharacterScript.SITUATION(true);
                 _selectCharacterScript.SummonSneak();

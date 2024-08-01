@@ -115,7 +115,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         if (_isAlive && !_isFrogjump)//ê∂Ç´ÇƒÇÈéûÇ…ìÆÇØÇÈÇÊÇ§Ç…
         {
             //à⁄ìÆ
-            if (Input.GetKey(KeyCode.A) || Input.GetAxis("L_Stick_Horizontal") < 0) {
+            if (Input.GetKey(KeyCode.A) || Input.GetAxis("1pLstickHorizontal") < 0) {
                 //îΩëŒÇ…å¸Ç©ÇπÇÈ
                 if (!_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = true;
@@ -141,7 +141,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                 }
 
             }
-            if (Input.GetKey(KeyCode.D) || Input.GetAxis("L_Stick_Horizontal") > 0) {
+            if (Input.GetKey(KeyCode.D) || Input.GetAxis("1pLstickHorizontal") > 0) {
                 //îΩëŒÇ…å¸Ç©ÇπÇÈ
                 if (_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = false;
@@ -169,7 +169,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             //ÉWÉÉÉìÉv
 
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit")) {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("1pA")) {
 
 
                 if (_isJump) {
@@ -405,7 +405,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Beard() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("1pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -419,7 +419,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Mucas() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("1pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -433,7 +433,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Pridiction() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("1pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -449,7 +449,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Water() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown("1pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 

@@ -73,7 +73,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
 
 
-        if (Input.GetButtonDown("TongueAttack")) {
+        if (Input.GetButtonDown("1pRB")) {
             //ƒxƒ‚ğL‚Î‚µn‚ß‚é
             if (!_isAttack) {
                 _isAttack = true;
