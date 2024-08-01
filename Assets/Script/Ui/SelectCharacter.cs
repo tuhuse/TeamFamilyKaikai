@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SelectCharacter : MonoBehaviour
 {
-    
-   
+
+
+    [SerializeField] private GameObject _commentator = default;
     //起動するカエル
     [SerializeField] private GameObject[] _frog;
     [SerializeField] private GameObject _countDown;
@@ -50,7 +51,8 @@ public class SelectCharacter : MonoBehaviour
     public void GoTxt()//GoButtonを押したらメイン画面に行く
     {
         _countDown.SetActive(true);
-        _birdCanvas.SetActive(true);       
+        _birdCanvas.SetActive(true);
+        _commentator.SetActive(true);
         StartCoroutine(FrogInstantiate());
     }
 

@@ -54,6 +54,7 @@ public class CameraRankScript : MonoBehaviour
     private const int SECONDPLAYERLAYER = 13;
 
     [SerializeField] private StageRoopManFixed _stageRoopManage;
+    [SerializeField] private CommentScript _commentText = default;
 
     // Start is called before the first frame update
     void Start()
@@ -108,6 +109,8 @@ public class CameraRankScript : MonoBehaviour
                 _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
                 _ranking[ORIGINSECOND] = _dummy;
 
+                _commentText.CommentChange("おぉっと！" + _ranking[ORIGINFIRST].name + "が" + _ranking[ORIGINSECOND].name + "をぬかしました！！！", false);
+
                 _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
             }
 
@@ -149,7 +152,7 @@ public class CameraRankScript : MonoBehaviour
                 _ranking[ORIGINTHIRD] = _dummy;
 
 
-
+                _commentText.CommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
             }
 
             //３位の場所の計算
@@ -191,6 +194,8 @@ public class CameraRankScript : MonoBehaviour
                 _dummy = _ranking[ORIGINTHIRD];
                 _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
                 _ranking[ORIGINFORTH] = _dummy;
+
+                _commentText.CommentChange("おぉっと！" + _ranking[ORIGINFORTH].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
             }
 
 
@@ -202,7 +207,7 @@ public class CameraRankScript : MonoBehaviour
 
 
             //誰かがジャンプしたらカメラを少し上に上げる
-            if (_rbs[ORIGINFIRST].velocity.y > 0 || _rbs[ORIGINSECOND].velocity.y > 0 || _rbs[ORIGINTHIRD].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0)
+            if (_rbs[ORIGINFIRST].velocity.y > 0 || _rbs[ORIGINTHIRD].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0)
             {
                 _isUp = true;
                 //少し上に上げる

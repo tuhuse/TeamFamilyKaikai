@@ -13,19 +13,22 @@ public class StartTextScript : MonoBehaviour
     private bool _isPlay=true;
     [SerializeField]
     private CountDowntext _count;
-   
+    [SerializeField] CommentScript _commentScript = default;
+
     // Start is called before the first frame update
 
-    private void Start() {
+    private void Start() 
+    {
         _audioSource = GetComponents<AudioSource>();
         
       _audioSource[0].clip = _audio[0];
         _audioSource[1].clip = _audio[1];      
         _count._bgm.Play();
         //_audioSource[0].PlayOneShot(_audio[0]);
-
+        _commentScript.CommentChange("さあ、だい" + Random.Range(1, 101) + "かい、カエルデスゲームがスタート！！！", true);
     }
-    private void Update() {
+    private void Update() 
+    {
         if (_isPlay) {
             if (_clear._switchNumber == 4) {
                 _count._bgm.Stop();
