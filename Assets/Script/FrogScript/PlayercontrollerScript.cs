@@ -92,13 +92,13 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private Animator _pridictionFrogAnim;
     void Start() {
-        string[] joyStickName = Input.GetJoystickNames();
-        if (_playernumber <= joyStickName.Length && _playernumber > 0) {
-            _nameJoyStick = joyStickName[_playernumber - 1];
-            Debug.Log("Player " + _playernumber + " is assigned to " + _nameJoyStick);
-        } else {
-            Debug.LogWarning("No joystick for Player " + _playernumber);
-        }
+        //string[] joyStickName = Input.GetJoystickNames();
+        //if (_playernumber <= joyStickName.Length && _playernumber > 0) {
+        //    _nameJoyStick = joyStickName[_playernumber - 1];
+        //    Debug.Log("Player " + _playernumber + " is assigned to " + _nameJoyStick);
+        //} else {
+        //    Debug.LogWarning("No joystick for Player " + _playernumber);
+        //}
 
         _frogSE = this.GetComponent<AudioSource>();
         _pridictionSpriterenderer = this.GetComponent<SpriteRenderer>();
@@ -124,7 +124,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         if (_isAlive && !_isFrogjump)//生きてる時に動けるように
         {
             // 割り当てられたコントローラーの入力を処理
-            if (!string.IsNullOrEmpty(_nameJoyStick)) {
+            //if (!string.IsNullOrEmpty(_nameJoyStick)) {
                 // 左スティックの水平入力を取得
                 float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
                 //移動
@@ -169,7 +169,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                     Mucas();
                 }
 
-            }
+            //}
 
 
             if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping) {
@@ -208,6 +208,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             _downEffect.gameObject.SetActive(false);
             _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
+            Debug.Log("Player " + _playernumber + " moved left using " + _nameJoyStick);
         }
 
         //スピードダウンした時
@@ -233,6 +234,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             _downEffect.gameObject.SetActive(false);
             _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
+            Debug.Log("Player " + _playernumber + " moved right using " + _nameJoyStick);
         }
 
         //スピードダウンした時

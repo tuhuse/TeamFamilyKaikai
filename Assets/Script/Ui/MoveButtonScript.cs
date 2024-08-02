@@ -30,18 +30,18 @@ public class MoveButtonScript : MonoBehaviour {
     void Start() {
         _jumpTimer = 1f;
         _situation = Situation.One;
-        string[] joyStickName = Input.GetJoystickNames();
+        //string[] joyStickName = Input.GetJoystickNames();
 
-        if (_playernumber <= joyStickName.Length && _playernumber > 0) {
-            _nameJoyStick = joyStickName[_playernumber - 1];
-            Debug.Log("Player " + _playernumber + " is assigned to " + _nameJoyStick);
-        } else {
-            Debug.LogWarning("No joystick for Player " + _playernumber);
-        }
+        //if (_playernumber <= joyStickName.Length && _playernumber > 0) {
+        //    _nameJoyStick = joyStickName[_playernumber - 1];
+        //    Debug.Log("Player " + _playernumber + " is assigned to " + _nameJoyStick);
+        //} else {
+        //    Debug.LogWarning("No joystick for Player " + _playernumber);
+        //}
     }
 
     void Update() { // 割り当てられたコントローラーの入力を処理
-        if (!string.IsNullOrEmpty(_nameJoyStick)) {
+        //if (!string.IsNullOrEmpty(_nameJoyStick)) {
             // 左スティックの水平入力を取得
             float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
             if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
@@ -85,7 +85,7 @@ public class MoveButtonScript : MonoBehaviour {
                 }
 
             }
-        }
+        //}
             
         SwSituation();
     }
