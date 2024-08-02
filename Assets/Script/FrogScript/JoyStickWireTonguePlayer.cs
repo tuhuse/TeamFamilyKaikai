@@ -83,18 +83,18 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
                 }
             } 
-            else if (_player.gameObject.layer == 13) {
-                if (Input.GetButtonDown("2pRB")) {
-                    //ベロを伸ばし始める
-                    if (!_isAttack) {
-                        _isAttack = true;
-                        _isExtension = true;
-                        _underAttack = true;
-                    }
+            //else if (_player.gameObject.layer == 13) {
+            //    if (Input.GetButtonDown("2pRB")) {
+            //        //ベロを伸ばし始める
+            //        if (!_isAttack) {
+            //            _isAttack = true;
+            //            _isExtension = true;
+            //            _underAttack = true;
+            //        }
 
-                }
+            //    }
 
-            }
+            //}
         }
          
       

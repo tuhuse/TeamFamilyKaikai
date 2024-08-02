@@ -91,18 +91,18 @@ public class CameraRankScript : MonoBehaviour
                 }
 
 
-                //プレイヤー2が一位だったら
-                if (_ranking[ORIGINFIRST].gameObject.layer == SECONDPLAYERLAYER) 
-                {
-                    //プレイヤー2を２位に下げる
-                    _ranking[ORIGINFIRST].GetComponent<Player2>().RankChange(SECOND);
-                }
-                //プレイヤー2が２位だったら
-                else if (_ranking[ORIGINSECOND].gameObject.layer == SECONDPLAYERLAYER) 
-                {
-                    //プレイヤー2を１位に上げる
-                    _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(FIRST);
-                }
+                ////プレイヤー2が一位だったら
+                //if (_ranking[ORIGINFIRST].gameObject.layer == SECONDPLAYERLAYER) 
+                //{
+                //    //プレイヤー2を２位に下げる
+                //    _ranking[ORIGINFIRST].GetComponent<Player2>().RankChange(SECOND);
+                //}
+                ////プレイヤー2が２位だったら
+                //else if (_ranking[ORIGINSECOND].gameObject.layer == SECONDPLAYERLAYER) 
+                //{
+                //    //プレイヤー2を１位に上げる
+                //    _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(FIRST);
+                //}
 
 
                 _dummy = _ranking[ORIGINFIRST];
@@ -136,16 +136,16 @@ public class CameraRankScript : MonoBehaviour
                    _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }
 
-                //プレイヤー2が二位だったら
-                if (_ranking[ORIGINSECOND].gameObject.layer==SECONDPLAYERLAYER) {
-                    //プレイヤー2を３位に下げる
-                    _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(THIRD);
-                }
-                //プレイヤー2が3位だったら
-                else if (_ranking[ORIGINTHIRD].gameObject.layer == SECONDPLAYERLAYER) {
-                    //プレイヤー2を２位に上げる
-                    _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(SECOND);
-                }
+                ////プレイヤー2が二位だったら
+                //if (_ranking[ORIGINSECOND].gameObject.layer==SECONDPLAYERLAYER) {
+                //    //プレイヤー2を３位に下げる
+                //    _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(THIRD);
+                //}
+                ////プレイヤー2が3位だったら
+                //else if (_ranking[ORIGINTHIRD].gameObject.layer == SECONDPLAYERLAYER) {
+                //    //プレイヤー2を２位に上げる
+                //    _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(SECOND);
+                //}
 
                 _dummy = _ranking[ORIGINSECOND];
                 _ranking[ORIGINSECOND] = _ranking[ORIGINTHIRD];
@@ -178,18 +178,18 @@ public class CameraRankScript : MonoBehaviour
                 }
 
 
-                //プレイヤー2が３位だったら
-                if (_ranking[ORIGINTHIRD].gameObject.layer==SECONDPLAYERLAYER) 
-                {
-                    //プレイヤー2を４位に下げる
-                    _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(FORTH);
-                }
-                //プレイヤー2が４位だったら
-                else if (_ranking[ORIGINFORTH].gameObject.layer==SECONDPLAYERLAYER) 
-                {
-                    //プレイヤー2を３位に上げる
-                    _ranking[ORIGINFORTH].GetComponent<Player2>().RankChange(THIRD);
-                }
+                ////プレイヤー2が３位だったら
+                //if (_ranking[ORIGINTHIRD].gameObject.layer==SECONDPLAYERLAYER) 
+                //{
+                //    //プレイヤー2を４位に下げる
+                //    _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(FORTH);
+                //}
+                ////プレイヤー2が４位だったら
+                //else if (_ranking[ORIGINFORTH].gameObject.layer==SECONDPLAYERLAYER) 
+                //{
+                //    //プレイヤー2を３位に上げる
+                //    _ranking[ORIGINFORTH].GetComponent<Player2>().RankChange(THIRD);
+                //}
 
                 _dummy = _ranking[ORIGINTHIRD];
                 _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];

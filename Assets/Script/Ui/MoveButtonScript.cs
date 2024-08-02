@@ -15,10 +15,11 @@ public class MoveButtonScript : MonoBehaviour {
     private bool _isSelect = true;
     private bool _isButtonSelect = false;
     private bool _isWaitSelect = false;
-
+    private string _nameJoyStick = default;
     private Vector3 _startPosition;
     private Vector3 _targetPosition;
     private float _jumpTimer;
+    public int _playernumber;// プレイヤー番号（1から始まる）
 
     [SerializeField] private GameObject _menuImage = default;
     private enum Situation {
@@ -29,56 +30,63 @@ public class MoveButtonScript : MonoBehaviour {
     void Start() {
         _jumpTimer = 1f;
         _situation = Situation.One;
+        string[] joyStickName = Input.GetJoystickNames();
+
+        if (_playernumber <= joyStickName.Length && _playernumber > 0) {
+            _nameJoyStick = joyStickName[_playernumber - 1];
+            Debug.Log("Player " + _playernumber + " is assigned to " + _nameJoyStick);
+        } else {
+            Debug.LogWarning("No joystick for Player " + _playernumber);
+        }
     }
 
-    void Update() 
-    {
-        if (Input.GetAxis("1pLstickHorizontal") > 0f && !_isButtonSelect && !_isWaitSelect) {
-            _isButtonSelect = true;
-            _isWaitSelect = true;
-            if (_situation == Situation.Every) {
-               
-                _soroButtonMethod.OnButtonClick();
-               
-            } 
-            else if (_situation == Situation.One) {
-                
-                _multiButtonMethod.OnButtonClick();
-               
+    void Update() { // 割り当てられたコントローラーの入力を処理
+        if (!string.IsNullOrEmpty(_nameJoyStick)) {
+            // 左スティックの水平入力を取得
+            float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
+            if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
+                _isButtonSelect = true;
+                _isWaitSelect = true;
+                if (_situation == Situation.Every) {
+
+                    _soroButtonMethod.OnButtonClick();
+
+                } else if (_situation == Situation.One) {
+
+                    _multiButtonMethod.OnButtonClick();
+
+                }
+
+
+            } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect) {
+
+                _isButtonSelect = true;
+                _isWaitSelect = true;
+                if (_situation == Situation.Every) {
+
+                    _soroButtonMethod.OnButtonClick();
+                } else if (_situation == Situation.One) {
+
+                    _multiButtonMethod.OnButtonClick();
+                }
+            } else if (horizontalInput == 0) {
+                _isButtonSelect = false;
             }
+            SwSituation();
 
+            if (Input.GetButtonDown(_playernumber+"pA") && !_isWaitSelect && !_isButtonSelect) {
+                if (_situation == Situation.One) {
+                    _selectCharacterScript.SITUATION(true);
+                    _selectCharacterScript.SummonSneak();
 
-        } 
-        else if (Input.GetAxis("1pLstickHorizontal") < 0 && !_isButtonSelect&&!_isWaitSelect) 
-        {
+                } else {
+                    _selectCharacterScript.SITUATION(false);
+                    _selectCharacterScript.SummonSneak();
+                }
 
-            _isButtonSelect = true;
-            _isWaitSelect = true;
-            if (_situation == Situation.Every) {
-                
-                _soroButtonMethod.OnButtonClick();
-            } else if (_situation == Situation.One) {
-                
-                _multiButtonMethod.OnButtonClick();
             }
-        } 
-        else if (Input.GetAxis("1pLstickHorizontal") == 0) 
-        {
-            _isButtonSelect = false;
         }
-        SwSituation();
-
-        if (Input.GetButtonDown("1pA") &&!_isWaitSelect&&!_isButtonSelect) {
-            if (_situation == Situation.One) {
-                _selectCharacterScript.SITUATION(true);
-                _selectCharacterScript.SummonSneak();
-
-            } else {
-                _selectCharacterScript.SITUATION(false);
-                _selectCharacterScript.SummonSneak();
-            }
-
-        }
+            
         SwSituation();
     }
 
