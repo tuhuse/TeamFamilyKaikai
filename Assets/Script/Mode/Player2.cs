@@ -115,7 +115,7 @@ public class Player2 : MonoBehaviour
         if (_isAlive && !_isFrogjump)//¶‚«‚Ä‚é‚É“®‚¯‚é‚æ‚¤‚É
         {
             //ˆÚ“®
-            if (Input.GetKey(KeyCode.LeftArrow)) {
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetAxis("2pLstickHorizontal") < 0) {
                 //”½‘Î‚ÉŒü‚©‚¹‚é
                 if (!_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = true;
@@ -141,7 +141,7 @@ public class Player2 : MonoBehaviour
                 }
 
             }
-            if (Input.GetKey(KeyCode.RightArrow) ) {
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetAxis("2pLstickHorizontal") < 0) {
                 //”½‘Î‚ÉŒü‚©‚¹‚é
                 if (_pridictionSpriterenderer.flipX) {
                     _pridictionSpriterenderer.flipX = false;
@@ -169,7 +169,7 @@ public class Player2 : MonoBehaviour
             //ƒWƒƒƒ“ƒv
 
 
-            if (Input.GetKeyDown(KeyCode.KeypadEnter)/* || Input.GetButtonDown("fire2")*/) {
+            if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetButtonDown("2pA")) {
 
 
                 if (_isJump) {
@@ -400,7 +400,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Beard() {
-        if (Input.GetKeyDown(KeyCode.Keypad0) ) {
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetButtonDown("2pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -414,7 +414,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Mucas() {
-        if (Input.GetKeyDown(KeyCode.Keypad0)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetButtonDown("2pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -428,7 +428,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Pridiction() {
-        if (Input.GetKeyDown(KeyCode.Keypad0)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetButtonDown("2pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -444,7 +444,7 @@ public class Player2 : MonoBehaviour
     }
 
     private void Water() {
-        if (Input.GetKeyDown(KeyCode.Keypad0)) {
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetButtonDown("2pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 
