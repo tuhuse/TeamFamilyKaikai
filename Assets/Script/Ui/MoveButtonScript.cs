@@ -20,7 +20,7 @@ public class MoveButtonScript : MonoBehaviour {
     private Vector3 _targetPosition;
     private float _jumpTimer;
     public int _playernumber;// プレイヤー番号（1から始まる）
-
+    [SerializeField] private ReadControll _read;
     [SerializeField] private GameObject _menuImage = default;
     private enum Situation {
         One,
@@ -41,52 +41,54 @@ public class MoveButtonScript : MonoBehaviour {
     }
 
     void Update() { // 割り当てられたコントローラーの入力を処理
-        //if (!string.IsNullOrEmpty(_nameJoyStick)) {
-            // 左スティックの水平入力を取得
-            float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
-            if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
-                _isButtonSelect = true;
-                _isWaitSelect = true;
-                if (_situation == Situation.Every) {
+                    //if (!string.IsNullOrEmpty(_nameJoyStick)) {
+                    // 左スティックの水平入力を取得
+        float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
+        if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
+            _isButtonSelect = true;
+            _isWaitSelect = true;
+            if (_situation == Situation.Every) {
 
-                    _soroButtonMethod.OnButtonClick();
+                _soroButtonMethod.OnButtonClick();
 
-                } else if (_situation == Situation.One) {
+            } else if (_situation == Situation.One) {
 
-                    _multiButtonMethod.OnButtonClick();
-
-                }
-
-
-            } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect) {
-
-                _isButtonSelect = true;
-                _isWaitSelect = true;
-                if (_situation == Situation.Every) {
-
-                    _soroButtonMethod.OnButtonClick();
-                } else if (_situation == Situation.One) {
-
-                    _multiButtonMethod.OnButtonClick();
-                }
-            } else if (horizontalInput == 0) {
-                _isButtonSelect = false;
-            }
-            SwSituation();
-
-            if (Input.GetButtonDown(_playernumber+"pA") && !_isWaitSelect && !_isButtonSelect) {
-                if (_situation == Situation.One) {
-                    _selectCharacterScript.SITUATION(true);
-                    _selectCharacterScript.SummonSneak();
-
-                } else {
-                    _selectCharacterScript.SITUATION(false);
-                    _selectCharacterScript.SummonSneak();
-                }
+                _multiButtonMethod.OnButtonClick();
 
             }
+
+
+        } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect) {
+
+            _isButtonSelect = true;
+            _isWaitSelect = true;
+            if (_situation == Situation.Every) {
+
+                _soroButtonMethod.OnButtonClick();
+            } else if (_situation == Situation.One) {
+
+                _multiButtonMethod.OnButtonClick();
+            }
+        } else if (horizontalInput == 0) {
+            _isButtonSelect = false;
+        }
+        SwSituation();
+
+        if (Input.GetButtonDown("Submit") && !_isWaitSelect && !_isButtonSelect) {
+            if (_situation == Situation.One) {
+                _selectCharacterScript.SITUATION(true);
+                _selectCharacterScript.SummonSneak();
+
+            } else {
+                _read.StartGame(2);
+                _selectCharacterScript.SITUATION(false);
+                _selectCharacterScript.SummonSneak();
+
+            }
+
+        }
         //}
-            
+
         SwSituation();
     }
 
@@ -114,25 +116,22 @@ public class MoveButtonScript : MonoBehaviour {
         }
 
     }
-    private IEnumerator Cool() 
-    {
+    private IEnumerator Cool() {
         yield return new WaitForSeconds(1f);
         _situation = Situation.Every;
         _isWaitSelect = false;
         ;
     }
-    private IEnumerator Cool2() 
-    {
+    private IEnumerator Cool2() {
         yield return new WaitForSeconds(1f);
         _situation = Situation.One;
         _isWaitSelect = false;
     }
 
     private void RightSpeed() {
-       
-        if (_isCurve) 
-        {
-            
+
+        if (_isCurve) {
+
             transform.rotation = Quaternion.Euler(0, 0, 0);
             _jumpTimer -= Time.deltaTime;
             // 放物線の運動
@@ -141,7 +140,7 @@ public class MoveButtonScript : MonoBehaviour {
             Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition + new Vector3(0, 70), t) + (Vector3.up * height);
             transform.position = newPosition;
             _isSelect = false;
-           
+
         }
         if (_jumpTimer <= 0f) {
             // 移動完了
@@ -151,11 +150,11 @@ public class MoveButtonScript : MonoBehaviour {
             _multiButtonMethod.Landing();
 
             _jumpTimer = _jumpDuration;
-            
+
         }
     }
     private void LeftSpeed() {
-        
+
         if (_isCurve) {
             transform.rotation = Quaternion.Euler(0, 180, 0);
             _jumpTimer -= Time.deltaTime;
@@ -165,7 +164,7 @@ public class MoveButtonScript : MonoBehaviour {
             Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition + new Vector3(0, 70), t) + (Vector3.up * height);
             transform.position = newPosition;
             _isSelect = false;
-           
+
         }
         if (_jumpTimer <= 0f) {
             // 移動完了
@@ -175,7 +174,7 @@ public class MoveButtonScript : MonoBehaviour {
             _soroButtonMethod.Landing();
 
             _jumpTimer = _jumpDuration;
-           
+
         }
     }
 }

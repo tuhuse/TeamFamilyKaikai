@@ -120,54 +120,59 @@ public class PlayercontrollerScript : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+        HandlePlayerInput(_playernumber);
+    }
+    void HandlePlayerInput(int playerNumber) {
+
+        string xbutton = _playernumber + "pA";
 
         if (_isAlive && !_isFrogjump)//生きてる時に動けるように
         {
             // 割り当てられたコントローラーの入力を処理
             //if (!string.IsNullOrEmpty(_nameJoyStick)) {
-                // 左スティックの水平入力を取得
-                float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
-                //移動
-                if (Input.GetKey(KeyCode.A) || horizontalInput < 0) {
-                    MoveLeftControll();
+            // 左スティックの水平入力を取得
+            float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
+            //移動
+            if (Input.GetKey(KeyCode.A) || horizontalInput < 0) {
+                MoveLeftControll();
+            }
+            if (Input.GetKey(KeyCode.D) || horizontalInput > 0) {
+                MoveRightControll();
+            }
+            //ジャンプ
+
+
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown(xbutton)) {
+
+                if (_isJump) {
+
+                    _isJump = false;
+
+                    _frogSE.PlayOneShot(_jumpSE);
+                    _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
                 }
-                if (Input.GetKey(KeyCode.D) || horizontalInput > 0) {
-                    MoveRightControll();
-                }
-                //ジャンプ
+            }
+            //アイテム取得後
 
+            //髭が出たら
+            if (_isBeardItem) {
+                Beard();
+            }
 
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown(_playernumber+"pA" )) {
+            //水が出たら
+            if (_isWaterItem) {
+                Water();
+            }
 
-                    if (_isJump) {
+            //無敵が出たら
+            if (_isPridictionItem) {
+                Pridiction();
+            }
 
-                        _isJump = false;
-
-                        _frogSE.PlayOneShot(_jumpSE);
-                        _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
-                    }
-                }
-                //アイテム取得後
-
-                //髭が出たら
-                if (_isBeardItem) {
-                    Beard();
-                }
-
-                //水が出たら
-                if (_isWaterItem) {
-                    Water();
-                }
-
-                //無敵が出たら
-                if (_isPridictionItem) {
-                    Pridiction();
-                }
-
-                //粘液が出たら
-                if (_isMucasItem) {
-                    Mucas();
-                }
+            //粘液が出たら
+            if (_isMucasItem) {
+                Mucas();
+            }
 
             //}
 
@@ -194,7 +199,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
         }
 
-        
+
     }
     private void MoveLeftControll() {
         //反対に向かせる

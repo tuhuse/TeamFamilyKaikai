@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class ReadControll : MonoBehaviour
 {
-    public GameObject _playerPrefab; // プレイヤープレハブをアサインする
-    public int _maxPlayers = 4; // 最大プレイヤー数
+  
+    private int _maxPlayers = 2;
+    private GameObject[] _players;
 
-    private string[] _joystickNames;
     // Start is called before the first frame update
     void Start()
     {
-        string[] joyStickName = Input.GetJoystickNames();
-        for (int number = 0; number < joyStickName.Length; number++) {
-            Debug.Log("Joysticks " + (number + 1) + "is " + joyStickName[number]);
-
-            if (number < _maxPlayers) {
-                CreatePlayer(number + 1); // プレイヤー番号は1から始める
-            }
+        _players = new GameObject[_maxPlayers];
+        for (int number = 0; number < _maxPlayers; number++) {
+            //Debug.Log("Joysticks " + (number + 1) + "is " + joyStickName[number]);
+            _players[number].SetActive(false);
+          
         }
     }
-    public void CreatePlayer(int playerNumber) {
-        GameObject newPlayer = Instantiate(_playerPrefab);
-        PlayercontrollerScript controller = newPlayer.GetComponent<PlayercontrollerScript>();
-        controller._playernumber = playerNumber; // プレイヤー番号を設定
+    public void StartGame(int playerCount) {
+        for (int i = 0; i < playerCount; i++) {
+            _players[i].SetActive(true);  // 選択したプレイヤー数に応じてアクティブにする
+            PlayercontrollerScript controller = _players[i].GetComponent<PlayercontrollerScript>();
+            controller._playernumber = i + 1; // プレイヤー番号を設定
+        }
     }
     // Update is called once per frame
     void Update()
