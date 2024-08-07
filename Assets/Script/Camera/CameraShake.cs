@@ -31,7 +31,6 @@ public class CameraShake : MonoBehaviour {
             _isShake = false;
             // U“®‚ªI—¹‚µ‚½‚çŒ³‚ÌˆÊ’u‚É–ß‚·
             transform.localPosition = _originalPosition;
-            _redColor.enabled = false;
         }
     }
 
