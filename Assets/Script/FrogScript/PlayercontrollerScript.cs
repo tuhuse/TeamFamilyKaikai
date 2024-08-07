@@ -43,8 +43,10 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private string _nameJoyStick = default;
 
-    public int _playernumber;// プレイヤー番号（1から始まる）
+    [SerializeField]private int _playernumber;// プレイヤー番号（1から始まる）
     private int _rank = default;
+    [SerializeField]
+    private int _joynumber;
 
     private float _downMultipl = 1f;　//障害物に当たった時の抵抗力
     private float _downSpeed;　//実際の減少するスピード
@@ -73,7 +75,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private SpriteRenderer _pridictionSpriterenderer = default;
     [SerializeField] private ItemSelects _itemSelectScript = default;
-
+   
 
     [SerializeField] AudioClip _jumpSE = default;
     [SerializeField] AudioClip _speeddownSE = default;
@@ -92,19 +94,15 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private Animator _pridictionFrogAnim;
     void Start() {
-        //string[] joyStickName = Input.GetJoystickNames();
-        //if (_playernumber <= joyStickName.Length && _playernumber > 0) {
-        //    _nameJoyStick = joyStickName[_playernumber - 1];
-        //    Debug.Log("Player " + _playernumber + " is assigned to " + _nameJoyStick);
-        //} else {
-        //    Debug.LogWarning("No joystick for Player " + _playernumber);
-        //}
-
+        
+     
         _frogSE = this.GetComponent<AudioSource>();
         _pridictionSpriterenderer = this.GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         StartCoroutine(StartWait());
         _pridictionFrogAnim = this.GetComponent<Animator>();
+       
+
     }
 
     private void FixedUpdate() {
@@ -131,7 +129,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             // 割り当てられたコントローラーの入力を処理
             //if (!string.IsNullOrEmpty(_nameJoyStick)) {
             // 左スティックの水平入力を取得
-            float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
+            float horizontalInput = Input.GetAxis(_joynumber + "pLstickHorizontal");
             //移動
             if (Input.GetKey(KeyCode.A) || horizontalInput < 0) {
                 MoveLeftControll();
@@ -213,7 +211,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             _downEffect.gameObject.SetActive(false);
             _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
-            Debug.Log("Player " + _playernumber + " moved left using " + _nameJoyStick);
+            Debug.Log("Player" + _playernumber + " moved left using " + _nameJoyStick);
         }
 
         //スピードダウンした時
@@ -430,7 +428,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private void Beard() {
 
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_playernumber+"pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber+"pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -444,7 +442,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Mucas() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_playernumber + "pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -458,7 +456,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Pridiction() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_playernumber + "pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -474,7 +472,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Water() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_playernumber + "pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pLB")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 

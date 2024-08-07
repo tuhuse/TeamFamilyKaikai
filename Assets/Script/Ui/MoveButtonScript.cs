@@ -20,7 +20,7 @@ public class MoveButtonScript : MonoBehaviour {
     private Vector3 _targetPosition;
     private float _jumpTimer;
     public int _playernumber;// プレイヤー番号（1から始まる）
-    [SerializeField] private ReadControll _read;
+    //[SerializeField] private ReadControll _read;
     [SerializeField] private GameObject _menuImage = default;
     private enum Situation {
         One,
@@ -43,7 +43,7 @@ public class MoveButtonScript : MonoBehaviour {
     void Update() { // 割り当てられたコントローラーの入力を処理
                     //if (!string.IsNullOrEmpty(_nameJoyStick)) {
                     // 左スティックの水平入力を取得
-        float horizontalInput = Input.GetAxis(_playernumber + "pLstickHorizontal");
+        float horizontalInput = Input.GetAxis("1pLstickHorizontal");
         if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
             _isButtonSelect = true;
             _isWaitSelect = true;
@@ -74,13 +74,13 @@ public class MoveButtonScript : MonoBehaviour {
         }
         SwSituation();
 
-        if (Input.GetButtonDown("Submit") && !_isWaitSelect && !_isButtonSelect) {
+        if (Input.GetButtonDown("1pA") && !_isWaitSelect && !_isButtonSelect) {
             if (_situation == Situation.One) {
                 _selectCharacterScript.SITUATION(true);
                 _selectCharacterScript.SummonSneak();
 
             } else {
-                _read.StartGame(2);
+                //_read.StartGame(2);
                 _selectCharacterScript.SITUATION(false);
                 _selectCharacterScript.SummonSneak();
 

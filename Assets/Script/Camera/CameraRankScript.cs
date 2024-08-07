@@ -50,8 +50,7 @@ public class CameraRankScript : MonoBehaviour
     private const float CAMERAYMOVE = 0.05f;
     private const float MAXCAMERAYMOVE = 5f;
 
-    private const int PLAYERLAYER = 12;
-    private const int SECONDPLAYERLAYER = 13;
+   private string _playerTag = "Player" ;
 
     [SerializeField] private StageRoopManFixed _stageRoopManage;
     [SerializeField] private CommentScript _commentText = default;
@@ -78,13 +77,13 @@ public class CameraRankScript : MonoBehaviour
 
 
                 //プレイヤーが一位だったら
-                if (_ranking[ORIGINFIRST].gameObject.layer==PLAYERLAYER)
+                if (_ranking[ORIGINFIRST].gameObject.CompareTag(_playerTag))
                 {
                     //プレイヤーを２位に下げる
                     _ranking[ORIGINFIRST].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }
                 //プレイヤーが２位だったら
-                else if (_ranking[ORIGINSECOND].gameObject.layer==PLAYERLAYER) 
+                else if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) 
                 {
                     //プレイヤーを１位に上げる
                     _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(FIRST);
@@ -124,13 +123,13 @@ public class CameraRankScript : MonoBehaviour
 
 
                 //プレイヤーが二位だったら
-                if (_ranking[ORIGINSECOND].gameObject.layer == PLAYERLAYER) 
+                if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) 
                 {
                     //プレイヤーを３位に下げる
                    _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                 }
                 //プレイヤーが3位だったら
-                else if (_ranking[ORIGINTHIRD].gameObject.layer == PLAYERLAYER) 
+                else if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) 
                 {
                     //プレイヤーを２位に上げる
                    _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
@@ -165,13 +164,13 @@ public class CameraRankScript : MonoBehaviour
 
 
                 //プレイヤーが３位だったら
-                if (_ranking[ORIGINTHIRD].gameObject.layer==PLAYERLAYER)
+                if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag))
                 {
                     //プレイヤーを４位に下げる
                     _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
                 }
                 //プレイヤーが４位だったら
-                else if (_ranking[ORIGINFORTH].gameObject.layer==PLAYERLAYER) 
+                else if (_ranking[ORIGINFORTH].gameObject.CompareTag(_playerTag)) 
                 {
                     //プレイヤーを３位に上げる
                    _ranking[ORIGINFORTH].GetComponent<PlayercontrollerScript>().RankChange(THIRD);

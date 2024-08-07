@@ -15,6 +15,9 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
     private float _tongueScaleY = default;
 
+    [SerializeField]
+    private int _joynumber;
+
     private const float TIMEDELTATIME = 1000f;
     private const float PLUSSCALESPEEDY = 0.15f;
     private const float FAILEDTONGUECATCH = 1f;
@@ -72,8 +75,8 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
 
         if (_player.gameObject != null) {
-            if (_player.gameObject.layer == 12) {
-                if (Input.GetButtonDown("1pRB")) {
+            
+                if (Input.GetButtonDown(_joynumber+"pRB")) {
                     //ベロを伸ばし始める
                     if (!_isAttack) {
                         _isAttack = true;
@@ -82,7 +85,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
                     }
 
                 }
-            } 
+             
             //else if (_player.gameObject.layer == 13) {
             //    if (Input.GetButtonDown("2pRB")) {
             //        //ベロを伸ばし始める
