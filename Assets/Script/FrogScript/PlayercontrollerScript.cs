@@ -428,7 +428,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private void Beard() {
 
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber+"pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber+"pX")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -442,7 +442,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Mucas() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -456,7 +456,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Pridiction() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -472,7 +472,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Water() {
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pLB")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 
