@@ -105,7 +105,7 @@ public class ClearMan : MonoBehaviour {
                 break;
             case 4:
 
-                _gameClearUI.GetComponent<Canvas>().enabled = true;
+                _gameClearUI.SetActive(true);
                 _joyStickGameClear.enabled = true;
 
 
