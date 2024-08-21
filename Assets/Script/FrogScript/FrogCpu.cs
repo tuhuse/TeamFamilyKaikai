@@ -42,7 +42,7 @@ public class FrogCpu : MonoBehaviour {
     private bool _isMucusAbility = false;
     private bool _isBeardAbility = false;
     private bool _isJump;
-    private bool _isAlive;
+   [SerializeField] private bool _isAlive;
     private bool _isPridictionAbility = false;
     private bool _isPridictionStart = true;
     private bool _isMucus = false;
@@ -155,7 +155,7 @@ public class FrogCpu : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
-
+        
         //プレイヤーとの距離
         float distancetoplayer =
             Vector3.Distance(this.transform.position, _player.transform.position);
@@ -469,9 +469,7 @@ public class FrogCpu : MonoBehaviour {
             }
         }
 
-        if (collision.gameObject.CompareTag("edge")) {
-            _isAlive = false;//壁端でジャンプしないようにするやつ
-        }
+      
         if (collision.gameObject.CompareTag("Enemy")) {
             if (_isPridictionAbility) {
                 {

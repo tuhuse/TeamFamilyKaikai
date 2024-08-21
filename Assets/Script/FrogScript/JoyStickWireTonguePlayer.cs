@@ -26,7 +26,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
     private const float TONGUESCALEX = 3f;
     private const float TONGUESCALEY = 0.01f;
     private const float MAXTANGUEEXTENSION = 10f;
-
+    [SerializeField] private TongueGageScript _aqua;
     [Header("Player")] [SerializeField] private GameObject _player = default;
 
     private Rigidbody2D _playerRB = default;
@@ -79,6 +79,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
                 if (Input.GetButtonDown(_joynumber+"pRB")) {
                     //ÉxÉçÇêLÇŒÇµénÇﬂÇÈ
                     if (!_isAttack) {
+                    _aqua.TongueUIStartCooldown();
                         _isAttack = true;
                         _isExtension = true;
                         _underAttack = true;
@@ -159,6 +160,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
     private IEnumerator Success() {
         yield return new WaitForSeconds(SUCCESSTONGUECATCH);
+        _aqua.TongueUIStopCooldown();
         _isAttack = false;
         _isJustOnes = false;
         _isFrogCatch = false;
