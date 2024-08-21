@@ -11,7 +11,7 @@ public class ExitButton : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
    public void Onclick() 
    {
 
-        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了（ビルドするとき削除しなきゃエラー出る）
+        //UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了（ビルドするとき削除しなきゃエラー出る）
         Application.Quit();//ゲームプレイ終了
     }
     public void OnPointerEnter(PointerEventData eventData) {
