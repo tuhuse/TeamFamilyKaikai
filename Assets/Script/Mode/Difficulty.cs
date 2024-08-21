@@ -13,7 +13,7 @@ public class Difficulty : MonoBehaviour
     Nomal,
     Hard
     }
-    [SerializeField] private Mode[] _modes = default;
+    private Mode _modes = default;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +23,14 @@ public class Difficulty : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
-    private void OnClick() {
+    public void OnClick() {
         Switch();
     }
-    private void Switch() {
-        foreach (Mode mode in _modes) {
-            switch (mode) {
+    public void Switch() {
+  
+            switch (_modes) {
                 case Mode.Easy:
                     // EasyÉÇÅ[ÉhÇÃèàóù
                     _cpunumber = 1;
@@ -45,7 +45,16 @@ public class Difficulty : MonoBehaviour
                     break;
                 
             }
-        }
+        
+    }
+    public void EasyMode() {
+      _modes = Mode.Easy;
+    }
+    public void NoramlMode() {
+        _modes = Mode.Nomal;
+    }
+    public void HardMode() {
+        _modes = Mode.Hard;
     }
 }
 
