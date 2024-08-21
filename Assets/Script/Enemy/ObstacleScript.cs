@@ -14,7 +14,11 @@ public class ObstacleScript : MonoBehaviour
         if (collision.gameObject.layer == 12)
         {
             collision.gameObject.GetComponent<PlayercontrollerScript>().ObstacleCollision(_speedDown);
-        } 
+        } //プレイヤー用
+        //if (collision.gameObject.layer == 13)
+        //{
+        //    collision.gameObject.GetComponent<PlayercontrollerScript>().ObstacleCollision(_speedDown);
+        //} 
        
         //CPU用
         if (collision.gameObject.layer == 14)//Mucusflog用

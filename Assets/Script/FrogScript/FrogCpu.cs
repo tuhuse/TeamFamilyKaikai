@@ -85,7 +85,7 @@ public class FrogCpu : MonoBehaviour {
     //プレイヤーとの距離の定数
     private const float DISTANCEPLAYER = 70f;
     //髭カエルの攻撃を受けた時のプレイヤーの速さ
-    private const float SPEEDMIN = 70f;
+    private const float SPEEDMIN = 60f;
     //プレイヤーの通常の速さ
     private const float MOVESPEED = 100f;
     private const float MOVEJUMPMAX = 200f;

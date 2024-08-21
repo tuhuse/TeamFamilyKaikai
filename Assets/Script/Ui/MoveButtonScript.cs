@@ -19,7 +19,7 @@ public class MoveButtonScript : MonoBehaviour {
     private Vector3 _startPosition;
     private Vector3 _targetPosition;
     private float _jumpTimer;
-    public int _playernumber;// プレイヤー番号（1から始まる）
+   
     //[SerializeField] private ReadControll _read;
     [SerializeField] private GameObject _menuImage = default;
     private enum Situation {

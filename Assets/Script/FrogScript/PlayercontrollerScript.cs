@@ -61,7 +61,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private const float MOVESPEED = 100f;//プレイヤーのスピードの基準
     private const float JUMPMIN = 10f;//粘液踏んだ時のジャンプ力
     private const float JUMPMAX = 200f;
-    private const float SPEEDMIN = 80f;
+    private const float SPEEDMIN = 60f;
     private const float SPEEDRESETWAITTIME = 3f; //スピードアップしている時間
     private const float INVINCIBLETIME = 5f; //無敵時間
 
