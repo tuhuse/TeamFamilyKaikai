@@ -20,7 +20,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
     private const float TIMEDELTATIME = 1000f;
     private const float PLUSSCALESPEEDY = 0.15f;
-    private const float FAILEDTONGUECATCH = 1f;
+    private const float FAILEDTONGUECATCH = 8f;
     private const float SUCCESSTONGUECATCH = 8f;
 
     private const float TONGUESCALEX = 3f;
@@ -80,7 +80,8 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
                     //ÉxÉçÇêLÇŒÇµénÇﬂÇÈ
                     if (!_isAttack) {
                     _aqua.TongueUIStartCooldown();
-                        _isAttack = true;
+                    _aqua.TongueCoolDownFloat(SUCCESSTONGUECATCH);
+                    _isAttack = true;
                         _isExtension = true;
                         _underAttack = true;
                     }
@@ -153,13 +154,15 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
     private IEnumerator Failed() {
         yield return new WaitForSeconds(FAILEDTONGUECATCH);
+        _aqua.TongueUIStopCooldown();
         _isAttack = false;
         _isJustOnes = false;
-
+        
     }
 
     private IEnumerator Success() {
         yield return new WaitForSeconds(SUCCESSTONGUECATCH);
+        
         _aqua.TongueUIStopCooldown();
         _isAttack = false;
         _isJustOnes = false;

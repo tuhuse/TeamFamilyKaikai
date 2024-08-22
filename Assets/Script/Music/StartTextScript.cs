@@ -14,7 +14,7 @@ public class StartTextScript : MonoBehaviour
     [SerializeField]
     private CountDowntext _count;
     [SerializeField] CommentScript _commentScript = default;
-
+    [SerializeField] private StageRoopManFixed _stage;
     // Start is called before the first frame update
 
     private void Start() 
@@ -26,6 +26,7 @@ public class StartTextScript : MonoBehaviour
         _count._bgm.Play();
         //_audioSource[0].PlayOneShot(_audio[0]);
         _commentScript.CommentChange("さあ、だい" + Random.Range(1, 101) + "かい、カエルデスゲームがスタート！！！", true);
+        _stage.ReadyGo(true);
     }
     private void Update() 
     {

@@ -182,8 +182,11 @@ public class StageRoopManFixed : MonoBehaviour {
         _hurryUpText.SetActive(false);
         _count._bgm.pitch = 1.4f;
     }
-    public void ReadyGo() {
-        _isReadyGo = true;
+    public void ReadyGo(bool isGo) {
+        if (isGo) {
+            _isReadyGo = true;
+        }
+        
     }
 
     public void FirstChange(GameObject newFarstFrog) 
