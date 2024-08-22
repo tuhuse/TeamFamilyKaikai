@@ -8,6 +8,7 @@ public class GameOverMan : MonoBehaviour {
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private float _cameraSizeAdjust = default;
     [SerializeField] private float _cameraRimit = default;
+    [SerializeField] private GameObject _outLine = default;
    
     private List<GameObject> _frogs = new List<GameObject>();
     private List<Rigidbody2D> _frogsrb2d = new List<Rigidbody2D>();
@@ -59,7 +60,7 @@ public class GameOverMan : MonoBehaviour {
                 foreach (GameObject arrayPlayer in _players) {
                     //—‰º‚à‚µ‚­‚Í‰æ–Ê’[‚É‚Ô‚Â‚©‚é‚Æ”z—ñ‚©‚çíœ
                     if (arrayPlayer.transform.position.y < _playerFallMin ||
-                                arrayPlayer.transform.position.x < _camera.transform.position.x - _cameraRimit) {
+                                arrayPlayer.transform.position.x < _outLine.transform.position.x) {
                         _players.Remove(arrayPlayer);
                         arrayPlayer.SetActive(false);
                         _switchNumber = 0;
