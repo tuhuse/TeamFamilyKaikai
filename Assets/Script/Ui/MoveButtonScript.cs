@@ -11,6 +11,7 @@ public class MoveButtonScript : MonoBehaviour {
     [SerializeField] private ButtonMethod _soroButtonMethod;
     [SerializeField] private SelectCharacter _selectCharacterScript = default;
     [SerializeField] private List<GameObject> _difficultButton = new List<GameObject>();
+    [SerializeField] private Difficulty _difficulty;
     private float _buttonMethodY;
     private bool _isCurve;
     private bool _isSelect = true;
@@ -25,6 +26,11 @@ public class MoveButtonScript : MonoBehaviour {
     private Image _image;
     private Color _color;
     private bool _isButtonMove = false;
+    private bool _isFrogMove = true;//動かないときfalse
+    private bool _one = false;
+    private bool _everyone;
+    private bool _difficult = false;
+    
     //[SerializeField] private ReadControll _read;
     [SerializeField] private GameObject _menuImage = default;
     private enum Situation {
@@ -53,13 +59,31 @@ public class MoveButtonScript : MonoBehaviour {
 
 
         #region コントローラーの難易度セレクト
-        
-
-        if (Input.GetAxis("L_Stick_Vartical") == 0){
-        _isButtonMove = false;
+        float controllerStick = Input.GetAxis("L_Stick_Vartical") * -1;
+        if (_selectDefficultButton == 0) {
+            _difficulty.DiffcultyNumber(0);
+        }
+        if (_selectDefficultButton == 1) {
+            _difficulty.DiffcultyNumber(1);
+        }
+        if (_selectDefficultButton == 2) {
+            _difficulty.DiffcultyNumber(2);
         }
 
-        if (Input.GetAxis("L_Stick_Vartical") > 0 && !_isButtonMove) {
+        if (controllerStick == 0){
+        _isButtonMove = false;
+        }
+        if (Input.GetButtonDown("Fire1") && !_isFrogMove&&_one) {
+            _difficultButton[0].SetActive(false);
+            _difficultButton[1].SetActive(false);
+            _difficultButton[2].SetActive(false);
+            _difficulty.Selecet(false);
+            _isFrogMove = true;
+        }
+
+        if (controllerStick < 0 && !_isButtonMove) //下に行く
+         {
+            
             _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
             _selectDefficultButton++;
             if (_difficultButton.Count <= _selectDefficultButton) 
@@ -74,64 +98,78 @@ public class MoveButtonScript : MonoBehaviour {
            
         }
 
-        if (Input.GetAxis("L_Stick_Vartical") < 0 && !_isButtonMove) {
+        if (controllerStick > 0 && !_isButtonMove) //上に行く
+        {
+
             _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
             _selectDefficultButton--;
 
-            print(_selectDefficultButton);
+            //print(_selectDefficultButton);
 
-            if (0 < _selectDefficultButton) 
+            if (0 > _selectDefficultButton) 
             {
                 
-                _selectDefficultButton = _difficultButton.Count;
+                _selectDefficultButton = _difficultButton.Count -1;
             }
             _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             _isButtonMove = true;
         }
+       
         #endregion
-        float horizontalInput = Input.GetAxis("1pLstickHorizontal");
-        if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
-            _isButtonSelect = true;
-            _isWaitSelect = true;
-            if (_situation == Situation.Every) {
 
-                _soroButtonMethod.OnButtonClick();
+        if (_isFrogMove) {
+            float horizontalInput = Input.GetAxis("1pLstickHorizontal");
+            if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
+                _isButtonSelect = true;
+                _isWaitSelect = true;
+                if (_situation == Situation.Every) {
 
-            } else if (_situation == Situation.One) {
+                    _soroButtonMethod.OnButtonClick();
 
-                _multiButtonMethod.OnButtonClick();
+                } else if (_situation == Situation.One) {
 
+                    _multiButtonMethod.OnButtonClick();
+
+                }
+
+
+            } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect) {
+
+                _isButtonSelect = true;
+                _isWaitSelect = true;
+                if (_situation == Situation.Every) {
+
+                    _soroButtonMethod.OnButtonClick();
+                } else if (_situation == Situation.One) {
+
+                    _multiButtonMethod.OnButtonClick();
+                }
+            } else if (horizontalInput == 0) {
+                _isButtonSelect = false;
             }
-
-
-        } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect) {
-
-            _isButtonSelect = true;
-            _isWaitSelect = true;
-            if (_situation == Situation.Every) {
-
-                _soroButtonMethod.OnButtonClick();
-            } else if (_situation == Situation.One) {
-
-                _multiButtonMethod.OnButtonClick();
-            }
-        } else if (horizontalInput == 0) {
-            _isButtonSelect = false;
         }
+      
         SwSituation();
-
+        
         if (Input.GetButtonDown("1pA") && !_isWaitSelect && !_isButtonSelect) {
-            if (_situation == Situation.One) {
+            if (_situation == Situation.One) {//一人で
+                _isFrogMove = false;
                 _selectCharacterScript.SITUATION(true);
-                //_selectCharacterScript.SummonSneak();
+                _one = true;
+                _difficulty.Selecet(true);
                 _difficultButton[0].SetActive(true);
                 _difficultButton[1].SetActive(true);
                 _difficultButton[2].SetActive(true);
 
-            } else {
+            } else {//みんなで
                 //_read.StartGame(2);
-                _selectCharacterScript.SITUATION(false);
-                _selectCharacterScript.SummonSneak();
+                _difficulty.Selecet(true);
+                _isFrogMove = false;
+                _difficultButton[0].SetActive(true);
+                _difficultButton[1].SetActive(true);
+                _difficultButton[2].SetActive(true);
+
+                //_selectCharacterScript.SummonSneak();
 
             }
 
@@ -225,5 +263,8 @@ public class MoveButtonScript : MonoBehaviour {
             _jumpTimer = _jumpDuration;
 
         }
+    }
+    public void DifficultButton() {
+        _difficult = true;
     }
 }

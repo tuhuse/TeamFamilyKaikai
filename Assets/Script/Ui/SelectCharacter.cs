@@ -28,7 +28,9 @@ public class SelectCharacter : MonoBehaviour
     [SerializeField] CameraRankScript _cameraScript = default;
     private enum Sitiuation {
     One,
-    Every
+    Two,
+    Three,
+    Four
     }
     private Sitiuation _sitiuation=default;
     ////[SerializeField] private GameObject[] _flogButtons; f
@@ -70,7 +72,20 @@ public class SelectCharacter : MonoBehaviour
         _menu.SetActive(false);
         _stage.SetActive(true);
     }
-
+    public void Humans(int humans) {
+        switch (humans) {
+           
+            case 1:
+                _sitiuation = Sitiuation.Two;
+                break;
+            case 2:
+                _sitiuation = Sitiuation.Three;
+                break;
+            case 3:
+                _sitiuation = Sitiuation.Four;
+                break;
+        }
+    }
     private IEnumerator FrogInstantiate() {
         
         yield return new WaitForSeconds(0.1f);
@@ -110,7 +125,82 @@ public class SelectCharacter : MonoBehaviour
                 _cameraScript.SceneStart();
 
                 break;
-            case Sitiuation.Every:
+            case Sitiuation.Two:
+                _audiomanager.PlayAudio(3);
+                
+                    _frog[0].SetActive(true);
+                
+                    _clearManScript.InFrogs(_frog[0]);
+                    _gameoverManScript.InFrogs(_frog[0]);
+                    _player = _frog[0];
+
+                    _frog[4].SetActive(true);
+                _cameraScript.SecondPlayerOn(_frog[4]);
+
+                    _gameoverManScript.InFrogs(_frog[4]);
+                    _clearManScript.InFrogs(_frog[4]);
+                    _player = _frog[4];
+
+
+                Destroy(_frog[1].GetComponent<FrogCpu>());
+                _frog[1].GetComponent<FrogCpuMulti>().enabled = true;
+                _frog[1].SetActive(true);             
+                    _gameoverManScript.InFrogs(_frog[1]);
+                    _clearManScript.InFrogs(_frog[1]);
+                    _cpu = _frog[1];
+
+                    _pauseManager.SetActive(true);
+                    _pauseManager.SetActive(true);
+
+                Destroy(_frog[2].GetComponent<FrogCpu>());
+                _frog[2].GetComponent<FrogCpuMulti>().enabled = true;
+                _frog[2].SetActive(true);
+              
+                _gameoverManScript.InFrogs(_frog[2]);
+                    _clearManScript.InFrogs(_frog[2]);
+                    _cpu = _frog[2];
+
+                _cameraScript.SceneStart();
+              
+                break;  case Sitiuation.Three:
+                _audiomanager.PlayAudio(3);
+                
+                    _frog[0].SetActive(true);
+                
+                    _clearManScript.InFrogs(_frog[0]);
+                    _gameoverManScript.InFrogs(_frog[0]);
+                    _player = _frog[0];
+
+                    _frog[4].SetActive(true);
+                _cameraScript.SecondPlayerOn(_frog[4]);
+
+                    _gameoverManScript.InFrogs(_frog[4]);
+                    _clearManScript.InFrogs(_frog[4]);
+                    _player = _frog[4];
+
+
+                Destroy(_frog[1].GetComponent<FrogCpu>());
+                _frog[1].GetComponent<FrogCpuMulti>().enabled = true;
+                _frog[1].SetActive(true);             
+                    _gameoverManScript.InFrogs(_frog[1]);
+                    _clearManScript.InFrogs(_frog[1]);
+                    _cpu = _frog[1];
+
+                    _pauseManager.SetActive(true);
+                    _pauseManager.SetActive(true);
+
+                Destroy(_frog[2].GetComponent<FrogCpu>());
+                _frog[2].GetComponent<FrogCpuMulti>().enabled = true;
+                _frog[2].SetActive(true);
+              
+                _gameoverManScript.InFrogs(_frog[2]);
+                    _clearManScript.InFrogs(_frog[2]);
+                    _cpu = _frog[2];
+
+                _cameraScript.SceneStart();
+              
+                break;  
+            case Sitiuation.Four:
                 _audiomanager.PlayAudio(3);
                 
                     _frog[0].SetActive(true);
@@ -156,8 +246,6 @@ public class SelectCharacter : MonoBehaviour
     public void SITUATION(bool situation) {
         if (situation) {
             _sitiuation = Sitiuation.One;
-        } else {
-            _sitiuation = Sitiuation.Every;
-        }
+        } 
     }
 }
