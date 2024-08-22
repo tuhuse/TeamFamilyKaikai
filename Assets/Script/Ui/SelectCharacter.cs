@@ -247,5 +247,8 @@ public class SelectCharacter : MonoBehaviour
         if (situation) {
             _sitiuation = Sitiuation.One;
         } 
+        else {
+            _sitiuation = default;
+        }
     }
 }

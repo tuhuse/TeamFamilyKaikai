@@ -31,8 +31,19 @@ public class Difficulty : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-       
-       
+        if (_select) {
+            if (Input.GetButtonDown("1pA") && _judges == Judges.One) {
+                Switch();
+                _selectCharacterScript.SummonSneak();
+
+            } else if(Input.GetButtonDown("1pA") && _judges == Judges.EveryOne) {
+                Switch();
+                _human.Selecet(true);
+                _human.SelectNumberPeople(true);
+                Selecet(false);
+                
+            }
+        } 
     }
     public void OnClick() {
         Switch();
@@ -56,15 +67,7 @@ public class Difficulty : MonoBehaviour
             }
         
     }
-    //public void EasyMode() {
-    //  _modes = Mode.Easy;
-    //}
-    //public void NoramlMode() {
-    //    _modes = Mode.Nomal;
-    //}
-    //public void HardMode() {
-    //    _modes = Mode.Hard;
-    //}
+  
     public void DiffcultyNumber(int number) {
         if (number == 0) {
             _modes = Mode.Easy;
@@ -76,29 +79,17 @@ public class Difficulty : MonoBehaviour
     }
     public void Selecet(bool on) {
         if (on) {
-
             StartCoroutine(Sine());
         } else {
             _select = false;
+          
         }
-        if (_select) {
-            if (Input.GetButtonDown("1pA")) {
-                if (_judges == Judges.One) {
-                    Switch();
-                    _selectCharacterScript.SummonSneak();
-                } else {
-                    _human.Selecet(true);
-                    _human.SelectNumberPeople();
-                    
-                }
-               
-               
-            }
-        }
+        
     }
     private IEnumerator Sine() {
-        
-        yield return new WaitForSeconds(0.01f);
+        _human.SelectNumberPeople(false);
+        yield return new WaitForSeconds(1f);
+        _move.Diffculty(true);
         _select = true;
     }
     public void JudgeHumanPeople(int judge) {
@@ -108,5 +99,6 @@ public class Difficulty : MonoBehaviour
             _judges = Judges.EveryOne;
         }
     }
+    
 }
 

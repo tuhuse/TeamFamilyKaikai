@@ -26,11 +26,13 @@ public class MoveButtonScript : MonoBehaviour {
     private Image _image;
     private Color _color;
     private bool _isButtonMove = false;
-    private bool _isFrogMove = true;//動かないときfalse
+    public bool _isFrogMove = true;//動かないときfalse
     private bool _one = false;
-    private bool _everyone;
+    public bool _everyone;
     private bool _difficult = false;
-    
+   public bool _next = false;
+
+    private bool _nexts = false;
     //[SerializeField] private ReadControll _read;
     [SerializeField] private GameObject _menuImage = default;
     private enum Situation {
@@ -73,15 +75,15 @@ public class MoveButtonScript : MonoBehaviour {
         if (controllerStick == 0){
         _isButtonMove = false;
         }
-        if (Input.GetButtonDown("Fire1") && !_isFrogMove&&_one) {
-            _difficultButton[0].SetActive(false);
-            _difficultButton[1].SetActive(false);
-            _difficultButton[2].SetActive(false);
+        if ((Input.GetButtonDown("Fire1") && !_isFrogMove)){
+            Diffculty(false);
             _difficulty.Selecet(false);
             _isFrogMove = true;
+            _selectCharacterScript.SITUATION(false);
+            _nexts = false;
         }
 
-        if (controllerStick < 0 && !_isButtonMove) //下に行く
+        if (controllerStick < 0 && !_isButtonMove&&!_next) //下に行く
          {
             
             _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
@@ -98,7 +100,7 @@ public class MoveButtonScript : MonoBehaviour {
            
         }
 
-        if (controllerStick > 0 && !_isButtonMove) //上に行く
+        if (controllerStick > 0 && !_isButtonMove && !_next) //上に行く
         {
 
             _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
@@ -151,23 +153,23 @@ public class MoveButtonScript : MonoBehaviour {
       
         SwSituation();
         
-        if (Input.GetButtonDown("1pA") && !_isWaitSelect && !_isButtonSelect) {
+        if (Input.GetButtonDown("1pA") && !_isWaitSelect && !_isButtonSelect&&!_nexts) {
             if (_situation == Situation.One) {//一人で
                 _isFrogMove = false;
                 _selectCharacterScript.SITUATION(true);
-                _one = true;
+                _nexts = true;
                 _difficulty.Selecet(true);
-                _difficultButton[0].SetActive(true);
-                _difficultButton[1].SetActive(true);
-                _difficultButton[2].SetActive(true);
+                Diffculty(true);
+                _difficulty.JudgeHumanPeople(0);
 
             } else {//みんなで
                 //_read.StartGame(2);
                 _difficulty.Selecet(true);
                 _isFrogMove = false;
-                _difficultButton[0].SetActive(true);
-                _difficultButton[1].SetActive(true);
-                _difficultButton[2].SetActive(true);
+                _nexts = true;
+                Diffculty(true);
+                _difficulty.JudgeHumanPeople(1);
+                
 
                 //_selectCharacterScript.SummonSneak();
 
@@ -178,7 +180,17 @@ public class MoveButtonScript : MonoBehaviour {
 
         SwSituation();
     }
-
+    public void Diffculty(bool returns) {
+        if (returns) {
+            _difficultButton[0].SetActive(true);
+            _difficultButton[1].SetActive(true);
+            _difficultButton[2].SetActive(true);
+        } else {
+            _difficultButton[0].SetActive(false);
+            _difficultButton[1].SetActive(false);
+            _difficultButton[2].SetActive(false);
+        }
+    }
     public void JumpToPosition(Vector3 target) {
         if (_isSelect) {
             _startPosition = transform.position;
