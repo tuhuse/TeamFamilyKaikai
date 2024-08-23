@@ -7,9 +7,10 @@ public class HumanPeople : MonoBehaviour {
     [SerializeField] private List<GameObject> _frogsButton=new List<GameObject>();
     [SerializeField] private SelectCharacter _selectCharacterScript = default;
     [SerializeField] private MoveButtonScript _move;
+    [SerializeField] private Difficulty _difficulty;
     private int _humanPeople = default;
     private bool _isMoveButton = false;
-    [SerializeField]private Difficulty _difficulty;
+    
     private enum Human {
        Two,
        Three,
@@ -18,6 +19,7 @@ public class HumanPeople : MonoBehaviour {
     private Human _humans = default;
     private bool _select = false;
     private Image _image;
+    
     // Start is called before the first frame update
     void Start() {
 
@@ -26,13 +28,12 @@ public class HumanPeople : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         
-        print(_humanPeople);
+     
         if (_select) {
             if (Input.GetButtonDown("Fire1")) {
-
-                _move.Diffculty(true);
-                SelectNumberPeople(false);
-                _difficulty.Selecet(true);
+                
+                SelectNumberPeople(false);                             
+                _move._next = false;
                 Selecet(false);
 
             }
@@ -67,10 +68,24 @@ public class HumanPeople : MonoBehaviour {
 
             }
             HumanSwitch();
-            if (Input.GetButtonDown("1pA")) {
-                Switch();
-                _selectCharacterScript.SummonSneak();
+            if (Input.GetButtonDown("1pA") ) {
+                if (_humans == Human.Four) {
+                    Switch();
+                    SelectNumberPeople(false);
+                    _selectCharacterScript.SummonSneak();
+                    Selecet(false);
+
+
+                } else {
+                    Switch();
+                    _difficulty.Selecet(true);
+                    _difficulty.Diffculty(true);
+                    SelectNumberPeople(false);
+                    Selecet(false);
+                }
+               
             }
+
         }
 
     }
@@ -111,7 +126,7 @@ public class HumanPeople : MonoBehaviour {
   
     public void Selecet(bool on) {
         if (on) {
-            StartCoroutine(Sine());
+            StartCoroutine(Boot());
         } 
         else {
             _select = false;
@@ -119,21 +134,21 @@ public class HumanPeople : MonoBehaviour {
         
           
     }
-    private IEnumerator Sine() {
-        _move.Diffculty(false);
+    
+    private IEnumerator Boot() {
+        
         yield return new WaitForSeconds(0.1f);
         _select = true;
     }
     public void SelectNumberPeople(bool buttonActive) {
         if (buttonActive) {
-            _move._next = true;
             
             _frogsButton[0].SetActive(true);
             _frogsButton[1].SetActive(true);
             _frogsButton[2].SetActive(true);
         } else {
             
-            _move._next = false;
+           
             _frogsButton[0].SetActive(false);
             _frogsButton[1].SetActive(false);
             _frogsButton[2].SetActive(false);

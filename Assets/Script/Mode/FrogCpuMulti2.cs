@@ -4,7 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FrogCpuMulti : MonoBehaviour {
+public class FrogCpuMulti2 : MonoBehaviour {
 
     private Vector3 _anotherPosition = default;
     [SerializeField] private GameObject _cpuPosition = default;
@@ -27,7 +27,7 @@ public class FrogCpuMulti : MonoBehaviour {
     [SerializeField] private GameObject _pruduction;
     [SerializeField] private GameObject _downEffect;
     [SerializeField] private GameObject _enemyEffect;
-    [SerializeField] private GameObject _distancetoCPU1;
+    [SerializeField] private GameObject _distancetoPlayer3;
     [SerializeField] private GameObject _distancetoPlayer2;
     [SerializeField] private WireTongueCPU _tongue;
     [SerializeField] private GameObject _itemIcon;
@@ -162,29 +162,29 @@ public class FrogCpuMulti : MonoBehaviour {
         #region Ž©g‚Ì‡ˆÊŽæ“¾
         float mySelf = this.transform.localPosition.x;
         float player = _player.transform.localPosition.x;
-        float cpu1 = _distancetoCPU1.transform.localPosition.x;
+        float player3 = _distancetoPlayer3.transform.localPosition.x;
         float player2 = _distancetoPlayer2.transform.localPosition.x;
 
-        if (_distancetoCPU1.activeSelf && _player.activeSelf && _distancetoPlayer2) {
+        if (_distancetoPlayer3.activeSelf && _player.activeSelf && _distancetoPlayer2) {
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
-            if (mySelf > player && mySelf > cpu1 && mySelf > player2) {
+            if (mySelf > player && mySelf > player3 && mySelf > player2) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Hard;
-            } else if ((mySelf > player && mySelf > cpu1 && mySelf < player2) ||
-                  (mySelf > player && mySelf < cpu1 && mySelf > player2) ||
-                  (mySelf < player && mySelf > cpu1 && mySelf > player2)) {
+            } else if ((mySelf > player && mySelf > player3 && mySelf < player2) ||
+                  (mySelf > player && mySelf < player3 && mySelf > player2) ||
+                  (mySelf < player && mySelf > player3 && mySelf > player2)) {
                 _randomItem = RandomItem.Nomal;//“ñˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Hard;
-            } else if ((mySelf < player && mySelf < cpu1 && mySelf > player2) ||
-                  (mySelf > player && mySelf < cpu1 && mySelf < player2) ||
-                  (mySelf < player && mySelf > cpu1 && mySelf < player2)) {
+            } else if ((mySelf < player && mySelf < player3 && mySelf > player2) ||
+                  (mySelf > player && mySelf < player3 && mySelf < player2) ||
+                  (mySelf < player && mySelf > player3 && mySelf < player2)) {
                 _randomItem = RandomItem.Good;//ŽOˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Harf;
             } else {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoCPU1.activeSelf) {
+        } else if (!_distancetoPlayer3.activeSelf) {
             print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player && mySelf > player2) {
@@ -201,11 +201,11 @@ public class FrogCpuMulti : MonoBehaviour {
         } else if (!_distancetoPlayer2.activeSelf) {
             print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
-            if (mySelf > player && mySelf > cpu1) {
+            if (mySelf > player && mySelf > player3) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Hard;
-            } else if ((mySelf < player && mySelf > cpu1) ||
-                  (mySelf > player && mySelf < cpu1)) {
+            } else if ((mySelf < player && mySelf > player3) ||
+                  (mySelf > player && mySelf < player3)) {
                 _randomItem = RandomItem.Good;//“ñˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Harf;
             } else {
@@ -215,18 +215,18 @@ public class FrogCpuMulti : MonoBehaviour {
         } else if (!_player.activeSelf) {
             print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
-            if (mySelf > player2 && mySelf > cpu1) {
+            if (mySelf > player2 && mySelf > player3) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Hard;
-            } else if ((mySelf < player2 && mySelf > cpu1) ||
-                  (mySelf > player2 && mySelf < cpu1)) {
+            } else if ((mySelf < player2 && mySelf > player3) ||
+                  (mySelf > player2 && mySelf < player3)) {
                 _randomItem = RandomItem.Good;//“ñˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Harf;
             } else {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoCPU1.activeSelf && !_distancetoPlayer2) {
+        } else if (!_distancetoPlayer3.activeSelf && !_distancetoPlayer2) {
             print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player) {
@@ -236,10 +236,19 @@ public class FrogCpuMulti : MonoBehaviour {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoCPU1.activeSelf && !_player) {
+        } else if (!_distancetoPlayer3.activeSelf && !_player) {
             print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player2) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚ÌŽž
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        } else if (!_distancetoPlayer2.activeSelf && !_player) {
+            //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
+            if (mySelf > player3) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
                 _swicthRandomJump = SwicthRandomJump.Hard;
             } else {

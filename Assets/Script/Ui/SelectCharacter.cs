@@ -120,7 +120,7 @@ public class SelectCharacter : MonoBehaviour
                     _cpu = _frog[3];
 
                     _pauseManager.SetActive(true);
-                    _pauseManager.SetActive(true);
+                    
 
                 _cameraScript.SceneStart();
 
@@ -150,7 +150,7 @@ public class SelectCharacter : MonoBehaviour
                     _cpu = _frog[1];
 
                     _pauseManager.SetActive(true);
-                    _pauseManager.SetActive(true);
+                   
 
                 Destroy(_frog[2].GetComponent<FrogCpu>());
                 _frog[2].GetComponent<FrogCpuMulti>().enabled = true;
@@ -178,26 +178,27 @@ public class SelectCharacter : MonoBehaviour
                     _clearManScript.InFrogs(_frog[4]);
                     _player = _frog[4];
 
+                     
+                _frog[5].SetActive(true);
 
-                Destroy(_frog[1].GetComponent<FrogCpu>());
-                _frog[1].GetComponent<FrogCpuMulti>().enabled = true;
+                _gameoverManScript.InFrogs(_frog[5]);
+                _clearManScript.InFrogs(_frog[5]);
+                _cpu = _frog[5];
+
+                _cameraScript.SceneStart();
+
+                Destroy(_frog[1].GetComponent<FrogCpu>()); 
+                Destroy(_frog[1].GetComponent<FrogCpuMulti>());
+                _frog[1].GetComponent<FrogCpuMulti2>().enabled = true;
                 _frog[1].SetActive(true);             
                     _gameoverManScript.InFrogs(_frog[1]);
                     _clearManScript.InFrogs(_frog[1]);
                     _cpu = _frog[1];
 
                     _pauseManager.SetActive(true);
-                    _pauseManager.SetActive(true);
+                    
 
-                Destroy(_frog[2].GetComponent<FrogCpu>());
-                _frog[2].GetComponent<FrogCpuMulti>().enabled = true;
-                _frog[2].SetActive(true);
-              
-                _gameoverManScript.InFrogs(_frog[2]);
-                    _clearManScript.InFrogs(_frog[2]);
-                    _cpu = _frog[2];
-
-                _cameraScript.SceneStart();
+                
               
                 break;  
             case Sitiuation.Four:
@@ -217,23 +218,22 @@ public class SelectCharacter : MonoBehaviour
                     _player = _frog[4];
 
 
-                Destroy(_frog[1].GetComponent<FrogCpu>());
-                _frog[1].GetComponent<FrogCpuMulti>().enabled = true;
-                _frog[1].SetActive(true);             
-                    _gameoverManScript.InFrogs(_frog[1]);
-                    _clearManScript.InFrogs(_frog[1]);
-                    _cpu = _frog[1];
-
-                    _pauseManager.SetActive(true);
-                    _pauseManager.SetActive(true);
-
-                Destroy(_frog[2].GetComponent<FrogCpu>());
-                _frog[2].GetComponent<FrogCpuMulti>().enabled = true;
-                _frog[2].SetActive(true);
               
-                _gameoverManScript.InFrogs(_frog[2]);
-                    _clearManScript.InFrogs(_frog[2]);
-                    _cpu = _frog[2];
+               
+                _frog[5].SetActive(true);             
+                    _gameoverManScript.InFrogs(_frog[5]);
+                    _clearManScript.InFrogs(_frog[5]);
+                    _player = _frog[5];
+
+                    _pauseManager.SetActive(true);
+                    _pauseManager.SetActive(true);
+
+               
+                _frog[6].SetActive(true);
+              
+                _gameoverManScript.InFrogs(_frog[6]);
+                    _clearManScript.InFrogs(_frog[6]);
+                    _player = _frog[6];
 
                 _cameraScript.SceneStart();
               
