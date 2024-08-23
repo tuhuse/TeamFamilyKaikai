@@ -6,13 +6,13 @@ public class ObstacleScript : MonoBehaviour
 {
     //障害物に当たった時の挙動
     private float _speedDown = 75f;
-
+    [SerializeField] private PlayercontrollerScript _playerScript;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //プレイヤー用
-        if (collision.gameObject.layer == 12)
-        {
+        if (collision.gameObject.layer == 12&& !_playerScript._isInvincivle && !_playerScript._waterEffect.activeSelf) {
+            _playerScript.Yuuya(true);
             collision.gameObject.GetComponent<PlayercontrollerScript>().ObstacleCollision(_speedDown);
         } //プレイヤー用
         //if (collision.gameObject.layer == 13)

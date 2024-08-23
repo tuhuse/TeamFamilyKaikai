@@ -22,7 +22,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     [Header("水玉")] [SerializeField] private GameObject _waterBall;
     [Header("水玉発射位置")] [SerializeField] private Transform _waterSpawn;
 
-    [Header("スピードアップエフェクト")] [SerializeField] private GameObject _waterEffect;
+    [Header("スピードアップエフェクト")] [SerializeField] public GameObject _waterEffect;
 
     private Rigidbody2D _rb;
 
@@ -36,7 +36,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private bool _isPridictionItem = false;
     private bool _isMucasItem = false;
     private bool _isGetItem = false;
-    private bool _isInvincivle = false;
+    public bool _isInvincivle = false;
     private bool _isMucusJump = false;
     private bool _isFrogjump = false; //斜め飛びをしているか
     private bool _isGetWater = false;
@@ -514,10 +514,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                 StartCoroutine(MucusJumpTime());
             }
         }
-        if ((collision.gameObject.CompareTag("Enemy") &&
-            !_isInvincivle && !_waterEffect.activeSelf)) {
-            StartCoroutine(CollisionEffect());
-        }
+       
 
         //水玉に当たった時（スピードアップ）
         if (collision.gameObject.layer == 11 && _projectile != null && collision.gameObject == _projectile.gameObject) {
@@ -589,6 +586,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         _enemyEffect.SetActive(true);
         yield return new WaitForSeconds(1);
         _enemyEffect.SetActive(false);
+        Yuuya(false);
     }
 
     public void RankChange(int nowrank) {
@@ -616,5 +614,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
 
-
+    public void Yuuya(bool poff) {
+        if (poff) {
+            StartCoroutine(CollisionEffect());
+        }
+    }
 }
