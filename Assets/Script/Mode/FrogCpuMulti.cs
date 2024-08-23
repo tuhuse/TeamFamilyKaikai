@@ -185,7 +185,6 @@ public class FrogCpuMulti : MonoBehaviour {
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
         } else if (!_distancetoCPU1.activeSelf) {
-            print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player && mySelf > player2) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
@@ -199,7 +198,6 @@ public class FrogCpuMulti : MonoBehaviour {
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
         } else if (!_distancetoPlayer2.activeSelf) {
-            print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player && mySelf > cpu1) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
@@ -213,7 +211,6 @@ public class FrogCpuMulti : MonoBehaviour {
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
         } else if (!_player.activeSelf) {
-            print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player2 && mySelf > cpu1) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž
@@ -227,7 +224,6 @@ public class FrogCpuMulti : MonoBehaviour {
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
         } else if (!_distancetoCPU1.activeSelf && !_distancetoPlayer2) {
-            print(_randomItem);
             //Ž©•ª‚Ì‡ˆÊ‚ð”cˆ¬
             if (mySelf > player) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚ÌŽž

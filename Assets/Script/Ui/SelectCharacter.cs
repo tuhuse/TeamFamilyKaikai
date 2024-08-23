@@ -173,6 +173,7 @@ public class SelectCharacter : MonoBehaviour
 
                     _frog[4].SetActive(true);
                 _cameraScript.SecondPlayerOn(_frog[4]);
+                _cameraScript.ThirdPlayerOn(_frog[5]);
 
                     _gameoverManScript.InFrogs(_frog[4]);
                     _clearManScript.InFrogs(_frog[4]);
@@ -212,8 +213,10 @@ public class SelectCharacter : MonoBehaviour
 
                     _frog[4].SetActive(true);
                 _cameraScript.SecondPlayerOn(_frog[4]);
+                _cameraScript.ThirdPlayerOn(_frog[5]);
+                _cameraScript.FirthPlayerOn(_frog[6]);
 
-                    _gameoverManScript.InFrogs(_frog[4]);
+                _gameoverManScript.InFrogs(_frog[4]);
                     _clearManScript.InFrogs(_frog[4]);
                     _player = _frog[4];
 

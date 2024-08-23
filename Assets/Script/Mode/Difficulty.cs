@@ -60,7 +60,6 @@ public class Difficulty : MonoBehaviour {
                 _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
                 _selectDefficultButton++;
                 if (_difficultButton.Count <= _selectDefficultButton) {
-                    print(_selectDefficultButton);
                     _selectDefficultButton = 0;
 
                 }

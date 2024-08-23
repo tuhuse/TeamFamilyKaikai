@@ -19,7 +19,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
     void Update() {
 
         //上矢印を押したら
-        if (Input.GetAxis("ArrowButtonVartical") > 0 && !_isSelect) {
+        if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect) {
             _isFarstSelect = true;
             _isSelect = true;
 
@@ -46,7 +46,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         }
 
         //下矢印を押した場合
-        if (Input.GetAxis("ArrowButtonVartical") < 0 && !_isSelect) {
+        if (Input.GetAxis("1pLstickHorizontal") < 0 && !_isSelect) {
             _isFarstSelect = true;
             _isSelect = true;
 
@@ -73,13 +73,13 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         }
 
         //矢印ボタンを離したら
-        if (Input.GetAxis("ArrowButtonVartical") == 0) {
+        if (Input.GetAxis("1pLstickHorizontal") == 0) {
             //また選択できるようにする
             _isSelect = false;
         }
 
         //Aボタンを押したら
-        if (Input.GetButton("Submit") && _isFarstSelect) {
+        if (Input.GetButton("1pA") && _isFarstSelect) {
             _isFarstSelect = false;
             if (_selectButton == 0) //returnを見ていた場合
             {

@@ -44,7 +44,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private string _nameJoyStick = default;
 
     [SerializeField]private int _playernumber;// プレイヤー番号（1から始まる）
-    private int _rank = default;
+    [SerializeField] private int _rank = default;
     [SerializeField]
     private int _joynumber;
 
@@ -211,7 +211,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             _downEffect.gameObject.SetActive(false);
             _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
-            Debug.Log("Player" + _playernumber + " moved left using " + _nameJoyStick);
+       
         }
 
         //スピードダウンした時
@@ -237,7 +237,6 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             _downEffect.gameObject.SetActive(false);
             _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
-            Debug.Log("Player " + _playernumber + " moved right using " + _nameJoyStick);
         }
 
         //スピードダウンした時
@@ -306,19 +305,30 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     }
 
+    public void CallCoroutine() 
+    {
+        StartCoroutine(RandomItem());
+    
+    }
 
 
 
     public IEnumerator RandomItem() //アイテム抽選
     {
-        if (!_isGetItem) {
+        if (!_isGetItem) 
+        {
+            
             _itemIcon.SetActive(true);
             _itemSelectScript.ItemIcon(0);
             //アイテムを持った状態に変える
             _isGetItem = true;
-            yield return new WaitForSeconds(ITEMSELECTWAIT);
-            //アイテムを持っていなかったら抽選する
 
+
+            yield return new WaitForSeconds(ITEMSELECTWAIT);
+
+            print("aaaaaaaaaaaaaaaaaa");
+            //アイテムを持っていなかったら抽選する
+            print(_rank);
 
 
 

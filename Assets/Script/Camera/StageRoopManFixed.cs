@@ -67,7 +67,6 @@ public class StageRoopManFixed : MonoBehaviour {
             _countTime += 100;
         }
         if (_isReadyGo) {
-            print(_countTime);
             _countTime += Time.deltaTime;
         }
      

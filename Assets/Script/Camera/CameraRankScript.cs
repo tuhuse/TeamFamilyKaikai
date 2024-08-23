@@ -79,6 +79,7 @@ public class CameraRankScript : MonoBehaviour
                 //プレイヤーが一位だったら
                 if (_ranking[ORIGINFIRST].gameObject.CompareTag(_playerTag))
                 {
+                    print("a");
                     //プレイヤーを２位に下げる
                     _ranking[ORIGINFIRST].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }
@@ -233,9 +234,9 @@ public class CameraRankScript : MonoBehaviour
         if (!_isStart) 
         {
             //ランキングの配列にfrogsのに入っているオブジェクトを入れる
-            while (_rankingValue <= 3) {
+            while (_rankingValue <= 3)
+            {
 
-               
                 _ranking.Add(_frogs[_rankingValue]);
                 _rbs.Add(_frogs[_rankingValue].GetComponent<Rigidbody2D>());
 
@@ -277,5 +278,15 @@ public class CameraRankScript : MonoBehaviour
     public void SecondPlayerOn(GameObject player2) 
     {
         _frogs[1] = player2;
+    }
+
+    public void ThirdPlayerOn(GameObject player3) 
+    {
+        _frogs[2] = player3;
+    }
+
+    public void FirthPlayerOn(GameObject player4) 
+    {
+        _frogs[3] = player4;
     }
 }

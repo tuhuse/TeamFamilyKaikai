@@ -42,7 +42,6 @@ public class HumanPeople : MonoBehaviour {
                 _isMoveButton = false;
             }
             if (controllerStick < 0 && !_isMoveButton) {//‰º]
-                print("sita");
                 _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
                 _humanPeople++;
                 if (_frogsButton.Count <= _humanPeople) {

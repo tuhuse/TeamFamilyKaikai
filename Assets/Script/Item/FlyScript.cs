@@ -14,8 +14,11 @@ public class FlyScript : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision) {
         
-        if (collision.gameObject.layer == 12) {//プレイヤーとCPU
-           StartCoroutine(collision.gameObject.GetComponent<PlayercontrollerScript>().RandomItem());
+        if (collision.gameObject.layer == 12) 
+        {//プレイヤーとCPU
+
+            
+          collision.gameObject.GetComponent<PlayercontrollerScript>().CallCoroutine();
             this.transform.SetParent(collision.gameObject.transform);
             this.gameObject.SetActive(false);
 
@@ -26,16 +29,16 @@ public class FlyScript : MonoBehaviour
             this.gameObject.SetActive(false);
         }
         if (collision.gameObject.layer == 13) {//プレイヤーとCPU
-            StartCoroutine(collision.gameObject.GetComponent<PlayercontrollerScript>().RandomItem());
+            collision.gameObject.GetComponent<PlayercontrollerScript>().CallCoroutine();
             this.transform.SetParent(collision.gameObject.transform);
             this.gameObject.SetActive(false);
 
         }
         if (collision.gameObject.layer == 10) {
-            StartCoroutine(collision.gameObject.GetComponent<PlayercontrollerScript>().RandomItem());
+            collision.gameObject.GetComponent<PlayercontrollerScript>().CallCoroutine();
         }
         if (collision.gameObject.layer == 8) {
-            StartCoroutine(collision.gameObject.GetComponent<PlayercontrollerScript>().RandomItem());
+            collision.gameObject.GetComponent<PlayercontrollerScript>().CallCoroutine();
         }
 
     }
