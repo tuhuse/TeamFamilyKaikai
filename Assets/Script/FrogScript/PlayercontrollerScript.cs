@@ -309,7 +309,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
 
 
-    private IEnumerator RandomItem() //アイテム抽選
+    public IEnumerator RandomItem() //アイテム抽選
     {
         if (!_isGetItem) {
             _itemIcon.SetActive(true);
@@ -525,10 +525,6 @@ public class PlayercontrollerScript : MonoBehaviour {
             StartCoroutine(SpeedUpReset());
         }
 
-        //アイテムを取ったら
-        if (collision.gameObject.tag == "Fly") {
-            StartCoroutine(RandomItem());
-        }
 
     }
 

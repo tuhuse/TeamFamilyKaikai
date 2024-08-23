@@ -122,6 +122,14 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
            
             _isExtension = false;
             _isFrogCatch = true;
+        } 
+        if (collision.gameObject.tag == "Player" && _underAttack) {
+            if (_player.GetComponent<PlayercontrollerScript>() != null) {
+                _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
+            }
+           
+            _isExtension = false;
+            _isFrogCatch = true;
         }
     }
 
@@ -144,9 +152,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             }
            
         }
-        if (_player.GetComponent<Player2>() != null) {
-            GetComponentInParent<Player2>().enabled = true;
-        }
+        
 
     }
 
