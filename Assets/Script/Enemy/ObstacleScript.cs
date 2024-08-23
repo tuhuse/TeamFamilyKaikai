@@ -28,6 +28,9 @@ public class ObstacleScript : MonoBehaviour
             } 
             else if (collision.gameObject.GetComponent<FrogCpuMulti>()!=null){
                 collision.gameObject.GetComponent<FrogCpuMulti>().ObstacleCollision(_speedDown);
+            }else if (collision.gameObject.GetComponent<FrogCpuMulti>()!=null&&
+                collision.gameObject.GetComponent<FrogCpu>() != null) {
+                collision.gameObject.GetComponent<FrogCpuMulti2>().ObstacleCollision(_speedDown);
             }
         }
 

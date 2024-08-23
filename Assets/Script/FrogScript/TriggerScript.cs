@@ -27,6 +27,13 @@ public class TriggerScript : MonoBehaviour {
                 _cpu1.GetComponent<FrogCpuMulti>()._isEnemyJump = true;
 
             }
+        }else if (collision.gameObject.GetComponent<FrogCpuMulti>()!= null&& _cpu1.GetComponent<FrogCpu>() != null) {
+            if (collision.gameObject.CompareTag("Enemy") &&
+                    !_cpu1.GetComponent<FrogCpuMulti2>()._isEnemyJump) {
+
+                _cpu1.GetComponent<FrogCpuMulti2>()._isEnemyJump = true;
+
+            }
         }
       
 

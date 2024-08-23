@@ -98,7 +98,7 @@ public class SelectCharacter : MonoBehaviour
                     _clearManScript.InFrogs(_frog[0]);
                     _gameoverManScript.InFrogs(_frog[0]);
                     _player = _frog[0];
-
+                Destroy(_frog[1].GetComponent<FrogCpuMulti2>());
                 Destroy(_frog[1].GetComponent<FrogCpuMulti>());
                 _frog[1].SetActive(true);
 
@@ -141,7 +141,7 @@ public class SelectCharacter : MonoBehaviour
                     _clearManScript.InFrogs(_frog[4]);
                     _player = _frog[4];
 
-
+                Destroy(_frog[1].GetComponent<FrogCpuMulti2>());
                 Destroy(_frog[1].GetComponent<FrogCpu>());
                 _frog[1].GetComponent<FrogCpuMulti>().enabled = true;
                 _frog[1].SetActive(true);             
