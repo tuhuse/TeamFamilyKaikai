@@ -119,9 +119,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             if (_player.GetComponent<PlayercontrollerScript>() != null) {
                 _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
             }
-            else if (_player.GetComponent<Player2>() != null) {
-                _player.GetComponent<Player2>().SpeedUp(true);
-            }
+           
             _isExtension = false;
             _isFrogCatch = true;
         }

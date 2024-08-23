@@ -107,10 +107,12 @@ public class WireTongueCPU : MonoBehaviour {
             _isExtension = false;
         }
         if (collision.gameObject.tag == "Player" && _underAttack) {
-            if (_mySelf.gameObject.GetComponent<FrogCpu>()!=null) {
+            if (_mySelf.gameObject.GetComponent<FrogCpu>() != null) {
                 _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
-            } else  {
+            } else if (_mySelf.gameObject.GetComponent<FrogCpuMulti>() != null) {
                 _mySelf.gameObject.GetComponent<FrogCpuMulti>().SpeedUp(true);
+            } else if (_mySelf.gameObject.GetComponent<FrogCpuMulti2>() != null) {
+                _mySelf.gameObject.GetComponent<FrogCpuMulti2>().SpeedUp(true);
             }
 
 
@@ -122,8 +124,10 @@ public class WireTongueCPU : MonoBehaviour {
         if (collision.gameObject.tag == "CPU" && _underAttack) {
             if (_mySelf.gameObject.GetComponent<FrogCpu>() != null) {
                 _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
-            } else  {
+            } else if(_mySelf.gameObject.GetComponent<FrogCpuMulti>() != null) {
                 _mySelf.gameObject.GetComponent<FrogCpuMulti>().SpeedUp(true);
+            }else if (_mySelf.gameObject.GetComponent<FrogCpuMulti2>() != null) {
+                _mySelf.gameObject.GetComponent<FrogCpuMulti2>().SpeedUp(true);
             }
             _isExtension = false;
             _isFrogCatch = true;

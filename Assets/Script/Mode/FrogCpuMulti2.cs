@@ -490,9 +490,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
             }
         }
 
-        if (collision.gameObject.CompareTag("edge")) {
-            _isAlive = false;//•Ç’[‚ÅƒWƒƒƒ“ƒv‚µ‚È‚¢‚æ‚¤‚É‚·‚é‚â‚Â
-        }
+        
         if (collision.gameObject.CompareTag("Enemy")) {
             if (_isPridictionAbility) {
                 {

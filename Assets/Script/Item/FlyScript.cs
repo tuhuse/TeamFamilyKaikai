@@ -6,7 +6,7 @@ using UnityEngine;
 public class FlyScript : MonoBehaviour
 {
     public Animator _flyAnimator;
-    [SerializeField] private PlayercontrollerScript _playerScript;
+    
  
     private void Start() {
         _flyAnimator = GetComponent<Animator>();
@@ -15,7 +15,8 @@ public class FlyScript : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision) {
         
-        if (collision.gameObject.layer == 12 || collision.gameObject.CompareTag("CPU")) {//プレイヤーとCPU
+        if (collision.gameObject.layer == 12 || collision.gameObject.CompareTag("CPU")||
+            collision.gameObject.layer == 10||collision.gameObject.layer == 8 ) {//プレイヤーとCPU
 
             this.transform.SetParent(collision.gameObject.transform);
             this.gameObject.SetActive(false);
