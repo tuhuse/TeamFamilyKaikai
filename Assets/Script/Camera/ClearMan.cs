@@ -2,34 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 public class ClearMan : MonoBehaviour {
     [SerializeField] private GameObject _cpuParent;
     [SerializeField] private GameObject _playerParent = default;
     [SerializeField] private GameObject _camera;
     [SerializeField] private GameObject _gameClearUI;
+    [SerializeField] TMPro.TMP_Text _clearText;
     [SerializeField] private GameObject _outLine = default;
-    [SerializeField] private float _cameraRimit = default;
+    //[SerializeField] private float _cameraRimit = default;
     [SerializeField] private float _cameraSizeAdjust = default;
-    private List<GameObject> _frogs=new List<GameObject>();
-    private List<Rigidbody2D> _frogsrb2d = new  List<Rigidbody2D>();
-  
-    [SerializeField] private List<GameObject> _anotherEnamys = new List<GameObject>();
+    private List<GameObject> _frogs = new List<GameObject>();
+    private List<Rigidbody2D> _frogsrb2d = new List<Rigidbody2D>();
+
+    [SerializeField] private List<GameObject> _anotherEnemys = new List<GameObject>();
     [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>();
+    [SerializeField] private List<GameObject> _rankingList = new List<GameObject>();
     private float _fallMin = -60f;
     public int _switchNumber = 1;
     private float _sizeLimit = 20;
-    private float _countTime = default;
-    private float _time = 80;
+    private int _maxplayer = 4;
+    private int _rankNumber = 1;
 
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
 
     // Start is called before the first frame update
     void Start() {
 
-     
-        for (int number = 0; number < _cpuParent.transform.childCount; number++) 
-        {
-            _anotherEnamys.Add(_cpuParent.transform.GetChild(number).gameObject);
+
+        for (int number = 0; number < _cpuParent.transform.childCount; number++) {
+            _anotherEnemys.Add(_cpuParent.transform.GetChild(number).gameObject);
         }
         for (int number = 0; number < _playerParent.transform.childCount; number++) {
             _anotherPlayers.Add(_playerParent.transform.GetChild(number).gameObject);
@@ -41,34 +44,34 @@ public class ClearMan : MonoBehaviour {
     void Update() {
         //print(_anotherEnamys.Count);
 
-        _countTime += Time.deltaTime;
-
         //ゲーム画面を停止、カメラをズームアップした後にUIを表示        
         switch (_switchNumber) {
             case 0:
 
-                //敵オブジェクトの入った配列の中身がnullかつ残りプレイヤーの数が1か
-                if (_anotherEnamys.Count == 0 && _anotherPlayers.Count <= 1) 
-                {
+                //敵CPU数が0かつ残りプレイヤー数が1 もしくは残りプレイヤー数が0
+                if ((_anotherEnemys.Count == 0 && _anotherPlayers.Count <= 1) || _anotherPlayers.Count == 0) {
                     _switchNumber = 2;
-                }
-                else {
+                } else {
                     _switchNumber = 1;
                 }
                 break;
             case 1:
-                if (_countTime >= _time) {
-                    _cameraRimit = 80f;
-                }
                 //敵オブジェクトを取得
-                foreach (GameObject arrayEnamy in _anotherEnamys) {
+                foreach (GameObject arrayEnemy in _anotherEnemys) {
                     //落下もしくは画面端にぶつかると配列から削除
-                    if (_anotherPlayers.Count != 0 && (arrayEnamy.transform.position.y < _fallMin ||
-                                arrayEnamy.transform.position.x <_outLine.transform.position.x)) {
-                        _anotherEnamys.Remove(arrayEnamy);
-                        arrayEnamy.SetActive(false);
+                    if (_anotherPlayers.Count != 0 && (arrayEnemy.transform.position.y < _fallMin ||
+                                arrayEnemy.transform.position.x < _outLine.transform.position.x)) {
+                        //オブジェクトをランキング配列の先頭へ挿入　リスト内のオブジェクトがプレイ人数以上の場合、古い順に削除
+                        _rankingList.Insert(0, arrayEnemy);
+                        if (_rankingList.Count > _maxplayer) {
+                            _rankingList.Remove(_rankingList[4]);
+                        }
+
+                        _anotherEnemys.Remove(arrayEnemy);
+                        arrayEnemy.SetActive(false);
                         _switchNumber = 0;
                         break;
+
                     }
                 }
                 //プレイヤーオブジェクトを取得
@@ -76,6 +79,11 @@ public class ClearMan : MonoBehaviour {
                     //落下もしくは画面端にぶつかると配列から削除
                     if (arrayPlayer.transform.position.y < _fallMin ||
                                 arrayPlayer.transform.position.x < _outLine.transform.position.x) {
+                        //オブジェクトをランキング配列の先頭へ挿入　リスト内のオブジェクトがプレイ人数以上の場合、古い順に削除
+                        _rankingList.Insert(0, arrayPlayer);
+                        if (_rankingList.Count > _maxplayer) {
+                            _rankingList.Remove(_rankingList[4]);
+                        }
                         _anotherPlayers.Remove(arrayPlayer);
                         arrayPlayer.SetActive(false);
                         _switchNumber = 0;
@@ -93,6 +101,8 @@ public class ClearMan : MonoBehaviour {
 
                 break;
 
+
+
             case 3:
 
                 _camera.transform.position -= Vector3.down;
@@ -104,15 +114,53 @@ public class ClearMan : MonoBehaviour {
                 }
 
                 break;
-            case 4:
 
+            case 4:
+                //配列内に残っているCPUをランキングへ移動
+
+
+                //プレイヤー配列の中身が0(全プレイヤーがCPUに負けた)場合、エネミー配列内に残っているCPUをランキング配列へ移動
+                if (_anotherPlayers.Count == 0) {
+
+                    foreach (GameObject arrayEnemy in _anotherEnemys) {
+                        _rankingList.Insert(0, arrayEnemy);
+                        if (_rankingList.Count > _maxplayer) {
+                            _rankingList.Remove(_rankingList[4]);
+                            _anotherEnemys.Remove(arrayEnemy);
+                            break;
+                        }
+                        _anotherEnemys.Remove(arrayEnemy);
+                    }
+                }
+                //勝利プレイヤーがいる場合、プレイヤー配列内に残った1プレイヤーをランキング配列へ移動
+                else {
+                    _rankingList.Add(_anotherPlayers[0]);
+                    if (_rankingList.Count > _maxplayer) {
+                        _rankingList.Remove(_rankingList[4]);
+                    }
+                }
+
+                if (_anotherEnemys.Count == 0) {
+                    _switchNumber = 5;
+                }
+
+                break;
+
+            case 5:
+                
+                foreach (GameObject rank in _rankingList) {
+                    _clearText.SetText(_clearText.text += _rankNumber + rank.name);
+                    _rankNumber++;
+                }
                 _gameClearUI.SetActive(true);
                 _joyStickGameClear.enabled = true;
 
-
+                _switchNumber = 6;
 
                 break;
+
             default:
+
                 break;
         }
 
@@ -126,14 +174,13 @@ public class ClearMan : MonoBehaviour {
 
 
     public void ClearTitleButton() {
-     
-            SceneManager.LoadScene("TitleScene");
-      
+
+        SceneManager.LoadScene("TitleScene");
+
     }
-    public void InFrogs(GameObject frog) 
-    {
+    public void InFrogs(GameObject frog) {
         _frogs.Add(frog);
         _frogsrb2d.Add(frog.GetComponent<Rigidbody2D>());
-        
+
     }
 }
