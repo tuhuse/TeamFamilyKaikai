@@ -144,12 +144,12 @@ public class FrogCpu : MonoBehaviour {
         
     }
     private void FixedUpdate() {
-        if (!_isJump && !_isMucusJump) {
+        if (_isJumping && !_isMucusJump) {
 
             //_jumppower -= JUMPMAX / 40f;
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_movejump / MOVEJUMP));//* Time.deltaTime)
         }
-        if (!_isJump && _isMucusJump) {
+        if (_isJumping && _isMucusJump) {
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_movejump / JUMPMIN));//* Time.deltaTime)
         }
     }
@@ -189,7 +189,7 @@ public class FrogCpu : MonoBehaviour {
         } 
        
        else if (!_distancetoCPU1.activeSelf) {
-            print(_randomItem);
+         
             //é©ï™ÇÃèáà Çîcà¨
             if (mySelf > player && mySelf > cpu2) {
                 _randomItem = RandomItem.Bad;//àÍà ÇÃéû
@@ -204,7 +204,7 @@ public class FrogCpu : MonoBehaviour {
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
         } else if (!_distancetoCPU2.activeSelf) {
-            print(_randomItem);
+          
             //é©ï™ÇÃèáà Çîcà¨
             if (mySelf > player && mySelf > cpu1) {
                 _randomItem = RandomItem.Bad;//àÍà ÇÃéû
@@ -232,7 +232,6 @@ public class FrogCpu : MonoBehaviour {
             
         }
 
-        print(_randomItem);
         #endregion
         //print(_randomItem);
         //ê∂Ç´ÇƒÇ¢ÇÈèÍçá
@@ -323,12 +322,14 @@ public class FrogCpu : MonoBehaviour {
             _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
         }
     }
-    private void Jump2() {       
+    private void Jump2() {
+        if (_isJump) {
+
             _isJump = false;
             _frogSE.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
-          
-        
+        }
+             
     }
 
     private void EnemyJump() {

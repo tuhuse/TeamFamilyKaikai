@@ -79,7 +79,7 @@ public class CameraRankScript : MonoBehaviour
                 //プレイヤーが一位だったら
                 if (_ranking[ORIGINFIRST].gameObject.CompareTag(_playerTag))
                 {
-                    print("a");
+                    
                     //プレイヤーを２位に下げる
                     _ranking[ORIGINFIRST].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }

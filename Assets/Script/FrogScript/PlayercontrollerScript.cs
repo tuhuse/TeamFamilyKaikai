@@ -326,7 +326,6 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             yield return new WaitForSeconds(ITEMSELECTWAIT);
 
-            print("aaaaaaaaaaaaaaaaaa");
             //アイテムを持っていなかったら抽選する
             print(_rank);
 
@@ -592,7 +591,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         _enemyEffect.SetActive(true);
         yield return new WaitForSeconds(1);
         _enemyEffect.SetActive(false);
-        Yuuya(false);
+        SpeedDown(false);
     }
 
     public void RankChange(int nowrank) {
@@ -620,7 +619,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
 
-    public void Yuuya(bool poff) {
+    public void SpeedDown(bool poff) {
         if (poff) {
             StartCoroutine(CollisionEffect());
         }

@@ -143,12 +143,12 @@ public class FrogCpuMulti : MonoBehaviour {
         
     }
     private void FixedUpdate() {
-        if (!_isJump && !_isMucusJump) {
+        if (_isJumping && !_isMucusJump) {
 
             //_jumppower -= JUMPMAX / 40f;
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_movejump / MOVEJUMP));//* Time.deltaTime)
         }
-        if (!_isJump && _isMucusJump) {
+        if (_isJumping && _isMucusJump) {
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_movejump / JUMPMIN));//* Time.deltaTime)
         }
     }
@@ -329,13 +329,11 @@ public class FrogCpuMulti : MonoBehaviour {
         }
     }
     private void Jump2() {
-     
+        if (_isJump) {
             _isJump = false;
             _frogSE.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
-          
-        
-
+        }
     }
 
     private void EnemyJump() {
@@ -805,6 +803,7 @@ public class FrogCpuMulti : MonoBehaviour {
         if (collision.gameObject.CompareTag("Flor") || collision.gameObject.CompareTag("CPU") || collision.gameObject.CompareTag("Player")) {
             _mucasFrogCPUAnim.SetBool("Jump", true);
             _isJumping = true;
+            
         }
 
     }

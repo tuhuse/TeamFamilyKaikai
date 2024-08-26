@@ -134,7 +134,7 @@ public class ClearMan : MonoBehaviour {
                 }
                 //勝利プレイヤーがいる場合、プレイヤー配列内に残った1プレイヤーをランキング配列へ移動
                 else {
-                    _rankingList.Add(_anotherPlayers[0]);
+                    _rankingList.Insert(0, _anotherPlayers[0]);
                     if (_rankingList.Count > _maxplayer) {
                         _rankingList.Remove(_rankingList[4]);
                     }
@@ -149,7 +149,7 @@ public class ClearMan : MonoBehaviour {
             case 5:
                 
                 foreach (GameObject rank in _rankingList) {
-                    _clearText.SetText(_clearText.text += _rankNumber + rank.name);
+                    _clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
                     _rankNumber++;
                 }
                 _gameClearUI.SetActive(true);
@@ -182,5 +182,8 @@ public class ClearMan : MonoBehaviour {
         _frogs.Add(frog);
         _frogsrb2d.Add(frog.GetComponent<Rigidbody2D>());
 
+    }
+    public void MaxPlayer() {
+    
     }
 }

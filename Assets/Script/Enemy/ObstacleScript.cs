@@ -13,25 +13,33 @@ public class ObstacleScript : MonoBehaviour
         //プレイヤー用
         if (collision.gameObject.layer == 12&& !_playerScript[0]._isInvincivle &&
             !_playerScript[0]._waterEffect.activeSelf) {
-            _playerScript[0].Yuuya(true);
+            _playerScript[0].SpeedDown(true);
             _playerScript[0].ObstacleCollision(_speedDown);
         } //プレイヤー2用
-        
-        if (collision.gameObject.layer == 13 && !_playerScript[1]._isInvincivle &&
-            !_playerScript[1]._waterEffect.activeSelf) {
-            _playerScript[1].Yuuya(true);
-            _playerScript[1].ObstacleCollision(_speedDown);
-        }//プレイヤー3用
-        if (collision.gameObject.layer == 10 && !_playerScript[2]._isInvincivle &&
-            !_playerScript[2]._waterEffect.activeSelf) {
-            _playerScript[2].Yuuya(true);
-            _playerScript[2].ObstacleCollision(_speedDown);
-        }//プレイヤー44用
-        if (collision.gameObject.layer == 8 && !_playerScript[3]._isInvincivle &&
-            !_playerScript[3]._waterEffect.activeSelf) {
-            _playerScript[3].Yuuya(true);
-            _playerScript[3].ObstacleCollision(_speedDown);
+        if (_playerScript[1].enabled == true) {
+            if (collision.gameObject.layer == 13 && !_playerScript[1]._isInvincivle &&
+               !_playerScript[1]._waterEffect.activeSelf) {
+                _playerScript[1].SpeedDown(true);
+                _playerScript[1].ObstacleCollision(_speedDown);
+            }
         }
+        //プレイヤー3用
+        if (_playerScript[2].enabled == true) {
+            if (collision.gameObject.layer == 10 && !_playerScript[2]._isInvincivle &&
+               !_playerScript[2]._waterEffect.activeSelf) {
+                _playerScript[2].SpeedDown(true);
+                _playerScript[2].ObstacleCollision(_speedDown);
+            }
+           
+        }//プレイヤー4用
+        if (_playerScript[3].enabled == true) {
+            if (collision.gameObject.layer == 8 && !_playerScript[3]._isInvincivle &&
+                !_playerScript[3]._waterEffect.activeSelf) {
+                _playerScript[3].SpeedDown(true);
+                _playerScript[3].ObstacleCollision(_speedDown);
+            }
+        }
+            
 
         //CPU用
         if (collision.gameObject.layer == 14)//Mucusflog用
