@@ -133,7 +133,7 @@ public class SelectCharacter : MonoBehaviour {
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
 
-                _frog[4].GetComponent<PlayercontrollerScript>().enabled = true;
+                
                 _frog[4].SetActive(true);
                 _cameraScript.SecondPlayerOn(_frog[4]);
 
@@ -175,7 +175,7 @@ public class SelectCharacter : MonoBehaviour {
                 _player = _frog[0];
 
                 _frog[4].SetActive(true);
-                _frog[4].GetComponent<PlayercontrollerScript>().enabled = true;
+               
                 _cameraScript.SecondPlayerOn(_frog[4]);
                 _cameraScript.ThirdPlayerOn(_frog[5]);
 
@@ -185,7 +185,7 @@ public class SelectCharacter : MonoBehaviour {
 
 
                 _frog[5].SetActive(true);
-                _frog[5].GetComponent<PlayercontrollerScript>().enabled = true;
+               
                 _gameoverManScript.InFrogs(_frog[5]);
                 _clearManScript.InFrogs(_frog[5]);
                 _cpu = _frog[5];
@@ -216,7 +216,7 @@ public class SelectCharacter : MonoBehaviour {
                 _player = _frog[0];
 
                 _frog[4].SetActive(true);
-                _frog[4].GetComponent<PlayercontrollerScript>().enabled = true;
+              
                 _cameraScript.SecondPlayerOn(_frog[4]);
                 _cameraScript.ThirdPlayerOn(_frog[5]);
                 _cameraScript.FirthPlayerOn(_frog[6]);
@@ -229,7 +229,7 @@ public class SelectCharacter : MonoBehaviour {
 
 
                 _frog[5].SetActive(true);
-                _frog[5].GetComponent<PlayercontrollerScript>().enabled = true;
+               
                 _gameoverManScript.InFrogs(_frog[5]);
                 _clearManScript.InFrogs(_frog[5]);
                 _player = _frog[5];
@@ -239,7 +239,7 @@ public class SelectCharacter : MonoBehaviour {
 
 
                 _frog[6].SetActive(true);
-                _frog[6].GetComponent<PlayercontrollerScript>().enabled = true;
+               
                 _gameoverManScript.InFrogs(_frog[6]);
                 _clearManScript.InFrogs(_frog[6]);
 
