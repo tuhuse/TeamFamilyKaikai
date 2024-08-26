@@ -26,5 +26,16 @@ public class Mucus : MonoBehaviour {
         if (collision.gameObject.CompareTag("Reset")) {
             this.gameObject.SetActive(false);
         }
+        if (collision.gameObject.CompareTag("Player")) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle) {
+                if (player._projectile == null) {
+                    player.MucusCollision();
+                } else if (collision.gameObject !=player._projectile.gameObject) {
+                    player.MucusCollision2();
+                }
+            }
+        }
     }
+    
 }

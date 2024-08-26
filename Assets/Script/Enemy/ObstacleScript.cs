@@ -6,39 +6,21 @@ public class ObstacleScript : MonoBehaviour
 {
     //障害物に当たった時の挙動
     private float _speedDown = 75f;
-    [SerializeField] private PlayercontrollerScript[] _playerScript;
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //プレイヤー用
-        if (collision.gameObject.layer == 12&& !_playerScript[0]._isInvincivle &&
-            !_playerScript[0]._waterEffect.activeSelf) {
-            _playerScript[0].SpeedDown(true);
-            _playerScript[0].ObstacleCollision(_speedDown);
-        } //プレイヤー2用
-        if (_playerScript[1].enabled == true) {
-            if (collision.gameObject.layer == 13 && !_playerScript[1]._isInvincivle &&
-               !_playerScript[1]._waterEffect.activeSelf) {
-                _playerScript[1].SpeedDown(true);
-                _playerScript[1].ObstacleCollision(_speedDown);
+        if (collision.gameObject.CompareTag("Player")){
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle && !player._waterEffect.activeSelf) {
+                player.SpeedDown(true);
+                player.ObstacleCollision(_speedDown);
             }
-        }
-        //プレイヤー3用
-        if (_playerScript[2].enabled == true) {
-            if (collision.gameObject.layer == 10 && !_playerScript[2]._isInvincivle &&
-               !_playerScript[2]._waterEffect.activeSelf) {
-                _playerScript[2].SpeedDown(true);
-                _playerScript[2].ObstacleCollision(_speedDown);
-            }
-           
-        }//プレイヤー4用
-        if (_playerScript[3].enabled == true) {
-            if (collision.gameObject.layer == 8 && !_playerScript[3]._isInvincivle &&
-                !_playerScript[3]._waterEffect.activeSelf) {
-                _playerScript[3].SpeedDown(true);
-                _playerScript[3].ObstacleCollision(_speedDown);
-            }
-        }
+            
+        } 
+    
+       
             
 
         //CPU用

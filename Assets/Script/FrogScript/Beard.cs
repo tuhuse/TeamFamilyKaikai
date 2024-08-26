@@ -7,7 +7,7 @@ public class Beard : MonoBehaviour
     
     private Rigidbody2D _rb;
     [SerializeField] private float _movebeard;
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +24,16 @@ public class Beard : MonoBehaviour
        {
             this.gameObject.SetActive(false);//ïEè¡Ç¶ÇÈ
         }
+        if (collision.gameObject.CompareTag("Player")) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle && !player._isGetWater) {
+                if (player._projectile == null) {
+                    player.BeardCollision();
+                }
+            } else if (this.gameObject !=player._projectile.gameObject) {
+                player.BeardCollision2();
+            }
+        }
     }
+    
 }

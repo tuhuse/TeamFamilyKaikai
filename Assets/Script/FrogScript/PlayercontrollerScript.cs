@@ -11,7 +11,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     [SerializeField] private GameObject _itemIcon = default;
     [SerializeField] private GameObject _player = default;
 
-    private GameObject _projectile = default;
+    public GameObject _projectile = default;
 
     [Header("髭、粘液アイテム発射位置")] [SerializeField] private Transform _spawn = default;
 
@@ -39,7 +39,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     public bool _isInvincivle = false;
     private bool _isMucusJump = false;
     private bool _isFrogjump = false; //斜め飛びをしているか
-    private bool _isGetWater = false;
+    public bool _isGetWater = false;
 
     private string _nameJoyStick = default;
 
@@ -497,33 +497,26 @@ public class PlayercontrollerScript : MonoBehaviour {
             _isGetWater = true;
         }
     }
+    public void BeardCollision2() {
+        _frogSE.PlayOneShot(_damageSE);
+        _movespeed = SPEEDMIN;
+    }
 
-
+    public void BeardCollision() {
+        
+            _frogSE.PlayOneShot(_damageSE);
+            _movespeed = SPEEDMIN;     
+    }
+    public void MucusCollision() {
+        _isMucusJump = true;
+        StartCoroutine(MucusJumpTime());
+    }
+    public void MucusCollision2() {
+        _isMucusJump = true;
+        StartCoroutine(MucusJumpTime());
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.layer == 9 && !_isInvincivle && !_isGetWater)//髭に当たってかつ、無敵じゃない時
-        {
-            if (_projectile == null) {
-                _frogSE.PlayOneShot(_damageSE);
-                _movespeed = SPEEDMIN;
-            } else if (collision.gameObject != _projectile.gameObject) {
-                _frogSE.PlayOneShot(_damageSE);
-                _movespeed = SPEEDMIN;
-            }
-
-        }
-        if (collision.gameObject.layer == 7 && !_isInvincivle)//粘液の床
-       {
-
-            if (_projectile == null) {
-                _isMucusJump = true;
-                StartCoroutine(MucusJumpTime());
-            } else if (collision.gameObject != _projectile.gameObject) {
-                _isMucusJump = true;
-                StartCoroutine(MucusJumpTime());
-            }
-        }
-       
 
         //水玉に当たった時（スピードアップ）
         if (collision.gameObject.layer == 11 && _projectile != null && collision.gameObject == _projectile.gameObject) {
@@ -533,8 +526,6 @@ public class PlayercontrollerScript : MonoBehaviour {
 
             StartCoroutine(SpeedUpReset());
         }
-
-
     }
 
 
