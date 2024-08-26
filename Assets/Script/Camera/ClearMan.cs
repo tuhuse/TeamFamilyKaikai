@@ -23,6 +23,7 @@ public class ClearMan : MonoBehaviour {
     public int _switchNumber = 1;
     private float _sizeLimit = 20;
     private int _maxplayer = 4;
+    private int _playerNumber = 1;
     private int _rankNumber = 1;
 
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
@@ -31,10 +32,10 @@ public class ClearMan : MonoBehaviour {
     void Start() {
 
 
-        for (int number = 0; number < _cpuParent.transform.childCount; number++) {
+        for (int number = 0; number < _maxplayer - _playerNumber; number++) {
             _anotherEnemys.Add(_cpuParent.transform.GetChild(number).gameObject);
         }
-        for (int number = 0; number < _playerParent.transform.childCount; number++) {
+        for (int number = 0; number < _playerNumber; number++) {
             _anotherPlayers.Add(_playerParent.transform.GetChild(number).gameObject);
         }
 
@@ -61,12 +62,8 @@ public class ClearMan : MonoBehaviour {
                     //落下もしくは画面端にぶつかると配列から削除
                     if (_anotherPlayers.Count != 0 && (arrayEnemy.transform.position.y < _fallMin ||
                                 arrayEnemy.transform.position.x < _outLine.transform.position.x)) {
-                        //オブジェクトをランキング配列の先頭へ挿入　リスト内のオブジェクトがプレイ人数以上の場合、古い順に削除
+                        //オブジェクトをランキング配列の先頭へ挿入
                         _rankingList.Insert(0, arrayEnemy);
-                        if (_rankingList.Count > _maxplayer) {
-                            _rankingList.Remove(_rankingList[4]);
-                        }
-
                         _anotherEnemys.Remove(arrayEnemy);
                         arrayEnemy.SetActive(false);
                         _switchNumber = 0;
@@ -79,11 +76,8 @@ public class ClearMan : MonoBehaviour {
                     //落下もしくは画面端にぶつかると配列から削除
                     if (arrayPlayer.transform.position.y < _fallMin ||
                                 arrayPlayer.transform.position.x < _outLine.transform.position.x) {
-                        //オブジェクトをランキング配列の先頭へ挿入　リスト内のオブジェクトがプレイ人数以上の場合、古い順に削除
+                        //オブジェクトをランキング配列の先頭へ挿入
                         _rankingList.Insert(0, arrayPlayer);
-                        if (_rankingList.Count > _maxplayer) {
-                            _rankingList.Remove(_rankingList[4]);
-                        }
                         _anotherPlayers.Remove(arrayPlayer);
                         arrayPlayer.SetActive(false);
                         _switchNumber = 0;
@@ -124,12 +118,8 @@ public class ClearMan : MonoBehaviour {
 
                     foreach (GameObject arrayEnemy in _anotherEnemys) {
                         _rankingList.Insert(0, arrayEnemy);
-                        if (_rankingList.Count > _maxplayer) {
-                            _rankingList.Remove(_rankingList[4]);
-                            _anotherEnemys.Remove(arrayEnemy);
-                            break;
-                        }
-                        _anotherEnemys.Remove(arrayEnemy);
+                        _anotherEnemys.Remove(arrayEnemy); 
+                        break;
                     }
                 }
                 //勝利プレイヤーがいる場合、プレイヤー配列内に残った1プレイヤーをランキング配列へ移動
@@ -183,7 +173,7 @@ public class ClearMan : MonoBehaviour {
         _frogsrb2d.Add(frog.GetComponent<Rigidbody2D>());
 
     }
-    public void MaxPlayer() {
-    
+    public void MaxPlayer(int playerNumber) {
+        _playerNumber = playerNumber;
     }
 }
