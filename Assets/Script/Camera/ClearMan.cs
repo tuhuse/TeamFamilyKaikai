@@ -79,7 +79,8 @@ public class ClearMan : MonoBehaviour {
                         //オブジェクトをランキング配列の先頭へ挿入
                         _rankingList.Insert(0, arrayPlayer);
                         _anotherPlayers.Remove(arrayPlayer);
-                        arrayPlayer.SetActive(false);
+                        arrayPlayer.GetComponent<SpriteRenderer>().enabled = false;
+                        arrayPlayer.GetComponent<PlayercontrollerScript>().enabled=false;
                         _switchNumber = 0;
                         break;
                     }
@@ -87,10 +88,10 @@ public class ClearMan : MonoBehaviour {
                 break;
             case 2:
 
-                _frogsrb2d[0].constraints = RigidbodyConstraints2D.FreezePosition;
-                _frogsrb2d[1].constraints = RigidbodyConstraints2D.FreezePosition;
-                _frogsrb2d[2].constraints = RigidbodyConstraints2D.FreezePosition;
-                _frogsrb2d[3].constraints = RigidbodyConstraints2D.FreezePosition;
+                //_frogsrb2d[0].constraints = RigidbodyConstraints2D.FreezePosition;
+                //_frogsrb2d[1].constraints = RigidbodyConstraints2D.FreezePosition;
+                //_frogsrb2d[2].constraints = RigidbodyConstraints2D.FreezePosition;
+                //_frogsrb2d[3].constraints = RigidbodyConstraints2D.FreezePosition;
                 _switchNumber = 3;
 
                 break;

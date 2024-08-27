@@ -27,7 +27,7 @@ public class TongueCatch : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Fly")) {
             collision.gameObject.transform.SetParent(transform, true);
-            collision.gameObject.GetComponent<FlyScript>()._flyAnimator.SetBool("Stop",true);
+            
             _isTimeCount = true;
             if (_timeCount > TIMEMAX) {
                 collision.gameObject.SetActive(false);

@@ -5,11 +5,11 @@ using UnityEngine;
 public class FlysParentInstantiate : MonoBehaviour
 {[SerializeField]
     private GameObject _flys;
-    private bool _instantiate=true;
+    private bool _instantiate;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _instantiate = true;
     }
 
     // Update is called once per frame

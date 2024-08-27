@@ -586,7 +586,9 @@ public class PlayercontrollerScript : MonoBehaviour {
         SpeedDown(false);
     }
 
-    public void RankChange(int nowrank) {
+    public void RankChange(int nowrank) 
+    {
+     
         _rank = nowrank;
     }
 

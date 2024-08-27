@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class FlyScript : MonoBehaviour
 {
-    public Animator _flyAnimator;
+   
  
     private void Start() {
-        _flyAnimator = GetComponent<Animator>();       
+      
     }
    
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -79,12 +79,11 @@ public class CameraRankScript : MonoBehaviour
                 //プレイヤーが一位だったら
                 if (_ranking[ORIGINFIRST].gameObject.CompareTag(_playerTag))
                 {
-                    
                     //プレイヤーを２位に下げる
                     _ranking[ORIGINFIRST].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                 }
                 //プレイヤーが２位だったら
-                else if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) 
+                if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) 
                 {
                     //プレイヤーを１位に上げる
                     _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(FIRST);
@@ -129,8 +128,10 @@ public class CameraRankScript : MonoBehaviour
                     //プレイヤーを３位に下げる
                    _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                 }
+
                 //プレイヤーが3位だったら
-                else if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) 
+                
+                if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) 
                 {
                     //プレイヤーを２位に上げる
                    _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
@@ -157,39 +158,29 @@ public class CameraRankScript : MonoBehaviour
 
             //３位の場所の計算
             _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
-
             //4位のカエルが3位のカエルよりも前に行ったら
             if (_thirdPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINFORTH].transform.position.x) 
             {
+                print("aaa");
                 _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
-
+              
 
                 //プレイヤーが３位だったら
                 if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag))
                 {
+                    print("a");
                     //プレイヤーを４位に下げる
                     _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
                 }
+
                 //プレイヤーが４位だったら
-                else if (_ranking[ORIGINFORTH].gameObject.CompareTag(_playerTag)) 
+                if (_ranking[ORIGINFORTH].gameObject.CompareTag(_playerTag)) 
                 {
+                    print("b");
                     //プレイヤーを３位に上げる
                    _ranking[ORIGINFORTH].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                 }
 
-
-                ////プレイヤー2が３位だったら
-                //if (_ranking[ORIGINTHIRD].gameObject.layer==SECONDPLAYERLAYER) 
-                //{
-                //    //プレイヤー2を４位に下げる
-                //    _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(FORTH);
-                //}
-                ////プレイヤー2が４位だったら
-                //else if (_ranking[ORIGINFORTH].gameObject.layer==SECONDPLAYERLAYER) 
-                //{
-                //    //プレイヤー2を３位に上げる
-                //    _ranking[ORIGINFORTH].GetComponent<Player2>().RankChange(THIRD);
-                //}
 
                 _dummy = _ranking[ORIGINTHIRD];
                 _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
@@ -231,43 +222,60 @@ public class CameraRankScript : MonoBehaviour
     }
     public void SceneStart() 
     {
+        _isStart = false;
         if (!_isStart) 
         {
             //ランキングの配列にfrogsのに入っているオブジェクトを入れる
             while (_rankingValue <= 3)
             {
+                if (_ranking.Count == 4) 
+                {
+                    _ranking[_rankingValue] = _frogs[_rankingValue];
+                    _rbs[_rankingValue]= _frogs[_rankingValue].GetComponent<Rigidbody2D>();
 
-                _ranking.Add(_frogs[_rankingValue]);
-                _rbs.Add(_frogs[_rankingValue].GetComponent<Rigidbody2D>());
+                } else 
+                {
+                    _ranking.Add(_frogs[_rankingValue]);
+                    _rbs.Add(_frogs[_rankingValue].GetComponent<Rigidbody2D>());
+                }
+              
 
-                if (_rankingValue == 0) {
+                if (_rankingValue == 0) 
+                {
                     _firstPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
-
+                    
                     _frogs[_rankingValue].GetComponent<PlayercontrollerScript>().RankChange(FIRST);
+                } 
 
-                } else if (_rankingValue == 1) {
+                else if (_rankingValue == 1) 
+                {
                     _secondPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
-
-                    if (_frogs[_rankingValue].gameObject.CompareTag("Player")) {
+                    if (_frogs[_rankingValue].gameObject.CompareTag("Player")) 
+                    {
                         _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                     }
 
-                } else if (_rankingValue == 2) {
+                } 
+                else if (_rankingValue == 2) 
+                {
                     _thirdPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
-                } else if (_rankingValue == 3) {
+                    if (_frogs[_rankingValue].gameObject.CompareTag("Player")) 
+                    {
+                        _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(THIRD);
+                    }
+                } 
+                else if (_rankingValue == 3) 
+                {
                     _forthPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
+                    if (_frogs[_rankingValue].gameObject.CompareTag("Player")) 
+                    {
+                        _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(FORTH);
+                    }
                 }
                 _rankingValue++;
             }
         }
-        else
-        {
-            while (_rankingValue <= 3) 
-            {
-                _ranking[_rankingValue] = _frogs[_rankingValue];
-                _rankingValue++;
-            }
-        }
+       
 
 
         _isStart = true;
