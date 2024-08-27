@@ -288,7 +288,7 @@ public class FrogCpu : MonoBehaviour {
             _itemIcon.SetActive(false);
         }
 
-        if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping) {
+        if (!_isJump && !_isJumping) {
             _isJump = true;
         }
         

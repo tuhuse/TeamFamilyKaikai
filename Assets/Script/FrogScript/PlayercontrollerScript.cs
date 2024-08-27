@@ -175,7 +175,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             //}
 
 
-            if (_rb.velocity.y <= 0.1f && !_isJump && !_isJumping) {
+            if ( !_isJump && !_isJumping) {
                 _isJump = true;
             }
             //else {
@@ -256,16 +256,17 @@ public class PlayercontrollerScript : MonoBehaviour {
             _jumppower = JUMPMAX;
             _pridictionFrogAnim.SetBool("Jump", false);
             _isJumping = false;
-
+           
         }
 
 
     }
-
+   
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Flor") {
             _isFrogjump = false;
+            
         }
 
     }
@@ -327,7 +328,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             yield return new WaitForSeconds(ITEMSELECTWAIT);
 
             //アイテムを持っていなかったら抽選する
-            print(_rank);
+            
 
 
 
