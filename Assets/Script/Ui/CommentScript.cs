@@ -14,6 +14,7 @@ public class CommentScript : MonoBehaviour
 
     private bool _isCommentatorSpeak = false;
     private bool _isLiveCommentatorSpeak = false;
+    private bool _isSpeak = default;
 
     [SerializeField] GameObject _commentator = default; 
     [SerializeField] GameObject _liveCommentator = default;
@@ -178,6 +179,7 @@ public class CommentScript : MonoBehaviour
     /// </summary>
     private void CommentatorExpansion() 
     {
+        
         _getCommentatorRecttransform.position += new Vector3(COMMANTATORPOSITIONX, COMMANTATORPOSITIONY, 0);// -776 -398 0
 
         _getCommentatorRecttransform.localScale += new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ); //4 3 1
@@ -187,6 +189,7 @@ public class CommentScript : MonoBehaviour
         //êFÇîZÇ≠Ç∑ÇÈ
         _commentatorImage.color = new Color(MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE);
         
+
     }
 
     /// <summary>
@@ -239,27 +242,39 @@ public class CommentScript : MonoBehaviour
 
     public void CommentChange(string message,bool isGameStart) 
     {
-        
-        if (!_isStartComment)
+        if (!_isSpeak) 
         {
+            _isSpeak = true;
+            StartCoroutine(SpeakStart());
+            if (!_isStartComment) {
 
-            if (!_isCommentatorSpeak) {
-                //é¿ãµé“ÇëÂÇ´Ç≠Ç∑ÇÈ
-                CommentatorExpansion();
+                if (!_isCommentatorSpeak) {
+                    //é¿ãµé“ÇëÂÇ´Ç≠Ç∑ÇÈ
+                    CommentatorExpansion();
+                }
+
+
+                //âê‡é“Ç™ëÂÇ´Ç≠Ç»Ç¡ÇƒÇ¢ÇΩÇÁ
+                if (_isLiveCommentatorSpeak) {
+                    //âê‡é“Çè¨Ç≥Ç≠Ç∑ÇÈ
+                    LiveCommentatorReduction();
+                }
+
+                _isStartComment = isGameStart;
+                _commentChangeTime = 0;
+                _commentText.text = message;
             }
-
-
-            //âê‡é“Ç™ëÂÇ´Ç≠Ç»Ç¡ÇƒÇ¢ÇΩÇÁ
-            if (_isLiveCommentatorSpeak) {
-                //âê‡é“Çè¨Ç≥Ç≠Ç∑ÇÈ
-                LiveCommentatorReduction();
-            }
-
-            _isStartComment = isGameStart;
-            _commentChangeTime = 0;
-            _commentText.text = message;
-        }
+        }   
+        
        
        
+    }
+
+    private IEnumerator SpeakStart() {
+
+        float reSpeak = 4f;
+        yield return new WaitForSeconds(reSpeak);
+        _isSpeak = false;
+
     }
 }

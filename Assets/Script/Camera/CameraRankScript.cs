@@ -22,6 +22,7 @@ public class CameraRankScript : MonoBehaviour
     private bool _isStart = false;
 
 
+
     //private float _playerDistance = default;
     private float _camposiChangeY = default;
 
@@ -30,6 +31,7 @@ public class CameraRankScript : MonoBehaviour
     private float _secondPosition = default;
     private float _thirdPosition = default;
     private float _forthPosition = default;
+    
 
 
     private const float CAMPOSIY = -10f;
@@ -113,81 +115,73 @@ public class CameraRankScript : MonoBehaviour
                 _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
             }
 
-            //２位の場所の計算
-            _secondPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINSECOND].transform.position.x;
 
-            //3位のカエルが2位のカエルよりも前に行ったら
-            if (_secondPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x) 
-            {
-                _secondPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
+                //２位の場所の計算
+                _secondPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINSECOND].transform.position.x;
+
+                //3位のカエルが2位のカエルよりも前に行ったら
+                if (_secondPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x) {
+                    _secondPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
 
 
-                //プレイヤーが二位だったら
-                if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) 
-                {
-                    //プレイヤーを３位に下げる
-                   _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
+                    //プレイヤーが二位だったら
+                    if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) {
+                        //プレイヤーを３位に下げる
+                        _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
+                    }
+
+                    //プレイヤーが3位だったら
+
+                    if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) {
+                        //プレイヤーを２位に上げる
+                        _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
+                    }
+
+                 
+
+                    _dummy = _ranking[ORIGINSECOND];
+                    _ranking[ORIGINSECOND] = _ranking[ORIGINTHIRD];
+                    _ranking[ORIGINTHIRD] = _dummy;
+
+
+                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
                 }
 
-                //プレイヤーが3位だったら
-                
-                if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) 
-                {
-                    //プレイヤーを２位に上げる
-                   _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
-                }
-
-                ////プレイヤー2が二位だったら
-                //if (_ranking[ORIGINSECOND].gameObject.layer==SECONDPLAYERLAYER) {
-                //    //プレイヤー2を３位に下げる
-                //    _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(THIRD);
-                //}
-                ////プレイヤー2が3位だったら
-                //else if (_ranking[ORIGINTHIRD].gameObject.layer == SECONDPLAYERLAYER) {
-                //    //プレイヤー2を２位に上げる
-                //    _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(SECOND);
-                //}
-
-                _dummy = _ranking[ORIGINSECOND];
-                _ranking[ORIGINSECOND] = _ranking[ORIGINTHIRD];
-                _ranking[ORIGINTHIRD] = _dummy;
+          
+            
 
 
-                _commentText.CommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
-            }
-
-            //３位の場所の計算
-            _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
-            //4位のカエルが3位のカエルよりも前に行ったら
-            if (_thirdPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINFORTH].transform.position.x) 
-            {
-                print("aaa");
+          
                 _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
-              
+                //4位のカエルが3位のカエルよりも前に行ったら
+                if (_thirdPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINFORTH].transform.position.x) {
+                    print("aaa");
+                    _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
 
-                //プレイヤーが３位だったら
-                if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag))
-                {
-                    print("a");
-                    //プレイヤーを４位に下げる
-                    _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
+
+                    //プレイヤーが３位だったら
+                    if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) {
+                        print("a");
+                        //プレイヤーを４位に下げる
+                        _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
+                    }
+
+                    //プレイヤーが４位だったら
+                    if (_ranking[ORIGINFORTH].gameObject.CompareTag(_playerTag)) {
+                        print("b");
+                        //プレイヤーを３位に上げる
+                        _ranking[ORIGINFORTH].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
+                    }
+
+
+                    _dummy = _ranking[ORIGINTHIRD];
+                    _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
+                    _ranking[ORIGINFORTH] = _dummy;
+
+                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINFORTH].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
                 }
-
-                //プレイヤーが４位だったら
-                if (_ranking[ORIGINFORTH].gameObject.CompareTag(_playerTag)) 
-                {
-                    print("b");
-                    //プレイヤーを３位に上げる
-                   _ranking[ORIGINFORTH].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
-                }
-
-
-                _dummy = _ranking[ORIGINTHIRD];
-                _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
-                _ranking[ORIGINFORTH] = _dummy;
-
-                _commentText.CommentChange("おぉっと！" + _ranking[ORIGINFORTH].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
-            }
+            
+            
 
 
             //カメラの一定の場所まで来たら先頭のプレイヤーを追う
@@ -297,4 +291,6 @@ public class CameraRankScript : MonoBehaviour
     {
         _frogs[3] = player4;
     }
+
+  
 }

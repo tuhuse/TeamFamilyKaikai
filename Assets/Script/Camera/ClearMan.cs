@@ -28,6 +28,8 @@ public class ClearMan : MonoBehaviour {
 
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
 
+    [SerializeField] private CameraRankScript _cameraRank = default;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -67,6 +69,7 @@ public class ClearMan : MonoBehaviour {
                         _anotherEnemys.Remove(arrayEnemy);
                         arrayEnemy.SetActive(false);
                         _switchNumber = 0;
+
                         break;
 
                     }
@@ -82,6 +85,8 @@ public class ClearMan : MonoBehaviour {
                         arrayPlayer.GetComponent<SpriteRenderer>().enabled = false;
                         arrayPlayer.GetComponent<PlayercontrollerScript>().enabled=false;
                         _switchNumber = 0;
+                        
+
                         break;
                     }
                 }

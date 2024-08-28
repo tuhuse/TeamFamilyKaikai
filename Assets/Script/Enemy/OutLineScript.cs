@@ -15,10 +15,13 @@ public class OutLineScript : MonoBehaviour
     [SerializeField] private CommentScript _commentScript = default;
     [SerializeField] private ParticleSystem _particle;
 
+    [SerializeField] private CameraRankScript _cameraRank = default;
+     private BoxCollider2D _box;
+
     // Start is called before the first frame update
     void Start()
     {
-       
+        _box = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,7 @@ public class OutLineScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "CPU") 
         {
+            _box.enabled = false;
             ParticleSystem.MainModule main = _particle.main;
             if (collision.gameObject.layer == 12) {//—Î
                 main.startColor = new Color(0.625f, 0.772f, 0.47f, 1f);
