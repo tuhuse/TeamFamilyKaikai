@@ -26,12 +26,42 @@ public class Mucus : MonoBehaviour {
         if (collision.gameObject.CompareTag("Reset")) {
             this.gameObject.SetActive(false);
         }
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.layer==12) {
             PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
             if (!player._isInvincivle) {
                 if (player._projectile == null) {
                     player.MucusCollision();
                 } else if (collision.gameObject !=player._projectile.gameObject) {
+                    player.MucusCollision2();
+                }
+            }
+        }
+        if (collision.gameObject.layer == 13) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle) {
+                if (player._projectile == null) {
+                    player.MucusCollision();
+                } else if (collision.gameObject != player._projectile.gameObject) {
+                    player.MucusCollision2();
+                }
+            }
+        }
+        if (collision.gameObject.layer == 10) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle) {
+                if (player._projectile == null) {
+                    player.MucusCollision();
+                } else if (collision.gameObject != player._projectile.gameObject) {
+                    player.MucusCollision2();
+                }
+            }
+        }
+        if (collision.gameObject.layer == 8) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle) {
+                if (player._projectile == null) {
+                    player.MucusCollision();
+                } else if (collision.gameObject != player._projectile.gameObject) {
                     player.MucusCollision2();
                 }
             }

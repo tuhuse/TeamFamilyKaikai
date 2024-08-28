@@ -24,7 +24,34 @@ public class Beard : MonoBehaviour
        {
             this.gameObject.SetActive(false);//ïEè¡Ç¶ÇÈ
         }
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.layer==12) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle && !player._isGetWater) {
+                if (player._projectile == null) {
+                    player.BeardCollision();
+                }
+            } else if (this.gameObject !=player._projectile.gameObject) {
+                player.BeardCollision2();
+            }
+        } if (collision.gameObject.layer==13) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle && !player._isGetWater) {
+                if (player._projectile == null) {
+                    player.BeardCollision();
+                }
+            } else if (this.gameObject !=player._projectile.gameObject) {
+                player.BeardCollision2();
+            }
+        } if (collision.gameObject.layer==10) {
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle && !player._isGetWater) {
+                if (player._projectile == null) {
+                    player.BeardCollision();
+                }
+            } else if (this.gameObject !=player._projectile.gameObject) {
+                player.BeardCollision2();
+            }
+        } if (collision.gameObject.layer==8) {
             PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
             if (!player._isInvincivle && !player._isGetWater) {
                 if (player._projectile == null) {
