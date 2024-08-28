@@ -133,11 +133,11 @@ public class FrogCpuMulti2 : MonoBehaviour {
         //スタートするまで動けなくする
         StartCoroutine(StartWait());
         _mucasFrogCPUAnim = this.GetComponent<Animator>();
-        if (_difficulty._cpunumber == 1) {
+        if (_difficulty._cpunumber == 0) {
             _difficultynumber = Difficultys.easy;
-        } else if (_difficulty._cpunumber == 2) {
+        } else if (_difficulty._cpunumber == 1) {
             _difficultynumber = Difficultys.nomal;
-        } else if (_difficulty._cpunumber == 3) {
+        } else if (_difficulty._cpunumber == 2) {
             _difficultynumber = Difficultys.hard;
         }
         

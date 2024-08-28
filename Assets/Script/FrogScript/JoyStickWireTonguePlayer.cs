@@ -145,6 +145,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
     }
 
     private void ControllScriptOn() {
+        
         //コントロールスクリプトの復活
         if (_player != null) {
             if (_player.GetComponent<PlayercontrollerScript>() != null) {

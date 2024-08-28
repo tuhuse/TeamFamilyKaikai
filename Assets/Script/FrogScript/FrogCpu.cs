@@ -134,13 +134,14 @@ public class FrogCpu : MonoBehaviour {
         StartCoroutine(StartWait());
         _mucasFrogCPUAnim = this.GetComponent<Animator>();
         //_cpunumber = GameObject.FindGameObjectWithTag("Mode").GetComponent<Difficulty>()._cpunumber;
-        if (_difficulty._cpunumber == 1) {
+        if (_difficulty._cpunumber == 0) {
             _difficultynumber = Difficultys.easy;
-        } else if (_difficulty._cpunumber == 2) {
+        } else if (_difficulty._cpunumber == 1) {
             _difficultynumber = Difficultys.nomal;
-        } else if (_difficulty._cpunumber == 3) {
+        } else if (_difficulty._cpunumber == 2) {
             _difficultynumber = Difficultys.hard;
         }
+       
         
     }
     private void FixedUpdate() {

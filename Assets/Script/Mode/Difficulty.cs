@@ -30,6 +30,7 @@ public class Difficulty : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
         if (_select) {
             #region コントローラーの難易度セレクト
             float controllerStick = Input.GetAxis("L_Stick_Vartical") * -1;
@@ -101,6 +102,8 @@ public class Difficulty : MonoBehaviour {
 
             }
         }
+        DiffcultyNumber(_selectDefficultButton);
+        print(_cpunumber);
     }
     public void OnClick() {
         Switch();

@@ -138,8 +138,8 @@ public class StageRoopManFixed : MonoBehaviour {
 
                
                 if (_countTime >= _nextTime) {
-                    
-                    
+
+                    StartCoroutine(HurryUpText());
                     for (int number = _prefabNumber; number < _addPrefabs.Count; number++) {
                         _prefabs.Insert(_randomMax, _addPrefabs[number]);
                         
@@ -153,7 +153,7 @@ public class StageRoopManFixed : MonoBehaviour {
                     }
 
                     StartCoroutine(_outLineObject.GetComponent<ProgressScript>().StartProgress());
-                    StartCoroutine(HurryUpText());
+                  
                   
                     _isCameraSize = true;
 
