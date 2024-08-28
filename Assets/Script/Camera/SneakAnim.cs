@@ -31,12 +31,11 @@ public class SneakAnim : MonoBehaviour
     [SerializeField] GameObject _camera = default;
     [SerializeField] SelectCharacter _selectScript = default;
 
-    private BoxCollider2D _childBoxCollider = default;
+    [SerializeField] OutLineScript _childScript = default;
 
     // Start is called before the first frame update
     void Start()
     {
-        _childBoxCollider = this.GetComponentInChildren<BoxCollider2D>();
        _sneakAnim = GetComponent<Animator>();
         _sneakAnim.SetBool("Intimidation", true);
         _positionX = this.transform.position.x;
@@ -109,7 +108,6 @@ public class SneakAnim : MonoBehaviour
         } 
         else 
         {
-            _childBoxCollider.enabled = true;
             _sneakAnim.SetBool("ScreenIn", false);
             _isPositionMoveOut = false;
         }
@@ -117,11 +115,7 @@ public class SneakAnim : MonoBehaviour
 
     private void ScreenIn() 
     {
-        if (_childBoxCollider.enabled) 
-        {
-            _childBoxCollider.enabled = false;
-
-        }
+        
         //‰æ–Ê“à‚É“ü‚é
         if (this.transform.position.x <= _camera.transform.position.x-_inStopPosition)
         {

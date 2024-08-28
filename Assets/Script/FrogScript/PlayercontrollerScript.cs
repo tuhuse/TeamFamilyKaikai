@@ -119,6 +119,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     void Update() {
 
         HandlePlayerInput(_playernumber);
+        if (_movespeed >= MOVESPEED) {
+        
+        }
     }
     void HandlePlayerInput(int playerNumber) {
 
@@ -188,10 +191,31 @@ public class PlayercontrollerScript : MonoBehaviour {
             //    }
 
             //}
-            if (this._rb.velocity.x != 0) {
+            if (this._rb.velocity.x != 0) 
+            {
+                if (_movespeed <= MOVESPEED) 
+               {
+                    
+                    if (!_isOneshot)
+                    {
+                        SpeedDownSE();
+                        //移動速度を徐々に元に戻す
+                        _downEffect.gameObject.SetActive(true);
+                        _isOneshot = true;
+
+                    }
+                    _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
+                } 
+                else
+                {
+                    SEReproduction();
+                    _downEffect.gameObject.SetActive(false);
+                }
 
                 _pridictionFrogAnim.SetBool("Run", true);
-            } else {
+            }
+            else 
+            {
                 _pridictionFrogAnim.SetBool("Run", false);
             }
 
@@ -206,24 +230,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         }
 
         //通常の移動
-        if (_movespeed >= MOVESPEED) {
-            SEReproduction();
-
-            _downEffect.gameObject.SetActive(false);
-            _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0);//*Time.deltaTime;
-       
-        }
-
-        //スピードダウンした時
-        else {
-
-            SpeedDownSE();
-            //移動速度を徐々に元に戻す
-            _downEffect.gameObject.SetActive(true);
-            _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
-            _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
-
-        }
+        _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
     }
     private void MoveRightControll() {
         //反対に向かせる
@@ -232,22 +239,11 @@ public class PlayercontrollerScript : MonoBehaviour {
         }
 
         //通常の移動
-        if (_movespeed >= MOVESPEED) {
-            SEReproduction();
 
-            _downEffect.gameObject.SetActive(false);
             _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
-        }
+        
 
-        //スピードダウンした時
-        else {
-            SpeedDownSE();
-
-            //移動速度を徐々に元に戻す
-            _downEffect.gameObject.SetActive(true);
-            _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
-            _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
-        }
+       
     }
     private void OnCollisionStay2D(Collision2D collision) {
         //床に足が着いてるとき
@@ -299,7 +295,8 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void SEReproduction() {
-        if (_isOneshot) {
+        if (_isOneshot) 
+        {
             _isOneshot = false;
 
         }

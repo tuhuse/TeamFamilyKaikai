@@ -16,12 +16,10 @@ public class OutLineScript : MonoBehaviour
     [SerializeField] private ParticleSystem _particle;
 
     [SerializeField] private CameraRankScript _cameraRank = default;
-     private BoxCollider2D _box;
 
     // Start is called before the first frame update
     void Start()
     {
-        _box = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -32,9 +30,17 @@ public class OutLineScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "CPU") 
+        if ((collision.gameObject.tag == "Player" || collision.gameObject.tag == "CPU")) 
         {
-            _box.enabled = false;
+            if (collision.gameObject.CompareTag("Player")) 
+            {
+                collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
+            }
+            if (collision.gameObject.CompareTag("CPU")) {
+                collision.gameObject.SetActive(false);
+            }
+            
             ParticleSystem.MainModule main = _particle.main;
             if (collision.gameObject.layer == 12) {//—Î
                 main.startColor = new Color(0.625f, 0.772f, 0.47f, 1f);
@@ -80,8 +86,10 @@ public class OutLineScript : MonoBehaviour
             {
                 _playerDeathAnim.SetActive(true);
             }
-            collision.gameObject.SetActive(false);
+            //collision.gameObject.SetActive(false);
             _sneakAnimScript.Attack();
         }
     }
+
+    
 }

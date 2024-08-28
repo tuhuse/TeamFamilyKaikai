@@ -31,7 +31,7 @@ public class Mucus : MonoBehaviour {
             if (!player._isInvincivle) {
                 if (player._projectile == null) {
                     player.MucusCollision();
-                } else if (collision.gameObject !=player._projectile.gameObject) {
+                } else if (this.gameObject !=player._projectile.gameObject) {
                     player.MucusCollision();
                 }
             }
@@ -41,7 +41,7 @@ public class Mucus : MonoBehaviour {
             if (!player._isInvincivle) {
                 if (player._projectile == null) {
                     player.MucusCollision();
-                } else if (collision.gameObject != player._projectile.gameObject) {
+                } else if (this.gameObject != player._projectile.gameObject) {
                     player.MucusCollision();
                 }
             }
@@ -51,7 +51,7 @@ public class Mucus : MonoBehaviour {
             if (!player._isInvincivle) {
                 if (player._projectile == null) {
                     player.MucusCollision();
-                } else if (collision.gameObject != player._projectile.gameObject) {
+                } else if (this.gameObject != player._projectile.gameObject) {
                     player.MucusCollision();
                 }
             }
@@ -61,7 +61,7 @@ public class Mucus : MonoBehaviour {
             if (!player._isInvincivle) {
                 if (player._projectile == null) {
                     player.MucusCollision();
-                } else if (collision.gameObject != player._projectile.gameObject) {
+                } else if (this.gameObject != player._projectile.gameObject) {
                     player.MucusCollision();
                 }
             }

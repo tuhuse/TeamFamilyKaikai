@@ -31,8 +31,9 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private CameraRankScript _cameraRank = default;
 
     // Start is called before the first frame update
-    void Start() {
-
+    void Start() 
+    {
+       
 
         for (int number = 0; number < _maxplayer - _playerNumber; number++) {
             _anotherEnemys.Add(_cpuParent.transform.GetChild(number).gameObject);
@@ -63,11 +64,11 @@ public class ClearMan : MonoBehaviour {
                 foreach (GameObject arrayEnemy in _anotherEnemys) {
                     //落下もしくは画面端にぶつかると配列から削除
                     if (_anotherPlayers.Count != 0 && (arrayEnemy.transform.position.y < _fallMin ||
-                                arrayEnemy.transform.position.x < _outLine.transform.position.x)) {
+                                arrayEnemy.transform.position.x <= _outLine.transform.position.x)) {
                         //オブジェクトをランキング配列の先頭へ挿入
                         _rankingList.Insert(0, arrayEnemy);
                         _anotherEnemys.Remove(arrayEnemy);
-                        arrayEnemy.SetActive(false);
+                        
                         _switchNumber = 0;
 
                         break;
@@ -78,13 +79,13 @@ public class ClearMan : MonoBehaviour {
                 foreach (GameObject arrayPlayer in _anotherPlayers) {
                     //落下もしくは画面端にぶつかると配列から削除
                     if (arrayPlayer.transform.position.y < _fallMin ||
-                                arrayPlayer.transform.position.x < _outLine.transform.position.x) {
+                                arrayPlayer.transform.position.x <= _outLine.transform.position.x) {
                         //オブジェクトをランキング配列の先頭へ挿入
                         _rankingList.Insert(0, arrayPlayer);
                         _anotherPlayers.Remove(arrayPlayer);
-                        arrayPlayer.GetComponent<SpriteRenderer>().enabled = false;
-                        arrayPlayer.GetComponent<PlayercontrollerScript>().enabled=false;
+                       
                         _switchNumber = 0;
+
                         
 
                         break;
