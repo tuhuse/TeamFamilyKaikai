@@ -12,6 +12,7 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private GameObject _stage;
     [SerializeField] private GameObject _birdCanvas;
     [SerializeField] private GameObject _sneak = default;
+    public int _enemyNumber;
     private AudioSource _audiosource;
     [SerializeField]
     private AudioClip[] _audioClip;
@@ -26,6 +27,7 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private GameObject[] _playerIcon;
     [SerializeField] private Image[] _playerImage;
     [SerializeField] CameraRankScript _cameraScript = default;
+    
     private enum Sitiuation {
         One,
         Two,
@@ -82,6 +84,15 @@ public class SelectCharacter : MonoBehaviour {
             case 3:
                 _sitiuation = Sitiuation.Four;
                 break;
+        }
+    }
+    public void DiffcultNumberHarf(int number) {
+        if (number ==0) {
+            _enemyNumber = 0;
+        }if (number ==1) {
+            _enemyNumber = 1;
+        }if (number ==2) {
+            _enemyNumber = 2;
         }
     }
     private IEnumerator FrogInstantiate() {

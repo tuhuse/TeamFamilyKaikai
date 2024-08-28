@@ -31,7 +31,7 @@ public class Beard : MonoBehaviour
                     player.BeardCollision();
                 }
             } else if (this.gameObject !=player._projectile.gameObject) {
-                player.BeardCollision2();
+                player.BeardCollision();
             }
         } if (collision.gameObject.layer==13) {
             PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
@@ -40,7 +40,7 @@ public class Beard : MonoBehaviour
                     player.BeardCollision();
                 }
             } else if (this.gameObject !=player._projectile.gameObject) {
-                player.BeardCollision2();
+                player.BeardCollision();
             }
         } if (collision.gameObject.layer==10) {
             PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
@@ -49,7 +49,7 @@ public class Beard : MonoBehaviour
                     player.BeardCollision();
                 }
             } else if (this.gameObject !=player._projectile.gameObject) {
-                player.BeardCollision2();
+                player.BeardCollision();
             }
         } if (collision.gameObject.layer==8) {
             PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
@@ -58,7 +58,7 @@ public class Beard : MonoBehaviour
                     player.BeardCollision();
                 }
             } else if (this.gameObject !=player._projectile.gameObject) {
-                player.BeardCollision2();
+                player.BeardCollision();
             }
         }
     }

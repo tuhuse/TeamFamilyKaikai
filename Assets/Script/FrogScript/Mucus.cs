@@ -32,7 +32,7 @@ public class Mucus : MonoBehaviour {
                 if (player._projectile == null) {
                     player.MucusCollision();
                 } else if (collision.gameObject !=player._projectile.gameObject) {
-                    player.MucusCollision2();
+                    player.MucusCollision();
                 }
             }
         }
@@ -42,7 +42,7 @@ public class Mucus : MonoBehaviour {
                 if (player._projectile == null) {
                     player.MucusCollision();
                 } else if (collision.gameObject != player._projectile.gameObject) {
-                    player.MucusCollision2();
+                    player.MucusCollision();
                 }
             }
         }
@@ -52,7 +52,7 @@ public class Mucus : MonoBehaviour {
                 if (player._projectile == null) {
                     player.MucusCollision();
                 } else if (collision.gameObject != player._projectile.gameObject) {
-                    player.MucusCollision2();
+                    player.MucusCollision();
                 }
             }
         }
@@ -62,7 +62,7 @@ public class Mucus : MonoBehaviour {
                 if (player._projectile == null) {
                     player.MucusCollision();
                 } else if (collision.gameObject != player._projectile.gameObject) {
-                    player.MucusCollision2();
+                    player.MucusCollision();
                 }
             }
         }

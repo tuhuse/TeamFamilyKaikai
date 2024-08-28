@@ -498,24 +498,19 @@ public class PlayercontrollerScript : MonoBehaviour {
             _isGetWater = true;
         }
     }
-    public void BeardCollision2() {
-        _frogSE.PlayOneShot(_damageSE);
-        _movespeed = SPEEDMIN;
-    }
+    
 
     public void BeardCollision() {
-        
+        print("reo");
             _frogSE.PlayOneShot(_damageSE);
             _movespeed = SPEEDMIN;     
     }
     public void MucusCollision() {
+        print("reo2");
         _isMucusJump = true;
         StartCoroutine(MucusJumpTime());
     }
-    public void MucusCollision2() {
-        _isMucusJump = true;
-        StartCoroutine(MucusJumpTime());
-    }
+   
 
     private void OnTriggerEnter2D(Collider2D collision) {
 

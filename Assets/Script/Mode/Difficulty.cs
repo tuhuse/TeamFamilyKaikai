@@ -8,7 +8,7 @@ public class Difficulty : MonoBehaviour {
     private Image _image;
     private bool _isButtonMove = false;
     private int _judgenumber;
-    public int _cpunumber = default;
+    
     [Header("canvasmanager")]
     [SerializeField] private SelectCharacter _selectCharacterScript = default;
     [SerializeField] private MoveButtonScript _move;
@@ -103,7 +103,7 @@ public class Difficulty : MonoBehaviour {
             }
         }
         DiffcultyNumber(_selectDefficultButton);
-        print(_cpunumber);
+       
     }
     public void OnClick() {
         Switch();
@@ -112,16 +112,15 @@ public class Difficulty : MonoBehaviour {
 
         switch (_modes) {
             case Mode.Easy:
-                // Easyモードの処理
-                _cpunumber = 1;
+                _selectCharacterScript.DiffcultNumberHarf(0);
                 break;
             case Mode.Nomal:
                 // Normalモードの処理
-                _cpunumber = 2;
+                _selectCharacterScript.DiffcultNumberHarf(1);
                 break;
             case Mode.Hard:
                 // Hardモードの処理
-                _cpunumber = 3;
+                _selectCharacterScript.DiffcultNumberHarf(2);
                 break;
 
         }

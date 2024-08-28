@@ -32,7 +32,7 @@ public class FrogCpu : MonoBehaviour {
     [SerializeField] private WireTongueCPU _tongue;
     [SerializeField] private GameObject _itemIcon;
     [SerializeField] private ItemSelects _item;
-    [SerializeField] private Difficulty _difficulty;
+    [SerializeField] private SelectCharacter _select;
     private GameObject _projectile = default;
 
 
@@ -133,15 +133,14 @@ public class FrogCpu : MonoBehaviour {
         //スタートするまで動けなくする
         StartCoroutine(StartWait());
         _mucasFrogCPUAnim = this.GetComponent<Animator>();
-        //_cpunumber = GameObject.FindGameObjectWithTag("Mode").GetComponent<Difficulty>()._cpunumber;
-        if (_difficulty._cpunumber == 0) {
+        if (_select._enemyNumber == 0) {
             _difficultynumber = Difficultys.easy;
-        } else if (_difficulty._cpunumber == 1) {
+        } else if (_select._enemyNumber == 1) {
             _difficultynumber = Difficultys.nomal;
-        } else if (_difficulty._cpunumber == 2) {
+        }else if (_select._enemyNumber == 2) {
             _difficultynumber = Difficultys.hard;
         }
-       
+
         
     }
     private void FixedUpdate() {

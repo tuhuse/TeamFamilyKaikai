@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstacleScript : MonoBehaviour
 {
     //áŠQ•¨‚É“–‚½‚Á‚½‚Ì‹““®
-    private float _speedDown = 75f;
+    private float _speedDown = 60f;
     
 
     private void OnTriggerEnter2D(Collider2D collision)
