@@ -13,8 +13,12 @@ public class StageRoopManFixed : MonoBehaviour {
     [SerializeField] private GameObject _hurryUpText;
     [SerializeField] private GameOverMan _gameOverMan;
     [SerializeField] private ClearMan _gameClearMan;
-    [SerializeField] private GameObject _first;
-   
+    [SerializeField] private GameObject _farstStage = default;
+    [SerializeField] private GameObject _preStage = default;
+    [SerializeField] private CommentScript _commentText = default;
+    private GameObject _first;
+
+
     [SerializeField] CameraShake _cameraShake;
     private Camera _camera;
     private float _cameraSizeDecrease;
@@ -33,7 +37,7 @@ public class StageRoopManFixed : MonoBehaviour {
     //ステージの移動距離定数
     [SerializeField] private float _stageXPosition = default;
     //ステージの現在位置
-    [SerializeField] private float _stageNowPosition = default;
+    private float _stageNowPosition = default;
 
     //配列番号
     private int _arrayNumber = 10;
@@ -48,36 +52,40 @@ public class StageRoopManFixed : MonoBehaviour {
 
     public bool _isRoop = false;
     private bool _isReadyGo;
-    private void Start() {
+    private void Start() 
+    {
+        
         _camera = Camera.main;
         _startSize = _camera.orthographicSize;
         _startPosition = _camera.transform.position;
         _audio = this.GetComponent<AudioSource>();
-        _first=_camera.GetComponent<CameraRankScript>()._ranking[0];
+        _first = _camera.GetComponent<CameraRankScript>()._ranking[0];
+        _preStage = _farstStage;
+        _stageNowPosition = _preStage.transform.position.x - 
+                            (_preStage.GetComponent<SpriteRenderer>().size.x * 
+                            _preStage.transform.localScale.x);
 
     }
     void Update() 
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Escape)) {
             _countTime += 100;
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) 
-        {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             _countTime += 100;
         }
         if (_isReadyGo) {
             _countTime += Time.deltaTime;
         }
-     
+
 
         float playerNowposition = _first.transform.position.x;
 
         if (_gameOverMan._switchNumber == 3 || _gameClearMan._switchNumber == 3) {
             _isCameraSize = false;
         }
-        if (_isCameraSize && _camera.orthographicSize > 45) 
-        {
+        if (_isCameraSize && _camera.orthographicSize > 45) {
             _timer += Time.deltaTime; // 経過時間を加算する
             // 時間が経過した割合を計算する
             float timeRatio = _timer / _changeDuration;
@@ -92,11 +100,14 @@ public class StageRoopManFixed : MonoBehaviour {
 
         }
 
-        
 
+
+       
         //ランダムの値を保持
         //プレイヤーが先頭のひとつ前のステージについたらランダムに続きを移動
-        if (playerNowposition >= _stageNowPosition) {
+        if (playerNowposition >= _stageNowPosition) 
+        {
+            print(_preStage);
 
             //現在の最後尾を避けて配列数を取得
             _randomMax = _prefabs.Count - 2;
@@ -107,9 +118,19 @@ public class StageRoopManFixed : MonoBehaviour {
             _stageNowPosition += _stageXPosition;
 
 
+            float preStageScale = _preStage.GetComponent<SpriteRenderer>().size.x
+                * _preStage.transform.localScale.x;
+            float nextStageScale = _prefabs[_arrayNumber].GetComponent<SpriteRenderer>().size.x
+             * _prefabs[_arrayNumber].transform.localScale.x;
+            //ステージのポジション移動
             _prefabs[_arrayNumber].transform.position =
-                new Vector2(_stageNowPosition, _prefabs[_arrayNumber].transform.position.y);
+                new Vector2(_preStage.transform.position.x + (preStageScale / 2) + (nextStageScale / 2), _preStage.transform.position.y);
 
+            _preStage = _prefabs[_arrayNumber];
+
+            _stageNowPosition = _preStage.transform.position.x -
+                                (_preStage.GetComponent<SpriteRenderer>().size.x *
+                                _preStage.transform.localScale.x);
             //移動したステージを配列の末尾に追加し、行を詰める
             _prefabs.Add(_prefabs[_arrayNumber]);
 
@@ -136,15 +157,15 @@ public class StageRoopManFixed : MonoBehaviour {
 
             case 1:
 
-               
+
                 if (_countTime >= _nextTime) {
 
-                    StartCoroutine(HurryUpText());
+
                     for (int number = _prefabNumber; number < _addPrefabs.Count; number++) {
                         _prefabs.Insert(_randomMax, _addPrefabs[number]);
-                        
+
                     }
-                    
+
 
                     if (!_isOneShot) {
                         _isOneShot = true;
@@ -153,8 +174,8 @@ public class StageRoopManFixed : MonoBehaviour {
                     }
 
                     StartCoroutine(_outLineObject.GetComponent<ProgressScript>().StartProgress());
-                  
-                  
+                    StartCoroutine(HurryUpText());
+
                     _isCameraSize = true;
 
                     _switchNumber = 2;
@@ -166,7 +187,8 @@ public class StageRoopManFixed : MonoBehaviour {
     }
 
 
-    public void CameraHurryUp() {
+    public void CameraHurryUp() 
+    {
         float timeRatio = _timer / _changeDuration;
         float targetY = _cameraTargetY;//cameraが向かうY座標
         Vector3 targetPosition = new Vector3(_startPosition.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _startPosition.z);
@@ -185,13 +207,11 @@ public class StageRoopManFixed : MonoBehaviour {
         if (isGo) {
             _isReadyGo = true;
         }
-        
+
     }
 
-    public void FirstChange(GameObject newFarstFrog) 
-    {
+    public void FirstChange(GameObject newFarstFrog) {
         _first = newFarstFrog;
     }
-
 }
 

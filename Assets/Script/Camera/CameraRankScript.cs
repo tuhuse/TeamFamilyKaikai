@@ -155,13 +155,12 @@ public class CameraRankScript : MonoBehaviour
                 _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
                 //4位のカエルが3位のカエルよりも前に行ったら
                 if (_thirdPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINFORTH].transform.position.x) {
-                    print("aaa");
                     _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
 
 
                     //プレイヤーが３位だったら
                     if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) {
-                        print("a");
+                        
                         //プレイヤーを４位に下げる
                         _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
                     }
