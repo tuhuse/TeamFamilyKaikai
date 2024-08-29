@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StageRoopManFixed : MonoBehaviour {
+    [SerializeField] private List<GameObject> _stageUpperRightCorner = new List<GameObject>();
     [SerializeField] private List<GameObject> _prefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> _addPrefabs = new List<GameObject>();
     [SerializeField] private GameObject _playerObjct = null;
@@ -21,7 +22,6 @@ public class StageRoopManFixed : MonoBehaviour {
 
     [SerializeField] CameraShake _cameraShake;
     private Camera _camera;
-    private float _cameraSizeDecrease;
     private bool _isCameraSize = false;
     private float _startSize;
     private Vector3 _startPosition;
@@ -37,7 +37,7 @@ public class StageRoopManFixed : MonoBehaviour {
     //ステージの移動距離定数
     [SerializeField] private float _stageXPosition = default;
     //ステージの現在位置
-    private float _stageNowPosition = default;
+    [SerializeField] float _stageNowPosition = default;
 
     //配列番号
     private int _arrayNumber = 10;
@@ -45,6 +45,7 @@ public class StageRoopManFixed : MonoBehaviour {
     private int _randomMin = 0;
     private int _prefabNumber = 7;
     private int _switchNumber = 0;
+    private int _divisionNumber = default;
     //private float _playerNowposition = default;
     private float _countTime = default;
     private float _time = 45;
@@ -52,22 +53,21 @@ public class StageRoopManFixed : MonoBehaviour {
 
     public bool _isRoop = false;
     private bool _isReadyGo;
-    private void Start() 
-    {
-        
+    private bool _isDivisionStage = default;
+    private void Start() {
+
         _camera = Camera.main;
         _startSize = _camera.orthographicSize;
         _startPosition = _camera.transform.position;
         _audio = this.GetComponent<AudioSource>();
         _first = _camera.GetComponent<CameraRankScript>()._ranking[0];
         _preStage = _farstStage;
-        _stageNowPosition = _preStage.transform.position.x - 
-                            (_preStage.GetComponent<SpriteRenderer>().size.x * 
+        _stageNowPosition = _preStage.transform.position.x -
+                            (_preStage.GetComponent<SpriteRenderer>().size.x *
                             _preStage.transform.localScale.x);
 
     }
-    void Update() 
-    {
+    void Update() {
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             _countTime += 100;
@@ -102,42 +102,83 @@ public class StageRoopManFixed : MonoBehaviour {
 
 
 
-       
+
         //ランダムの値を保持
         //プレイヤーが先頭のひとつ前のステージについたらランダムに続きを移動
-        if (playerNowposition >= _stageNowPosition) 
-        {
-            print(_preStage);
+        if (playerNowposition >= _stageNowPosition) {
 
             //現在の最後尾を避けて配列数を取得
             _randomMax = _prefabs.Count - 2;
 
             _arrayNumber = Random.Range(_randomMin, _randomMax);
 
-            //idou
-            _stageNowPosition += _stageXPosition;
+
+            if (_isDivisionStage) {
+                float preStageScale = _stageUpperRightCorner[_divisionNumber].GetComponent<SpriteRenderer>().size.x
+                       * _prefabs[_arrayNumber].transform.lossyScale.x;
+
+                float nextStageScale = _prefabs[_arrayNumber].GetComponent<SpriteRenderer>().size.x
+                 * _prefabs[_arrayNumber].transform.localScale.x;
 
 
-            float preStageScale = _preStage.GetComponent<SpriteRenderer>().size.x
-                * _preStage.transform.localScale.x;
-            float nextStageScale = _prefabs[_arrayNumber].GetComponent<SpriteRenderer>().size.x
-             * _prefabs[_arrayNumber].transform.localScale.x;
-            //ステージのポジション移動
-            _prefabs[_arrayNumber].transform.position =
-                new Vector2(_preStage.transform.position.x + (preStageScale / 2) + (nextStageScale / 2), _preStage.transform.position.y);
 
-            _preStage = _prefabs[_arrayNumber];
 
-            _stageNowPosition = _preStage.transform.position.x -
-                                (_preStage.GetComponent<SpriteRenderer>().size.x *
-                                _preStage.transform.localScale.x);
-            //移動したステージを配列の末尾に追加し、行を詰める
-            _prefabs.Add(_prefabs[_arrayNumber]);
+                //ステージのポジション移動
+                _prefabs[_arrayNumber].transform.position =
+                    new Vector2(_stageUpperRightCorner[_divisionNumber].transform.position.x + (preStageScale / 2) + (nextStageScale / 2), _stageUpperRightCorner[_divisionNumber].transform.position.y);
 
-            _prefabs.Remove(_prefabs[_arrayNumber]);
+
+                print(_stageUpperRightCorner[_divisionNumber].transform.position.x + "positionX");
+                print(preStageScale / 2 + "Scale");
+                print(_stageUpperRightCorner[_divisionNumber].name);
+
+
+                _preStage = _prefabs[_arrayNumber];
+
+                _stageNowPosition = _preStage.transform.position.x -
+                                    (_preStage.GetComponent<SpriteRenderer>().size.x *
+                                     _preStage.transform.localScale.x / 2);
+                //移動したステージを配列の末尾に追加し、行を詰める
+                _prefabs.Add(_prefabs[_arrayNumber]);
+
+                _prefabs.Remove(_prefabs[_arrayNumber]);
+
+
+
+                _isDivisionStage = false;
+            } else {
+                float preStageScale = _preStage.GetComponent<SpriteRenderer>().size.x
+                        * _preStage.transform.localScale.x;
+                float nextStageScale = _prefabs[_arrayNumber].GetComponent<SpriteRenderer>().size.x
+                 * _prefabs[_arrayNumber].transform.localScale.x;
+
+
+
+
+                //ステージのポジション移動
+                _prefabs[_arrayNumber].transform.position =
+                    new Vector2(_preStage.transform.position.x + (preStageScale / 2) + (nextStageScale / 2), _preStage.transform.position.y);
+
+                _preStage = _prefabs[_arrayNumber];
+
+                _stageNowPosition = _preStage.transform.position.x -
+                                    (_preStage.GetComponent<SpriteRenderer>().size.x *
+                                     _preStage.transform.localScale.x / 2);
+                //移動したステージを配列の末尾に追加し、行を詰める
+                _prefabs.Add(_prefabs[_arrayNumber]);
+
+                _prefabs.Remove(_prefabs[_arrayNumber]);
+                if (_preStage.GetComponent<DivisionStageScript>()) {
+                    _isDivisionStage = true;
+                    _preStage.GetComponent<DivisionStageScript>().GiveNumber();
+                }
+            }
+
+
 
 
         } else {
+
             _isRoop = false;
         }
 
@@ -187,8 +228,7 @@ public class StageRoopManFixed : MonoBehaviour {
     }
 
 
-    public void CameraHurryUp() 
-    {
+    public void CameraHurryUp() {
         float timeRatio = _timer / _changeDuration;
         float targetY = _cameraTargetY;//cameraが向かうY座標
         Vector3 targetPosition = new Vector3(_startPosition.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _startPosition.z);
@@ -212,6 +252,10 @@ public class StageRoopManFixed : MonoBehaviour {
 
     public void FirstChange(GameObject newFarstFrog) {
         _first = newFarstFrog;
+    }
+
+    public void DivisionStageMove(int stageNumber) {
+        _divisionNumber = stageNumber;
     }
 }
 

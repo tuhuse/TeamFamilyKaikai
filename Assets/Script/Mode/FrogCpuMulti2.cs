@@ -161,7 +161,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
             Vector3.Distance(this.transform.position, _player.transform.position);
 
         #region é©êgÇÃèáà éÊìæ
-        float mySelf = this.transform.localPosition.x;
+        float mySelf = _cpuPosition.transform.localPosition.x;
         float player = _player.transform.localPosition.x;
         float player3 = _distancetoPlayer3.transform.localPosition.x;
         float player2 = _distancetoPlayer2.transform.localPosition.x;

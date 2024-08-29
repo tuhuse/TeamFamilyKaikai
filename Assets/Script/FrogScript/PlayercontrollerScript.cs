@@ -153,6 +153,11 @@ public class PlayercontrollerScript : MonoBehaviour {
                     _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
                 }
             }
+            if (this._rb.velocity.y > 50) {
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp(xbutton)) {
+                    _rb.velocity = new Vector3(_rb.velocity.x, _jumppower / 20, 0); //* Time.deltaTime ;
+                }
+            }
             //アイテム取得後
 
             //髭が出たら
@@ -185,12 +190,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             //    _isJump = false;
             //}
 
-            //if (this._rb.velocity.y > 50) {
-            //    if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Submit")) {
-            //        _rb.velocity = new Vector3(_rb.velocity.x, _jumppower / 20, 0); //* Time.deltaTime ;
-            //    }
-
-            //}
+           
             if (this._rb.velocity.x != 0) 
             {
                 if (_movespeed <= MOVESPEED) 

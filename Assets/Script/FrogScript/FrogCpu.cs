@@ -159,7 +159,7 @@ public class FrogCpu : MonoBehaviour {
         
         //プレイヤーとの距離
         float distancetoplayer =
-            Vector3.Distance(this.transform.position, _player.transform.position);
+            Vector3.Distance(_cpuPosition.transform.position, _player.transform.position);
 
         #region 自身の順位取得
         float mySelf = this.transform.localPosition.x;
@@ -187,9 +187,7 @@ public class FrogCpu : MonoBehaviour {
                 _randomItem = RandomItem.Great;//最下位の時
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } 
-       
-       else if (!_distancetoCPU1.activeSelf) {
+        }  else if (!_distancetoCPU1.activeSelf) {
          
             //自分の順位を把握
             if (mySelf > player && mySelf > cpu2) {

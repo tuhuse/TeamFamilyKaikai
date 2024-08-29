@@ -27,8 +27,8 @@ public class FrogCpuMulti : MonoBehaviour {
     [SerializeField] private GameObject _pruduction;
     [SerializeField] private GameObject _downEffect;
     [SerializeField] private GameObject _enemyEffect;
-    [SerializeField] private GameObject _distancetoCPU1;
-    [SerializeField] private GameObject _distancetoPlayer2;
+    [SerializeField] private GameObject _cpu1;
+    [SerializeField] private GameObject _player2;
     [SerializeField] private WireTongueCPU _tongue;
     [SerializeField] private GameObject _itemIcon;
     [SerializeField] private ItemSelects _item;
@@ -155,18 +155,17 @@ public class FrogCpuMulti : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
-
         //ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£
         float distancetoplayer =
             Vector3.Distance(this.transform.position, _player.transform.position);
 
         #region ©g‚Ì‡ˆÊæ“¾
-        float mySelf = this.transform.localPosition.x;
+        float mySelf = _cpuPosition.transform.localPosition.x;
         float player = _player.transform.localPosition.x;
-        float cpu1 = _distancetoCPU1.transform.localPosition.x;
-        float player2 = _distancetoPlayer2.transform.localPosition.x;
+        float cpu1 = _cpu1.transform.localPosition.x;
+        float player2 = _player2.transform.localPosition.x;
 
-        if (_distancetoCPU1.activeSelf && _player.activeSelf && _distancetoPlayer2) {
+        if (_cpu1.activeSelf && _player.activeSelf && _player2) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > cpu1 && mySelf > player2) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
@@ -185,7 +184,7 @@ public class FrogCpuMulti : MonoBehaviour {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoCPU1.activeSelf) {
+        } else if (!_cpu1.activeSelf) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > player2) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
@@ -198,7 +197,7 @@ public class FrogCpuMulti : MonoBehaviour {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoPlayer2.activeSelf) {
+        } else if (!_player2.activeSelf) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > cpu1) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
@@ -224,7 +223,7 @@ public class FrogCpuMulti : MonoBehaviour {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoCPU1.activeSelf && !_distancetoPlayer2) {
+        } else if (!_cpu1.activeSelf && !_player2) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
@@ -233,7 +232,7 @@ public class FrogCpuMulti : MonoBehaviour {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        } else if (!_distancetoCPU1.activeSelf && !_player) {
+        } else if (!_cpu1.activeSelf && !_player) {
             print(_randomItem);
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player2) {
