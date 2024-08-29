@@ -38,12 +38,12 @@ public class FrogCpuMulti2 : MonoBehaviour {
 
     private bool _isWaterball = false;
     private bool _isInstantiateWaterBall = false;
-    private bool _isWaterAbility = false;
+    public bool _isWaterAbility = false;
     private bool _isMucusAbility = false;
     private bool _isBeardAbility = false;
     private bool _isJump;
     private bool _isAlive;
-    private bool _isPridictionAbility = false;
+    public bool _isPridictionAbility = false;
     private bool _isPridictionStart = true;
     private bool _isMucus = false;
     private bool _isBeard = false;
@@ -92,6 +92,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
     private const float JUMPMIN = 17f;//粘液踏んだ時のジャンプ力
     private const float MOVEJUMP = 35f;
     private const float TIMEDELTATIME = 1000f;
+    private const float WATERTIME = 2.5f;
     private Animator _mucasFrogCPUAnim;
 
     private AudioSource _frogSE = default;
@@ -357,8 +358,8 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 print(_randomJump + "easy");
                 //確率計算
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
-                //80%でジャンプ
-                if (_randomJump <= 8000) {
+                //90%でジャンプ
+                if (_randomJump <= 9000) {
                     Jump2();
                 }
                 break;
@@ -375,8 +376,8 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 print(_randomJump + "harf");
                 //確率計算
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
-                //60%でジャンプ
-                if (_randomJump <= 6000) {
+                //70%でジャンプ
+                if (_randomJump <= 7000) {
                     Jump2();
                 }
                 break;
@@ -489,20 +490,6 @@ public class FrogCpuMulti2 : MonoBehaviour {
             }
         }
 
-        
-        if (collision.gameObject.CompareTag("Enemy")) {
-            if (_isPridictionAbility) {
-                {
-                    PriictionAbility();
-                }
-            }
-            if (this.gameObject.activeSelf && !_isWaterAbility && !_isPridictionAbility) {
-                StartCoroutine(CollisionEffect());
-            }
-
-
-
-        }
         if (!_isPridictionAbility) {
             //粘液の床
             if (collision.gameObject.layer == 7) {
@@ -519,7 +506,9 @@ public class FrogCpuMulti2 : MonoBehaviour {
         }
 
     }
-
+    public void SmokeStart() {
+        StartCoroutine(CollisionEffect());
+    }
     private void GetItem() {
 
         // アイテムの確立
@@ -615,7 +604,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
 
     #region 無敵能力
     //無敵発動
-    private void PriictionAbility() {
+    public void PriictionAbility() {
         if (_isPridictionStart) {
             if (_isPridictionAbility) {
                 _frogSE.PlayOneShot(_pridictionSE);
@@ -723,7 +712,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
     private IEnumerator WaterAbility() {
 
         _ishavingItem = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(WATERTIME);
         _movespeed = MOVESPEED;
         _isWaterAbility = false;
         _waterCpuEffect.SetActive(false);
