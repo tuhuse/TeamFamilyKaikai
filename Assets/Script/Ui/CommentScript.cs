@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CommentScript : MonoBehaviour
-{
+public class CommentScript : MonoBehaviour {
     private Text _commentText = default;
 
     private float _commentChangeTime = default;
-    private float _randomValue=default;
+    private int _randomValue = default;
     private bool _isStart = false;
     private bool _isStartComment = false;
 
     private bool _isCommentatorSpeak = false;
     private bool _isLiveCommentatorSpeak = false;
-    private bool _isSpeak = default;
 
-    [SerializeField] GameObject _commentator = default; 
+    [SerializeField] GameObject _commentator = default;
     [SerializeField] GameObject _liveCommentator = default;
 
     private RectTransform _getCommentatorRecttransform = default;
@@ -37,8 +35,7 @@ public class CommentScript : MonoBehaviour
     private const float COMMANTATORSCALEZ = 1f;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _commentText = this.GetComponent<Text>();
         _getCommentatorRecttransform = _commentator.GetComponent<RectTransform>();
         _getLiveCommentatorRecttransform = _liveCommentator.GetComponent<RectTransform>();
@@ -46,127 +43,116 @@ public class CommentScript : MonoBehaviour
         _commentatorImage = _commentator.GetComponent<Image>();
         _liveCommentatorImage = _liveCommentator.GetComponent<Image>();
     }
-    void Update() 
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
-        {
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             _isStart = true;
         }
 
         _commentChangeTime += Time.deltaTime;
 
-        if (_commentChangeTime >= 5 && _isStart) 
-        {
+        if (_commentChangeTime >= 5 && _isStart) {
             //５秒に一回コメントを変更する
             _commentChangeTime = 0;
             GiveMessage();
-        } 
-        else if (_commentChangeTime>=5&&_isStartComment) 
-        {
+        } else if (_commentChangeTime >= 5 && _isStartComment) {
             _isStart = true;
             _commentChangeTime = 0;
             _isStartComment = false;
             GiveMessage();
         }
-       
+
     }
 
-    private void GiveMessage() 
-    {
-       _randomValue=Random.Range(1, 6);
-        if (_randomValue == 1) 
-        {
+    private void GiveMessage() {
+        _randomValue = Random.Range(1, 6);
+        if (_randomValue == 1) {
             //コメントの表示
-            CommentChange("ゆうせい", false);
+            CommentChange("さあ、せっせんがつづいています！", false);
 
-            if (!_isCommentatorSpeak) 
-            {
+            if (!_isCommentatorSpeak) {
                 //実況者を大きくする
                 CommentatorExpansion();
             }
 
             //解説者が大きくなっていたら
-            if (_isLiveCommentatorSpeak) 
-            {
+            if (_isLiveCommentatorSpeak) {
                 //解説者を小さくする
                 LiveCommentatorReduction();
             }
-            
-        } 
-        else if (_randomValue == 2) 
-        {
+
+        } else if (_randomValue == 2) {
             //実況者
-            CommentChange("れお",false);
+            CommentChange("こんかいはだれがいきのこるのでしょうか！", false);
 
-            if (!_isCommentatorSpeak) 
-            {
+            if (!_isCommentatorSpeak) {
                 //実況者を大きくする
                 CommentatorExpansion();
             }
-           
+
 
             //解説者が大きくなっていたら
-            if (_isLiveCommentatorSpeak) 
-            {
+            if (_isLiveCommentatorSpeak) {
                 //解説者を小さくする
                 LiveCommentatorReduction();
             }
-        } 
-        else if (_randomValue == 3) 
-        {
+        } else if (_randomValue == 3) {
             //実況者
-            CommentChange("ゆーや",false);
+            CommentChange("いわやとげにきをつけてがんばってください", false);
 
-            if (!_isCommentatorSpeak) 
-            {
+            if (!_isCommentatorSpeak) {
                 //実況者を大きくする
                 CommentatorExpansion();
             }
 
             //解説者が大きくなっていたら
-            if (_isLiveCommentatorSpeak) 
-            {
+            if (_isLiveCommentatorSpeak) {
                 //解説者を小さくする
                 LiveCommentatorReduction();
             }
 
-        } 
-        else if (_randomValue == 4) 
-        {
+        } else if (_randomValue == 4) {
             //解説者
-            CommentChange("りこ",false);
+            CommentChange("あぶないとき、いかにしたをつかうかがたいせつですね", false);
 
-            if (!_isLiveCommentatorSpeak) 
-            {
+            if (!_isLiveCommentatorSpeak) {
                 //解説者を拡大
                 LiveCommentatorExpansion();
             }
-           
 
-           
+
+
             //実況者が大きくなっていたら
-            if (_isCommentatorSpeak) 
-            {
+            if (_isCommentatorSpeak) {
                 //実況者を縮小
                 CommentatorReduction();
 
             }
 
-        }
-        else if (_randomValue == 5) 
-        {
+        } else if (_randomValue == 5) {
             //解説者
-            CommentChange("ちば",false);
+            CommentChange("どのタイミングでアイテムをつかうか、ちゅうもくです", false);
 
-            if (!_isLiveCommentatorSpeak) 
-            {
+            if (!_isLiveCommentatorSpeak) {
                 //解説者を拡大
                 LiveCommentatorExpansion();
             }
 
             //実況者が大きくなっていたら
-            if (_isCommentatorSpeak) 
-            {
+            if (_isCommentatorSpeak) {
+                //実況者を縮小
+                CommentatorReduction();
+            }
+        } else if (_randomValue == 6) {
+            //解説者
+            CommentChange("このコースには、がけがあるそうです！きをつけて！", false);
+
+            if (!_isLiveCommentatorSpeak) {
+                //解説者を拡大
+                LiveCommentatorExpansion();
+            }
+
+            //実況者が大きくなっていたら
+            if (_isCommentatorSpeak) {
                 //実況者を縮小
                 CommentatorReduction();
             }
@@ -177,9 +163,7 @@ public class CommentScript : MonoBehaviour
     /// <summary>
     /// 実況者の立ち絵の拡大
     /// </summary>
-    private void CommentatorExpansion() 
-    {
-        
+    private void CommentatorExpansion() {
         _getCommentatorRecttransform.position += new Vector3(COMMANTATORPOSITIONX, COMMANTATORPOSITIONY, 0);// -776 -398 0
 
         _getCommentatorRecttransform.localScale += new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ); //4 3 1
@@ -188,15 +172,13 @@ public class CommentScript : MonoBehaviour
 
         //色を濃くする
         _commentatorImage.color = new Color(MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE);
-        
 
     }
 
     /// <summary>
     /// 実況者の縮小
     /// </summary>
-    private void CommentatorReduction() 
-    {
+    private void CommentatorReduction() {
         _getCommentatorRecttransform.position -= new Vector3(COMMANTATORPOSITIONX, COMMANTATORPOSITIONY, 0); // -873 -456 0
 
         _getCommentatorRecttransform.localScale -= new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ);// 2.5, 1.8, 1
@@ -210,23 +192,21 @@ public class CommentScript : MonoBehaviour
     /// <summary>
     ///　解説者の拡大
     /// </summary>
-    private void LiveCommentatorExpansion() 
-    {
+    private void LiveCommentatorExpansion() {
         _getLiveCommentatorRecttransform.position += new Vector3(-COMMANTATORPOSITIONY, COMMANTATORPOSITIONY, 0);// 810 -392 0
 
         _getLiveCommentatorRecttransform.localScale += new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ); //4 3 1
 
         _isLiveCommentatorSpeak = true;
-        
-    　　//色を濃くする
-        _liveCommentatorImage.color= new Color(MAXCOLORVALUE,MAXCOLORVALUE,MAXCOLORVALUE,MAXCOLORVALUE);
+
+        //色を濃くする
+        _liveCommentatorImage.color = new Color(MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE);
     }
 
     /// <summary>
     /// 解説者の縮小
     /// </summary>
-    private void LiveCommentatorReduction() 
-    {
+    private void LiveCommentatorReduction() {
         _getLiveCommentatorRecttransform.position -= new Vector3(-COMMANTATORPOSITIONY, COMMANTATORPOSITIONY, 0); // 868 -450 0
 
         _getLiveCommentatorRecttransform.localScale -= new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ);// 2.5, 1.8, 1
@@ -240,41 +220,27 @@ public class CommentScript : MonoBehaviour
 
 
 
-    public void CommentChange(string message,bool isGameStart) 
-    {
-        if (!_isSpeak) 
-        {
-            _isSpeak = true;
-            StartCoroutine(SpeakStart());
-            if (!_isStartComment) {
+    public void CommentChange(string message, bool isGameStart) {
 
-                if (!_isCommentatorSpeak) {
-                    //実況者を大きくする
-                    CommentatorExpansion();
-                }
+        if (!_isStartComment) {
 
-
-                //解説者が大きくなっていたら
-                if (_isLiveCommentatorSpeak) {
-                    //解説者を小さくする
-                    LiveCommentatorReduction();
-                }
-
-                _isStartComment = isGameStart;
-                _commentChangeTime = 0;
-                _commentText.text = message;
+            if (!_isCommentatorSpeak) {
+                //実況者を大きくする
+                CommentatorExpansion();
             }
-        }   
-        
-       
-       
-    }
 
-    private IEnumerator SpeakStart() {
 
-        float reSpeak = 4f;
-        yield return new WaitForSeconds(reSpeak);
-        _isSpeak = false;
+            //解説者が大きくなっていたら
+            if (_isLiveCommentatorSpeak) {
+                //解説者を小さくする
+                LiveCommentatorReduction();
+            }
+
+            _isStartComment = isGameStart;
+            _commentChangeTime = 0;
+            _commentText.text = message;
+        }
+
 
     }
 }
