@@ -28,8 +28,8 @@ public class FrogCpuMulti2 : MonoBehaviour {
     [SerializeField] private GameObject _pruduction;
     [SerializeField] private GameObject _downEffect;
     [SerializeField] private GameObject _enemyEffect;
-    [SerializeField] private GameObject _distancetoPlayer3;
-    [SerializeField] private GameObject _distancetoPlayer2;
+    [SerializeField] private GameObject _player3;
+    [SerializeField] private GameObject _player2;
     [SerializeField] private WireTongueCPU _tongue;
     [SerializeField] private GameObject _itemIcon;
     [SerializeField] private ItemSelects _item;
@@ -164,10 +164,10 @@ public class FrogCpuMulti2 : MonoBehaviour {
         #region ©g‚Ì‡ˆÊæ“¾
         float mySelf = this.transform.localPosition.x;
         float player = _player.transform.localPosition.x;
-        float player3 = _distancetoPlayer3.transform.localPosition.x;
-        float player2 = _distancetoPlayer2.transform.localPosition.x;
+        float player3 = _player3.transform.localPosition.x;
+        float player2 = _player2.transform.localPosition.x;
 
-        //if (_distancetoPlayer3.activeSelf && _player.activeSelf && _distancetoPlayer2) {
+        if (_player3.activeSelf && _player.activeSelf && _player2) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > player3 && mySelf > player2) {
                 _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
@@ -186,78 +186,80 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
                 _swicthRandomJump = SwicthRandomJump.Easy;
             }
-        //} else if (!_distancetoPlayer3.activeSelf) {
-        //    print(_randomItem);
-        //    //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
-        //    if (mySelf > player && mySelf > player2) {
-        //        _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Hard;
-        //    } else if ((mySelf < player && mySelf > player2) ||
-        //          (mySelf > player && mySelf < player2)) {
-        //        _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Harf;
-        //    } else {
-        //        _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Easy;
-        //    }
-        //} else if (!_distancetoPlayer2.activeSelf) {
-        //    print(_randomItem);
-        //    //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
-        //    if (mySelf > player && mySelf > player3) {
-        //        _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Hard;
-        //    } else if ((mySelf < player && mySelf > player3) ||
-        //          (mySelf > player && mySelf < player3)) {
-        //        _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Harf;
-        //    } else {
-        //        _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Easy;
-        //    }
-        //} else if (!_player.activeSelf) {
-        //    print(_randomItem);
-        //    //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
-        //    if (mySelf > player2 && mySelf > player3) {
-        //        _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Hard;
-        //    } else if ((mySelf < player2 && mySelf > player3) ||
-        //          (mySelf > player2 && mySelf < player3)) {
-        //        _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Harf;
-        //    } else {
-        //        _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Easy;
-        //    }
-        //} else if (!_distancetoPlayer3.activeSelf && !_distancetoPlayer2) {
-        //    print(_randomItem);
-        //    //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
-        //    if (mySelf > player) {
-        //        _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Hard;
-        //    } else {
-        //        _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Easy;
-        //    }
-        //} else if (!_distancetoPlayer3.activeSelf && !_player) {
-        //    print(_randomItem);
-        //    //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
-        //    if (mySelf > player2) {
-        //        _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Hard;
-        //    } else {
-        //        _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Easy;
-        //    }
-        //} else if (!_distancetoPlayer2.activeSelf && !_player) {
-        //    //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
-        //    if (mySelf > player3) {
-        //        _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Hard;
-        //    } else {
-        //        _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-        //        _swicthRandomJump = SwicthRandomJump.Easy;
-        //    }
-        //}
+        } 
+        if (!_player3.activeSelf) {
+            print(_randomItem);
+            //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
+            if (mySelf > player && mySelf > player2) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else if ((mySelf < player && mySelf > player2) ||
+                  (mySelf > player && mySelf < player2)) {
+                _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Harf;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        } else if (!_player2.activeSelf) {
+            print(_randomItem);
+            //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
+            if (mySelf > player && mySelf > player3) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else if ((mySelf < player && mySelf > player3) ||
+                  (mySelf > player && mySelf < player3)) {
+                _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Harf;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        } else if (!_player.activeSelf) {
+            print(_randomItem);
+            //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
+            if (mySelf > player2 && mySelf > player3) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else if ((mySelf < player2 && mySelf > player3) ||
+                  (mySelf > player2 && mySelf < player3)) {
+                _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Harf;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        } 
+        if (!_player3.activeSelf && !_player2) {
+            
+            //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
+            if (mySelf > player) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        } else if (!_player3.activeSelf && !_player) {
+            print(_randomItem);
+            //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
+            if (mySelf > player2) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        } else if (!_player2.activeSelf && !_player) {
+            //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
+            if (mySelf > player3) {
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+            } else {
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+            }
+        }
         #endregion
         //print(_randomItem);
         //¶‚«‚Ä‚¢‚éê‡

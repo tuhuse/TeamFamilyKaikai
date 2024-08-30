@@ -160,7 +160,7 @@ public class MoveButtonScript : MonoBehaviour {
             float height = _jumpCurve.Evaluate(t) * _jumpHeight;
             Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition + new Vector3(0, 70), t) + (Vector3.up * height);
             transform.position = newPosition;
-            _anim.SetBool("MainMenuJump", true);
+            //_anim.SetBool("MainMenuJump", true);
             _isSelect = false;
 
         }
@@ -170,7 +170,7 @@ public class MoveButtonScript : MonoBehaviour {
             _isCurve = false;
             _isSelect = true;
             _multiButtonMethod.Landing();
-            _anim.SetBool("MainMenuJump", false);
+            //_anim.SetBool("MainMenuJump", false);
             _jumpTimer = _jumpDuration;
 
         }
@@ -185,7 +185,7 @@ public class MoveButtonScript : MonoBehaviour {
             float height = _jumpCurve.Evaluate(t) * _jumpHeight;
             Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition + new Vector3(0, 70), t) + (Vector3.up * height);
             transform.position = newPosition;
-            _anim.SetBool("MainMenuJump", true);
+            //_anim.SetBool("MainMenuJump", true);
             _isSelect = false;
             
         }
@@ -195,7 +195,7 @@ public class MoveButtonScript : MonoBehaviour {
             _isCurve = false;
             _isSelect = true;
             _soroButtonMethod.Landing();
-            _anim.SetBool("MainMenuJump", false);
+            //_anim.SetBool("MainMenuJump", false);
             _jumpTimer = _jumpDuration;
 
         }
