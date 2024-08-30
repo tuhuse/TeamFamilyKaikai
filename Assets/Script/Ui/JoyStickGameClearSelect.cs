@@ -17,63 +17,39 @@ public class JoyStickGameClearSelect : MonoBehaviour {
     // Start is called before the first frame update
     // Update is called once per frame
     void Update() {
-
-        //上矢印を押したら
-        if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect) {
+        print(_selectButton);
+        float lstick = Input.GetAxis("L_Stick_Horizontal");
+        //右矢印を押したら
+        if (lstick > 0 && !_isSelect) {
             _isFarstSelect = true;
             _isSelect = true;
 
-            //一回でもボタンを選択していたら
-            if (_preButton != null) {
-                //見ていたボタンの色を薄くする
-                _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-            }
-            //次のボタンを見る準備
-            _selectButton++;
+            _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            
 
-            //上のボタンを見ていたら
-            if (_selectButton >= 2) {
-                //下のボタンを見る
-                _selectButton = 0;
-            }
+            _gameClearText[1].GetComponent<Image>().color = new Color(1, 1, 1, 1);
 
-            //一個前のボタンとして入れる
-            _preButton = _gameClearText[_selectButton];
+            _gameClearText[0].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
 
-            //見ているボタンの色を濃くする
-            _gameClearText[_selectButton].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
 
         }
 
-        //下矢印を押した場合
-        if (Input.GetAxis("1pLstickHorizontal") < 0 && !_isSelect) {
+        //左矢印を押した場合
+        if (lstick  < 0 && !_isSelect) {
             _isFarstSelect = true;
             _isSelect = true;
 
-            //一回でもボタンを選択していたら
-            if (_preButton != null) {
-                //見ていたボタンの色を薄くする
-                _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-            }
+            _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+           
 
-            //次のボタンを見る準備
-            _selectButton--;
+            _gameClearText[0].GetComponent<Image>().color = new Color(1, 1, 1, 1);
 
-            //下のボタンを見ていたら
-            if (_selectButton <= -1) {
-                //上のボタンを見ていたら
-                _selectButton = 1;
-            }
+            _gameClearText[1].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
 
-            //一個前のボタンとして入れる
-            _preButton = _gameClearText[_selectButton];
-
-            //見ているボタンの色を濃くする
-            _gameClearText[_selectButton].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
         }
 
         //矢印ボタンを離したら
-        if (Input.GetAxis("1pLstickHorizontal") == 0) {
+        if (lstick == 0) {
             //また選択できるようにする
             _isSelect = false;
         }
