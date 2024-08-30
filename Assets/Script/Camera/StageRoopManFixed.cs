@@ -168,9 +168,9 @@ public class StageRoopManFixed : MonoBehaviour {
                 _prefabs.Add(_prefabs[_arrayNumber]);
 
                 _prefabs.Remove(_prefabs[_arrayNumber]);
-                if (_preStage.GetComponent<DivisionStageScript>()) {
+                if (_preStage.GetComponent<DivisionScriptver2>()) {
                     _isDivisionStage = true;
-                    _preStage.GetComponent<DivisionStageScript>().GiveNumber();
+                    _preStage.GetComponent<DivisionScriptver2>().GiveNumber();
                 }
             }
 
