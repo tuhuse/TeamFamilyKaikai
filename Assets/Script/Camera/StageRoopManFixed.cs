@@ -128,10 +128,7 @@ public class StageRoopManFixed : MonoBehaviour {
                     new Vector2(_stageUpperRightCorner[_divisionNumber].transform.position.x + (preStageScale / 2) + (nextStageScale / 2), _stageUpperRightCorner[_divisionNumber].transform.position.y);
 
 
-                print(_stageUpperRightCorner[_divisionNumber].transform.position.x + "positionX");
-                print(preStageScale / 2 + "Scale");
-                print(_stageUpperRightCorner[_divisionNumber].name);
-
+            
 
                 _preStage = _prefabs[_arrayNumber];
 

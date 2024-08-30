@@ -62,7 +62,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private const float JUMPMIN = 10f;//粘液踏んだ時のジャンプ力
     private const float JUMPMAX = 200f;
     private const float SPEEDMIN = 60f;
-    private const float SPEEDRESETWAITTIME = 2.5f; //スピードアップしている時間
+    private const float SPEEDRESETWAITTIME = 2f; //スピードアップしている時間
     private const float INVINCIBLETIME = 5f; //無敵時間
 
     private const float MAXRANDOMRANGE = 10001;
@@ -454,7 +454,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             _frogSE.PlayOneShot(_mucasSE);
 
             //粘液の生成
-            _projectile = Instantiate(_mucus, _spawn.position, Quaternion.identity);
+            _projectile = Instantiate(_mucus, _waterSpawn.position, Quaternion.identity);
 
             //アイテム取る前の状態にリセット
             _isGetItem = false;
@@ -498,12 +498,12 @@ public class PlayercontrollerScript : MonoBehaviour {
     
 
     public void BeardCollision() {
-        print("reo");
+        
             _frogSE.PlayOneShot(_damageSE);
             _movespeed = SPEEDMIN;     
     }
     public void MucusCollision() {
-        print("reo2");
+        
         _isMucusJump = true;
         StartCoroutine(MucusJumpTime());
     }

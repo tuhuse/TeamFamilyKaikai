@@ -34,8 +34,9 @@ public class OutLineScript : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player")) 
             {
-                collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
+                //collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                //collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
+                collision.gameObject.SetActive(false);
             }
             if (collision.gameObject.CompareTag("CPU")) {
                 collision.gameObject.SetActive(false);

@@ -34,6 +34,9 @@ public class CommentScript : MonoBehaviour {
     private const float COMMANTATORSCALEY = 1.2f;
     private const float COMMANTATORSCALEZ = 1f;
 
+    private Animator _commentatorAnim = default;
+    private Animator _liveCommentatorAnim = default;
+
     // Start is called before the first frame update
     void Start() {
         _commentText = this.GetComponent<Text>();
@@ -42,6 +45,9 @@ public class CommentScript : MonoBehaviour {
 
         _commentatorImage = _commentator.GetComponent<Image>();
         _liveCommentatorImage = _liveCommentator.GetComponent<Image>();
+
+        _commentatorAnim = _commentator.GetComponent<Animator>();
+        _liveCommentatorAnim = _liveCommentator.GetComponent<Animator>();
     }
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
