@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MoveButtonScript : MonoBehaviour {
 
     private float _jumpHeight = 200f; // •ú•¨ü‚ÌÅ‘å‚‚³
-    private float _jumpDuration = 1f; // •ú•¨ü‚Ì‰^“®‚É‚©‚©‚éŠÔ
+    private float _jumpDuration = 0.7f; // •ú•¨ü‚Ì‰^“®‚É‚©‚©‚éŠÔ
     [SerializeField] private AnimationCurve _jumpCurve; // •ú•¨ü‚Ì‚‚³‚ÌƒJ[ƒu
     [SerializeField] private ButtonMethod _multiButtonMethod;
     [SerializeField] private ButtonMethod _soroButtonMethod;
@@ -25,6 +25,7 @@ public class MoveButtonScript : MonoBehaviour {
     [SerializeField] private Difficulty _difficulty;
     private Image _image;
     private Color _color;
+    private Animator _anim;
    
    
     private bool _one = false;
@@ -45,17 +46,17 @@ public class MoveButtonScript : MonoBehaviour {
         _situation = Situation.One;
         _image = GetComponent<Image>();
         _color = _image.color;
-        
+        _anim = this.gameObject.GetComponent<Animator>();
     }
 
     void Update() {
 
-
         if (!_next) {
-            float horizontalInput = Input.GetAxis("1pLstickHorizontal");
+            float horizontalInput = Input.GetAxis("1pLstickHorizontal");//‰EˆÚ“®
             if (horizontalInput > 0 && !_isButtonSelect && !_isWaitSelect) {
                 _isButtonSelect = true;
                 _isWaitSelect = true;
+                
                 if (_situation == Situation.Every) {
 
                     _soroButtonMethod.OnButtonClick();
@@ -67,8 +68,9 @@ public class MoveButtonScript : MonoBehaviour {
                 }
 
 
-            } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect) {
-
+            } else if (horizontalInput < 0 && !_isButtonSelect && !_isWaitSelect)//¶ˆÚ“®
+                                                                                 {
+                
                 _isButtonSelect = true;
                 _isWaitSelect = true;
                 if (_situation == Situation.Every) {
@@ -126,10 +128,10 @@ public class MoveButtonScript : MonoBehaviour {
         switch (_situation) {
             case Situation.One:
                 RightSpeed();
-
+               
                 break;
             case Situation.Every:
-
+                
                 LeftSpeed();
                 break;
         }
@@ -150,7 +152,7 @@ public class MoveButtonScript : MonoBehaviour {
     private void RightSpeed() {
 
         if (_isCurve) {
-
+            
             transform.rotation = Quaternion.Euler(0, 0, 0);
             _jumpTimer -= Time.deltaTime;
             // •ú•¨ü‚Ì‰^“®
@@ -158,6 +160,7 @@ public class MoveButtonScript : MonoBehaviour {
             float height = _jumpCurve.Evaluate(t) * _jumpHeight;
             Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition + new Vector3(0, 70), t) + (Vector3.up * height);
             transform.position = newPosition;
+            _anim.SetBool("MainMenuJump", true);
             _isSelect = false;
 
         }
@@ -167,13 +170,13 @@ public class MoveButtonScript : MonoBehaviour {
             _isCurve = false;
             _isSelect = true;
             _multiButtonMethod.Landing();
-
+            _anim.SetBool("MainMenuJump", false);
             _jumpTimer = _jumpDuration;
 
         }
     }
     private void LeftSpeed() {
-
+      
         if (_isCurve) {
             transform.rotation = Quaternion.Euler(0, 180, 0);
             _jumpTimer -= Time.deltaTime;
@@ -182,8 +185,9 @@ public class MoveButtonScript : MonoBehaviour {
             float height = _jumpCurve.Evaluate(t) * _jumpHeight;
             Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition + new Vector3(0, 70), t) + (Vector3.up * height);
             transform.position = newPosition;
+            _anim.SetBool("MainMenuJump", true);
             _isSelect = false;
-
+            
         }
         if (_jumpTimer <= 0f) {
             // ˆÚ“®Š®—¹
@@ -191,7 +195,7 @@ public class MoveButtonScript : MonoBehaviour {
             _isCurve = false;
             _isSelect = true;
             _soroButtonMethod.Landing();
-
+            _anim.SetBool("MainMenuJump", false);
             _jumpTimer = _jumpDuration;
 
         }
