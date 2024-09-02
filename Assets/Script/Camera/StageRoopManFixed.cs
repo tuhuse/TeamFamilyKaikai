@@ -91,9 +91,6 @@ public class StageRoopManFixed : MonoBehaviour {
             float timeRatio = _timer / _changeDuration;
             timeRatio = Mathf.Clamp01(timeRatio); // 0から1の間にクランプ
 
-            // 現在のサイズから目標サイズにカメラのサイズを変更する
-            _camera.orthographicSize = Mathf.Lerp(_startSize, 45f, timeRatio);
-
             float targetY = _cameraTargetY;//cameraが向かうY座標
             Vector3 targetPosition = new Vector3(_camera.transform.position.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _camera.transform.position.z);
             _camera.transform.position = targetPosition;
