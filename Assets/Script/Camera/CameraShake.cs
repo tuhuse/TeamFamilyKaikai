@@ -9,6 +9,7 @@ public class CameraShake : MonoBehaviour {
     private bool _isShake = false;
     private Vector3 _originalPosition;
     [SerializeField] private Image _redColor;
+    [SerializeField] private StageRoopManFixed _stageRoopMan;
     // Start is called before the first frame update
     void Start() {
         _originalPosition = transform.localPosition;
@@ -19,11 +20,14 @@ public class CameraShake : MonoBehaviour {
         {
             _isShake=true;
             // ランダムな振動を生成
-            float x = Random.Range(-1f, 1f) * _shakeMagnitude;
-            float y = Random.Range(-1f, 1f) * _shakeMagnitude;
+            //float shakeX = Random.Range(-1f, 1f) * _shakeMagnitude;
+            float shakeY = Random.Range(-1f, 1f) * _shakeMagnitude;
+            _stageRoopMan.Camerashake(true);
+            
+
             _redColor.enabled = true;
             // 振動をカメラに適用
-            transform.localPosition += new Vector3(x, y, 0f);
+            transform.localPosition += new Vector3(0f, shakeY, 0f);
             
         } 
         else if (!_isCameraShake&&_isShake) 
@@ -39,7 +43,8 @@ public class CameraShake : MonoBehaviour {
         _isCameraShake = true;
     }
     public void StopCameraShake() {
-        _isCameraShake = false;
+         _isCameraShake = false;
+        _stageRoopMan.Camerashake(false);
     }
    
   

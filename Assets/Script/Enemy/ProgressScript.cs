@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProgressScript : MonoBehaviour
-{
+public class ProgressScript : MonoBehaviour {
     private float _moveIncreased = 0;
     private float _moveValue = 0.025f;
     private float _startWaitProgress = 3.5f;
@@ -11,40 +10,35 @@ public class ProgressScript : MonoBehaviour
     private bool _move = false;
     private int _movenumber = default;
 
-   
+
 
     private const float TIMEDELTTIME = 500;
     private const int MAXMOVENUBBER = 4;
     private const float MAXMOVEVALUE = 25f;
     [SerializeField] SneakAnim _snakeAnim = default;
+    [SerializeField] private CameraShake _cameraShake;
+    private void Start() {
 
-    private void Start() 
-    {
-     
     }
-    private void Update() 
-    {
+    private void Update() {
         //êiÇﬁçHíˆÇÇSâÒåJÇËï‘Ç∑
-        if (_move && _movenumber <= MAXMOVENUBBER) 
-        {
-            if (_moveIncreased <= MAXMOVEVALUE) 
-            {
-                this.transform.position += new Vector3(_moveValue, 0, 0) * Time.deltaTime*TIMEDELTTIME;
-                _moveIncreased += _moveValue*Time.deltaTime*TIMEDELTTIME;
-                _snakeAnim.StopPositionIncrease(_moveValue*Time.deltaTime*TIMEDELTTIME);
-            } 
-            else 
-            {
+        if (_move && _movenumber <= MAXMOVENUBBER) {
+            if (_moveIncreased <= MAXMOVEVALUE) {
+                _cameraShake.StartCameraShake();
+                this.transform.position += new Vector3(_moveValue, 0, 0) * Time.deltaTime * TIMEDELTTIME;
+                _moveIncreased += _moveValue * Time.deltaTime * TIMEDELTTIME;
+                _snakeAnim.StopPositionIncrease(_moveValue * Time.deltaTime * TIMEDELTTIME);
+            } else {
+                _cameraShake.StopCameraShake();
                 _moveIncreased = 0;
                 _move = false;
                 StartCoroutine(Progress());
                 _movenumber++;
             }
         }
-        
+
     }
-    public IEnumerator StartProgress() 
-    {
+    public IEnumerator StartProgress() {
         //àÍî‘èâÇﬂÇÕè≠ÇµëÅÇ¢éûä‘Ç≈ëOÇ÷êiÇﬁ
         yield return new WaitForSeconds(_startWaitProgress);
         {
@@ -52,12 +46,13 @@ public class ProgressScript : MonoBehaviour
         }
     }
 
-    private IEnumerator Progress() 
-    {
+    private IEnumerator Progress() {
         //ÇPÇOïbÇ≤Ç∆Ç…ëOÇ÷êiÇﬁÇÃåJÇËï‘Çµ
         yield return new WaitForSeconds(_waitProgress);
         {
             _move = true;
         }
     }
+
 }
+

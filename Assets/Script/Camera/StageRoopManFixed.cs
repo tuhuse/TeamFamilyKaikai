@@ -54,6 +54,7 @@ public class StageRoopManFixed : MonoBehaviour {
     public bool _isRoop = false;
     private bool _isReadyGo;
     private bool _isDivisionStage = default;
+    private bool _isCameraShake = true;
     private void Start() {
 
         _camera = Camera.main;
@@ -85,15 +86,18 @@ public class StageRoopManFixed : MonoBehaviour {
         if (_gameOverMan._switchNumber == 3 || _gameClearMan._switchNumber == 3) {
             _isCameraSize = false;
         }
-        if (_isCameraSize && _camera.orthographicSize > 45) {
+        if (_isCameraSize) {
             _timer += Time.deltaTime; // 経過時間を加算する
             // 時間が経過した割合を計算する
             float timeRatio = _timer / _changeDuration;
             timeRatio = Mathf.Clamp01(timeRatio); // 0から1の間にクランプ
 
-            float targetY = _cameraTargetY;//cameraが向かうY座標
-            Vector3 targetPosition = new Vector3(_camera.transform.position.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _camera.transform.position.z);
-            _camera.transform.position = targetPosition;
+            if (_isCameraShake) {
+                float targetY = _cameraTargetY;//cameraが向かうY座標
+                Vector3 targetPosition = new Vector3(_camera.transform.position.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _camera.transform.position.z);
+                _camera.transform.position = targetPosition;
+            }
+          
 
         }
 
@@ -250,6 +254,14 @@ public class StageRoopManFixed : MonoBehaviour {
 
     public void DivisionStageMove(int stageNumber) {
         _divisionNumber = stageNumber;
+    }
+    public void Camerashake(bool camerashakeY) {
+        if (camerashakeY) {
+
+            _isCameraShake = false;
+        } else {
+            _isCameraShake = true;
+        }
     }
 }
 
