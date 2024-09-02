@@ -852,7 +852,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
 
 
     public void SpeedUp(bool speedup) {
-        if (!_isPridictionAbility) {
+        
             if (speedup) {
                 if (_isWaterAbility) {
                     _isWaterAbility = false;
@@ -862,7 +862,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
             } else {
                 _speedUp = 0f;
             }
-        }
+       
 
 
     }

@@ -850,7 +850,7 @@ public class FrogCpu : MonoBehaviour {
     }
 
     public void SpeedUp(bool speedup) {
-        if (!_isPridictionAbility) {
+     
             if (speedup) {
                 if (_isWaterAbility) {
                     _isWaterAbility = false;
@@ -860,7 +860,7 @@ public class FrogCpu : MonoBehaviour {
             } else {
                 _speedUp = 0f;
             }
-        }
+         
 
 
     }

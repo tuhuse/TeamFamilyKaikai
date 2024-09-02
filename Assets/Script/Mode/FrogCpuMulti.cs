@@ -840,8 +840,7 @@ public class FrogCpuMulti : MonoBehaviour {
 
 
     public void SpeedUp(bool speedup) {
-        if (!_isPridictionAbility) {
-            if (speedup) {
+                    if (speedup) {
                 if (_isWaterAbility) {
                     _isWaterAbility = false;
                 }
@@ -850,9 +849,7 @@ public class FrogCpuMulti : MonoBehaviour {
             } else {
                 _speedUp = 0f;
             }
-        }
-
-
+        
     }
     private IEnumerator Timecount() {
         yield return new WaitForSeconds(0.3f);

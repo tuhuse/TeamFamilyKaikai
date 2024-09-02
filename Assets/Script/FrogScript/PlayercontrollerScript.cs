@@ -579,14 +579,13 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     public void RankChange(int nowrank) 
-    {
-     
+    {    
         _rank = nowrank;
     }
 
 
     public void SpeedUp(bool speed) {
-        if (!_isInvincivle) {
+      
             if (speed) {
                 _movespeed = MOVESPEED;
                 _speedUp = 100f;
@@ -594,10 +593,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             } else {
                 _speedUp = 0;
             }
-        }
-
-
-
+        
     }
     private IEnumerator Timecount() {
         yield return new WaitForSeconds(0.3f);
