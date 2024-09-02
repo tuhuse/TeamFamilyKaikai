@@ -17,13 +17,13 @@ public class JoyStickGameClearSelect : MonoBehaviour {
     // Start is called before the first frame update
     // Update is called once per frame
     void Update() {
-        print(_selectButton);
+     
         float lstick = Input.GetAxis("L_Stick_Horizontal");
         //‰E–îˆó‚ğ‰Ÿ‚µ‚½‚ç
         if (lstick > 0 && !_isSelect) {
             _isFarstSelect = true;
             _isSelect = true;
-
+            _selectButton = 1;
             _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
             
 
@@ -38,7 +38,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         if (lstick  < 0 && !_isSelect) {
             _isFarstSelect = true;
             _isSelect = true;
-
+            _selectButton = 0;
             _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
            
 
@@ -55,7 +55,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         }
 
         //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
-        if (Input.GetButton("1pA") && _isFarstSelect) {
+        if (Input.GetButton("Fire2") && _isFarstSelect) {
             _isFarstSelect = false;
             if (_selectButton == 0) //return‚ğŒ©‚Ä‚¢‚½ê‡
             {
