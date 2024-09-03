@@ -169,7 +169,9 @@ public class CommentScript : MonoBehaviour {
     /// <summary>
     /// é¿ãµé“ÇÃóßÇøäGÇÃägëÂ
     /// </summary>
-    private void CommentatorExpansion() {
+    private void CommentatorExpansion() 
+    {
+        _commentatorAnim.SetBool("Speak", true);
         _getCommentatorRecttransform.position += new Vector3(COMMANTATORPOSITIONX, COMMANTATORPOSITIONY, 0);// -776 -398 0
 
         _getCommentatorRecttransform.localScale += new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ); //4 3 1
@@ -185,6 +187,7 @@ public class CommentScript : MonoBehaviour {
     /// é¿ãµé“ÇÃèkè¨
     /// </summary>
     private void CommentatorReduction() {
+        _commentatorAnim.SetBool("Speak", false);
         _getCommentatorRecttransform.position -= new Vector3(COMMANTATORPOSITIONX, COMMANTATORPOSITIONY, 0); // -873 -456 0
 
         _getCommentatorRecttransform.localScale -= new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ);// 2.5, 1.8, 1
@@ -199,6 +202,7 @@ public class CommentScript : MonoBehaviour {
     ///Å@âê‡é“ÇÃägëÂ
     /// </summary>
     private void LiveCommentatorExpansion() {
+        _liveCommentatorAnim.SetBool("Speak", true);
         _getLiveCommentatorRecttransform.position += new Vector3(-COMMANTATORPOSITIONY, COMMANTATORPOSITIONY, 0);// 810 -392 0
 
         _getLiveCommentatorRecttransform.localScale += new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ); //4 3 1
@@ -212,7 +216,9 @@ public class CommentScript : MonoBehaviour {
     /// <summary>
     /// âê‡é“ÇÃèkè¨
     /// </summary>
-    private void LiveCommentatorReduction() {
+    private void LiveCommentatorReduction() 
+    {
+        _liveCommentatorAnim.SetBool("Speak", true);
         _getLiveCommentatorRecttransform.position -= new Vector3(-COMMANTATORPOSITIONY, COMMANTATORPOSITIONY, 0); // 868 -450 0
 
         _getLiveCommentatorRecttransform.localScale -= new Vector3(COMMANTATORSCALEX, COMMANTATORSCALEY, COMMANTATORSCALEZ);// 2.5, 1.8, 1
