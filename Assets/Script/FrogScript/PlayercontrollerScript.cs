@@ -212,13 +212,9 @@ public class PlayercontrollerScript : MonoBehaviour {
                     _downEffect.gameObject.SetActive(false);
                 }
 
-                _pridictionFrogAnim.SetBool("Run", true);
+                
             }
-            else 
-            {
-                _pridictionFrogAnim.SetBool("Run", false);
-            }
-
+          
         }
 
 
@@ -228,6 +224,8 @@ public class PlayercontrollerScript : MonoBehaviour {
         //if (!_pridictionSpriterenderer.flipX) {
         //    _pridictionSpriterenderer.flipX = true;
         //}
+        _pridictionFrogAnim.SetBool("Brake", true);
+        _pridictionFrogAnim.SetBool("Run", false);
         float brake = -50;
         //í èÌÇÃà⁄ìÆ
         _rb.velocity = new Vector3(_movespeed +brake, _rb.velocity.y, 0); //* Time.deltaTime ;
@@ -237,10 +235,10 @@ public class PlayercontrollerScript : MonoBehaviour {
         if (_pridictionSpriterenderer.flipX) {
             _pridictionSpriterenderer.flipX = false;
         }
-
+        _pridictionFrogAnim.SetBool("Brake", false);
         //í èÌÇÃà⁄ìÆ
-
-            _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
+        _pridictionFrogAnim.SetBool("Run", true);
+        _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
         
 
        

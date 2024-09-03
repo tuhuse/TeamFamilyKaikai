@@ -29,7 +29,7 @@ public class ClearMan : MonoBehaviour {
     private bool _cameraScale;
     [SerializeField] private SneakAnim _sneak;
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
-
+    [SerializeField] private CameraShake _cameraShake;
     [SerializeField] private CameraRankScript _cameraRank = default;
 
 
@@ -209,12 +209,14 @@ public class ClearMan : MonoBehaviour {
         }
         //このメソッドが３回呼び出されたらゲーム終了
         if (_cpuCount + _playerCount <= 4) {
-            Time.timeScale = 0.05f;
-            print("メソッド3回呼び出されたよ");
+           
+           
             _rankingList.Insert(0, _frogs[0]);
             StartCoroutine(TimeScaleReset(dropOutFrog));
             _cameraRank.CameeeraRank(false);
             _sneak.Access(true);
+            _cameraShake.StopCameraShake();
+            _switchNumber = 3;
         }
     }
     private IEnumerator TimeScaleReset(GameObject leaveFrog) {
@@ -226,11 +228,14 @@ public class ClearMan : MonoBehaviour {
         //_camera.transform.position -= Vector3.down;
 
         _cameraScale = true;
-        
-        yield return new WaitForSeconds(0.6f);
-
-        leaveFrog.SetActive(false);
+       Rigidbody2D rb= leaveFrog.GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        Time.timeScale = 0.05f;
+        yield return new WaitForSeconds(0.5f);
         _switchNumber = 5;
+        leaveFrog.SetActive(false);
+        
+        
 
     }
 

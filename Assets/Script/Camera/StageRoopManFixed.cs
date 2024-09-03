@@ -83,8 +83,9 @@ public class StageRoopManFixed : MonoBehaviour {
 
         float playerNowposition = _first.transform.position.x;
 
-        if (_gameOverMan._switchNumber == 3 || _gameClearMan._switchNumber == 3) {
+        if (_gameClearMan._switchNumber == 3) {
             _isCameraSize = false;
+            _isCameraShake = false;
         }
         if (_isCameraSize) {
             _timer += Time.deltaTime; // Œo‰ßŽžŠÔ‚ð‰ÁŽZ‚·‚é
