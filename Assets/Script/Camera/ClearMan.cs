@@ -5,60 +5,55 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ClearMan : MonoBehaviour {
-    [SerializeField] private GameObject _cpuParent;
-    [SerializeField] private GameObject _playerParent = default;
-    [SerializeField] private GameObject _camera;
-    [SerializeField] private GameObject _gameClearUI;
-    [SerializeField] TMPro.TMP_Text _clearText;
-    [SerializeField] private GameObject _outLine = default;
-    [SerializeField] private GameObject _outLineParent;
-    //[SerializeField] private float _cameraRimit = default;
-    [SerializeField] private float _cameraSizeAdjust = default;
-    [SerializeField] private List<GameObject> _frogs = new List<GameObject>();
-    private List<Rigidbody2D> _frogsrb2d = new List<Rigidbody2D>();
+    [SerializeField] private GameObject _cpuParent; // CPUオブジェクトの親オブジェクト
+    [SerializeField] private GameObject _playerParent = default; // プレイヤーオブジェクトの親オブジェクト
+    [SerializeField] private GameObject _camera; // カメラオブジェクト
+    [SerializeField] private GameObject _gameClearUI; // ゲームクリアUI
+    [SerializeField] private TMPro.TMP_Text _clearText; // ゲームクリアのテキスト
+    [SerializeField] private GameObject _outLine = default; // ゲーム画面の境界線オブジェクト
+    [SerializeField] private GameObject _outLineParent; // 境界線の親オブジェクト
+    //[SerializeField] private float _cameraRimit = default; // カメラ制限（未使用）
+    [SerializeField] private float _cameraSizeAdjust = default; // カメラサイズ調整の値
+    [SerializeField] private List<GameObject> _frogs = new List<GameObject>(); // プレイヤーおよびCPUオブジェクトのリスト
+    private List<Rigidbody2D> _frogsrb2d = new List<Rigidbody2D>(); // プレイヤーおよびCPUオブジェクトのRigidbody2Dコンポーネントのリスト
 
-    [SerializeField] private List<GameObject> _anotherEnemys = new List<GameObject>();
-    [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>();
-    private List<GameObject> _rankingList = new List<GameObject>();
-    private float _fallMin = -60f;
-    public int _switchNumber = 0;
-    private float _sizeLimit = 20;
-    private int _maxplayer = 4;
-    private int _playerNumber = 1;
-    private int _rankNumber = 1;
-    private int _playerCount = 4;
-    private int _cpuCount = 3;
-    private int _alivePlayersCount = 0;
+    [SerializeField] private List<GameObject> _anotherEnemys = new List<GameObject>(); // 他の敵オブジェクトのリスト
+    [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>(); // 他のプレイヤーオブジェクトのリスト
+    private List<GameObject> _rankingList = new List<GameObject>(); // ランキングのリスト
+    private float _fallMin = -60f; // オブジェクトが落下する最小Y座標
+    public int _switchNumber = 0; // スイッチ番号（状態管理）
+    private float _sizeLimit = 20; // サイズ制限（未使用）
+    private int _maxplayer = 4; // 最大プレイヤー数
+    private int _playerNumber = 1; // 現在のプレイヤー数
+    private int _rankNumber = 1; // ランキングの番号
+    private int _playerCount = 4; // プレイヤーの総数
+    private int _cpuCount = 3; // CPUの総数
+    private int _alivePlayersCount = 0; // 生存しているプレイヤーの数
 
-    private bool _cameraScale;
-    private bool _isPlayerDeth=default;
-    private bool _threeOrMorePeople = false;
+    private bool _cameraScale; // カメラスケールの状態
+    private bool _isPlayerDeth = default; // プレイヤーの死亡状態
+    private bool _threeOrMorePeople = false; // 3人以上のプレイヤーがいるかどうか
 
-    [SerializeField] private SneakAnim _sneak;
-    [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
-    [SerializeField] private CameraShake _cameraShake;
-    [SerializeField] private CameraRankScript _cameraRank = default;
-    [SerializeField] private StageRoopManFixed _stageRoopScript = default;
-
-    
+    [SerializeField] private SneakAnim _sneak; // Sneakアニメーションのスクリプト
+    [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default; // ゲームクリア時のジョイスティック選択スクリプト
+    [SerializeField] private CameraShake _cameraShake; // カメラシェイクのスクリプト
+    [SerializeField] private CameraRankScript _cameraRank = default; // カメラランキングのスクリプト
+    [SerializeField] private StageRoopManFixed _stageRoopScript = default; // ステージループ管理スクリプト
 
     // Start is called before the first frame update
     void Start() {
-
-
+        // CPUとプレイヤーオブジェクトをリストに追加
         for (int number = 0; number < _maxplayer - _playerNumber; number++) {
             _anotherEnemys.Add(_cpuParent.transform.GetChild(number).gameObject);
         }
         for (int number = 0; number < _playerNumber; number++) {
             _anotherPlayers.Add(_playerParent.transform.GetChild(number).gameObject);
         }
-
     }
 
     // Update is called once per frame
     void Update() {
-        //print(Time.timeScale);
-        //print(_anotherEnamys.Count);
+        // カメラスケールの調整
         if (_cameraScale) {
             _camera.GetComponent<Camera>().orthographicSize -= _cameraSizeAdjust * Time.deltaTime * 10;
             if (_camera.GetComponent<Camera>().orthographicSize <= _cameraSizeAdjust) {
@@ -66,185 +61,111 @@ public class ClearMan : MonoBehaviour {
                 _cameraScale = false;
             }
         }
-        //ゲーム画面を停止、カメラをズームアップした後にUIを表示        
+
+        // スイッチ番号に応じた処理
         switch (_switchNumber) {
             case 0:
-
-                //敵CPU数が0かつ残りプレイヤー数が1 もしくは残りプレイヤー数が0
+                // 敵CPUが全て排除されて、プレイヤーが1人以下の場合、またはプレイヤーが全員排除された場合
                 if ((_anotherEnemys.Count == 0 && _anotherPlayers.Count <= 1) || _anotherPlayers.Count == 0) {
                     _switchNumber = 2;
                 }
-
                 break;
-            //case 1:
-            //    //敵オブジェクトを取得
-            //    foreach (GameObject arrayEnemy in _anotherEnemys) {
-            //        //落下もしくは画面端にぶつかると配列から削除
-            //        if (_anotherPlayers.Count != 0 && (arrayEnemy.transform.position.y < _fallMin ||
-            //                    arrayEnemy.transform.position.x <= _outLine.transform.position.x)) {
-            //            //オブジェクトをランキング配列の先頭へ挿入
-            //            _rankingList.Insert(0, arrayEnemy);
-            //            _anotherEnemys.Remove(arrayEnemy);
 
-            //            _switchNumber = 0;
-
-            //            break;
-
-            //        }
-            //    }
-            //    //プレイヤーオブジェクトを取得
-            //    foreach (GameObject arrayPlayer in _anotherPlayers) {
-            //        //落下もしくは画面端にぶつかると配列から削除
-            //        if (arrayPlayer.transform.position.x <= _outLine.transform.position.x) {
-            //            //オブジェクトをランキング配列の先頭へ挿入
-            //            _rankingList.Insert(0, arrayPlayer);
-            //            _anotherPlayers.Remove(arrayPlayer);
-
-            //            _switchNumber = 0;
-
-
-
-            //            break;
-            //        }
-            //    }
-            //    break;
             case 2:
-
-
+                // 状態を3に変更
                 _switchNumber = 3;
-
                 break;
-
-
 
             case 3:
-                //StartCoroutine(TimeScaleReset());
+                // スイッチ番号が3のときの処理（現在は空）
                 break;
 
-            //case 4:
-            //    配列内に残っているCPUをランキングへ移動
-
-
-            //    プレイヤー配列の中身が0(全プレイヤーがCPUに負けた)場合、エネミー配列内に残っているCPUをランキング配列へ移動
-            //    if (_anotherPlayers.Count == 0) {
-
-            //        foreach (GameObject arrayEnemy in _anotherEnemys) {
-            //            _rankingList.Insert(0, arrayEnemy);
-            //            _anotherEnemys.Remove(arrayEnemy); 
-            //            break;
-            //        }
-            //    }
-            //    勝利プレイヤーがいる場合、プレイヤー配列内に残った1プレイヤーをランキング配列へ移動
-            //    else {
-            //        _rankingList.Insert(0, _anotherPlayers[0]);
-            //        if (_rankingList.Count > _maxplayer) {
-            //            _rankingList.Remove(_rankingList[4]);
-            //        }
-            //    }
-
-            //    if (_anotherEnemys.Count == 0) {
-            //        _switchNumber = 5;
-            //    }
-
-            //    break;
-
             case 5:
+                // ランキングの表示
                 Time.timeScale = 1f;
                 foreach (GameObject rank in _rankingList) {
                     _clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
                     _rankNumber++;
                 }
-                
-                _gameClearUI.SetActive(true);
-                _joyStickGameClear.enabled = true;
-
+                _gameClearUI.SetActive(true); // ゲームクリアUIを表示
+                _joyStickGameClear.enabled = true; // ジョイスティックのゲームクリア選択を有効にする
                 _switchNumber = 6;
-
                 break;
 
             default:
-
                 break;
         }
-
     }
 
+    // ゲームクリア後のリトライボタン処理（スペースキー押下）
     public void ClearRetryButton() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            //もう一度同じ場所をプレイ
+            // 同じ場所を再度プレイする処理（未実装）
         }
     }
 
-
+    // タイトルシーンに戻るボタン処理
     public void ClearTitleButton() {
-
-        SceneManager.LoadScene("TitleScene");
-
+        SceneManager.LoadScene("TitleScene"); // タイトルシーンに遷移
     }
+
+    // Frogsリストに新しいFrogを追加
     public void InFrogs(GameObject frog) {
         _frogs.Add(frog);
         _frogsrb2d.Add(frog.GetComponent<Rigidbody2D>());
-
     }
+
+    // プレイヤー数の設定
     public void MaxPlayer(int playerNumber) {
         _playerNumber = playerNumber;
     }
 
-    public void DropOuts(GameObject dropOutFrog) 
-    {
-        
-
-        foreach (GameObject players in _frogs) 
-        {
-            if (players.CompareTag("Player")) 
-            {
+    // プレイヤーまたはCPUの脱落処理
+    public void DropOuts(GameObject dropOutFrog) {
+        // プレイヤーがタグ「Player」の場合、人数をカウント
+        foreach (GameObject players in _frogs) {
+            if (players.CompareTag("Player")) {
                 _alivePlayersCount++;
                 _isPlayerDeth = true;
             }
-        
         }
-        print(_alivePlayersCount);
-        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) 
-        {
+
+        // プレイヤーが3人以上残っている場合のフラグ設定
+        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) {
             _threeOrMorePeople = true;
         }
-        
+
+        // 脱落したFrogをランキングリストに追加
         _rankingList.Insert(0, dropOutFrog);
-       
+
+        // Frogsリストから脱落したFrogを削除
         for (int frogCount = 0; frogCount < _frogs.Count; frogCount++) {
             if (_frogs[frogCount] == dropOutFrog) {
                 _frogs.Remove(_frogs[frogCount]);
             }
         }
-        //プレイヤーだったら人数（プレイヤー）を減らす
+
+        // プレイヤーまたはCPUのカウントを減らす
         if (dropOutFrog.gameObject.CompareTag("Player")) {
             _playerCount--;
-
-        }
-        //CPUだったら人数（CPU）を減らす
-        else if (dropOutFrog.gameObject.CompareTag("CPU")) {
+        } else if (dropOutFrog.gameObject.CompareTag("CPU")) {
             _cpuCount--;
-
-
         }
+
+        // プレイヤーとCPUの合計が4を超える場合、Frogを非アクティブにする
         if (_cpuCount + _playerCount > 4) {
             dropOutFrog.SetActive(false);
         }
-        
 
+        // ゲームの終了条件に達した場合の処理
         int gameEndPlayerCount = 1;
-        if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount&&!_threeOrMorePeople) 
-        {
+        if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
             float gameSpeed = 3;
             Time.timeScale = gameSpeed;
             _isPlayerDeth = false;
             _stageRoopScript.CompulsionHarryUP();
-        }
-        //このメソッドが３回呼び出されたらゲーム終了
-       else if (_cpuCount + _playerCount <= 4) {
-
-
-
+        } else if (_cpuCount + _playerCount <= 4) {
+            // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
             _rankingList.Insert(0, _frogs[0]);
             StartCoroutine(TimeScaleReset(dropOutFrog));
             _cameraRank.CameeeraRank(false);
@@ -252,27 +173,25 @@ public class ClearMan : MonoBehaviour {
             _cameraShake.StopCameraShake();
             _switchNumber = 3;
         }
+
+        // リセット
         _alivePlayersCount = 0;
         _isPlayerDeth = false;
-
     }
-    private IEnumerator TimeScaleReset(GameObject leaveFrog) {
-        _outLineParent.transform.SetParent(leaveFrog.transform, true);
-        _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x+5, leaveFrog.transform.position.y,0);
-       
-        _camera.transform.position =new Vector3 (leaveFrog.transform.position.x, leaveFrog.transform.position.y,-10);
-       
-        //_camera.transform.position -= Vector3.down;
 
+    // タイムスケールをリセットするコルーチン
+    private IEnumerator TimeScaleReset(GameObject leaveFrog) {
+        // 脱落したFrogの周りにアウトラインを表示
+        _outLineParent.transform.SetParent(leaveFrog.transform, true);
+        _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x + 5, leaveFrog.transform.position.y, 0);
+        // カメラをFrogの位置に移動
+        _camera.transform.position = new Vector3(leaveFrog.transform.position.x, leaveFrog.transform.position.y, -10);
         _cameraScale = true;
-       Rigidbody2D rb= leaveFrog.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = leaveFrog.GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         Time.timeScale = 0.1f;
         yield return new WaitForSeconds(1f);
         _switchNumber = 5;
         leaveFrog.SetActive(false);
-        
-
     }
-
 }
