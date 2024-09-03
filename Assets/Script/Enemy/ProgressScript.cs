@@ -29,7 +29,7 @@ public class ProgressScript : MonoBehaviour {
                 _moveIncreased += _moveValue * Time.deltaTime * TIMEDELTTIME;
                 _snakeAnim.StopPositionIncrease(_moveValue * Time.deltaTime * TIMEDELTTIME);
             } else {
-                _cameraShake.StopCameraShake();
+                _cameraShake.StopCameraShake(false);
                 _moveIncreased = 0;
                 _move = false;
                 StartCoroutine(Progress());

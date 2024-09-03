@@ -117,8 +117,15 @@ public class CameraRankScript : MonoBehaviour {
       
     }
 
-    public void SecondPlayerOn(GameObject player2) {
-        _frogs[1] = player2;
+    public void SecondPlayerOn(GameObject player2)     
+    {
+        GameObject dummy = default;
+        _frogs[3] = player2;
+
+        dummy = _frogs[1];
+        _frogs[1] = _frogs[3];
+        _frogs[3] = dummy;
+
     }
 
     public void ThirdPlayerOn(GameObject player3) {
@@ -136,7 +143,6 @@ public class CameraRankScript : MonoBehaviour {
 
                 //２位のカエルが１位のカエルよりも前に行ったら
                 if (_firstPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINSECOND].transform.position.x) {
-                    _firstPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINSECOND].transform.position.x;
 
 
                     //プレイヤーが一位だったら
@@ -151,19 +157,7 @@ public class CameraRankScript : MonoBehaviour {
                     }
 
 
-                    ////プレイヤー2が一位だったら
-                    //if (_ranking[ORIGINFIRST].gameObject.layer == SECONDPLAYERLAYER) 
-                    //{
-                    //    //プレイヤー2を２位に下げる
-                    //    _ranking[ORIGINFIRST].GetComponent<Player2>().RankChange(SECOND);
-                    //}
-                    ////プレイヤー2が２位だったら
-                    //else if (_ranking[ORIGINSECOND].gameObject.layer == SECONDPLAYERLAYER) 
-                    //{
-                    //    //プレイヤー2を１位に上げる
-                    //    _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(FIRST);
-                    //}
-
+              
 
                     _dummy = _ranking[ORIGINFIRST];
                     _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
@@ -180,7 +174,6 @@ public class CameraRankScript : MonoBehaviour {
 
                 //3位のカエルが2位のカエルよりも前に行ったら
                 if (_secondPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x) {
-                    _secondPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
 
 
                     //プレイヤーが二位だったら
@@ -214,7 +207,7 @@ public class CameraRankScript : MonoBehaviour {
                 _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
                 //4位のカエルが3位のカエルよりも前に行ったら
                 if (_thirdPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINFORTH].transform.position.x) {
-                    _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
+                   
 
 
                     //プレイヤーが３位だったら
@@ -236,7 +229,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
                     _ranking[ORIGINFORTH] = _dummy;
 
-                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINFORTH].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
+                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false);
                 }
 
 

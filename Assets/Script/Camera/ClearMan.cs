@@ -31,7 +31,7 @@ public class ClearMan : MonoBehaviour {
     private int _alivePlayersCount = 0; // 生存しているプレイヤーの数
 
     private bool _cameraScale; // カメラスケールの状態
-    private bool _isPlayerDeth = default; // プレイヤーの死亡状態
+    private bool _isPlayerDeth = false; // プレイヤーの死亡状態
     private bool _threeOrMorePeople = false; // 3人以上のプレイヤーがいるかどうか
 
     [SerializeField] private SneakAnim _sneak; // Sneakアニメーションのスクリプト
@@ -121,17 +121,22 @@ public class ClearMan : MonoBehaviour {
     }
 
     // プレイヤーまたはCPUの脱落処理
-    public void DropOuts(GameObject dropOutFrog) {
+    public void DropOuts(GameObject dropOutFrog) 
+     {
         // プレイヤーがタグ「Player」の場合、人数をカウント
         foreach (GameObject players in _frogs) {
-            if (players.CompareTag("Player")) {
+            if (players.CompareTag("Player")) 
+            {
                 _alivePlayersCount++;
-                _isPlayerDeth = true;
             }
+        }
+        if (dropOutFrog.CompareTag("Player")) {
+            _isPlayerDeth = true;
         }
 
         // プレイヤーが3人以上残っている場合のフラグ設定
-        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) {
+        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) 
+        {
             _threeOrMorePeople = true;
         }
 
@@ -140,15 +145,19 @@ public class ClearMan : MonoBehaviour {
 
         // Frogsリストから脱落したFrogを削除
         for (int frogCount = 0; frogCount < _frogs.Count; frogCount++) {
-            if (_frogs[frogCount] == dropOutFrog) {
+            if (_frogs[frogCount] == dropOutFrog) 
+            {
                 _frogs.Remove(_frogs[frogCount]);
             }
         }
 
         // プレイヤーまたはCPUのカウントを減らす
-        if (dropOutFrog.gameObject.CompareTag("Player")) {
+        if (dropOutFrog.gameObject.CompareTag("Player")) 
+        {
             _playerCount--;
-        } else if (dropOutFrog.gameObject.CompareTag("CPU")) {
+        } 
+        else if (dropOutFrog.gameObject.CompareTag("CPU"))
+        {
             _cpuCount--;
         }
 
@@ -159,19 +168,21 @@ public class ClearMan : MonoBehaviour {
 
         // ゲームの終了条件に達した場合の処理
         int gameEndPlayerCount = 1;
-        if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
-            float gameSpeed = 3;
-            Time.timeScale = gameSpeed;
-            _isPlayerDeth = false;
-            _stageRoopScript.CompulsionHarryUP();
-        } else if (_cpuCount + _playerCount <= 4) {
+       
+        if (_cpuCount + _playerCount <= 4) 
+        {
             // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
             _rankingList.Insert(0, _frogs[0]);
             StartCoroutine(TimeScaleReset(dropOutFrog));
             _cameraRank.CameeeraRank(false);
             _sneak.Access(true);
-            _cameraShake.StopCameraShake();
+            _cameraShake.StopCameraShake(true);
             _switchNumber = 3;
+        }
+        else if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
+            float gameSpeed = 3;
+            Time.timeScale = gameSpeed;
+            _stageRoopScript.CompulsionHarryUP();
         }
 
         // リセット
@@ -189,8 +200,9 @@ public class ClearMan : MonoBehaviour {
         _cameraScale = true;
         Rigidbody2D rb = leaveFrog.GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0.1f;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         _switchNumber = 5;
         leaveFrog.SetActive(false);
     }
