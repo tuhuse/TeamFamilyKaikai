@@ -9,6 +9,7 @@ public class SneakAnim : MonoBehaviour
     private bool _isStartPositionMoveOut = false;
     private bool _isPositionMoveOut = false;
     private bool _isPositionMoveIn = false;
+    private bool _isPositionLastMoveIn = false;
 
     private float _positionX = default;
     private float _outStopPosition = 154f;
@@ -51,12 +52,13 @@ public class SneakAnim : MonoBehaviour
             ScreenOut();
         }
 
-        if (_isPositionMoveIn) 
-        {
+        if (_isPositionMoveIn && !_isPositionLastMoveIn) {
             //ÉJÉÅÉâÇÃíÜÇ…ì¸Ç¡ÇƒÇ≠ÇÈ
-            ScreenIn();
-        
+            ScreenIn(true);
+        } else if (_isPositionLastMoveIn && _isPositionLastMoveIn) {
+            ScreenIn(false);
         }
+
 
         if (_isStartPositionMoveOut) 
         {
@@ -112,20 +114,33 @@ public class SneakAnim : MonoBehaviour
             _isPositionMoveOut = false;
         }
     }
-
-    private void ScreenIn() 
-    {
-        
-        //âÊñ ì‡Ç…ì¸ÇÈ
-        if (this.transform.position.x <= _camera.transform.position.x-_inStopPosition)
-        {
-            this.transform.position += new Vector3(POSITIONMOVEINX, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
-        } 
-        else 
-        {
-            _isPositionMoveIn = false;
-            _isPositionMoveOut = true;
+    public void Access(bool access) {
+        if (access) {
+            _isPositionLastMoveIn = true;
         }
+       
+    }
+    public void ScreenIn(bool screenIn) 
+    {
+        if (screenIn) {
+            //âÊñ ì‡Ç…ì¸ÇÈ
+            if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) {
+                this.transform.position += new Vector3(POSITIONMOVEINX, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
+            } else {
+                _isPositionMoveIn = false;
+                _isPositionMoveOut = true;
+            }
+        } else {
+           
+            if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) {
+                this.transform.position += new Vector3(POSITIONMOVEINX, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
+                
+            } else {
+                _isPositionMoveIn = false;
+               
+            }
+        }
+
     }
 
     public void StopPositionIncrease(float value)

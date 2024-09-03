@@ -11,6 +11,7 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private GameObject _gameClearUI;
     [SerializeField] TMPro.TMP_Text _clearText;
     [SerializeField] private GameObject _outLine = default;
+    [SerializeField] private GameObject _outLineParent;
     //[SerializeField] private float _cameraRimit = default;
     [SerializeField] private float _cameraSizeAdjust = default;
     [SerializeField] private List<GameObject> _frogs = new List<GameObject>();
@@ -25,14 +26,15 @@ public class ClearMan : MonoBehaviour {
     private int _maxplayer = 4;
     private int _playerNumber = 1;
     private int _rankNumber = 1;
-
+    private bool _cameraScale;
+    [SerializeField] private SneakAnim _sneak;
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
 
     [SerializeField] private CameraRankScript _cameraRank = default;
 
 
     private int _playerCount = 4;
-    private int _cpuCount = 4;
+    private int _cpuCount = 3;
 
     // Start is called before the first frame update
     void Start() {
@@ -50,7 +52,13 @@ public class ClearMan : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         //print(_anotherEnamys.Count);
-
+        if (_cameraScale) {
+            _camera.GetComponent<Camera>().orthographicSize -= _cameraSizeAdjust * Time.deltaTime * 10;
+            if (_camera.GetComponent<Camera>().orthographicSize <= _cameraSizeAdjust) {
+                _camera.GetComponent<Camera>().orthographicSize = _cameraSizeAdjust;
+                _cameraScale = false;
+            }
+        }
         //ゲーム画面を停止、カメラをズームアップした後にUIを表示        
         switch (_switchNumber) {
             case 0:
@@ -103,15 +111,7 @@ public class ClearMan : MonoBehaviour {
 
 
             case 3:
-
-                _camera.transform.position -= Vector3.down;
-
-                _camera.GetComponent<Camera>().orthographicSize -= _cameraSizeAdjust;
-
-                if (_camera.GetComponent<Camera>().orthographicSize <= _sizeLimit) {
-                    _switchNumber = 5;
-                }
-
+                //StartCoroutine(TimeScaleReset());
                 break;
 
             //case 4:
@@ -142,11 +142,12 @@ public class ClearMan : MonoBehaviour {
             //    break;
 
             case 5:
-
+                Time.timeScale = 1f;
                 foreach (GameObject rank in _rankingList) {
                     _clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
                     _rankNumber++;
                 }
+                
                 _gameClearUI.SetActive(true);
                 _joyStickGameClear.enabled = true;
 
@@ -182,9 +183,11 @@ public class ClearMan : MonoBehaviour {
         _playerNumber = playerNumber;
     }
 
-    public void Dropouts(GameObject dropOutFrog) {
+    public void DropOuts(GameObject dropOutFrog) 
+    {
+        
         _rankingList.Insert(0, dropOutFrog);
-
+       
         for (int frogCount = 0; frogCount < _frogs.Count; frogCount++) {
             if (_frogs[frogCount] == dropOutFrog) {
                 _frogs.Remove(_frogs[frogCount]);
@@ -201,13 +204,34 @@ public class ClearMan : MonoBehaviour {
 
 
         }
-
-        //このメソッドが３回呼び出されたらゲーム終了
-        if (_cpuCount + _playerCount <= 5) {
-            _rankingList.Insert(0, _frogs[0]);
-            _switchNumber = 3;
-
+        if (_cpuCount + _playerCount > 4) {
+            dropOutFrog.SetActive(false);
         }
+        //このメソッドが３回呼び出されたらゲーム終了
+        if (_cpuCount + _playerCount <= 4) {
+            Time.timeScale = 0.05f;
+            print("メソッド3回呼び出されたよ");
+            _rankingList.Insert(0, _frogs[0]);
+            StartCoroutine(TimeScaleReset(dropOutFrog));
+            _cameraRank.CameeeraRank(false);
+            _sneak.Access(true);
+        }
+    }
+    private IEnumerator TimeScaleReset(GameObject leaveFrog) {
+        _outLineParent.transform.SetParent(leaveFrog.transform, true);
+        _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x+5, leaveFrog.transform.position.y,0);
+          print(leaveFrog.gameObject.name);
+        _camera.transform.position =new Vector3 (leaveFrog.transform.position.x, leaveFrog.transform.position.y,-10);
+       
+        //_camera.transform.position -= Vector3.down;
+
+        _cameraScale = true;
+        
+        yield return new WaitForSeconds(0.6f);
+
+        leaveFrog.SetActive(false);
+        _switchNumber = 5;
+
     }
 
 }

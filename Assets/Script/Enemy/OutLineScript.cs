@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OutLineScript : MonoBehaviour
-{
+public class OutLineScript : MonoBehaviour {
     [SerializeField] SneakAnim _sneakAnimScript;
     [SerializeField] private GameObject _cpu1;
     [SerializeField] private GameObject _cpu2;
@@ -14,34 +13,34 @@ public class OutLineScript : MonoBehaviour
     [SerializeField] private GameObject _playerDeathAnim;
     [SerializeField] private CommentScript _commentScript = default;
     [SerializeField] private ParticleSystem _particle;
-
     [SerializeField] private CameraRankScript _cameraRank = default;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float _minCameraSize;
+    [SerializeField] private ClearMan _clearMan;
+    private GameObject[] _deathFrog;
+
+    private int _countEat = 0;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) 
-    {
-        if ((collision.gameObject.tag == "Player" || collision.gameObject.tag == "CPU")) 
-        {
-            if (collision.gameObject.CompareTag("Player")) 
-            {
-                //collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                //collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
-                collision.gameObject.SetActive(false);
-            }
-            if (collision.gameObject.CompareTag("CPU")) {
-                collision.gameObject.SetActive(false);
-            }
-            
+    private void OnTriggerEnter2D(Collider2D collision) {
+
+
+        //collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
+        if ((collision.gameObject.tag == "Player") || collision.gameObject.tag == "CPU") {
+            _clearMan.DropOuts(collision.gameObject);
+            //collision.gameObject.SetActive(false);
+
+
             ParticleSystem.MainModule main = _particle.main;
             if (collision.gameObject.layer == 12) {//—Î
                 main.startColor = new Color(0.625f, 0.772f, 0.47f, 1f);
@@ -83,14 +82,11 @@ public class OutLineScript : MonoBehaviour
             if (collision.gameObject == _cpu3) {
                 _cpu3DeathAnim.SetActive(true);
             }
-            if (collision.gameObject.tag == "Player") 
-            {
+            if (collision.gameObject.tag == "Player") {
                 _playerDeathAnim.SetActive(true);
             }
             //collision.gameObject.SetActive(false);
             _sneakAnimScript.Attack();
         }
     }
-
-    
 }
