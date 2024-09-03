@@ -32,6 +32,7 @@ public class ClearMan : MonoBehaviour {
 
     private bool _cameraScale;
     private bool _isPlayerDeth=default;
+    private bool _threeOrMorePeople = false;
 
     [SerializeField] private SneakAnim _sneak;
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default;
@@ -191,7 +192,7 @@ public class ClearMan : MonoBehaviour {
 
     public void DropOuts(GameObject dropOutFrog) 
     {
-
+        
 
         foreach (GameObject players in _frogs) 
         {
@@ -201,6 +202,11 @@ public class ClearMan : MonoBehaviour {
                 _isPlayerDeth = true;
             }
         
+        }
+        print(_alivePlayersCount);
+        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) 
+        {
+            _threeOrMorePeople = true;
         }
         
         _rankingList.Insert(0, dropOutFrog);
@@ -224,11 +230,21 @@ public class ClearMan : MonoBehaviour {
         if (_cpuCount + _playerCount > 4) {
             dropOutFrog.SetActive(false);
         }
+        
+
+        int gameEndPlayerCount = 1;
+        if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount&&!_threeOrMorePeople) 
+        {
+            float gameSpeed = 3;
+            Time.timeScale = gameSpeed;
+            _isPlayerDeth = false;
+            _stageRoopScript.CompulsionHarryUP();
+        }
         //このメソッドが３回呼び出されたらゲーム終了
-        if (_cpuCount + _playerCount <= 4) {
-            
-         
-          
+       else if (_cpuCount + _playerCount <= 4) {
+
+
+
             _rankingList.Insert(0, _frogs[0]);
             StartCoroutine(TimeScaleReset(dropOutFrog));
             _cameraRank.CameeeraRank(false);
@@ -236,21 +252,14 @@ public class ClearMan : MonoBehaviour {
             _cameraShake.StopCameraShake();
             _switchNumber = 3;
         }
-
-        int gameEndPlayerCount = 1;
-        if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount) 
-        {
-            float gameSpeed = 3;
-            Time.timeScale = gameSpeed;
-            _isPlayerDeth = false;
-            _stageRoopScript.CompulsionHarryUP();
-        }
+        _alivePlayersCount = 0;
+        _isPlayerDeth = false;
 
     }
     private IEnumerator TimeScaleReset(GameObject leaveFrog) {
         _outLineParent.transform.SetParent(leaveFrog.transform, true);
         _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x+5, leaveFrog.transform.position.y,0);
-          print(leaveFrog.gameObject.name);
+       
         _camera.transform.position =new Vector3 (leaveFrog.transform.position.x, leaveFrog.transform.position.y,-10);
        
         //_camera.transform.position -= Vector3.down;
@@ -258,8 +267,8 @@ public class ClearMan : MonoBehaviour {
         _cameraScale = true;
        Rigidbody2D rb= leaveFrog.GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        Time.timeScale = 0.05f;
-        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0.1f;
+        yield return new WaitForSeconds(1f);
         _switchNumber = 5;
         leaveFrog.SetActive(false);
         
