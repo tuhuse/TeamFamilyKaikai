@@ -224,13 +224,13 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     }
     private void MoveLeftControll() {
-        //”½‘Î‚ÉŒü‚©‚¹‚é
-        if (!_pridictionSpriterenderer.flipX) {
-            _pridictionSpriterenderer.flipX = true;
-        }
-
+        ////”½‘Î‚ÉŒü‚©‚¹‚é
+        //if (!_pridictionSpriterenderer.flipX) {
+        //    _pridictionSpriterenderer.flipX = true;
+        //}
+        float brake = -50;
         //’Êí‚ÌˆÚ“®
-        _rb.velocity = new Vector3(-_movespeed - _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
+        _rb.velocity = new Vector3(_movespeed +brake, _rb.velocity.y, 0); //* Time.deltaTime ;
     }
     private void MoveRightControll() {
         //”½‘Î‚ÉŒü‚©‚¹‚é

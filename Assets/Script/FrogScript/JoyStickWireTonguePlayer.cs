@@ -31,6 +31,13 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
     private Rigidbody2D _playerRB = default;
 
+
+    [SerializeField] private GameObject _dashSmoke = default;
+    private GameObject _dashSmokeClone = default;
+
+    private SpriteRenderer _dashSmokeRenderer = default;
+    private Animator _dashSmokeAnim = default;
+
     // Update is called once per frame
     private void Start() {
         _playerRB = GetComponentInParent<Rigidbody2D>();
@@ -115,16 +122,52 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _isExtension = false;
         }
 
-        if (collision.gameObject.tag == "CPU" && _underAttack) {
-            if (_player.GetComponent<PlayercontrollerScript>() != null) {
+        if (collision.gameObject.tag == "CPU" && _underAttack) 
+        {
+            
+
+            
+            if (_player.GetComponent<PlayercontrollerScript>() != null)
+            {
+
+                //ダッシュエフェクトを持っていなかったら
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
+
                 _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
+
             }
            
             _isExtension = false;
             _isFrogCatch = true;
         } 
-        if (collision.gameObject.tag == "Player" && _underAttack) {
-            if (_player.GetComponent<PlayercontrollerScript>() != null) {
+        if (collision.gameObject.tag == "Player" && _underAttack) 
+        {
+            
+
+
+            if (_player.GetComponent<PlayercontrollerScript>() != null&&!collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle)
+            {
+
+                //ダッシュエフェクトを持っていなかったら
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
                 _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
             }
            

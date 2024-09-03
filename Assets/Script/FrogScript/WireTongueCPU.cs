@@ -29,6 +29,12 @@ public class WireTongueCPU : MonoBehaviour {
     private const float TONGUEMAXEXTENSION = 10f;
     private const float TONGUESCALEX = 3f;
     private const float TONGUESCALEY = 0.01f;
+
+    [SerializeField] private GameObject _dashSmoke = default;
+    private GameObject _dashSmokeClone = default;
+
+    private SpriteRenderer _dashSmokeRenderer = default;
+    private Animator _dashSmokeAnim = default;
     // Start is called before the first frame update
     void Start() {
         _tongueScaleY = this.transform.localScale.y;
@@ -106,12 +112,53 @@ public class WireTongueCPU : MonoBehaviour {
         if (collision.gameObject.CompareTag("Flor")) {
             _isExtension = false;
         }
-        if (collision.gameObject.tag == "Player" && _underAttack) {
-            if (_mySelf.gameObject.GetComponent<FrogCpu>() != null) {
+        if (collision.gameObject.tag == "Player" && _underAttack) 
+        {
+           
+
+            if (_mySelf.gameObject.GetComponent<FrogCpu>() != null&&!collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle) 
+            {
+                //ダッシュエフェクトを持っていなかったら
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
                 _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
-            } else if (_mySelf.gameObject.GetComponent<FrogCpuMulti>() != null) {
+            } 
+            else if (_mySelf.gameObject.GetComponent<FrogCpuMulti>() != null && !collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle) 
+            {
+                //ダッシュエフェクトを持っていなかったら
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
                 _mySelf.gameObject.GetComponent<FrogCpuMulti>().SpeedUp(true);
-            } else if (_mySelf.gameObject.GetComponent<FrogCpuMulti2>() != null) {
+            } 
+            else if (_mySelf.gameObject.GetComponent<FrogCpuMulti2>() != null && !collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle) 
+            {
+                //ダッシュエフェクトを持っていなかったら
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
                 _mySelf.gameObject.GetComponent<FrogCpuMulti2>().SpeedUp(true);
             }
 
@@ -121,12 +168,55 @@ public class WireTongueCPU : MonoBehaviour {
             _isJudge = true;
         }
 
-        if (collision.gameObject.tag == "CPU" && _underAttack) {
-            if (_mySelf.gameObject.GetComponent<FrogCpu>() != null) {
+        if (collision.gameObject.tag == "CPU" && _underAttack) 
+        {
+            //ダッシュエフェクトを持っていなかったら
+           
+
+            if (_mySelf.gameObject.GetComponent<FrogCpu>() != null) 
+            {
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
+
                 _mySelf.gameObject.GetComponent<FrogCpu>().SpeedUp(true);
-            } else if(_mySelf.gameObject.GetComponent<FrogCpuMulti>() != null) {
+            } 
+            else if(_mySelf.gameObject.GetComponent<FrogCpuMulti>() != null) 
+            {
+
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
+
                 _mySelf.gameObject.GetComponent<FrogCpuMulti>().SpeedUp(true);
-            }else if (_mySelf.gameObject.GetComponent<FrogCpuMulti2>() != null) {
+            }
+            else if (_mySelf.gameObject.GetComponent<FrogCpuMulti2>() != null) 
+            {
+                if (_dashSmokeClone == null) {
+                    //煙を生成して、コンポーネントを取得する
+                    _dashSmokeClone = Instantiate(_dashSmoke);
+                    _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                    _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+                }
+                _dashSmokeClone.transform.position = this.transform.position;
+                _dashSmokeAnim.SetBool("Dash", true);
+                _dashSmokeRenderer.enabled = true;
+
+
                 _mySelf.gameObject.GetComponent<FrogCpuMulti2>().SpeedUp(true);
             }
             _isExtension = false;

@@ -39,7 +39,12 @@ public class WireTonguePlayer : MonoBehaviour
     private bool _isFrogCatch = false;
     private bool _underAttack = false;
 
-    
+    [SerializeField] private GameObject _dashSmoke = default;
+    private GameObject _dashSmokeClone = default;
+
+    private SpriteRenderer _dashSmokeRenderer = default;
+    private Animator _dashSmokeAnim = default;
+
     // Start is called before the first frame update
     void Start() {
         _playerRB = GetComponentInParent<Rigidbody2D>();
@@ -131,7 +136,18 @@ public class WireTonguePlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Flor") && !_isAttack) {
             _isExtension = false;
         }
-        if (collision.gameObject.tag == "CPU" && _underAttack) {
+        if (collision.gameObject.tag == "CPU" && _underAttack) 
+        {
+            //ダッシュエフェクトを持っていなかったら
+            if (_dashSmokeClone == null) {
+                //煙を生成して、コンポーネントを取得する
+                _dashSmokeClone = Instantiate(_dashSmoke);
+                _dashSmokeAnim = _dashSmokeClone.GetComponent<Animator>();
+                _dashSmokeRenderer = _dashSmokeClone.GetComponent<SpriteRenderer>();
+            }
+            _dashSmokeClone.transform.position = this.transform.position;
+            _dashSmokeAnim.SetBool("Dash", true);
+            _dashSmokeRenderer.enabled = true;
             if (_player.GetComponent<PlayercontrollerScript>() != null) {
                 _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
             } else if (_player.GetComponent<Player2>() != null) {
