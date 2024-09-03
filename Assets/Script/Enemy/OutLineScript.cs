@@ -9,6 +9,7 @@ public class OutLineScript : MonoBehaviour {
     [SerializeField] private GameObject _cpu3;
     [SerializeField] private CommentScript _commentScript = default;
     [SerializeField] private ParticleSystem _particle;
+    [SerializeField] private ParticleSystem _deathBomb;
     [SerializeField] private CameraRankScript _cameraRank = default;
     [SerializeField] private Camera _camera;
     [SerializeField] private float _minCameraSize;
@@ -37,7 +38,7 @@ public class OutLineScript : MonoBehaviour {
             _countEat++;
             _clearMan.DropOuts(collision.gameObject);
             //collision.gameObject.SetActive(false);
-
+            _deathBomb.Play();
 
             ParticleSystem.MainModule main = _particle.main;
             if (collision.gameObject.layer == 12) {//—Î
