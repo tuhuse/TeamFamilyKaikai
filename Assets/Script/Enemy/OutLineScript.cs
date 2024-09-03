@@ -32,7 +32,9 @@ public class OutLineScript : MonoBehaviour {
 
         //collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         //collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
-        if ((collision.gameObject.tag == "Player") || collision.gameObject.tag == "CPU") {
+        if (((collision.gameObject.tag == "Player") || collision.gameObject.tag == "CPU")&&_countEat<=4) 
+        {
+            _countEat++;
             _clearMan.DropOuts(collision.gameObject);
             //collision.gameObject.SetActive(false);
 

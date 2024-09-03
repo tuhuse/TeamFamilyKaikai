@@ -98,7 +98,7 @@ public class StageRoopManFixed : MonoBehaviour {
                 Vector3 targetPosition = new Vector3(_camera.transform.position.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _camera.transform.position.z);
                 _camera.transform.position = targetPosition;
             }
-          
+
 
         }
 
@@ -130,7 +130,7 @@ public class StageRoopManFixed : MonoBehaviour {
                     new Vector2(_stageUpperRightCorner[_divisionNumber].transform.position.x + (preStageScale / 2) + (nextStageScale / 2), _stageUpperRightCorner[_divisionNumber].transform.position.y);
 
 
-            
+
 
                 _preStage = _prefabs[_arrayNumber];
 
@@ -145,7 +145,13 @@ public class StageRoopManFixed : MonoBehaviour {
 
 
                 _isDivisionStage = false;
-            } else {
+                if (_preStage.GetComponent<DivisionScriptver2>()) {
+                    _isDivisionStage = true;
+                    _preStage.GetComponent<DivisionScriptver2>().GiveNumber();
+                }
+            }
+            else 
+            {
                 float preStageScale = _preStage.GetComponent<SpriteRenderer>().size.x
                         * _preStage.transform.localScale.x;
                 float nextStageScale = _prefabs[_arrayNumber].GetComponent<SpriteRenderer>().size.x
@@ -263,6 +269,11 @@ public class StageRoopManFixed : MonoBehaviour {
         } else {
             _isCameraShake = true;
         }
+    }
+
+    public void CompulsionHarryUP() {
+        _countTime += 100;
+
     }
 }
 

@@ -131,9 +131,9 @@ public class SneakAnim : MonoBehaviour
                 _isPositionMoveOut = true;
             }
         } else {
-           
+            float move = 0.2f;
             if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) {
-                this.transform.position += new Vector3(POSITIONMOVEINX, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
+                this.transform.position += new Vector3(move, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
                 
             } else {
                 _isPositionMoveIn = false;
