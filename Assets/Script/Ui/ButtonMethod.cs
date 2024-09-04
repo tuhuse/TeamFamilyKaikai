@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonMethod : MonoBehaviour {
-    [SerializeField] ParticleSystem _waveParticle;
     [SerializeField] private MoveButtonScript _moveButtonScript; // キャラクターを制御するスクリプト
     [SerializeField] private GameObject _moveCharacter;
     private bool _isCharacterLanding;
@@ -14,14 +13,14 @@ public class ButtonMethod : MonoBehaviour {
     private float _thisTransformPositionY = default;
     private float _speed = 500;
     void Start() {
-        _waveParticle.Stop();
+        
         _thisTransformPositionY = transform.localPosition.y;
     }
     private void Update() {
         float myposition = this.transform.position.y;
         if (_isCharacterLanding) {
-            _waveParticle.Play();
-            StartCoroutine(WaveCoolDown());
+            
+          
             this.transform.position += (Vector3.down * _speed * Time.deltaTime);
             _moveCharacter.transform.position += (Vector3.down * _speed * Time.deltaTime);
         }
@@ -43,10 +42,7 @@ public class ButtonMethod : MonoBehaviour {
         }
 
     }
-    private IEnumerator WaveCoolDown() {
-      yield  return new WaitForSeconds(1f);
-        _waveParticle.Stop();
-    }
+    
     public void OnButtonClick() {
         // ボタンが押された位置にキャラクターを飛び移らせる
         Vector3 buttonPosition = transform.position;

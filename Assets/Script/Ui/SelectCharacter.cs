@@ -74,14 +74,16 @@ public class SelectCharacter : MonoBehaviour {
     }
     public void Humans(int humans) {
         switch (humans) {
-
             case 1:
-                _sitiuation = Sitiuation.Two;
+                _sitiuation = Sitiuation.One;
                 break;
             case 2:
-                _sitiuation = Sitiuation.Three;
+                _sitiuation = Sitiuation.Two;
                 break;
             case 3:
+                _sitiuation = Sitiuation.Three;
+                break;
+            case 4:
                 _sitiuation = Sitiuation.Four;
                 break;
         }

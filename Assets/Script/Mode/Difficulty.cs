@@ -11,7 +11,7 @@ public class Difficulty : MonoBehaviour {
     
     [Header("canvasmanager")]
     [SerializeField] private SelectCharacter _selectCharacterScript = default;
-    [SerializeField] private MoveButtonScript _move;
+    //[SerializeField] private MoveButtonScript _move;
     [SerializeField] private HumanPeople _human;
 
 
@@ -39,20 +39,11 @@ public class Difficulty : MonoBehaviour {
                 _isButtonMove = false;
             }
             if ((Input.GetButtonDown("Fire1"))) {
-                if (_judgenumber == 0) {
-                    _move._next = false;
-                    _selectCharacterScript.SITUATION(false);
-                    Diffculty(false);
-                    Selecet(false);
-                } else {
+                 
                     Diffculty(false);
                     _human.Selecet(true);
                     _human.SelectNumberPeople(true);
                     Selecet(false);
-                }
-
-
-
             }
 
             if (controllerStick < 0 && !_isButtonMove) //‰º‚És‚­

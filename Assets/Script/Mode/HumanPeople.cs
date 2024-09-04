@@ -7,13 +7,14 @@ public class HumanPeople : MonoBehaviour {
     [Header("canvasmanager")]
     [SerializeField] private List<GameObject> _frogsButton = new List<GameObject>();  // キャラクター選択ボタンのリスト
     [SerializeField] private SelectCharacter _selectCharacterScript = default;  // キャラクター選択のスクリプト
-    [SerializeField] private MoveButtonScript _move;  // 移動ボタンのスクリプト
+    //[SerializeField] private MoveButtonScript _move;  // 移動ボタンのスクリプト
     [SerializeField] private Difficulty _difficulty;  // 難易度設定のスクリプト
 
     private int _humanPeople = default;  // 現在選択されている人数（ボタンインデックス）
     private bool _isMoveButton = false;  // 移動ボタンが押されているかどうか
 
     private enum Human {
+        One,    // 1人プレイ
         Two,    // 2人プレイ
         Three,  // 3人プレイ
         Four    // 4人プレイ
@@ -25,17 +26,19 @@ public class HumanPeople : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         // 初期化処理（現在は空）
+        Selecet(true);
+        SelectNumberPeople(true);
     }
 
     // Update is called once per frame
     void Update() {
         if (_select) {
             // 「Fire1」ボタンが押されたときの処理
-            if (Input.GetButtonDown("Fire1")) {
-                SelectNumberPeople(false);  // ボタンの表示を非表示にする
-                _move._next = false;  // 移動のフラグをリセット
-                Selecet(false);  // 選択状態を解除
-            }
+            //if (Input.GetButtonDown("Fire1")) {
+            //    SelectNumberPeople(false);  // ボタンの表示を非表示にする
+            //    _move._next = false;  // 移動のフラグをリセット
+            //    Selecet(false);  // 選択状態を解除
+            //}
 
             // 左スティックの垂直方向の入力を取得
             float controllerStick = Input.GetAxis("L_Stick_Vartical") * -1;
@@ -78,6 +81,13 @@ public class HumanPeople : MonoBehaviour {
 
             // 「1pA」ボタンが押されたときの処理
             if (Input.GetButtonDown("1pA")) {
+                if (_humans == Human.One) {
+                    Switch();
+                    _difficulty.Selecet(true);
+                    _difficulty.Diffculty(true);
+                    SelectNumberPeople(false);
+                    Selecet(false);
+                }
                 if (_humans == Human.Four) {
                     // 4人プレイの設定
                     Switch();
@@ -104,14 +114,17 @@ public class HumanPeople : MonoBehaviour {
     // 現在のプレイヤー人数に応じた処理を実行
     private void Switch() {
         switch (_humans) {
+            case Human.One:
+                _selectCharacterScript.Humans(1);　// 1人プレイ設定
+                break;
             case Human.Two:
-                _selectCharacterScript.Humans(1);  // 2人プレイ設定
+                _selectCharacterScript.Humans(2);  // 2人プレイ設定
                 break;
             case Human.Three:
-                _selectCharacterScript.Humans(2);  // 3人プレイ設定
+                _selectCharacterScript.Humans(3);  // 3人プレイ設定
                 break;
             case Human.Four:
-                _selectCharacterScript.Humans(3);  // 4人プレイ設定
+                _selectCharacterScript.Humans(4);  // 4人プレイ設定
                 break;
         }
     }
@@ -120,12 +133,15 @@ public class HumanPeople : MonoBehaviour {
     private void HumanSwitch() {
         switch (_humanPeople) {
             case 0:
-                _humans = Human.Two;
+                _humans = Human.One;
                 break;
             case 1:
-                _humans = Human.Three;
+                _humans = Human.Two;
                 break;
             case 2:
+                _humans = Human.Three;
+                break;
+            case 3:
                 _humans = Human.Four;
                 break;
         }
@@ -153,11 +169,13 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[0].SetActive(true);
             _frogsButton[1].SetActive(true);
             _frogsButton[2].SetActive(true);
+            _frogsButton[3].SetActive(true);
         } else {
             // ボタンを非表示
             _frogsButton[0].SetActive(false);
             _frogsButton[1].SetActive(false);
             _frogsButton[2].SetActive(false);
+            _frogsButton[3].SetActive(false);
         }
     }
 }
