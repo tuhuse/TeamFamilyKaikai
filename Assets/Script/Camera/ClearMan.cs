@@ -87,7 +87,7 @@ public class ClearMan : MonoBehaviour {
                 break;
 
             case 5:
-                _podiumfrog[12].enabled = true;
+                _podiumfrog[16].enabled = true;
                 // ƒ‰ƒ“ƒLƒ“ƒO‚Ì•\Ž¦
                 Time.timeScale = 1f;
                 foreach (GameObject rank in _rankingList) {
@@ -105,9 +105,9 @@ public class ClearMan : MonoBehaviour {
                             }
                           
                             _rank = Rank.Second;
-                            
-                            print("first");
-                                break;
+
+                            print(rank+"1");
+                            break;
                         case Rank.Second:
                             if (_rankingList[1] == _podiumfrogs[0]) {
                                 _podiumfrog[4].enabled = true;
@@ -118,8 +118,9 @@ public class ClearMan : MonoBehaviour {
                             } else if (_rankingList[1] == _podiumfrogs[3] || _rankingList[1] == _podiumfrogs[6]) {
                                 _podiumfrog[7].enabled = true;
                             }
+                            print(rank + "2");
                             _rank = Rank.Three;
-                            print("scond");
+                            
                             break;
                         case Rank.Three:
                             if (_rankingList[2] == _podiumfrogs[0]) {
@@ -131,20 +132,21 @@ public class ClearMan : MonoBehaviour {
                             } else if (_rankingList[2] == _podiumfrogs[3] || _rankingList[2] == _podiumfrogs[6]) {
                                 _podiumfrog[11].enabled = true;
                             }
-                            print("three");
-                            //_rank = Rank.Four;
+                            print(rank + "3");
+                            _rank = Rank.Four;
                             break;
-                        //case Rank.Four:
-                        //    if (_rankingList[3] == _podiumfrogs[0]) {
-                        //        _podiumfrog[12].enabled = true;
-                        //    } else if (_rankingList[3] == _podiumfrogs[1] || _rankingList[3] == _podiumfrogs[4]) {
-                        //        _podiumfrog[13].enabled = true;
-                        //    } else if (_rankingList[3] == _podiumfrogs[2] || _rankingList[3] == _podiumfrogs[5]) {
-                        //        _podiumfrog[14].enabled = true;
-                        //    } else if (_rankingList[3] == _podiumfrogs[3] || _rankingList[3] == _podiumfrogs[6]) {
-                        //        _podiumfrog[15].enabled = true;
-                        //    }
-                        //    break;
+                        case Rank.Four:
+                            if (_rankingList[3] == _podiumfrogs[0]) {
+                                _podiumfrog[12].enabled = true;
+                            } else if (_rankingList[3] == _podiumfrogs[1] || _rankingList[3] == _podiumfrogs[4]) {
+                                _podiumfrog[13].enabled = true;
+                            } else if (_rankingList[3] == _podiumfrogs[2] || _rankingList[3] == _podiumfrogs[5]) {
+                                _podiumfrog[14].enabled = true;
+                            } else if (_rankingList[3] == _podiumfrogs[3] || _rankingList[3] == _podiumfrogs[6]) {
+                                _podiumfrog[15].enabled = true;
+                            }
+                            print(rank + "4");
+                            break;
                     }
                   
                     //_clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
