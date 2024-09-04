@@ -9,9 +9,10 @@ public class HumanPeople : MonoBehaviour {
     [SerializeField] private SelectCharacter _selectCharacterScript = default;  // キャラクター選択のスクリプト
     //[SerializeField] private MoveButtonScript _move;  // 移動ボタンのスクリプト
     [SerializeField] private Difficulty _difficulty;  // 難易度設定のスクリプト
-
+    private AudioSource _audio;
     private int _humanPeople = default;  // 現在選択されている人数（ボタンインデックス）
     private bool _isMoveButton = false;  // 移動ボタンが押されているかどうか
+    [SerializeField] private GameObject[] _frog;
 
     private enum Human {
         One,    // 1人プレイ
@@ -25,6 +26,7 @@ public class HumanPeople : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        _audio = GetComponent<AudioSource>();
         // 初期化処理（現在は空）
         Selecet(true);
         SelectNumberPeople(true);
@@ -80,7 +82,8 @@ public class HumanPeople : MonoBehaviour {
             HumanSwitch();
 
             // 「1pA」ボタンが押されたときの処理
-            if (Input.GetButtonDown("1pA")) {              
+            if (Input.GetButtonDown("1pA")) {
+                
                 if (_humans == Human.Four) {
                     // 4人プレイの設定
                     Switch();
@@ -88,7 +91,8 @@ public class HumanPeople : MonoBehaviour {
                     _selectCharacterScript.SummonSneak();
                     Selecet(false);
                 } else {
-                    // 2人または3人プレイの設定
+                    _audio.PlayOneShot(_audio.clip);
+                    // 1人、2人または3人プレイの設定
                     Switch();
                     _difficulty.Selecet(true);
                     _difficulty.Diffculty(true);
@@ -127,15 +131,45 @@ public class HumanPeople : MonoBehaviour {
         switch (_humanPeople) {
             case 0:
                 _humans = Human.One;
+                _frog[1].SetActive(false);
+                _frog[2].SetActive(false);
+                _frog[6].SetActive(false);
+                _frog[7].SetActive(false);
+                _frog[8].SetActive(false);
+                _frog[9].SetActive(false);
+                _frog[0].SetActive(true);
                 break;
             case 1:
                 _humans = Human.Two;
+                _frog[3].SetActive(false);
+                _frog[4].SetActive(false);
+                _frog[5].SetActive(false);
+                _frog[0].SetActive(false);
+                _frog[1].SetActive(true);
+                _frog[2].SetActive(true);
                 break;
             case 2:
                 _humans = Human.Three;
+                _frog[1].SetActive(false);
+                _frog[2].SetActive(false);
+                _frog[6].SetActive(false);
+                _frog[7].SetActive(false);
+                _frog[8].SetActive(false);
+                _frog[9].SetActive(false);
+                _frog[3].SetActive(true);
+                _frog[4].SetActive(true);
+                _frog[5].SetActive(true);
                 break;
             case 3:
                 _humans = Human.Four;
+                _frog[0].SetActive(false);
+                _frog[3].SetActive(false);
+                _frog[4].SetActive(false);
+                _frog[5].SetActive(false);
+                _frog[6].SetActive(true);
+                _frog[7].SetActive(true);
+                _frog[8].SetActive(true);
+                _frog[9].SetActive(true);
                 break;
         }
     }
@@ -163,12 +197,7 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[1].SetActive(true);
             _frogsButton[2].SetActive(true);
             _frogsButton[3].SetActive(true);
-        } else {
-            // ボタンを非表示
-            _frogsButton[0].SetActive(false);
-            _frogsButton[1].SetActive(false);
-            _frogsButton[2].SetActive(false);
-            _frogsButton[3].SetActive(false);
         }
+        
     }
 }
