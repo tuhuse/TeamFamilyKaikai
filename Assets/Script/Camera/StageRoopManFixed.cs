@@ -248,6 +248,7 @@ public class StageRoopManFixed : MonoBehaviour {
         _cameraShake.StopCameraShake(false);
         _hurryUpText.SetActive(false);
         _count._bgm.pitch = 1.4f;
+        _count._bgm.volume = 1;
     }
     public void ReadyGo(bool isGo) {
         if (isGo) {
