@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class ClearMan : MonoBehaviour {
     [SerializeField] private GameObject _cpuParent; // CPUオブジェクトの親オブジェクト
@@ -20,6 +21,8 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private List<GameObject> _anotherEnemys = new List<GameObject>(); // 他の敵オブジェクトのリスト
     [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>(); // 他のプレイヤーオブジェクトのリスト
     private List<GameObject> _rankingList = new List<GameObject>(); // ランキングのリスト
+   [SerializeField] private Image[] _podiumfrog;
+   [SerializeField] private GameObject[] _podiumfrogs;
     private float _fallMin = -60f; // オブジェクトが落下する最小Y座標
     public int _switchNumber = 0; // スイッチ番号（状態管理）
     private float _sizeLimit = 20; // サイズ制限（未使用）
@@ -40,6 +43,8 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private CameraRankScript _cameraRank = default; // カメラランキングのスクリプト
     [SerializeField] private StageRoopManFixed _stageRoopScript = default; // ステージループ管理スクリプト
 
+    private enum Rank {First,Second,Three,Four}
+    private Rank _rank = default;
     // Start is called before the first frame update
     void Start() {
         // CPUとプレイヤーオブジェクトをリストに追加
@@ -49,6 +54,7 @@ public class ClearMan : MonoBehaviour {
         for (int number = 0; number < _playerNumber; number++) {
             _anotherPlayers.Add(_playerParent.transform.GetChild(number).gameObject);
         }
+        _rank = Rank.First;
     }
 
     // Update is called once per frame
@@ -81,10 +87,67 @@ public class ClearMan : MonoBehaviour {
                 break;
 
             case 5:
+                _podiumfrog[12].enabled = true;
                 // ランキングの表示
                 Time.timeScale = 1f;
                 foreach (GameObject rank in _rankingList) {
-                    _clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
+                    
+                    switch (_rank) {
+                        case Rank.First:
+                            if (_rankingList[0] == _podiumfrogs[0]) {
+                                _podiumfrog[0].enabled=true;
+                            } else if (_rankingList[0] == _podiumfrogs[1] || _rankingList[0] == _podiumfrogs[4]) {
+                                _podiumfrog[1].enabled = true;
+                            } else if (_rankingList[0] == _podiumfrogs[2] || _rankingList[0] == _podiumfrogs[5]) {
+                                _podiumfrog[2].enabled = true;
+                            } else if (_rankingList[0] == _podiumfrogs[3] || _rankingList[0] == _podiumfrogs[6]) {
+                                _podiumfrog[3].enabled = true;
+                            }
+                          
+                            _rank = Rank.Second;
+                            
+                            print("first");
+                                break;
+                        case Rank.Second:
+                            if (_rankingList[1] == _podiumfrogs[0]) {
+                                _podiumfrog[4].enabled = true;
+                            } else if (_rankingList[1] == _podiumfrogs[1] || _rankingList[1] == _podiumfrogs[4]) {
+                                _podiumfrog[5].enabled = true;
+                            } else if (_rankingList[1] == _podiumfrogs[2] || _rankingList[1] == _podiumfrogs[5]) {
+                                _podiumfrog[6].enabled = true;
+                            } else if (_rankingList[1] == _podiumfrogs[3] || _rankingList[1] == _podiumfrogs[6]) {
+                                _podiumfrog[7].enabled = true;
+                            }
+                            _rank = Rank.Three;
+                            print("scond");
+                            break;
+                        case Rank.Three:
+                            if (_rankingList[2] == _podiumfrogs[0]) {
+                                _podiumfrog[8].enabled = true;
+                            } else if (_rankingList[2] == _podiumfrogs[1] || _rankingList[2] == _podiumfrogs[4]) {
+                                _podiumfrog[9].enabled = true;
+                            } else if (_rankingList[2] == _podiumfrogs[2] || _rankingList[2] == _podiumfrogs[5]) {
+                                _podiumfrog[10].enabled = true;
+                            } else if (_rankingList[2] == _podiumfrogs[3] || _rankingList[2] == _podiumfrogs[6]) {
+                                _podiumfrog[11].enabled = true;
+                            }
+                            print("three");
+                            //_rank = Rank.Four;
+                            break;
+                        //case Rank.Four:
+                        //    if (_rankingList[3] == _podiumfrogs[0]) {
+                        //        _podiumfrog[12].enabled = true;
+                        //    } else if (_rankingList[3] == _podiumfrogs[1] || _rankingList[3] == _podiumfrogs[4]) {
+                        //        _podiumfrog[13].enabled = true;
+                        //    } else if (_rankingList[3] == _podiumfrogs[2] || _rankingList[3] == _podiumfrogs[5]) {
+                        //        _podiumfrog[14].enabled = true;
+                        //    } else if (_rankingList[3] == _podiumfrogs[3] || _rankingList[3] == _podiumfrogs[6]) {
+                        //        _podiumfrog[15].enabled = true;
+                        //    }
+                        //    break;
+                    }
+                  
+                    //_clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
                     _rankNumber++;
                 }
                 _gameClearUI.SetActive(true); // ゲームクリアUIを表示
@@ -147,6 +210,7 @@ public class ClearMan : MonoBehaviour {
         for (int frogCount = 0; frogCount < _frogs.Count; frogCount++) {
             if (_frogs[frogCount] == dropOutFrog) 
             {
+              
                 _frogs.Remove(_frogs[frogCount]);
             }
         }

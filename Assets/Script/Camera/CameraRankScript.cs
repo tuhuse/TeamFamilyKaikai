@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraRankScript : MonoBehaviour {
     [Header("カメラ")] [SerializeField] GameObject _camera = default;//カメラ入れ
 
-    [SerializeField] GameObject _cameraEdgeObject = default;
+    [SerializeField] private GameObject _cameraEdgeObject = default;
+    [SerializeField] private GameObject _cameraLowerLimit = default;
 
     private GameObject _dummy = default;
 
@@ -18,6 +19,7 @@ public class CameraRankScript : MonoBehaviour {
 
     private bool _isGameStart = false;
     private bool _isUp = false;
+    private bool _isDown = default;
     private bool _isStart = false;
 
 
@@ -49,7 +51,10 @@ public class CameraRankScript : MonoBehaviour {
     private const int FORTH = 4;
 
     private const float CAMERAYMOVE = 0.05f;
-    private const float MAXCAMERAYMOVE = 5f;
+    private const float CAMERAYDOWNMOVE = 0.5f;
+    private const float MAXUPCAMERAYMOVE = 5f;
+    private const float MAXDOWNCAMERAYMOVE = 15f;
+
 
     private string _playerTag = "Player";
 
@@ -57,14 +62,16 @@ public class CameraRankScript : MonoBehaviour {
     [SerializeField] private CommentScript _commentText = default;
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         _camposiChangeY = CAMPOSIY;
         SceneStart();
-       
+
     }
 
     // Update is called once per frame
     void Update() {
+
+
         if (_isGameStart) {
             CameeeraRank(true);
         }
@@ -114,11 +121,10 @@ public class CameraRankScript : MonoBehaviour {
         _isStart = true;
         _rankingValue = 0;
         _isGameStart = true;
-      
+
     }
 
-    public void SecondPlayerOn(GameObject player2)     
-    {
+    public void SecondPlayerOn(GameObject player2) {
         GameObject dummy = default;
         _frogs[3] = player2;
 
@@ -157,7 +163,7 @@ public class CameraRankScript : MonoBehaviour {
                     }
 
 
-              
+
 
                     _dummy = _ranking[ORIGINFIRST];
                     _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
@@ -207,7 +213,7 @@ public class CameraRankScript : MonoBehaviour {
                 _thirdPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINTHIRD].transform.position.x;
                 //4位のカエルが3位のカエルよりも前に行ったら
                 if (_thirdPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINFORTH].transform.position.x) {
-                   
+
 
 
                     //プレイヤーが３位だったら
@@ -242,10 +248,10 @@ public class CameraRankScript : MonoBehaviour {
 
 
                 //誰かがジャンプしたらカメラを少し上に上げる
-                if (_rbs[ORIGINFIRST].velocity.y > 0 || _rbs[ORIGINTHIRD].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0) {
+                if ((_rbs[ORIGINFIRST].velocity.y > 0 || _rbs[ORIGINTHIRD].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0 || _rbs[ORIGINFORTH].velocity.y > 0) && !_isDown) {
                     _isUp = true;
                     //少し上に上げる
-                    if (this.transform.position.y < CAMPOSIY + MAXCAMERAYMOVE) {
+                    if (this.transform.position.y < CAMPOSIY + MAXUPCAMERAYMOVE) {
                         _camposiChangeY += CAMERAYMOVE;
                         this.transform.position += new Vector3(0, CAMERAYMOVE, 0);
                     }
@@ -254,9 +260,32 @@ public class CameraRankScript : MonoBehaviour {
                     if (this.transform.position.y > CAMPOSIY && _isUp) {
                         _camposiChangeY -= CAMERAYMOVE;
                         this.transform.position -= new Vector3(0, CAMERAYMOVE, 0);
+                    } else {
+                        _isUp = false;
                     }
                 }
 
+                //誰かが落とし穴に落ちたら
+
+                if (_ranking[0].transform.position.y < _cameraLowerLimit.transform.position.y ||
+                   _ranking[1].transform.position.y < _cameraLowerLimit.transform.position.y ||
+                   _ranking[2].transform.position.y < _cameraLowerLimit.transform.position.y ||
+                   _ranking[3].transform.position.y < _cameraLowerLimit.transform.position.y) {
+                    _isDown = true;
+                    if (this.transform.position.y > CAMPOSIY - MAXDOWNCAMERAYMOVE) {
+                        _camposiChangeY -= CAMERAYDOWNMOVE;
+                        this.transform.position -= new Vector3(0, CAMERAYDOWNMOVE, 0);
+                    } else {
+                    }
+                } else {
+                    //元に戻す
+                    if (this.transform.position.y < CAMPOSIY && _isDown) {
+                        _camposiChangeY += CAMERAYDOWNMOVE;
+                        this.transform.position += new Vector3(0, CAMERAYDOWNMOVE, 0);
+                    } else {
+                        _isDown = false;
+                    }
+                }
 
             }
         } else {

@@ -61,6 +61,7 @@ public class StageRoopManFixed : MonoBehaviour {
         _startSize = _camera.orthographicSize;
         _startPosition = _camera.transform.position;
         _audio = this.GetComponent<AudioSource>();
+        
         _first = _camera.GetComponent<CameraRankScript>()._ranking[0];
         _preStage = _farstStage;
         _stageNowPosition = _preStage.transform.position.x -
@@ -93,11 +94,11 @@ public class StageRoopManFixed : MonoBehaviour {
             float timeRatio = _timer / _changeDuration;
             timeRatio = Mathf.Clamp01(timeRatio); // 0から1の間にクランプ
 
-            if (_isCameraShake) {
-                float targetY = _cameraTargetY;//cameraが向かうY座標
-                Vector3 targetPosition = new Vector3(_camera.transform.position.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _camera.transform.position.z);
-                _camera.transform.position = targetPosition;
-            }
+            //if (_isCameraShake) {
+            //    float targetY = _cameraTargetY;//cameraが向かうY座標
+            //    Vector3 targetPosition = new Vector3(_camera.transform.position.x, Mathf.Lerp(_startPosition.y, targetY, timeRatio), _camera.transform.position.z);
+            //    _camera.transform.position = targetPosition;
+            //}
 
 
         }
