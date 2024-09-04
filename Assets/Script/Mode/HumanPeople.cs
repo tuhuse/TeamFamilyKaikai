@@ -80,14 +80,7 @@ public class HumanPeople : MonoBehaviour {
             HumanSwitch();
 
             // 「1pA」ボタンが押されたときの処理
-            if (Input.GetButtonDown("1pA")) {
-                if (_humans == Human.One) {
-                    Switch();
-                    _difficulty.Selecet(true);
-                    _difficulty.Diffculty(true);
-                    SelectNumberPeople(false);
-                    Selecet(false);
-                }
+            if (Input.GetButtonDown("1pA")) {              
                 if (_humans == Human.Four) {
                     // 4人プレイの設定
                     Switch();

@@ -277,11 +277,11 @@ public class SelectCharacter : MonoBehaviour {
 
 
     }
-    public void SITUATION(bool situation) {
-        if (situation) {
-            _sitiuation = Sitiuation.One;
-        } else {
-            _sitiuation = default;
-        }
-    }
+    //public void SITUATION(bool situation) {
+    //    if (situation) {
+    //        _sitiuation = Sitiuation.One;
+    //    } else {
+    //        _sitiuation = default;
+    //    }
+    //}
 }

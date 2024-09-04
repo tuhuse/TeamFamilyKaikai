@@ -90,7 +90,7 @@ public class MoveButtonScript : MonoBehaviour {
             if (Input.GetButtonDown("1pA") && !_isWaitSelect && !_isButtonSelect ) {
                 if (_situation == Situation.One) {//àÍêlÇ≈
                     
-                    _selectCharacterScript.SITUATION(true);
+                    //_selectCharacterScript.SITUATION(true);
                     _difficulty.Selecet(true);
                     _difficulty.Diffculty(true);
                     _next = true;
