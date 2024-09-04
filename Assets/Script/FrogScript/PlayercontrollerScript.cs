@@ -24,6 +24,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     [Header("スピードアップエフェクト")] [SerializeField] public GameObject _waterEffect;
 
+    [SerializeField] private GameObject _brake;
     private Rigidbody2D _rb;
 
     private bool _isAlive = false;
@@ -107,11 +108,12 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private void FixedUpdate() {
         if (!_isJump && !_isMucusJump) {
-
+            _brake.SetActive(false);
             //_jumppower -= JUMPMAX / 40f;
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_jumppower / MOVEJUMP));//* Time.deltaTime)
         }
         if (!_isJump && _isMucusJump) {
+            _brake.SetActive(false);
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_jumppower / JUMPMIN));//* Time.deltaTime)
         }
     }
@@ -135,9 +137,11 @@ public class PlayercontrollerScript : MonoBehaviour {
             float horizontalInput = Input.GetAxis(_joynumber + "pLstickHorizontal");
             //移動
             if (Input.GetKey(KeyCode.A) || horizontalInput < 0) {
+                _brake.SetActive(true);
                 MoveLeftControll();
             }
             if (Input.GetKey(KeyCode.D) || horizontalInput > 0) {
+                _brake.SetActive(false);
                 MoveRightControll();
             }
             //ジャンプ
@@ -190,14 +194,11 @@ public class PlayercontrollerScript : MonoBehaviour {
             //    _isJump = false;
             //}
 
-           
-            if (this._rb.velocity.x != 0) 
-            {
-                if (_movespeed <= MOVESPEED) 
-               {
-                    
-                    if (!_isOneshot)
-                    {
+
+            if (this._rb.velocity.x != 0) {
+                if (_movespeed <= MOVESPEED) {
+
+                    if (!_isOneshot) {
                         SpeedDownSE();
                         //移動速度を徐々に元に戻す
                         _downEffect.gameObject.SetActive(true);
@@ -205,14 +206,14 @@ public class PlayercontrollerScript : MonoBehaviour {
 
                     }
                     _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
-                } 
-                else
-                {
+                } else {
                     SEReproduction();
                     _downEffect.gameObject.SetActive(false);
                 }
 
-                
+
+            } else {
+                _brake.SetActive(false);
             }
           
         }
@@ -224,6 +225,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         //if (!_pridictionSpriterenderer.flipX) {
         //    _pridictionSpriterenderer.flipX = true;
         //}
+        
         _pridictionFrogAnim.SetBool("Brake", true);
         _pridictionFrogAnim.SetBool("Run", false);
         float brake = -50;
@@ -235,6 +237,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         if (_pridictionSpriterenderer.flipX) {
             _pridictionSpriterenderer.flipX = false;
         }
+        
         _pridictionFrogAnim.SetBool("Brake", false);
         //通常の移動
         _pridictionFrogAnim.SetBool("Run", true);
