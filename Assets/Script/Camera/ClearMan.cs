@@ -98,10 +98,13 @@ public class ClearMan : MonoBehaviour {
                                 _podiumfrog[0].enabled=true;
                             } else if (_rankingList[0] == _podiumfrogs[1] || _rankingList[0] == _podiumfrogs[4]) {
                                 _podiumfrog[1].enabled = true;
+                                _podiumfrog[1].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[0] == _podiumfrogs[2] || _rankingList[0] == _podiumfrogs[5]) {
                                 _podiumfrog[2].enabled = true;
+                                _podiumfrog[2].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[0] == _podiumfrogs[3] || _rankingList[0] == _podiumfrogs[6]) {
                                 _podiumfrog[3].enabled = true;
+                                _podiumfrog[3].GetComponent<Animator>().enabled = true;
                             }
                           
                             _rank = Rank.Second;
@@ -111,12 +114,16 @@ public class ClearMan : MonoBehaviour {
                         case Rank.Second:
                             if (_rankingList[1] == _podiumfrogs[0]) {
                                 _podiumfrog[4].enabled = true;
+                                _podiumfrog[4].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[1] == _podiumfrogs[1] || _rankingList[1] == _podiumfrogs[4]) {
                                 _podiumfrog[5].enabled = true;
+                                _podiumfrog[5].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[1] == _podiumfrogs[2] || _rankingList[1] == _podiumfrogs[5]) {
                                 _podiumfrog[6].enabled = true;
+                                _podiumfrog[6].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[1] == _podiumfrogs[3] || _rankingList[1] == _podiumfrogs[6]) {
                                 _podiumfrog[7].enabled = true;
+                                _podiumfrog[7].GetComponent<Animator>().enabled = true;
                             }
                             print(rank + "2");
                             _rank = Rank.Three;
@@ -125,12 +132,16 @@ public class ClearMan : MonoBehaviour {
                         case Rank.Three:
                             if (_rankingList[2] == _podiumfrogs[0]) {
                                 _podiumfrog[8].enabled = true;
+                                _podiumfrog[8].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[2] == _podiumfrogs[1] || _rankingList[2] == _podiumfrogs[4]) {
                                 _podiumfrog[9].enabled = true;
+                                _podiumfrog[9].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[2] == _podiumfrogs[2] || _rankingList[2] == _podiumfrogs[5]) {
                                 _podiumfrog[10].enabled = true;
+                                _podiumfrog[10].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[2] == _podiumfrogs[3] || _rankingList[2] == _podiumfrogs[6]) {
                                 _podiumfrog[11].enabled = true;
+                                _podiumfrog[11].GetComponent<Animator>().enabled = true;
                             }
                             print(rank + "3");
                             _rank = Rank.Four;
@@ -138,12 +149,16 @@ public class ClearMan : MonoBehaviour {
                         case Rank.Four:
                             if (_rankingList[3] == _podiumfrogs[0]) {
                                 _podiumfrog[12].enabled = true;
+                                _podiumfrog[12].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[3] == _podiumfrogs[1] || _rankingList[3] == _podiumfrogs[4]) {
                                 _podiumfrog[13].enabled = true;
+                                _podiumfrog[13].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[3] == _podiumfrogs[2] || _rankingList[3] == _podiumfrogs[5]) {
                                 _podiumfrog[14].enabled = true;
+                                _podiumfrog[14].GetComponent<Animator>().enabled = true;
                             } else if (_rankingList[3] == _podiumfrogs[3] || _rankingList[3] == _podiumfrogs[6]) {
                                 _podiumfrog[15].enabled = true;
+                                _podiumfrog[15].GetComponent<Animator>().enabled = true;
                             }
                             print(rank + "4");
                             break;

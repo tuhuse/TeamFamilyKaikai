@@ -12,7 +12,7 @@ public class HumanPeople : MonoBehaviour {
     private AudioSource _audio;
     private int _humanPeople = default;  // 現在選択されている人数（ボタンインデックス）
     private bool _isMoveButton = false;  // 移動ボタンが押されているかどうか
-    [SerializeField] private GameObject[] _frog;
+    [SerializeField] private SpriteRenderer[] _frog;
 
     private enum Human {
         One,    // 1人プレイ
@@ -131,45 +131,45 @@ public class HumanPeople : MonoBehaviour {
         switch (_humanPeople) {
             case 0:
                 _humans = Human.One;
-                _frog[1].SetActive(false);
-                _frog[2].SetActive(false);
-                _frog[6].SetActive(false);
-                _frog[7].SetActive(false);
-                _frog[8].SetActive(false);
-                _frog[9].SetActive(false);
-                _frog[0].SetActive(true);
+                _frog[1].enabled=false;
+                _frog[2].enabled = false;
+                _frog[6].enabled = false;
+                _frog[7].enabled = false;
+                _frog[8].enabled = false;
+                _frog[9].enabled = false;
+                _frog[0].enabled = true;
                 break;
             case 1:
                 _humans = Human.Two;
-                _frog[3].SetActive(false);
-                _frog[4].SetActive(false);
-                _frog[5].SetActive(false);
-                _frog[0].SetActive(false);
-                _frog[1].SetActive(true);
-                _frog[2].SetActive(true);
+                _frog[3].enabled = false;
+                _frog[4].enabled = false;
+                _frog[5].enabled = false;
+                _frog[0].enabled = false;
+                _frog[1].enabled = true;
+                _frog[2].enabled = true;
                 break;
             case 2:
                 _humans = Human.Three;
-                _frog[1].SetActive(false);
-                _frog[2].SetActive(false);
-                _frog[6].SetActive(false);
-                _frog[7].SetActive(false);
-                _frog[8].SetActive(false);
-                _frog[9].SetActive(false);
-                _frog[3].SetActive(true);
-                _frog[4].SetActive(true);
-                _frog[5].SetActive(true);
+                _frog[1].enabled = false;
+                _frog[2].enabled = false;
+                _frog[6].enabled = false;
+                _frog[7].enabled = false;
+                _frog[8].enabled = false;
+                _frog[9].enabled = false;
+                _frog[3].enabled = true;
+                _frog[4].enabled = true;
+                _frog[5].enabled = true;
                 break;
             case 3:
                 _humans = Human.Four;
-                _frog[0].SetActive(false);
-                _frog[3].SetActive(false);
-                _frog[4].SetActive(false);
-                _frog[5].SetActive(false);
-                _frog[6].SetActive(true);
-                _frog[7].SetActive(true);
-                _frog[8].SetActive(true);
-                _frog[9].SetActive(true);
+                _frog[0].enabled = false;
+                _frog[3].enabled = false;
+                _frog[4].enabled = false;
+                _frog[5].enabled = false;
+                _frog[6].enabled = true;
+                _frog[7].enabled = true;
+                _frog[8].enabled = true;
+                _frog[9].enabled = true;
                 break;
         }
     }
