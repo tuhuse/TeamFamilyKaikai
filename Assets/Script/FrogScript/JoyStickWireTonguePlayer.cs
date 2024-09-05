@@ -54,9 +54,13 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
         else if (!_isFrogCatch) {
             //ƒxƒ‚Ìk¬
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) 
+            {
+                _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
-            } else if (_isAttack && !_isJustOnes) {
+            }
+            else if (_isAttack && !_isJustOnes) 
+            {
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
                 _isJustOnes = true;
                 StartCoroutine(Failed());
@@ -65,7 +69,9 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
         } else {
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) 
+            {
+                _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;

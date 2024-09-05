@@ -53,16 +53,24 @@ public class WireTongueCPU : MonoBehaviour {
             this.transform.localScale += new Vector3(0, PLUSSCALESPEEDY) * Time.deltaTime * DELTATIMEMULTIPLE;
             //_isCoolDown = true;
 
-        } else if (!_isFrogCatch) {
-            if (this.transform.localScale.y > _tongueScaleY && !_isJustOnes) {
+        } else if (!_isFrogCatch) 
+        {
+            if (this.transform.localScale.y > _tongueScaleY && !_isJustOnes) 
+            {
+                _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMEMULTIPLE;
-            } else if (_isAttack && !_isJustOnes) {
+
+            } 
+            else if (_isAttack && !_isJustOnes) 
+            {
                 _isJustOnes = true;
                 this.transform.localScale = new Vector3(3, 0.1f, 1);
             }
         } else {
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) 
+            {
+                _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMEMULTIPLE;
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;
