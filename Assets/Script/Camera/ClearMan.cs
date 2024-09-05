@@ -164,7 +164,7 @@ public class ClearMan : MonoBehaviour {
                             break;
                     }
                     _rankingList[0].SetActive(false);
-                    _clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
+                    _clearText.SetText(_clearText.text += "\n" + _rankNumber +"位"+" "+ rank.name);
                     _rankNumber++;
                 }
                 _gameClearUI.SetActive(true); // ゲームクリアUIを表示
@@ -271,6 +271,7 @@ public class ClearMan : MonoBehaviour {
 
     // タイムスケールをリセットするコルーチン
     private IEnumerator TimeScaleReset(GameObject leaveFrog) {
+        leaveFrog.GetComponent<SpriteRenderer>().enabled=false;
         // 脱落したFrogの周りにアウトラインを表示
         _outLineParent.transform.SetParent(leaveFrog.transform, true);
         _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x + 5, leaveFrog.transform.position.y, 0);
