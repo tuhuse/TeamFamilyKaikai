@@ -35,10 +35,13 @@ public class WireTongueCPU : MonoBehaviour {
 
     private SpriteRenderer _dashSmokeRenderer = default;
     private Animator _dashSmokeAnim = default;
+
+    private SpriteRenderer _thisSprite = default;
     // Start is called before the first frame update
     void Start() {
         _tongueScaleY = this.transform.localScale.y;
         _cpuRB = GetComponentInParent<Rigidbody2D>();
+        _thisSprite = this.GetComponent<SpriteRenderer>();
 
     }
 
@@ -65,6 +68,7 @@ public class WireTongueCPU : MonoBehaviour {
             {
                 _isJustOnes = true;
                 this.transform.localScale = new Vector3(3, 0.1f, 1);
+                _thisSprite.enabled = false;
             }
         } else {
             _underAttack = false;
@@ -75,6 +79,7 @@ public class WireTongueCPU : MonoBehaviour {
             } else if (_isAttack && !_isJustOnes) {
                 _isJustOnes = true;
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
+                _thisSprite.enabled = false;
 
                 Judge();
             }
@@ -88,7 +93,8 @@ public class WireTongueCPU : MonoBehaviour {
     }
     private void Judge() {
 
-        if (_isJudge) {
+        if (_isJudge) 
+        {
             StartCoroutine(LongCoolDown());
             _isJudge = false;
         } else {

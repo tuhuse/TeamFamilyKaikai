@@ -106,6 +106,9 @@ public class FrogCpu : MonoBehaviour {
     [SerializeField] AudioClip _waterSE = default;
     [SerializeField] AudioClip _beardSE = default;
     [SerializeField] AudioClip _pridictionSE = default;
+
+    [SerializeField] private SpriteRenderer _togueSprite=default;
+
     //CPUÇÃã≠Ç≥
     private enum SwicthRandomJump {
         Easy,
@@ -298,11 +301,14 @@ public class FrogCpu : MonoBehaviour {
 
     //CPUÇÃã≠Ç≥í≤êÆ
     private void ModeCpu() {
-        switch (_difficultynumber) {
+        switch (_difficultynumber) 
+        {
             case Difficultys.easy:
+                _togueSprite.enabled = true;
                 ISEXTensionEasy();
                 break;
             case Difficultys.nomal:
+                _togueSprite.enabled = true;
                 ISEXTensionNomal();
                 break;
             case Difficultys.hard:              
@@ -310,7 +316,8 @@ public class FrogCpu : MonoBehaviour {
                         _randomItem == RandomItem.Good ||
                         _randomItem == RandomItem.Nomal) 
                     {
-                        ISEXtensionHard();
+                    _togueSprite.enabled = true;
+                    ISEXtensionHard();
                     }
                 break;
         }

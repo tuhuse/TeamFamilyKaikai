@@ -37,9 +37,12 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
     private SpriteRenderer _dashSmokeRenderer = default;
     private Animator _dashSmokeAnim = default;
+    private SpriteRenderer _thisSprite = default;
 
     // Update is called once per frame
-    private void Start() {
+    private void Start() 
+    {
+        _thisSprite = this.GetComponent<SpriteRenderer>();
         _playerRB = GetComponentInParent<Rigidbody2D>();
         _tongueScaleY = this.transform.localScale.y;
     }
@@ -63,6 +66,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             {
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
                 _isJustOnes = true;
+                _thisSprite.enabled = false;
                 StartCoroutine(Failed());
             }
 
@@ -73,7 +77,9 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             {
                 _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
-            } else if (_isAttack && !_isJustOnes) {
+            } else if (_isAttack && !_isJustOnes) 
+            {
+                _thisSprite.enabled = false;
                 _isJustOnes = true;
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
                 StartCoroutine(Success());
@@ -89,14 +95,17 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
         if (_player.gameObject != null) {
             
-                if (Input.GetButtonDown(_joynumber+"pRB")) {
+                if (Input.GetButtonDown(_joynumber+"pRB")) 
+                {
                     //ÉxÉçÇêLÇŒÇµénÇﬂÇÈ
-                    if (!_isAttack) {
+                    if (!_isAttack) 
+                    {
                     _aqua.TongueUIStartCooldown();
                     _aqua.TongueCoolDownFloat(SUCCESSTONGUECATCH);
                     _isAttack = true;
                         _isExtension = true;
                         _underAttack = true;
+                    _thisSprite.enabled = true;
                     }
 
                 }
