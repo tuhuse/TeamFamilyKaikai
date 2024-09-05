@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Difficulty : MonoBehaviour {
     [SerializeField] private List<GameObject> _difficultButton = new List<GameObject>();
     [SerializeField] private List<Image> _difficultFrog = new List<Image>();
+    [SerializeField] private GameObject _difficultText;
     private int _selectDefficultButton = default;
     private Image _image;
     private bool _isButtonMove = false;
@@ -159,10 +160,12 @@ public class Difficulty : MonoBehaviour {
             _difficultButton[0].SetActive(true);
             _difficultButton[1].SetActive(true);
             _difficultButton[2].SetActive(true);
+            _difficultText.SetActive(true);
         } else {
             _difficultButton[0].SetActive(false);
             _difficultButton[1].SetActive(false);
             _difficultButton[2].SetActive(false);
+            _difficultText.SetActive(false);
         }
     }
     public void Judge(int judge) {

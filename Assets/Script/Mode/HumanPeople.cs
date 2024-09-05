@@ -7,6 +7,7 @@ public class HumanPeople : MonoBehaviour {
     [Header("canvasmanager")]
     [SerializeField] private List<GameObject> _frogsButton = new List<GameObject>();  // キャラクター選択ボタンのリスト
     [SerializeField] private SelectCharacter _selectCharacterScript = default;  // キャラクター選択のスクリプト
+    [SerializeField] private GameObject _selectNumberOfPeople;
     //[SerializeField] private MoveButtonScript _move;  // 移動ボタンのスクリプト
     [SerializeField] private Difficulty _difficulty;  // 難易度設定のスクリプト
     private AudioSource _audio;
@@ -197,6 +198,7 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[1].SetActive(true);
             _frogsButton[2].SetActive(true);
             _frogsButton[3].SetActive(true);
+            _selectNumberOfPeople.SetActive(true);
         }
         if (!buttonActive) {
             // ボタンを表示
@@ -204,6 +206,7 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[1].SetActive(false);
             _frogsButton[2].SetActive(false);
             _frogsButton[3].SetActive(false);
+            _selectNumberOfPeople.SetActive(false);
         }
 
     }
