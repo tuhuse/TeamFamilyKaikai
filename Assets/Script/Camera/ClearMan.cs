@@ -149,22 +149,22 @@ public class ClearMan : MonoBehaviour {
                         case Rank.Four:
                             if (_rankingList[3] == _podiumfrogs[0]) {
                                 _podiumfrog[12].enabled = true;
-                                _podiumfrog[12].GetComponent<Animator>().enabled = true;
+                              
                             } else if (_rankingList[3] == _podiumfrogs[1] || _rankingList[3] == _podiumfrogs[4]) {
                                 _podiumfrog[13].enabled = true;
-                                _podiumfrog[13].GetComponent<Animator>().enabled = true;
+                                
                             } else if (_rankingList[3] == _podiumfrogs[2] || _rankingList[3] == _podiumfrogs[5]) {
                                 _podiumfrog[14].enabled = true;
-                                _podiumfrog[14].GetComponent<Animator>().enabled = true;
+                               
                             } else if (_rankingList[3] == _podiumfrogs[3] || _rankingList[3] == _podiumfrogs[6]) {
                                 _podiumfrog[15].enabled = true;
-                                _podiumfrog[15].GetComponent<Animator>().enabled = true;
+                              
                             }
                             print(rank + "4");
                             break;
                     }
-                  
-                    //_clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
+                    _rankingList[0].SetActive(false);
+                    _clearText.SetText(_clearText.text += "\n" + _rankNumber + rank.name);
                     _rankNumber++;
                 }
                 _gameClearUI.SetActive(true); // ゲームクリアUIを表示
@@ -258,7 +258,7 @@ public class ClearMan : MonoBehaviour {
             _cameraRank.CameeeraRank(false);
             _sneak.Access(true);
             _cameraShake.StopCameraShake(true);
-            _switchNumber = 3;
+         
         }
         else if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
             float gameSpeed = 3;
@@ -284,7 +284,9 @@ public class ClearMan : MonoBehaviour {
         yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0.1f;
         yield return new WaitForSeconds(0.4f);
-        _switchNumber = 5;
         leaveFrog.SetActive(false);
+        _switchNumber = 5;
+        
     }
+
 }

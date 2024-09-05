@@ -6,12 +6,37 @@ public class ObstacleScript : MonoBehaviour
 {
     //障害物に当たった時の挙動
     private float _speedDown = 60f;
-    
+    private Animator _thisAnim = default;
+    [SerializeField] private ParticleSystem _hitParticle = default;
+    private EdgeCollider2D _thisCollider = default;
+    private int _breakLayer = 22;
 
+    private void Start() {
+        _thisCollider = this.GetComponent<EdgeCollider2D>();
+        _thisAnim = this.GetComponent<Animator>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Reset")&& _hitParticle != null) 
+        {
+
+            this.gameObject.layer = 0;
+            _thisAnim.SetBool("Break", false);
+        }
+
         //プレイヤー用
-        if (collision.gameObject.CompareTag("Player")){
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            
+            
+            if (_hitParticle != null) 
+            {
+                
+                this.gameObject.layer = _breakLayer;
+                _thisAnim.SetBool("Break", true);
+                _hitParticle.Play();
+            }
+
             PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
             if (!player._isInvincivle && !player._waterEffect.activeSelf) {
                 player.SpeedDown(true);
@@ -26,6 +51,13 @@ public class ObstacleScript : MonoBehaviour
         //CPU用
         if (collision.gameObject.layer == 14)//Mucusflog用
         {
+           
+            if (_hitParticle != null) 
+            {
+                this.gameObject.layer = _breakLayer;
+                _thisAnim.SetBool("Break", true);
+                _hitParticle.Play();
+            }
             if (collision.gameObject.GetComponent<FrogCpu>() != null) 
             {
                 FrogCpu cpu1 = collision.gameObject.GetComponent<FrogCpu>();

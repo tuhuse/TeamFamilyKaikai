@@ -32,7 +32,7 @@ public class TongueGageScript : MonoBehaviour {
 
     // クールダウンを開始するメソッド
     public void TongueUIStartCooldown() {
-        print("startCooldown");
+       
         _abilityMeasureTimer = _abilityCooldownTimer;
         _circleGauge.fillAmount = 0f; // ゲージを一気に減少させる
         _isCooldownActive = true;

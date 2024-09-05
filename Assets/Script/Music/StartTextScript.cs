@@ -31,9 +31,9 @@ public class StartTextScript : MonoBehaviour
     private void Update() 
     {
         if (_isPlay) {
-            if (_clear._switchNumber == 5) {
+            if (_clear._switchNumber == 6) {
+                _audioSource[0].Play();
                 _count._bgm.Stop();
-                _audioSource[0].PlayOneShot(_audio[0]);
                 _isPlay = false;
             }
             if (_gameOver._switchNumber == 4) {
