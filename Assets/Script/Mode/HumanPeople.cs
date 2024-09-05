@@ -198,6 +198,13 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[2].SetActive(true);
             _frogsButton[3].SetActive(true);
         }
-        
+        if (!buttonActive) {
+            // ƒ{ƒ^ƒ“‚ð•\Ž¦
+            _frogsButton[0].SetActive(false);
+            _frogsButton[1].SetActive(false);
+            _frogsButton[2].SetActive(false);
+            _frogsButton[3].SetActive(false);
+        }
+
     }
 }

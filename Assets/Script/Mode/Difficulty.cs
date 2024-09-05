@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Difficulty : MonoBehaviour {
     [SerializeField] private List<GameObject> _difficultButton = new List<GameObject>();
+    [SerializeField] private List<Image> _difficultFrog = new List<Image>();
     private int _selectDefficultButton = default;
     private Image _image;
     private bool _isButtonMove = false;
@@ -103,14 +104,17 @@ public class Difficulty : MonoBehaviour {
 
         switch (_modes) {
             case Mode.Easy:
+                
                 _selectCharacterScript.DiffcultNumberHarf(0);
                 break;
             case Mode.Nomal:
                 // Normalモードの処理
+               
                 _selectCharacterScript.DiffcultNumberHarf(1);
                 break;
             case Mode.Hard:
                 // Hardモードの処理
+         
                 _selectCharacterScript.DiffcultNumberHarf(2);
                 break;
 
@@ -120,10 +124,19 @@ public class Difficulty : MonoBehaviour {
 
     public void DiffcultyNumber(int number) {
         if (number == 0) {
+            _difficultFrog[0].enabled = true;
+            _difficultFrog[1].enabled = false;
+            _difficultFrog[2].enabled = false;
             _modes = Mode.Easy;
         } else if (number == 1) {
+            _difficultFrog[0].enabled = false;
+            _difficultFrog[1].enabled = true;
+            _difficultFrog[2].enabled = false;
             _modes = Mode.Nomal;
         } else if (number == 2) {
+            _difficultFrog[0].enabled = false;
+            _difficultFrog[1].enabled = false;
+            _difficultFrog[2].enabled = true;
             _modes = Mode.Hard;
         }
     }
