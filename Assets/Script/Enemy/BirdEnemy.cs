@@ -5,25 +5,38 @@ using UnityEngine;
 public class BirdEnemy : MonoBehaviour {
     //  //障害物に当たった時の挙動
     private float _speedDown = 60f;
-
+    
 
     private void OnCollisionEnter2D(Collision2D collision) {
         //プレイヤー用
         if (collision.gameObject.CompareTag("Player"))//Mucusflog用
         {
-            collision.gameObject.GetComponent<PlayercontrollerScript>().ObstacleCollision(_speedDown);
+            PlayercontrollerScript player = collision.gameObject.GetComponent<PlayercontrollerScript>();
+            if (!player._isInvincivle) {
+                player.ObstacleCollision(_speedDown);
+            }
+                        
         }
         if (collision.gameObject.layer == 14) {
 
             if (collision.gameObject.GetComponent<FrogCpu>() != null) {
-                collision.gameObject.GetComponent<FrogCpu>().ObstacleCollision(_speedDown);
+                FrogCpu cpu = collision.gameObject.GetComponent<FrogCpu>();
+                if (!cpu._isPridictionAbility) {
+                    cpu.ObstacleCollision(_speedDown);
+                }               
             } else if (collision.gameObject.GetComponent<FrogCpuMulti>() != null) {
-                collision.gameObject.GetComponent<FrogCpuMulti>().ObstacleCollision(_speedDown);
+                FrogCpuMulti cpu = collision.gameObject.GetComponent<FrogCpuMulti>();
+                if (!cpu._isPridictionAbility) {
+                    cpu.ObstacleCollision(_speedDown);
+                }
+                
             } else if (collision.gameObject.GetComponent<FrogCpuMulti2>() != null) {
-                collision.gameObject.GetComponent<FrogCpuMulti2>().ObstacleCollision(_speedDown);
+                FrogCpuMulti2 cpu=collision.gameObject.GetComponent<FrogCpuMulti2>();
+                if (!cpu._isPridictionAbility) {
+                    cpu.ObstacleCollision(_speedDown);
+                }
             }
         }
-
     }
 
 }
