@@ -34,6 +34,8 @@ public class SneakAnim : MonoBehaviour
 
     [SerializeField] OutLineScript _childScript = default;
 
+    [SerializeField] private BoxCollider2D _childBoxcollider = default;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -112,6 +114,7 @@ public class SneakAnim : MonoBehaviour
         {
             _sneakAnim.SetBool("ScreenIn", false);
             _isPositionMoveOut = false;
+            _childBoxcollider.enabled = true;
         }
     }
     public void Access(bool access) {

@@ -18,9 +18,10 @@ public class OutLineScript : MonoBehaviour {
 
     private int _countEat = 0;
 
+    private BoxCollider2D _thisCollider = default;
     // Start is called before the first frame update
     void Start() {
-
+        _thisCollider = this.gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -35,6 +36,7 @@ public class OutLineScript : MonoBehaviour {
         //collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
         if (((collision.gameObject.tag == "Player") || collision.gameObject.tag == "CPU")&&_countEat<3) 
         {
+            _thisCollider.enabled = false;
             _countEat++;
             _clearMan.DropOuts(collision.gameObject);
             //collision.gameObject.SetActive(false);
