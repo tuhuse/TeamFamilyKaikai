@@ -26,6 +26,7 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private GameObject _frogcutin;
     [SerializeField] private Image[] _playerIcon;
     [SerializeField] private Image[] _playerImage;
+    [SerializeField] private GameObject[] _eye; 
     [SerializeField] CameraRankScript _cameraScript = default;
     
     private enum Sitiuation {
@@ -107,6 +108,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
                 _playerImage[0].enabled=true;
+                _playerImage[4].enabled = true;
+                _eye[0].GetComponent<Animator>().enabled = true;
                 _clearManScript.InFrogs(_frog[0]);
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
@@ -145,12 +148,16 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
                 _playerImage[0].enabled = true;
+                _playerImage[4].enabled = true;
+                _eye[0].GetComponent<Animator>().enabled = true;
                 _clearManScript.InFrogs(_frog[0]);
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
 
                 _playerIcon[1].enabled = true;
                 _playerImage[1].enabled = true;
+                _playerImage[5].enabled = true;
+                _eye[1].GetComponent<Animator>().enabled = true;
                 _frog[4].SetActive(true);
                 _cameraScript.SecondPlayerOn(_frog[4]);
 
@@ -188,6 +195,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
                 _playerImage[0].enabled = true;
+                _playerImage[4].enabled = true;
+                _eye[0].GetComponent<Animator>().enabled = true;
                 _clearManScript.InFrogs(_frog[0]);
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
@@ -195,6 +204,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[4].SetActive(true);
                 _playerIcon[1].enabled = true;
                 _playerImage[1].enabled = true;
+                _playerImage[5].enabled = true;
+                _eye[1].GetComponent<Animator>().enabled = true;
                 _cameraScript.SecondPlayerOn(_frog[4]);
                 _cameraScript.ThirdPlayerOn(_frog[5]);
 
@@ -206,6 +217,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[5].SetActive(true);
                 _playerIcon[2].enabled = true;
                 _playerImage[2].enabled = true;
+                _playerImage[6].enabled = true;
+                _eye[2].GetComponent<Animator>().enabled = true;
                 _gameoverManScript.InFrogs(_frog[5]);
                 _clearManScript.InFrogs(_frog[5]);
                 _cpu = _frog[5];
@@ -229,6 +242,8 @@ public class SelectCharacter : MonoBehaviour {
                 _audiomanager.PlayAudio(3);
                 _playerIcon[0].enabled = true;
                 _playerImage[0].enabled = true;
+                _playerImage[4].enabled = true;
+                _eye[0].GetComponent<Animator>().enabled = true;
                 _frog[0].SetActive(true);
 
                 _clearManScript.InFrogs(_frog[0]);
@@ -238,6 +253,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[4].SetActive(true);
                 _playerIcon[1].enabled = true;
                 _playerImage[1].enabled = true;
+                _playerImage[5].enabled = true;
+                _eye[1].GetComponent<Animator>().enabled = true;
                 _cameraScript.SecondPlayerOn(_frog[4]);
                 _cameraScript.ThirdPlayerOn(_frog[5]);
                 _cameraScript.FirthPlayerOn(_frog[6]);
@@ -252,6 +269,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[5].SetActive(true);
                 _playerIcon[2].enabled = true;
                 _playerImage[2].enabled = true;
+                _playerImage[6].enabled = true;
+                _eye[2].GetComponent<Animator>().enabled = true;
                 _gameoverManScript.InFrogs(_frog[5]);
                 _clearManScript.InFrogs(_frog[5]);
                 _player = _frog[5];
@@ -263,6 +282,8 @@ public class SelectCharacter : MonoBehaviour {
                 _frog[6].SetActive(true);
                 _playerIcon[3].enabled = true;
                 _playerImage[3].enabled = true;
+                _playerImage[7].enabled = true;
+                _eye[3].GetComponent<Animator>().enabled = true;
                 _gameoverManScript.InFrogs(_frog[6]);
                 _clearManScript.InFrogs(_frog[6]);
 

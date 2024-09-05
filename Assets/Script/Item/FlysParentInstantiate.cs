@@ -23,7 +23,7 @@ public class FlysParentInstantiate : MonoBehaviour
     }
     private IEnumerator Instantiate() {
         _instantiate = false;
-         yield return new WaitForSeconds(0.7f);    
+         yield return new WaitForSeconds(0.6f);    
             Instantiate(_flys, this.transform.position, Quaternion.identity, this.transform);
         yield return new WaitForSeconds(0.5f);
         _instantiate = true;

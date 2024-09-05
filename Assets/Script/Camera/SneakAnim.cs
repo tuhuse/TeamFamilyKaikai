@@ -10,6 +10,7 @@ public class SneakAnim : MonoBehaviour
     private bool _isPositionMoveOut = false;
     private bool _isPositionMoveIn = false;
     private bool _isPositionLastMoveIn = false;
+    private bool _isOneShot = default;
 
     private float _positionX = default;
     private float _outStopPosition = 154f;
@@ -28,6 +29,8 @@ public class SneakAnim : MonoBehaviour
     
 
     private const float TIMEDELTATIMEMULTIPLE = 1000f;
+    private AudioSource _sneakAudio = default;
+    [SerializeField] private AudioClip _eatSE = default;
 
     [SerializeField] GameObject _camera = default;
     [SerializeField] SelectCharacter _selectScript = default;
@@ -39,6 +42,7 @@ public class SneakAnim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _sneakAudio = this.GetComponent<AudioSource>();
        _sneakAnim = GetComponent<Animator>();
         _sneakAnim.SetBool("Intimidation", true);
         _positionX = this.transform.position.x;
@@ -115,6 +119,7 @@ public class SneakAnim : MonoBehaviour
             _sneakAnim.SetBool("ScreenIn", false);
             _isPositionMoveOut = false;
             _childBoxcollider.enabled = true;
+            _isOneShot = false;
         }
     }
     public void Access(bool access) {
@@ -125,9 +130,16 @@ public class SneakAnim : MonoBehaviour
     }
     public void ScreenIn(bool screenIn) 
     {
-        if (screenIn) {
+        if (screenIn) 
+        {
+            if (!_isOneShot) 
+            {
+                _sneakAudio.PlayOneShot(_eatSE);
+                _isOneShot = true;
+            }
             //‰æ–Ê“à‚É“ü‚é
-            if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) {
+            if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) 
+            {
                 this.transform.position += new Vector3(POSITIONMOVEINX, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
             } else {
                 _isPositionMoveIn = false;
@@ -138,9 +150,9 @@ public class SneakAnim : MonoBehaviour
             if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) {
                 this.transform.position += new Vector3(move, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
                 
-            } else {
+            } else 
+            {
                 _isPositionMoveIn = false;
-               
             }
         }
 
