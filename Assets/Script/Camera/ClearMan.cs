@@ -179,9 +179,7 @@ public class ClearMan : MonoBehaviour {
 
     // ゲームクリア後のリトライボタン処理（スペースキー押下）
     public void ClearRetryButton() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            // 同じ場所を再度プレイする処理（未実装）
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // タイトルシーンに戻るボタン処理

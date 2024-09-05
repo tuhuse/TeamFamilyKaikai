@@ -61,12 +61,12 @@ public class JoyStickGameClearSelect : MonoBehaviour {
             {
                 //タイトルに戻る
 
-                _pauseManager.GetComponent<ClearMan>().ClearTitleButton();
+                _pauseManager.GetComponent<ClearMan>().ClearRetryButton();
             } else //returnを見ていた場合
               {
 
                 //ゲームを終了する
-                _gameClearText[1].GetComponent<ExitButton>().Onclick();
+                _pauseManager.GetComponent<ClearMan>().ClearTitleButton();
             }
         }
     }

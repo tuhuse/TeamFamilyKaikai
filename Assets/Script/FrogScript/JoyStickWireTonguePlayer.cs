@@ -122,14 +122,16 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _isExtension = false;
         }
 
-        if (collision.gameObject.tag == "CPU" && _underAttack) 
+        if (collision.gameObject.tag == "CPU" && _underAttack&&
+            ((collision.gameObject.GetComponent<FrogCpu>()&&!collision.gameObject.GetComponent<FrogCpu>()._isPridictionAbility)||
+             (collision.gameObject.GetComponent<FrogCpuMulti>() && !collision.gameObject.GetComponent<FrogCpuMulti>()._isPridictionAbility) ||
+             (collision.gameObject.GetComponent<FrogCpuMulti2>() && !collision.gameObject.GetComponent<FrogCpuMulti2>()._isPridictionAbility)))
         {
             
 
             
             if (_player.GetComponent<PlayercontrollerScript>() != null)
             {
-
                 //ダッシュエフェクトを持っていなかったら
                 if (_dashSmokeClone == null) {
                     //煙を生成して、コンポーネントを取得する
