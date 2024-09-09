@@ -164,7 +164,6 @@ public class ClearMan : MonoBehaviour {
                             break;
                     }
                     _rankingList[0].SetActive(false);
-                    _clearText.SetText(_clearText.text += "\n" + _rankNumber +"位"+" "+ rank.name);
                     _rankNumber++;
                 }
                 _gameClearUI.SetActive(true); // ゲームクリアUIを表示
