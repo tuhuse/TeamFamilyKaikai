@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HumanPeople : MonoBehaviour {
     [Header("canvasmanager")]
@@ -19,7 +20,8 @@ public class HumanPeople : MonoBehaviour {
         One,    // 1人プレイ
         Two,    // 2人プレイ
         Three,  // 3人プレイ
-        Four    // 4人プレイ
+        Four,   // 4人プレイ
+        Return  //戻る
     }
     private Human _humans = default;  // 現在選択されているプレイヤー人数
     private bool _select = false;  // 選択状態を管理
@@ -84,13 +86,17 @@ public class HumanPeople : MonoBehaviour {
 
             // 「1pA」ボタンが押されたときの処理
             if (Input.GetButtonDown("1pA")) {
-                
+               
+
                 if (_humans == Human.Four) {
                     // 4人プレイの設定
                     Switch();
                     SelectNumberPeople(false);
                     _selectCharacterScript.SummonSneak();
                     Selecet(false);
+                }
+               else if (_humans == Human.Return) {
+                    SceneManager.LoadScene("TitleScene");
                 } else {
                     _audio.PlayOneShot(_audio.clip);
                     // 1人、2人または3人プレイの設定
@@ -124,6 +130,9 @@ public class HumanPeople : MonoBehaviour {
             case Human.Four:
                 _selectCharacterScript.Humans(4);  // 4人プレイ設定
                 break;
+            case Human.Return:
+                
+                break;
         }
     }
 
@@ -132,7 +141,7 @@ public class HumanPeople : MonoBehaviour {
         switch (_humanPeople) {
             case 0:
                 _humans = Human.One;
-                _frog[1].enabled=false;
+                _frog[1].enabled = false;
                 _frog[2].enabled = false;
                 _frog[6].enabled = false;
                 _frog[7].enabled = false;
@@ -172,6 +181,20 @@ public class HumanPeople : MonoBehaviour {
                 _frog[8].enabled = true;
                 _frog[9].enabled = true;
                 break;
+                case 4:
+                _humans = Human.Return;
+                _frog[0].enabled = false;
+                _frog[1].enabled = false;
+                _frog[2].enabled = false;
+                _frog[3].enabled = false;
+                _frog[4].enabled = false;
+                _frog[5].enabled = false;
+                _frog[6].enabled = false;
+                _frog[7].enabled = false;
+                _frog[8].enabled = false;
+                _frog[9].enabled = false;
+                break;
+
         }
     }
 
