@@ -349,14 +349,6 @@ public class FrogCpuMulti2 : MonoBehaviour {
             _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
         }
     }
-    private void Jump2() {
-        if (_isJump) {
-            _isJump = false;
-            _frogSE.PlayOneShot(_jumpSE);
-            _rb.velocity = new Vector2(_rb.velocity.x, _movejump); //* Time.deltaTime;
-        }      
-
-    }
 
     private void EnemyJump() {
 
@@ -367,7 +359,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
                 //90%でジャンプ
                 if (_randomJump <= 9000) {
-                    Jump2();
+                    Jump();
                 }
                 break;
             case SwicthRandomJump.Hard:
@@ -376,7 +368,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
                 //50%でジャンプ
                 if (_randomJump <= 5000) {
-                    Jump2();
+                    Jump();
                 }
                 break;
             case SwicthRandomJump.Harf:
@@ -385,7 +377,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
                 //70%でジャンプ
                 if (_randomJump <= 7000) {
-                    Jump2();
+                    Jump();
                 }
                 break;
         }
@@ -451,7 +443,11 @@ public class FrogCpuMulti2 : MonoBehaviour {
 
     }
 
-
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Pit")) {
+            Jump();
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision) {
         //ルート分岐が来た時のCPUのジャンプ挙動
         if (collision.gameObject.CompareTag("ChooseSelect") && _isJump) {
