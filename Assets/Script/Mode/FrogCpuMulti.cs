@@ -125,7 +125,12 @@ public class FrogCpuMulti : MonoBehaviour {
         Nomal,
         Bad
     }
-    
+    private enum Rank {
+        One,
+        Two,
+        Three,
+        Four
+    }
     private SwicthRandomJump _swicthRandomJump = default;
     private RandomItem _randomItem = default;
     private Difficultys _difficultynumber = default;
