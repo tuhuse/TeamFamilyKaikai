@@ -125,7 +125,13 @@ public class FrogCpuMulti2 : MonoBehaviour {
         Nomal,
         Bad
     }
-    
+    private enum Rank {
+        One,
+        Two,
+        Three,
+        Four
+    }
+    private Rank _rank = default;
     private SwicthRandomJump _swicthRandomJump = default;
     private RandomItem _randomItem = default;
     private Difficultys _difficultynumber = default;
@@ -171,94 +177,74 @@ public class FrogCpuMulti2 : MonoBehaviour {
         if (_player3.activeSelf && _player.activeSelf && _player2) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > player3 && mySelf > player2) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else if ((mySelf > player && mySelf > player3 && mySelf < player2) ||
                   (mySelf > player && mySelf < player3 && mySelf > player2) ||
                   (mySelf < player && mySelf > player3 && mySelf > player2)) {
-                _randomItem = RandomItem.Nomal;//“ñˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.Two;
             } else if ((mySelf < player && mySelf < player3 && mySelf > player2) ||
                   (mySelf > player && mySelf < player3 && mySelf < player2) ||
                   (mySelf < player && mySelf > player3 && mySelf < player2)) {
-                _randomItem = RandomItem.Good;//OˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Harf;
+                _rank = Rank.Three;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Four;
             }
         } 
         if (!_player3.activeSelf) {
             print(_randomItem);
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > player2) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else if ((mySelf < player && mySelf > player2) ||
                   (mySelf > player && mySelf < player2)) {
-                _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Harf;
+                _rank = Rank.Two;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Three;
             }
         } else if (!_player2.activeSelf) {
             print(_randomItem);
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player && mySelf > player3) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else if ((mySelf < player && mySelf > player3) ||
                   (mySelf > player && mySelf < player3)) {
-                _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Harf;
+                _rank = Rank.Two;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Three;
             }
         } else if (!_player.activeSelf) {
-            print(_randomItem);
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player2 && mySelf > player3) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else if ((mySelf < player2 && mySelf > player3) ||
                   (mySelf > player2 && mySelf < player3)) {
-                _randomItem = RandomItem.Good;//“ñˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Harf;
+                _rank = Rank.Two;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Three;
             }
         } 
         if (!_player3.activeSelf && !_player2) {
             
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Four;
             }
         } else if (!_player3.activeSelf && !_player) {
             print(_randomItem);
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player2) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Four;
             }
         } else if (!_player2.activeSelf && !_player) {
             //©•ª‚Ì‡ˆÊ‚ğ”cˆ¬
             if (mySelf > player3) {
-                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Hard;
+                _rank = Rank.One;
             } else {
-                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
-                _swicthRandomJump = SwicthRandomJump.Easy;
+                _rank = Rank.Four;
             }
         }
         #endregion
@@ -277,7 +263,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
             MucusAttack();
             UseAbility();
             ModeCpu();
-         
+            Ranking();
             #endregion
             //ƒAƒjƒ[ƒVƒ‡ƒ“
             if (this._rb.velocity.x != 0) {
@@ -513,6 +499,28 @@ public class FrogCpuMulti2 : MonoBehaviour {
     }
     public void SmokeStart() {
         StartCoroutine(CollisionEffect());
+    }
+    private void Ranking() {
+        switch (_rank) {
+            case Rank.One:
+                _randomItem = RandomItem.Bad;//ˆêˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Hard;
+                break;
+            case Rank.Two:
+                _randomItem = RandomItem.Nomal;//“ñˆÊ‚Ì           
+                _swicthRandomJump = SwicthRandomJump.Harf;
+                break;
+            case Rank.Three:
+                _randomItem = RandomItem.Good;//OˆÊ‚Ì           
+                _swicthRandomJump = SwicthRandomJump.Harf;
+                break;
+            case Rank.Four:
+                _randomItem = RandomItem.Great;//Å‰ºˆÊ‚Ì
+                _swicthRandomJump = SwicthRandomJump.Easy;
+                break;
+
+        }
+
     }
     private void GetItem() {
 
