@@ -57,7 +57,7 @@ public class HumanPeople : MonoBehaviour {
             // スティックが下に動いたときの処理
             if (controllerStick < 0 && !_isMoveButton) {
                 // 現在のボタンの色を変更
-                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
                 _humanPeople++;
                 // リストの範囲外に出たら最初に戻す
                 if (_frogsButton.Count <= _humanPeople) {
@@ -71,7 +71,7 @@ public class HumanPeople : MonoBehaviour {
             // スティックが上に動いたときの処理
             if (controllerStick > 0 && !_isMoveButton) {
                 // 現在のボタンの色を変更
-                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
                 _humanPeople--;
                 // リストの範囲外に出たら最後に戻す
                 if (0 > _humanPeople) {

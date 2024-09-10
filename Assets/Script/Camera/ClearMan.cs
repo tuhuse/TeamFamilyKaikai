@@ -97,6 +97,7 @@ public class ClearMan : MonoBehaviour {
                         case Rank.First:
                             if (_rankingList[0] == _podiumfrogs[0]) {
                                 _podiumfrog[0].enabled=true;
+                                _podiumfrog[0].GetComponent<Animator>().enabled = true;
                                 _nameFrog[0].enabled = true;
                             } else if (_rankingList[0] == _podiumfrogs[1] || _rankingList[0] == _podiumfrogs[4]) {
                                 _podiumfrog[1].enabled = true;
