@@ -114,7 +114,7 @@ public class ClearMan : MonoBehaviour {
                           
                             _rank = Rank.Second;
 
-                            print(rank+"1");
+                            
                             break;
                         case Rank.Second:
                             if (_rankingList[1] == _podiumfrogs[0]) {
@@ -134,7 +134,7 @@ public class ClearMan : MonoBehaviour {
                                 _podiumfrog[7].GetComponent<Animator>().enabled = true;
                                 _nameFrog[7].enabled = true;
                             }
-                            print(rank + "2");
+                         
                             _rank = Rank.Three;
                             
                             break;
@@ -156,7 +156,7 @@ public class ClearMan : MonoBehaviour {
                                 _podiumfrog[11].GetComponent<Animator>().enabled = true;
                                 _nameFrog[11].enabled = true;
                             }
-                            print(rank + "3");
+                          
                             _rank = Rank.Four;
                             break;
                         case Rank.Four:
@@ -175,7 +175,7 @@ public class ClearMan : MonoBehaviour {
                                 _nameFrog[15].enabled = true;
 
                             }
-                            print(rank + "4");
+                            
                             break;
                     }
                     _rankingList[0].SetActive(false);

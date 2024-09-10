@@ -42,7 +42,7 @@ public class OutLineScript : MonoBehaviour {
             _clearMan.DropOuts(collision.gameObject);
             //collision.gameObject.SetActive(false);
             _deathBomb.Play();
-            _eatFrogEffect.Play();
+            //_eatFrogEffect.Play();
             ParticleSystem.MainModule main = _particle.main;
             if (collision.gameObject.layer == 12) {//—Î
                 main.startColor = new Color(0.625f, 0.772f, 0.47f, 1f);

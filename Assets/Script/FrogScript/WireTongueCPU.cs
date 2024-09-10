@@ -116,17 +116,17 @@ public class WireTongueCPU : MonoBehaviour {
 
         if (_mySelf.GetComponent<FrogCpu>()) 
         {
-            print("a");
+            
             _mySelf.GetComponent<FrogCpu>().ReproductionTongue();
         } 
         else if (_mySelf.GetComponent<FrogCpuMulti>())
         {
-            print("b");
+           
             _mySelf.GetComponent<FrogCpuMulti>().ReproductionTongue();
         } 
         else if (_mySelf.GetComponent<FrogCpuMulti2>())
         {
-            print("c");
+           
             _mySelf.GetComponent<FrogCpuMulti2>().ReproductionTongue();
         }
 
@@ -142,17 +142,16 @@ public class WireTongueCPU : MonoBehaviour {
 
         if (_mySelf.GetComponent<FrogCpu>())
         {
-            print("a");
+           
             _mySelf.GetComponent<FrogCpu>().ReproductionTongue();
         } 
         else if (_mySelf.GetComponent<FrogCpuMulti>())
         {
-            print("b");
+    
             _mySelf.GetComponent<FrogCpuMulti>().ReproductionTongue();
         } 
         else if (_mySelf.GetComponent<FrogCpuMulti2>()) 
-        {
-            print("c");
+        { 
             _mySelf.GetComponent<FrogCpuMulti2>().ReproductionTongue();
         }
     }
@@ -278,7 +277,7 @@ public class WireTongueCPU : MonoBehaviour {
     }
     public void TongueAttack() 
     {
-        print("aaa");
+   
         _isExtension = true;
         _underAttack = true;
         _isCoolDown = true;
