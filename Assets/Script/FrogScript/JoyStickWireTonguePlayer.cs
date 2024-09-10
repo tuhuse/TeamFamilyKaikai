@@ -137,15 +137,16 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _isExtension = false;
         }
 
-        if (collision.gameObject.tag == "CPU" && _underAttack&&
-            ((collision.gameObject.GetComponent<FrogCpu>()&&!collision.gameObject.GetComponent<FrogCpu>()._isPridictionAbility)||
-             (collision.gameObject.GetComponent<FrogCpuMulti>() && !collision.gameObject.GetComponent<FrogCpuMulti>()._isPridictionAbility) ||
-             (collision.gameObject.GetComponent<FrogCpuMulti2>() && !collision.gameObject.GetComponent<FrogCpuMulti2>()._isPridictionAbility)))
+        if (collision.gameObject.tag == "CPU" && _underAttack)
+            
         {
             
 
             
-            if (_player.GetComponent<PlayercontrollerScript>() != null)
+            if (_player.GetComponent<PlayercontrollerScript>() != null&& 
+                ((collision.gameObject.GetComponent<FrogCpu>() && collision.gameObject.GetComponent<FrogCpu>()._isPridictionStart) ||
+             (collision.gameObject.GetComponent<FrogCpuMulti>() && collision.gameObject.GetComponent<FrogCpuMulti>()._isPridictionStart) ||
+             (collision.gameObject.GetComponent<FrogCpuMulti2>() && collision.gameObject.GetComponent<FrogCpuMulti2>()._isPridictionStart)))
             {
                 //ダッシュエフェクトを持っていなかったら
                 if (_dashSmokeClone == null) {

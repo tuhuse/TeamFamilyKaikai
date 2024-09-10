@@ -45,7 +45,7 @@ public class FrogCpuMulti : MonoBehaviour {
     private bool _isJump;
     private bool _isAlive;
     public bool _isPridictionAbility = false;
-    private bool _isPridictionStart = true;
+    public bool _isPridictionStart = true;
     private bool _isMucus = false;
     private bool _isBeard = false;
     private bool _isUseItem = false;
@@ -474,7 +474,7 @@ public class FrogCpuMulti : MonoBehaviour {
         }
         //ïE
         if (collision.gameObject.layer == 9) {
-            if (!_isPridictionAbility && !_isWaterAbility) {
+            if (_isPridictionStart && !_isWaterAbility) {
 
                 if (_projectile == null) {
                     _movespeed = SPEEDMIN;
@@ -486,22 +486,28 @@ public class FrogCpuMulti : MonoBehaviour {
 
             }
         }
+
+
+
+        //îSâtÇÃè∞
+        if (collision.gameObject.layer == 7) {
+            if (_isPridictionAbility) {
+                PridictionAbility();
+            }
+            if (_isPridictionStart) {
+                if (_projectile == null) {
+                    _isMucusJump = true;
+                    StartCoroutine(MucusJumpTime());
+                } else if (collision.gameObject != _projectile.gameObject) {
+                    _isMucusJump = true;
+                    StartCoroutine(MucusJumpTime());
+                }
+
+            }
+        }
+       
 
         
-        if (!_isPridictionAbility) {
-            //îSâtÇÃè∞
-            if (collision.gameObject.layer == 7) {
-                if (_projectile == null) {
-                    _isMucusJump = true;
-                    StartCoroutine(MucusJumpTime());
-                } else if (collision.gameObject != _projectile.gameObject) {
-                    _isMucusJump = true;
-                    StartCoroutine(MucusJumpTime());
-                }
-
-            }
-
-        }
 
     }
     public void SmokeStart() {
@@ -624,7 +630,7 @@ public class FrogCpuMulti : MonoBehaviour {
 
     #region ñ≥ìGî\óÕ
     //ñ≥ìGî≠ìÆ
-    public void PriictionAbility() {
+    public void PridictionAbility() {
         if (_isPridictionStart) {
             if (_isPridictionAbility) {
                 _frogSE.PlayOneShot(_pridictionSE);
@@ -650,7 +656,7 @@ public class FrogCpuMulti : MonoBehaviour {
     private void UseAbility() {
         if (_isPridictionAbility) {
             if (_isBehindTrigger) {
-                PriictionAbility();
+                PridictionAbility();
                 _isBehindTrigger = false;
             }
         }

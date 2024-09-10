@@ -63,9 +63,9 @@ public class ObstacleScript : MonoBehaviour
                 FrogCpu cpu1 = collision.gameObject.GetComponent<FrogCpu>();
              
                 if (cpu1._isPridictionAbility) {
-                    cpu1.PriictionAbility();
+                    cpu1.PridictionAbility();
                 }
-                if (collision.gameObject.activeSelf && !cpu1._isWaterAbility && !cpu1._isPridictionAbility) {
+                if (collision.gameObject.activeSelf && !cpu1._isWaterAbility && !cpu1._isPridictionStart) {
                     cpu1.ObstacleCollision(_speedDown);
                     cpu1.SmokeStart();
                 }
@@ -75,9 +75,9 @@ public class ObstacleScript : MonoBehaviour
                 FrogCpuMulti cpu2 = collision.gameObject.GetComponent<FrogCpuMulti>();
                 
                 if (cpu2._isPridictionAbility) {
-                    cpu2.PriictionAbility();
+                    cpu2.PridictionAbility();
                 }
-                if (collision.gameObject.activeSelf && !cpu2._isWaterAbility && !cpu2._isPridictionAbility) {
+                if (collision.gameObject.activeSelf && !cpu2._isWaterAbility && !cpu2._isPridictionStart) {
                     cpu2.ObstacleCollision(_speedDown);
                     cpu2.SmokeStart();
                 }
@@ -87,9 +87,9 @@ public class ObstacleScript : MonoBehaviour
                 FrogCpuMulti2 cpu3 = collision.gameObject.GetComponent<FrogCpuMulti2>();
                 
                 if (cpu3._isPridictionAbility) {
-                    cpu3.PriictionAbility();
+                    cpu3.PridictionAbility();
                 }
-                if (collision.gameObject.activeSelf && !cpu3._isWaterAbility && !cpu3._isPridictionAbility) {
+                if (collision.gameObject.activeSelf && !cpu3._isWaterAbility && !cpu3._isPridictionStart) {
                     cpu3.ObstacleCollision(_speedDown);
                     cpu3.SmokeStart();
                 }

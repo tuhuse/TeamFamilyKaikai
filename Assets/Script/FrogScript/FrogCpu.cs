@@ -40,7 +40,7 @@ public class FrogCpu : MonoBehaviour {
     private bool _isMucusJump = false;
     private bool _isWaterball = false;
     private bool _isInstantiateWaterBall = false;
-    private bool _isPridictionStart = true;
+    public bool _isPridictionStart = true;
     private bool _isMucus = false;
     private bool _isBeard = false;
     private bool _isUseItem = false;
@@ -551,7 +551,7 @@ public class FrogCpu : MonoBehaviour {
     #endregion
     #region ñ≥ìGî\óÕ
     //ñ≥ìGî≠ìÆ
-    public void PriictionAbility() {
+    public void PridictionAbility() {
         if (_isPridictionStart) {
             if (_isPridictionAbility) {
                 _frogSE.PlayOneShot(_pridictionSE);
@@ -577,7 +577,7 @@ public class FrogCpu : MonoBehaviour {
     private void UseAbility() {
         if (_isPridictionAbility) {
             if (_isBehindTrigger) {
-                PriictionAbility();
+                PridictionAbility();
                 _isBehindTrigger = false;
             }
         }
@@ -775,7 +775,7 @@ public class FrogCpu : MonoBehaviour {
         }
         //ïE
         if (collision.gameObject.layer == 9) {
-            if (!_isPridictionAbility && !_isWaterAbility) {
+            if (_isPridictionStart && !_isWaterAbility) {
 
                 if (_projectile == null) {
                     _movespeed = SPEEDMIN;
@@ -788,10 +788,12 @@ public class FrogCpu : MonoBehaviour {
             }
         }
 
-
-        if (!_isPridictionAbility) {
-            //îSâtÇÃè∞
-            if (collision.gameObject.layer == 7) {
+        //îSâtÇÃè∞
+        if (collision.gameObject.layer == 7) {
+            if (_isPridictionAbility) {
+                PridictionAbility();
+            }
+            if (_isPridictionStart) {
                 if (_projectile == null) {
                     _isMucusJump = true;
                     StartCoroutine(MucusJumpTime());
@@ -801,7 +803,6 @@ public class FrogCpu : MonoBehaviour {
                 }
 
             }
-
         }
 
     }
@@ -813,7 +814,6 @@ public class FrogCpu : MonoBehaviour {
             _isJumping = false;
             _movejump = MOVEJUMPMAX;
         }
-
     }
     private void OnCollisionExit2D(Collision2D collision) {
         //è∞Ç©ÇÁë´Ç™ó£ÇÍÇΩÇ∆Ç´
@@ -823,5 +823,4 @@ public class FrogCpu : MonoBehaviour {
             _isJump = false;
         }
     }
-   
 }

@@ -21,18 +21,18 @@ public class BirdEnemy : MonoBehaviour {
 
             if (collision.gameObject.GetComponent<FrogCpu>() != null) {
                 FrogCpu cpu = collision.gameObject.GetComponent<FrogCpu>();
-                if (!cpu._isPridictionAbility) {
+                if (cpu._isPridictionStart) {
                     cpu.ObstacleCollision(_speedDown);
                 }               
             } else if (collision.gameObject.GetComponent<FrogCpuMulti>() != null) {
                 FrogCpuMulti cpu = collision.gameObject.GetComponent<FrogCpuMulti>();
-                if (!cpu._isPridictionAbility) {
+                if (cpu._isPridictionStart) {
                     cpu.ObstacleCollision(_speedDown);
                 }
                 
             } else if (collision.gameObject.GetComponent<FrogCpuMulti2>() != null) {
                 FrogCpuMulti2 cpu=collision.gameObject.GetComponent<FrogCpuMulti2>();
-                if (!cpu._isPridictionAbility) {
+                if (cpu._isPridictionStart) {
                     cpu.ObstacleCollision(_speedDown);
                 }
             }
