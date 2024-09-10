@@ -7,10 +7,10 @@ public class WireTongueCPU : MonoBehaviour {
     private bool _isAttack = false;
     public bool _isCoolDown = true;
     private bool _isJudge = false;
-    private bool _isTime = false;
     public bool _underAttack = false;
     private bool _isFrogCatch = false;
     private bool _isJustOnes = false;
+    private bool _isReduction = false;
 
     //それぞれ親オブジェクトのカエルのみを入れる
     [Header("CPU1")] [SerializeField] private GameObject _enemy1 = default;
@@ -48,37 +48,34 @@ public class WireTongueCPU : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (_isCoolDown && !_isTime) {
-            _isTime = true;
-            Judge();
-        }
-        if (_isExtension) {
+
+        if (_isExtension&&!_isReduction) {
             this.transform.localScale += new Vector3(0, PLUSSCALESPEEDY) * Time.deltaTime * DELTATIMEMULTIPLE;
             //_isCoolDown = true;
 
-        } else if (!_isFrogCatch) 
+        } 
+        else if (!_isFrogCatch) 
         {
             if (this.transform.localScale.y > _tongueScaleY && !_isJustOnes) 
             {
-                _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMEMULTIPLE;
 
             } 
-            else if (_isAttack && !_isJustOnes) 
+            else if (_isCoolDown && !_isJustOnes) 
             {
                 _isJustOnes = true;
-                this.transform.localScale = new Vector3(3, 0.1f, 1);
                 _thisSprite.enabled = false;
+                Judge();
             }
-        } else {
+        }
+        else 
+        {
             _underAttack = false;
             if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) 
             {
-                _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMEMULTIPLE;
-            } else if (_isAttack && !_isJustOnes) {
+            } else if (_isCoolDown && !_isJustOnes) {
                 _isJustOnes = true;
-                this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
                 _thisSprite.enabled = false;
 
                 Judge();
@@ -87,7 +84,7 @@ public class WireTongueCPU : MonoBehaviour {
 
         if (this.transform.localScale.y > TONGUEMAXEXTENSION) {
             _isExtension = false;
-
+            _isReduction = true;
         }
 
     }
@@ -112,14 +109,52 @@ public class WireTongueCPU : MonoBehaviour {
     private IEnumerator CoolDown() {
 
         yield return new WaitForSeconds(8);
+        _isExtension = false;
         _isCoolDown = false;
-        _isTime = false;
+        _isJustOnes = false;
+        _isReduction = false;
+
+        if (_mySelf.GetComponent<FrogCpu>()) 
+        {
+            print("a");
+            _mySelf.GetComponent<FrogCpu>().ReproductionTongue();
+        } 
+        else if (_mySelf.GetComponent<FrogCpuMulti>())
+        {
+            print("b");
+            _mySelf.GetComponent<FrogCpuMulti>().ReproductionTongue();
+        } 
+        else if (_mySelf.GetComponent<FrogCpuMulti2>())
+        {
+            print("c");
+            _mySelf.GetComponent<FrogCpuMulti2>().ReproductionTongue();
+        }
+
+
     }
     private IEnumerator LongCoolDown() {
 
         yield return new WaitForSeconds(8);
+        _isExtension = false;
         _isCoolDown = false;
-        _isTime = false;
+        _isJustOnes = false;
+        _isReduction = false;
+
+        if (_mySelf.GetComponent<FrogCpu>())
+        {
+            print("a");
+            _mySelf.GetComponent<FrogCpu>().ReproductionTongue();
+        } 
+        else if (_mySelf.GetComponent<FrogCpuMulti>())
+        {
+            print("b");
+            _mySelf.GetComponent<FrogCpuMulti>().ReproductionTongue();
+        } 
+        else if (_mySelf.GetComponent<FrogCpuMulti2>()) 
+        {
+            print("c");
+            _mySelf.GetComponent<FrogCpuMulti2>().ReproductionTongue();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -240,5 +275,13 @@ public class WireTongueCPU : MonoBehaviour {
             _isFrogCatch = true;
             _isJudge = true;
         }
+    }
+    public void TongueAttack() 
+    {
+        print("aaa");
+        _isExtension = true;
+        _underAttack = true;
+        _isCoolDown = true;
+        _thisSprite.enabled = true;
     }
 }

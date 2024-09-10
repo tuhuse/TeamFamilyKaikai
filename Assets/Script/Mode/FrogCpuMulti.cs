@@ -55,6 +55,7 @@ public class FrogCpuMulti : MonoBehaviour {
     private bool _isAudioOneShot = false;
     public bool _ishavingItem = false;
     private bool _isMucusJump = false;
+    private bool _isAttack = false;
 
     [Header("CPU‚Ì‘¬‚³")]
     [SerializeField]
@@ -299,25 +300,40 @@ public class FrogCpuMulti : MonoBehaviour {
         switch (_difficultynumber) {
             case Difficultys.easy:
                 if (_randomItem == RandomItem.Great) {
-                    _tongueSprite.enabled = true;
-                    ISEXtensionHard();
+
+                    if (!_isAttack)
+                    {
+                        _isAttack = true;
+                        ExtensionEasy();
+                    }
+                    
                 }
                 break;
             case Difficultys.nomal:
-                _tongueSprite.enabled = true;
-                ISEXTensionNomal();
+              
+                if (!_isAttack) 
+                {
+                    _isAttack = true;
+                    ExtensionNomal();
+                }
                 break;
             case Difficultys.hard:
                 if (_randomItem == RandomItem.Great ||
                     _randomItem == RandomItem.Good ||
                     _randomItem == RandomItem.Nomal) {
-                    _tongueSprite.enabled = true;
-                    ISEXtensionHard();
+
+                    if (!_isAttack) 
+                    {
+                        _isAttack = true;
+                        ExtensionHard();
+                    }
+                   
                 }
                 break;
         }
 
     }
+  
     private void Jump() {
         if (_isJump) {
             _isJump = false;
@@ -815,19 +831,17 @@ public class FrogCpuMulti : MonoBehaviour {
 
     }
 
-    private void ISEXtensionHard() {
+    private void ExtensionHard() {
 
-        if (!_tongue._isCoolDown) {
+        
 
-            _tongue._isCoolDown = true;
-            _tongue._isExtension = true;
-            _tongue._underAttack = true;
+            _tongue.TongueAttack();
             //StartCoroutine(ISExtension());
-        }
+        
     }
-    private void ISEXTensionNomal() {
+    private void ExtensionNomal() {
 
-        if (!_tongue._isCoolDown) {
+        
             //Šm—¦ŒvŽZ
             _randomnumber = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //50%‚Åã
@@ -836,9 +850,7 @@ public class FrogCpuMulti : MonoBehaviour {
                     _randomItem == RandomItem.Good ||
                     _randomItem == RandomItem.Nomal) {
 
-                    _tongue._isCoolDown = true;
-                    _tongue._isExtension = true;
-                    _tongue._underAttack = true;
+                    _tongue.TongueAttack();
                     //StartCoroutine(ISExtension());
                 }
             } else {
@@ -847,8 +859,33 @@ public class FrogCpuMulti : MonoBehaviour {
                 _tongue.JudgeCoolDown(true);
             }
 
-        }
+        
     }
+    private void ExtensionEasy() {
+
+        
+            //Šm—¦ŒvŽZ
+            _randomnumber = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
+            //30%‚Åã
+            if (_randomnumber >= 7000) {
+                if (_randomItem == RandomItem.Great) {
+                    _tongue.TongueAttack();
+                    //StartCoroutine(ISExtension());
+                }
+            } else {
+                _tongue._isCoolDown = true;
+                _tongue._isExtension = false;
+                _tongue.JudgeCoolDown(true);
+            }
+
+        
+    }
+
+    public void ReproductionTongue() 
+    {
+        _isAttack = false;
+    }
+
 
 
     public void SpeedUp(bool speedup) {

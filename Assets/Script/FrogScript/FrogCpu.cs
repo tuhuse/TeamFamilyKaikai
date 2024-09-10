@@ -53,7 +53,8 @@ public class FrogCpu : MonoBehaviour {
     public bool _isWaterAbility = false;
     public bool _isBehindTrigger = false;
     public bool _isEnemyJump = false;
-    public bool _ishavingItem = false; 
+    public bool _ishavingItem = false;
+    private bool _isAttack = false;
 
     //確率
     private int _randomJump = 0;
@@ -221,19 +222,31 @@ public class FrogCpu : MonoBehaviour {
     private void ModeCpu() {
         switch (_difficultynumber) {
             case Difficultys.easy:
-                _togueSprite.enabled = true;
-                ISEXTensionEasy();
+                if (!_isAttack) {
+                    _isAttack = true;
+                    ExtensionEasy();
+                }
+               
+
                 break;
             case Difficultys.nomal:
-                _togueSprite.enabled = true;
-                ISEXTensionNomal();
+                if (!_isAttack) 
+                {
+                    _isAttack = true;
+                    ExtensionNomal();
+                }
                 break;
             case Difficultys.hard:
                 if (_randomItem == RandomItem.Great ||
                     _randomItem == RandomItem.Good ||
                     _randomItem == RandomItem.Nomal) {
-                    _togueSprite.enabled = true;
-                    ISEXtensionHard();
+
+                    if (!_isAttack) 
+                    {
+                        _isAttack = true;
+                        ExtensionHard();
+                    }
+                   
                 }
                 break;
         }
@@ -463,18 +476,16 @@ public class FrogCpu : MonoBehaviour {
         }
     }
     #region 舌の使用
-    private void ISEXtensionHard() {
-        if (!_tongue._isCoolDown) {
+    private void ExtensionHard() {
 
-            _tongue._isCoolDown = true;
-            _tongue._isExtension = true;
-            _tongue._underAttack = true;
+        _tongue.TongueAttack();
+        
             //StartCoroutine(ISExtension());
-        }
+        
     }
-    private void ISEXTensionNomal() {
+    private void ExtensionNomal() {
 
-        if (!_tongue._isCoolDown) {
+        
             //確率計算
             _randomnumber = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //40%で舌
@@ -482,9 +493,7 @@ public class FrogCpu : MonoBehaviour {
                 if (_randomItem == RandomItem.Great ||
                     _randomItem == RandomItem.Good ||
                     _randomItem == RandomItem.Nomal) {
-                    _tongue._isCoolDown = true;
-                    _tongue._isExtension = true;
-                    _tongue._underAttack = true;
+                    _tongue.TongueAttack();
                     //StartCoroutine(ISExtension());
                 }
             } else {
@@ -492,19 +501,17 @@ public class FrogCpu : MonoBehaviour {
                 _tongue._isExtension = false;
                 _tongue.JudgeCoolDown(true);
             }
-        }
+        
     }
-    private void ISEXTensionEasy() {
+    private void ExtensionEasy() {
 
-        if (!_tongue._isCoolDown) {
+       
             //確率計算
             _randomnumber = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
             //30%で舌
             if (_randomnumber >= 7000) {
                 if (_randomItem == RandomItem.Great) {
-                    _tongue._isCoolDown = true;
-                    _tongue._isExtension = true;
-                    _tongue._underAttack = true;
+                    _tongue.TongueAttack();
                     //StartCoroutine(ISExtension());
                 }
             } else {
@@ -513,7 +520,7 @@ public class FrogCpu : MonoBehaviour {
                 _tongue.JudgeCoolDown(true);
             }
 
-        }
+        
     }
     //舌があたっときの効果
     public void SpeedUp(bool speedup) {
@@ -535,6 +542,12 @@ public class FrogCpu : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
         SpeedUp(false);
     }
+
+    public void ReproductionTongue() 
+    {
+        _isAttack = false;
+    }
+
     #endregion
     #region 無敵能力
     //無敵発動
