@@ -22,7 +22,9 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>(); // 他のプレイヤーオブジェクトのリスト
     private List<GameObject> _rankingList = new List<GameObject>(); // ランキングのリスト
    [SerializeField] private Image[] _podiumfrog;
+    [SerializeField] private Image _doubleObjectImage = default;//倍速の矢印
     [SerializeField] private Image[] _nameFrog;
+    [SerializeField] private List<Sprite> _doubleSpeedImage = new List<Sprite>();
    [SerializeField] private GameObject[] _podiumfrogs;
     private float _fallMin = -60f; // オブジェクトが落下する最小Y座標
     public int _switchNumber = 0; // スイッチ番号（状態管理）
@@ -33,10 +35,13 @@ public class ClearMan : MonoBehaviour {
     private int _playerCount = 4; // プレイヤーの総数
     private int _cpuCount = 3; // CPUの総数
     private int _alivePlayersCount = 0; // 生存しているプレイヤーの数
+    private int _gameSpeed = 2;//ゲームのスピード
 
     private bool _cameraScale; // カメラスケールの状態
     private bool _isPlayerDeth = false; // プレイヤーの死亡状態
     private bool _threeOrMorePeople = false; // 3人以上のプレイヤーがいるかどうか
+    private bool _isSpeedUP = false;//倍速になったか
+    private bool _isSelect = false;//一度選択しているか
 
     [SerializeField] private SneakAnim _sneak; // Sneakアニメーションのスクリプト
     [SerializeField] private JoyStickGameClearSelect _joyStickGameClear = default; // ゲームクリア時のジョイスティック選択スクリプト
@@ -59,7 +64,48 @@ public class ClearMan : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update() 
+    {
+
+        if (_isSpeedUP) 
+        {
+            int maxGameSpeed = 3;
+            int minGameSpeed = 0;
+            if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect && _gameSpeed < maxGameSpeed) {
+                _isSelect = true;
+                _gameSpeed++;
+                Time.timeScale = _gameSpeed;
+                _doubleObjectImage.sprite = _doubleSpeedImage[_gameSpeed];
+            } else if (Input.GetAxis("1pLstickHorizontal") < 0 && !_isSelect && _gameSpeed > minGameSpeed) {
+                _isSelect = true;
+                _gameSpeed--;
+                Time.timeScale = _gameSpeed;
+                _doubleObjectImage.sprite = _doubleSpeedImage[_gameSpeed];
+            } else if (Input.GetAxis("1pLstickHorizontal") == 0 && _isSelect) {
+                _isSelect = false;
+            }
+
+            if (Input.GetButtonDown("Fire1")) 
+            {
+                print("aaa");
+                while (_frogs.Count > 1) {
+                    int randomValue = Random.Range(0, _frogs.Count - 1);
+
+                    _rankingList.Insert(0, _frogs[randomValue]);
+                    _frogs.Remove(_frogs[randomValue]);
+                    _switchNumber = 5;
+                }
+                _isSpeedUP = false;
+                _doubleObjectImage.GetComponent<Image>().enabled = false;
+                // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
+                _rankingList.Insert(0, _frogs[0]);
+                _cameraRank.CameeeraRank(false);
+                _sneak.Access(true);
+                _cameraShake.StopCameraShake(true);
+
+            }
+
+        }
         // カメラスケールの調整
         if (_cameraScale) {
             _camera.GetComponent<Camera>().orthographicSize -= _cameraSizeAdjust * Time.deltaTime * 10;
@@ -276,6 +322,8 @@ public class ClearMan : MonoBehaviour {
         else if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
             float gameSpeed = 3;
             Time.timeScale = gameSpeed;
+            _isSpeedUP = true;
+            _doubleObjectImage.GetComponent<Image>().enabled =true;
             _stageRoopScript.CompulsionHarryUP();
         }
 
