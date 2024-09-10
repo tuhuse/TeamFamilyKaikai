@@ -53,7 +53,7 @@ public class CameraRankScript : MonoBehaviour {
     private const float CAMERAYMOVE = 0.05f;
     private const float CAMERAYDOWNMOVE = 0.5f;
     private const float MAXUPCAMERAYMOVE = 5f;
-    private const float MAXDOWNCAMERAYMOVE = 15f;
+    private const float MAXDOWNCAMERAYMOVE = 25f;
 
 
     private string _playerTag = "Player";
