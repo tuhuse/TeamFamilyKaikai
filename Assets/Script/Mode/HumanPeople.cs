@@ -29,6 +29,7 @@ public class HumanPeople : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        
         _audio = GetComponent<AudioSource>();
         // ‰Šú‰»ˆ—iŒ»İ‚Í‹ój
         Selecet(true);

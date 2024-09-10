@@ -10,6 +10,7 @@ public class OutLineScript : MonoBehaviour {
     [SerializeField] private CommentScript _commentScript = default;
     [SerializeField] private ParticleSystem _particle;
     [SerializeField] private ParticleSystem _deathBomb;
+    [SerializeField] private ParticleSystem _eatFrogEffect;
     [SerializeField] private CameraRankScript _cameraRank = default;
     [SerializeField] private Camera _camera;
     [SerializeField] private float _minCameraSize;
@@ -41,7 +42,7 @@ public class OutLineScript : MonoBehaviour {
             _clearMan.DropOuts(collision.gameObject);
             //collision.gameObject.SetActive(false);
             _deathBomb.Play();
-
+            _eatFrogEffect.Play();
             ParticleSystem.MainModule main = _particle.main;
             if (collision.gameObject.layer == 12) {//—Î
                 main.startColor = new Color(0.625f, 0.772f, 0.47f, 1f);

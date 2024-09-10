@@ -10,7 +10,7 @@ public class Difficulty : MonoBehaviour {
     private Image _image;
     private bool _isButtonMove = false;
     private int _judgenumber;
-    
+
     [Header("canvasmanager")]
     [SerializeField] private SelectCharacter _selectCharacterScript = default;
     //[SerializeField] private MoveButtonScript _move;
@@ -20,7 +20,8 @@ public class Difficulty : MonoBehaviour {
     private enum Mode {
         Easy,
         Nomal,
-        Hard
+        Hard,
+        Return
     }
     private Mode _modes = default;
     private bool _select = false;
@@ -39,13 +40,6 @@ public class Difficulty : MonoBehaviour {
 
             if (controllerStick == 0) {
                 _isButtonMove = false;
-            }
-            if ((Input.GetButtonDown("Fire1"))) {
-                 
-                    Diffculty(false);
-                    _human.Selecet(true);
-                    _human.SelectNumberPeople(true);
-                    Selecet(false);
             }
 
             if (controllerStick < 0 && !_isButtonMove) //下に行く
@@ -81,22 +75,30 @@ public class Difficulty : MonoBehaviour {
 
             #endregion
 
-            if (Input.GetButtonDown("1pA")&&_judgenumber==0) {
+
+
+            if (Input.GetButtonDown("1pA") && _judgenumber == 0 && _modes != Mode.Return) {
                 Switch();
                 _selectCharacterScript.SummonSneak();
                 Diffculty(false);
                 Selecet(false);
 
-            } else if (Input.GetButtonDown("1pA") && _judgenumber == 1) {
+            } else if (Input.GetButtonDown("1pA") && _judgenumber == 1 && _modes != Mode.Return) {
                 Switch();
                 _selectCharacterScript.SummonSneak();
-                Diffculty(false);             
+                Diffculty(false);
                 Selecet(false);
 
+            } else if ((Input.GetButtonDown("1pA") && _modes == Mode.Return)) {
+                _difficultButton[3].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+                Diffculty(false);
+                _human.Selecet(true);
+                _human.SelectNumberPeople(true);
+                Selecet(false);
             }
         }
         DiffcultyNumber(_selectDefficultButton);
-       
+
     }
     public void OnClick() {
         Switch();
@@ -105,17 +107,17 @@ public class Difficulty : MonoBehaviour {
 
         switch (_modes) {
             case Mode.Easy:
-                
+
                 _selectCharacterScript.DiffcultNumberHarf(0);
                 break;
             case Mode.Nomal:
                 // Normalモードの処理
-               
+
                 _selectCharacterScript.DiffcultNumberHarf(1);
                 break;
             case Mode.Hard:
                 // Hardモードの処理
-         
+
                 _selectCharacterScript.DiffcultNumberHarf(2);
                 break;
 
@@ -123,7 +125,7 @@ public class Difficulty : MonoBehaviour {
 
     }
 
-    public void DiffcultyNumber(int number) {
+    private void DiffcultyNumber(int number) {
         if (number == 0) {
             _difficultFrog[0].enabled = true;
             _difficultFrog[1].enabled = false;
@@ -139,6 +141,11 @@ public class Difficulty : MonoBehaviour {
             _difficultFrog[1].enabled = false;
             _difficultFrog[2].enabled = true;
             _modes = Mode.Hard;
+        } else if (number == 3) {
+            _difficultFrog[0].enabled = false;
+            _difficultFrog[1].enabled = false;
+            _difficultFrog[2].enabled = false;
+            _modes = Mode.Return;
         }
     }
     public void Selecet(bool on) {
@@ -158,10 +165,13 @@ public class Difficulty : MonoBehaviour {
     public void Diffculty(bool returns) {
         if (returns) {
             _difficultButton[0].SetActive(true);
+            _difficultButton[0].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            DiffcultyNumber(0);
             _difficultButton[1].SetActive(true);
             _difficultButton[2].SetActive(true);
             _difficultText.SetActive(true);
         } else {
+            _selectDefficultButton = 0;
             _difficultButton[0].SetActive(false);
             _difficultButton[1].SetActive(false);
             _difficultButton[2].SetActive(false);
