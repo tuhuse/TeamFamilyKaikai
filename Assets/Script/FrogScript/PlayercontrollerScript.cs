@@ -597,6 +597,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                 _speedUp = 100f;
                 StartCoroutine(Timecount());
             } else {
+            _rb.velocity = new Vector2(_movespeed, _rb.velocity.y);
                 _speedUp = 0;
             }
         

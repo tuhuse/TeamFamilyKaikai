@@ -87,7 +87,6 @@ public class ClearMan : MonoBehaviour {
 
             if (Input.GetButtonDown("Fire1")) 
             {
-                print("aaa");
                 while (_frogs.Count > 1) {
                     int randomValue = Random.Range(0, _frogs.Count - 1);
 
@@ -302,7 +301,9 @@ public class ClearMan : MonoBehaviour {
         }
 
         // プレイヤーとCPUの合計が4を超える場合、Frogを非アクティブにする
-        if (_cpuCount + _playerCount > 4) {
+        if (_cpuCount + _playerCount > 4) 
+        {
+            _isSpeedUP = false;
             dropOutFrog.SetActive(false);
         }
 
@@ -320,8 +321,7 @@ public class ClearMan : MonoBehaviour {
          
         }
         else if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
-            float gameSpeed = 3;
-            Time.timeScale = gameSpeed;
+            Time.timeScale = _gameSpeed;
             _isSpeedUP = true;
             _doubleObjectImage.GetComponent<Image>().enabled =true;
             _stageRoopScript.CompulsionHarryUP();
