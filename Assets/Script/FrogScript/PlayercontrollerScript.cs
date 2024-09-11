@@ -121,14 +121,14 @@ public class PlayercontrollerScript : MonoBehaviour {
     void Update() {
 
         HandlePlayerInput(_playernumber);
-        if (_movespeed >= MOVESPEED) {
         
-        }
     }
     void HandlePlayerInput(int playerNumber) {
 
         string xbutton = _playernumber + "pA";
-
+        if (!_isAlive) {
+            return;
+        }
         if (_isAlive && !_isFrogjump)//生きてる時に動けるように
         {
             // 割り当てられたコントローラーの入力を処理

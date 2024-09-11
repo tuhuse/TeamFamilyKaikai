@@ -159,7 +159,9 @@ public class FrogCpu : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
-
+        if (!_isAlive) {
+            return;
+        }
         //¶‚«‚Ä‚¢‚éê‡
         #region ©g‚Ì‹­‚³’²®
         if (_isAlive) {
