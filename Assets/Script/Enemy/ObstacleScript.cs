@@ -65,7 +65,7 @@ public class ObstacleScript : MonoBehaviour
                 if (cpu1._isPridictionAbility) {
                     cpu1.PridictionAbility();
                 }
-                if (collision.gameObject.activeSelf && !cpu1._isWaterAbility && !cpu1._isPridictionStart) {
+                if (collision.gameObject.activeSelf && !cpu1._isWaterAbility && cpu1._isPridictionStart) {
                     cpu1.ObstacleCollision(_speedDown);
                     cpu1.SmokeStart();
                 }
@@ -77,7 +77,7 @@ public class ObstacleScript : MonoBehaviour
                 if (cpu2._isPridictionAbility) {
                     cpu2.PridictionAbility();
                 }
-                if (collision.gameObject.activeSelf && !cpu2._isWaterAbility && !cpu2._isPridictionStart) {
+                if (collision.gameObject.activeSelf && !cpu2._isWaterAbility && cpu2._isPridictionStart) {
                     cpu2.ObstacleCollision(_speedDown);
                     cpu2.SmokeStart();
                 }
@@ -89,7 +89,7 @@ public class ObstacleScript : MonoBehaviour
                 if (cpu3._isPridictionAbility) {
                     cpu3.PridictionAbility();
                 }
-                if (collision.gameObject.activeSelf && !cpu3._isWaterAbility && !cpu3._isPridictionStart) {
+                if (collision.gameObject.activeSelf && !cpu3._isWaterAbility && cpu3._isPridictionStart) {
                     cpu3.ObstacleCollision(_speedDown);
                     cpu3.SmokeStart();
                 }
