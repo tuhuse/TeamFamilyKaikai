@@ -48,14 +48,14 @@ public class HumanPeople : MonoBehaviour {
 
             // 左スティックの垂直方向の入力を取得
             float controllerStick = Input.GetAxis("L_Stick_Vartical") * -1;
-
+            float crosskey = Input.GetAxis("Debug Vertical");
             // スティックが中心に戻ったときの処理
-            if (controllerStick == 0) {
+            if (controllerStick == 0&&crosskey==0) {
                 _isMoveButton = false;
             }
 
             // スティックが下に動いたときの処理
-            if (controllerStick < 0 && !_isMoveButton) {
+            if ((controllerStick < 0 && !_isMoveButton)|| (crosskey<0&&!_isMoveButton)) {
                 // 現在のボタンの色を変更
                 _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
                 _humanPeople++;
@@ -69,7 +69,7 @@ public class HumanPeople : MonoBehaviour {
             }
 
             // スティックが上に動いたときの処理
-            if (controllerStick > 0 && !_isMoveButton) {
+            if (((controllerStick > 0 && !_isMoveButton) || (crosskey > 0 && !_isMoveButton))) {
                 // 現在のボタンの色を変更
                 _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
                 _humanPeople--;

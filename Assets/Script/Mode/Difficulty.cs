@@ -37,12 +37,12 @@ public class Difficulty : MonoBehaviour {
         if (_select) {
             #region コントローラーの難易度セレクト
             float controllerStick = Input.GetAxis("L_Stick_Vartical") * -1;
-
-            if (controllerStick == 0) {
+            float crosskey = Input.GetAxis("Debug Vertical");
+            if (controllerStick == 0&&crosskey==0) {
                 _isButtonMove = false;
             }
 
-            if (controllerStick < 0 && !_isButtonMove) //下に行く
+            if ((controllerStick < 0 && !_isButtonMove) || (crosskey < 0 && !_isButtonMove)) //下に行く
              {
 
                 _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
@@ -57,7 +57,7 @@ public class Difficulty : MonoBehaviour {
 
             }
 
-            if (controllerStick > 0 && !_isButtonMove) //上に行く
+            if (((controllerStick > 0 && !_isButtonMove) || (crosskey > 0 && !_isButtonMove))) //上に行く
             {
 
                 _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);

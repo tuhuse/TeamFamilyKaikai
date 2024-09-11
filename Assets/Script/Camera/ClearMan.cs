@@ -303,7 +303,7 @@ public class ClearMan : MonoBehaviour {
         // プレイヤーとCPUの合計が4を超える場合、Frogを非アクティブにする
         if (_cpuCount + _playerCount > 4) 
         {
-            _isSpeedUP = false;
+          
             dropOutFrog.SetActive(false);
         }
 
@@ -312,6 +312,7 @@ public class ClearMan : MonoBehaviour {
        
         if (_cpuCount + _playerCount <= 4) 
         {
+            _isSpeedUP = false;
             // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
             _rankingList.Insert(0, _frogs[0]);
             StartCoroutine(TimeScaleReset(dropOutFrog));
@@ -334,15 +335,16 @@ public class ClearMan : MonoBehaviour {
 
     // タイムスケールをリセットするコルーチン
     private IEnumerator TimeScaleReset(GameObject leaveFrog) {
+        Rigidbody2D rb = leaveFrog.GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // カメラをFrogの位置に移動
+        _camera.transform.position = new Vector3(leaveFrog.transform.position.x, leaveFrog.transform.position.y, -10);
+        _cameraScale = true;
         leaveFrog.GetComponent<SpriteRenderer>().enabled=false;
         // 脱落したFrogの周りにアウトラインを表示
         _outLineParent.transform.SetParent(leaveFrog.transform, true);
         _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x + 5, leaveFrog.transform.position.y, 0);
-        // カメラをFrogの位置に移動
-        _camera.transform.position = new Vector3(leaveFrog.transform.position.x, leaveFrog.transform.position.y, -10);
-        _cameraScale = true;
-        Rigidbody2D rb = leaveFrog.GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+       
         yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0.1f;
         yield return new WaitForSeconds(0.4f);

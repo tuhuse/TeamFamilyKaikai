@@ -19,8 +19,9 @@ public class JoyStickGameClearSelect : MonoBehaviour {
     void Update() {
      
         float lstick = Input.GetAxis("L_Stick_Horizontal");
+        float crosskey = Input.GetAxis("Debug Horizontal");
         //右矢印を押したら
-        if (lstick > 0 && !_isSelect) {
+        if ((lstick > 0 && !_isSelect)|| (crosskey>0&&!_isSelect)) {
             _isFarstSelect = true;
             _isSelect = true;
             _selectButton = 1;
@@ -35,7 +36,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         }
 
         //左矢印を押した場合
-        if (lstick  < 0 && !_isSelect) {
+        if ((lstick  < 0 && !_isSelect) || (crosskey < 0 && !_isSelect)) {
             _isFarstSelect = true;
             _isSelect = true;
             _selectButton = 0;
@@ -49,7 +50,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         }
 
         //矢印ボタンを離したら
-        if (lstick == 0) {
+        if (lstick == 0&&crosskey==0) {
             //また選択できるようにする
             _isSelect = false;
         }
