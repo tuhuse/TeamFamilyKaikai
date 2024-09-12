@@ -104,7 +104,7 @@ public class Player2 : MonoBehaviour {
         _pridictionSpriterenderer = this.GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _pridictionFrogAnim = this.GetComponent<Animator>();
-
+        _isAlive = true;
 
     }
 
@@ -220,7 +220,7 @@ public class Player2 : MonoBehaviour {
                 _brake.SetActive(false);
                 _pridictionFrogAnim.SetBool("Brake", false);
                 _pridictionFrogAnim.SetBool("Run", false);
-                _pridictionFrogAnim.SetBool("Jump", false);
+                //_pridictionFrogAnim.SetBool("Jump", false);
 
             }
 
@@ -235,7 +235,7 @@ public class Player2 : MonoBehaviour {
         //}
 
         _pridictionFrogAnim.SetBool("Brake", true);
-        float brake = -50;
+        float brake = -100;
         //í èÌÇÃà⁄ìÆ
         _rb.velocity = new Vector3(_movespeed + brake, _rb.velocity.y, 0); //* Time.deltaTime ;
     }
@@ -489,6 +489,7 @@ public class Player2 : MonoBehaviour {
     }
 
     private void Water() {
+      
         _xButton.SetActive(true);
         if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
             _xButton.SetActive(false);
@@ -530,6 +531,12 @@ public class Player2 : MonoBehaviour {
             collision.gameObject.SetActive(false);
 
             StartCoroutine(SpeedUpReset());
+        }
+        if (collision.gameObject.CompareTag("Fly")) {
+            collision.gameObject.SetActive(false);
+            _isWaterItem = true;
+            _itemIcon.SetActive(true);
+            _itemSelectScript.ItemIcon(1);
         }
     }
 

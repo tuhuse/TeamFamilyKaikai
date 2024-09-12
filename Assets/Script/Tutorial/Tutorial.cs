@@ -35,7 +35,7 @@ public class Tutorial : MonoBehaviour
 
 
 
-    private const float CAMPOSIY = -10f;
+    private const float CAMPOSIY = 0f;
     private const float CAMPOSIZ = -10;
     private const float CAMERAMOVEVALUE = 50;
 
@@ -94,18 +94,18 @@ public class Tutorial : MonoBehaviour
                 } else if (_rankingValue == 1) {
                     _secondPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
                     if (_frogs[_rankingValue].gameObject.CompareTag("Player")) {
-                        _frogs[_rankingValue].gameObject.GetComponent<Player2>().RankChange(SECOND);
+                        _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                     }
 
                 } else if (_rankingValue == 2) {
                     _thirdPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
                     if (_frogs[_rankingValue].gameObject.CompareTag("Player")) {
-                        _frogs[_rankingValue].gameObject.GetComponent<Player2>().RankChange(THIRD);
+                        _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                     }
                 } else if (_rankingValue == 3) {
                     _forthPosition = _cameraEdgeObject.transform.position.x - _frogs[_rankingValue].transform.position.x;
                     if (_frogs[_rankingValue].gameObject.CompareTag("Player")) {
-                        _frogs[_rankingValue].gameObject.GetComponent<Player2>().RankChange(FORTH);
+                        _frogs[_rankingValue].gameObject.GetComponent<PlayercontrollerScript>().RankChange(FORTH);
                     }
                 }
                 _rankingValue++;
@@ -155,7 +155,7 @@ public class Tutorial : MonoBehaviour
                     //プレイヤーが２位だったら
                     if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) {
                         //プレイヤーを１位に上げる
-                        _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(FIRST);
+                        _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(FIRST);
                     }
 
 
@@ -179,14 +179,14 @@ public class Tutorial : MonoBehaviour
                     //プレイヤーが二位だったら
                     if (_ranking[ORIGINSECOND].gameObject.CompareTag(_playerTag)) {
                         //プレイヤーを３位に下げる
-                        _ranking[ORIGINSECOND].GetComponent<Player2>().RankChange(THIRD);
+                        _ranking[ORIGINSECOND].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                     }
 
                     //プレイヤーが3位だったら
 
                     if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) {
                         //プレイヤーを２位に上げる
-                        _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(SECOND);
+                        _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(SECOND);
                     }
 
 
@@ -213,14 +213,14 @@ public class Tutorial : MonoBehaviour
                     if (_ranking[ORIGINTHIRD].gameObject.CompareTag(_playerTag)) {
 
                         //プレイヤーを４位に下げる
-                        _ranking[ORIGINTHIRD].GetComponent<Player2>().RankChange(FORTH);
+                        _ranking[ORIGINTHIRD].GetComponent<PlayercontrollerScript>().RankChange(FORTH);
                     }
 
                     //プレイヤーが４位だったら
                     if (_ranking[ORIGINFORTH].gameObject.CompareTag(_playerTag)) {
 
                         //プレイヤーを３位に上げる
-                        _ranking[ORIGINFORTH].GetComponent<Player2>().RankChange(THIRD);
+                        _ranking[ORIGINFORTH].GetComponent<PlayercontrollerScript>().RankChange(THIRD);
                     }
 
 

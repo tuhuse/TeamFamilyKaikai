@@ -221,7 +221,7 @@ public class PlayercontrollerScript : MonoBehaviour {
                 _brake.SetActive(false);
                 _pridictionFrogAnim.SetBool("Brake", false);
                 _pridictionFrogAnim.SetBool("Run", false);
-                _pridictionFrogAnim.SetBool("Jump", false);
+                //_pridictionFrogAnim.SetBool("Jump", false);
 
             }
           
