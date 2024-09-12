@@ -20,6 +20,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     [Header("粘液")] [SerializeField] private GameObject _mucus;
 
     [Header("水玉")] [SerializeField] private GameObject _waterBall;
+
+    [SerializeField] private GameObject _xButton;
+
     [Header("水玉発射位置")] [SerializeField] private Transform _waterSpawn;
 
     [Header("スピードアップエフェクト")] [SerializeField] public GameObject _waterEffect;
@@ -159,31 +162,31 @@ public class PlayercontrollerScript : MonoBehaviour {
                     _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
                 }
             }
-            if (this._rb.velocity.y > 50) {
-                if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp(xbutton)) {
-                    _rb.velocity = new Vector3(_rb.velocity.x, _jumppower / 20, 0); //* Time.deltaTime ;
-                }
-            }
+           
             //アイテム取得後
 
             //髭が出たら
             if (_isBeardItem) {
                 Beard();
+               
             }
 
             //水が出たら
             if (_isWaterItem) {
                 Water();
+              
             }
 
             //無敵が出たら
             if (_isPridictionItem) {
                 Pridiction();
+               
             }
 
             //粘液が出たら
             if (_isMucasItem) {
                 Mucas();
+               
             }
 
             //}
@@ -440,8 +443,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Beard() {
-
+        _xButton.SetActive(true);
         if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber+"pX")) {
+            _xButton.SetActive(false);
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
 
@@ -455,7 +459,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Mucas() {
+        _xButton.SetActive(true);
         if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
+            _xButton.SetActive(false);
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_mucasSE);
 
@@ -469,7 +475,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Pridiction() {
+        _xButton.SetActive(true);
         if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
+            _xButton.SetActive(false);
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_pridictionSE);
 
@@ -485,7 +493,9 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void Water() {
+        _xButton.SetActive(true);
         if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
+            _xButton.SetActive(false);
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_waterSE);
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class SelectCharacter : MonoBehaviour {
-
-
     [SerializeField] private GameObject _commentator = default;
     //‹N“®‚·‚éƒJƒGƒ‹
     [SerializeField] private GameObject[] _frog;
@@ -13,6 +11,7 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private GameObject _birdCanvas;
     [SerializeField] private GameObject _sneak = default;
     public int _enemyNumber;
+    private float _positionY = 440f;
     private AudioSource _audiosource;
     [SerializeField]
     private AudioClip[] _audioClip;
@@ -26,9 +25,9 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private GameObject _frogcutin;
     [SerializeField] private Image[] _playerIcon;
     [SerializeField] private Image[] _playerImage;
-    [SerializeField] private GameObject[] _eye; 
+    [SerializeField] private GameObject[] _eye;
     [SerializeField] CameraRankScript _cameraScript = default;
-    
+
     private enum Sitiuation {
         One,
         Two,
@@ -90,15 +89,22 @@ public class SelectCharacter : MonoBehaviour {
         }
     }
     public void DiffcultNumberHarf(int number) {
-        if (number ==0) {
+        if (number == 0) {
             _enemyNumber = 0;
-        }if (number ==1) {
+        }
+        if (number == 1) {
             _enemyNumber = 1;
-        }if (number ==2) {
+        }
+        if (number == 2) {
             _enemyNumber = 2;
         }
     }
     private IEnumerator FrogInstantiate() {
+        float firstpositionX = -360;
+        float secondPositionX = -117;
+        float thirdPositionX = 127;
+        float forthPositionX = 360;
+
 
         yield return new WaitForSeconds(0.1f);
         switch (_sitiuation) {
@@ -107,7 +113,7 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
-                _playerImage[0].enabled=true;
+                _playerImage[0].enabled = true;
                 _playerImage[4].enabled = true;
                 _eye[0].GetComponent<Animator>().enabled = true;
                 _clearManScript.InFrogs(_frog[0]);
@@ -135,6 +141,9 @@ public class SelectCharacter : MonoBehaviour {
                 _cpu = _frog[3];
 
                 _pauseManager.SetActive(true);
+
+
+                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(0, _positionY, 0);
 
 
                 _cameraScript.SceneStart();
@@ -188,6 +197,10 @@ public class SelectCharacter : MonoBehaviour {
 
                 _clearManScript.MaxPlayer(2);
 
+
+                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(secondPositionX, _positionY, 0);
+                _playerImage[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX, _positionY, 0);
+
                 break;
             case Sitiuation.Three:
                 _audiomanager.PlayAudio(3);
@@ -237,6 +250,15 @@ public class SelectCharacter : MonoBehaviour {
 
                 _clearManScript.MaxPlayer(3);
                 _cameraScript.SceneStart();
+
+                float firstPositionX2 = -250;
+                float thirdPositionX2 = 250;
+
+                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(firstPositionX2, _positionY, 0);
+                _playerImage[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(0, _positionY, 0);
+                _playerImage[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX2, _positionY, 0);
+
+
                 break;
             case Sitiuation.Four:
                 _audiomanager.PlayAudio(3);
@@ -292,17 +314,17 @@ public class SelectCharacter : MonoBehaviour {
                 _cameraScript.SceneStart();
 
                 _clearManScript.MaxPlayer(4);
+
+                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(firstpositionX, _positionY, 0);
+                _playerImage[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(secondPositionX, _positionY, 0);
+                _playerImage[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX, _positionY, 0);
+                _playerImage[3].GetComponent<RectTransform>().anchoredPosition = new Vector3(forthPositionX, _positionY, 0);
+
+
                 break;
         }
 
 
 
     }
-    //public void SITUATION(bool situation) {
-    //    if (situation) {
-    //        _sitiuation = Sitiuation.One;
-    //    } else {
-    //        _sitiuation = default;
-    //    }
-    //}
 }
