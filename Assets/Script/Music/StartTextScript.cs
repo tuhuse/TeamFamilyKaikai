@@ -29,7 +29,7 @@ public class StartTextScript : MonoBehaviour
         _audioSource[1].clip = _audio[1];      
         _count._bgm.Play();
         //_audioSource[0].PlayOneShot(_audio[0]);
-        _commentScript.CommentChange("さあ、だい" + Random.Range(1, 101) + "かい、カエルデスゲームがスタート！！！", true);
+        _commentScript.CommentatorCommentChange("さあ、だい" + Random.Range(1, 101) + "かい、カエルデスゲームがスタート！！！", true);
         _stage.ReadyGo(true);
     }
     private void Update() {

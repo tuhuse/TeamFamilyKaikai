@@ -80,7 +80,7 @@ public class OutLineScript : MonoBehaviour {
             }
 
 
-            _commentScript.CommentChange("ここで" + collision.gameObject.name + "がだつらく！！！", false);
+            _commentScript.CommentatorCommentChange("ここで" + collision.gameObject.name + "がだつらく！！！", false);
 
             //collision.gameObject.SetActive(false);
             _sneakAnimScript.Attack();

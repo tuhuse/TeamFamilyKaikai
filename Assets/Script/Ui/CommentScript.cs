@@ -8,6 +8,7 @@ public class CommentScript : MonoBehaviour {
 
     private float _commentChangeTime = default;
     private int _randomValue = default;
+    private int _commentNumber =0;
     private bool _isStart = false;
     private bool _isStartComment = false;
 
@@ -73,7 +74,7 @@ public class CommentScript : MonoBehaviour {
         _randomValue = Random.Range(1, 6);
         if (_randomValue == 1) {
             //コメントの表示
-            CommentChange("さあ、せっせんがつづいています！", false);
+            CommentatorCommentChange("さあ、せっせんがつづいています！", false);
 
             if (!_isCommentatorSpeak) {
                 //実況者を大きくする
@@ -88,7 +89,7 @@ public class CommentScript : MonoBehaviour {
 
         } else if (_randomValue == 2) {
             //実況者
-            CommentChange("こんかいはだれがいきのこるのでしょうか！", false);
+            CommentatorCommentChange("こんかいはだれがいきのこるのでしょうか！", false);
 
             if (!_isCommentatorSpeak) {
                 //実況者を大きくする
@@ -103,7 +104,7 @@ public class CommentScript : MonoBehaviour {
             }
         } else if (_randomValue == 3) {
             //実況者
-            CommentChange("いわやとげにきをつけてがんばってください", false);
+            CommentatorCommentChange("いわやとげにきをつけてがんばってください", false);
 
             if (!_isCommentatorSpeak) {
                 //実況者を大きくする
@@ -118,7 +119,7 @@ public class CommentScript : MonoBehaviour {
 
         } else if (_randomValue == 4) {
             //解説者
-            CommentChange("あぶないとき、いかにしたをつかうかがたいせつですね", false);
+            CommentatorCommentChange("あぶないとき、いかにしたをつかうかがたいせつですね", false);
 
             if (!_isLiveCommentatorSpeak) {
                 //解説者を拡大
@@ -136,7 +137,7 @@ public class CommentScript : MonoBehaviour {
 
         } else if (_randomValue == 5) {
             //解説者
-            CommentChange("どのタイミングでアイテムをつかうか、ちゅうもくです", false);
+            CommentatorCommentChange("どのタイミングでアイテムをつかうか、ちゅうもくです", false);
 
             if (!_isLiveCommentatorSpeak) {
                 //解説者を拡大
@@ -150,7 +151,7 @@ public class CommentScript : MonoBehaviour {
             }
         } else if (_randomValue == 6) {
             //解説者
-            CommentChange("このコースには、がけがあるそうです！きをつけて！", false);
+            CommentatorCommentChange("このコースには、がけがあるそうです！きをつけて！", false);
 
             if (!_isLiveCommentatorSpeak) {
                 //解説者を拡大
@@ -232,7 +233,7 @@ public class CommentScript : MonoBehaviour {
 
 
 
-    public void CommentChange(string message, bool isGameStart) {
+    public void CommentatorCommentChange(string message, bool isGameStart) {
 
         if (!_isStartComment) {
 
@@ -255,4 +256,120 @@ public class CommentScript : MonoBehaviour {
 
 
     }
+
+    public void LiveCommentatorCommentChange(string message, bool isGameStart) 
+    {
+        if (!_isStartComment) {
+
+            if (_isCommentatorSpeak) {
+                //実況者を小さくする
+                
+                CommentatorReduction();
+            }
+
+
+            //解説者が大きくなっていたら
+            if (!_isLiveCommentatorSpeak) {
+                //解説者を大きくする
+                LiveCommentatorExpansion();
+            }
+
+            _isStartComment = isGameStart;
+            _commentChangeTime = 0;
+            _commentText.text = message;
+        }
+    }
+
+    public void TutorialCommentChange() 
+    {
+        _commentNumber++;
+
+        switch (_commentNumber) 
+        {
+            case 1:
+                CommentatorCommentChange("ここではゲームのそうさほうほうについてせつめいしていくケロ", false);
+                StartCoroutine(LiveComment());
+                break;
+
+            case 2:
+               
+                    CommentatorCommentChange("Lスティックをみぎにたおしていどう、ひだりにたおすとブレーキがかかるケロ", false);
+                    StartCoroutine(LiveComment());
+                    
+                
+                break;
+            case 3:
+               
+                    CommentatorCommentChange("Aボタンでジャンプができるケロ", false);
+                    StartCoroutine(LiveComment());
+                    
+                
+                break;
+            case 4:
+              
+                    CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！いっきにまえへすすむことができるケロ", false);
+                    StartCoroutine(LiveComment());
+                    
+                
+
+                break;
+            case 5:
+               
+                   CommentatorCommentChange("ステージちゅうにはさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false);
+                    StartCoroutine(LiveComment());
+                    
+                
+                break;
+            case 6:
+               
+                    CommentatorCommentChange("そうさほうほうはいじょうケロ。おや、あそこでへびがおなかをすかせてまっているケロ！", false);
+                    StartCoroutine(LiveComment());
+                   
+                break;
+        }
+       
+    }
+    private IEnumerator LiveComment() 
+    { 
+        float waitTime = 2f;
+
+        yield return new WaitForSeconds(waitTime);
+
+            switch (_commentNumber) {
+            case 1:
+
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("そうさほうほうをおぼえて、デスゲームでいきのこれるようにするケロ", false);
+                print("a");
+                break;
+
+            case 2:
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("ブレーキをかけてわざとうしろにさがるなど、かわったせんぽうがたのしめるケロ", false);
+
+                break;
+
+            case 3:
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("タイミングをみてしょうがいぶつをよけるケロ！さっそくとんでみるケロ", false);
+
+                break;
+
+            case 4:
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("いちどだすとクールダウンがはっせいするので、ここぞというタイミングでつかうケロ", false);
+                break;
+            case 5:
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("アイテムはぜんぶで4しゅるい、じぶんのあしがはやくなるなど、こうかはさまざまケロ。", false);
+                break;
+            case 6:
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("ここまでのそうさをくしして、たべられないようにがんばるケロ～！！", false);
+                break;
+        }
+
+
+    }
 }
+ 

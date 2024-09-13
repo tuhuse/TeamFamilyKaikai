@@ -169,7 +169,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
                     _ranking[ORIGINSECOND] = _dummy;
 
-                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINFIRST].name + "が" + _ranking[ORIGINSECOND].name + "をぬかしました！！！", false);
+                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINFIRST].name + "が" + _ranking[ORIGINSECOND].name + "をぬかしました！！！", false);
 
                     _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
                 }
@@ -202,7 +202,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _dummy;
 
 
-                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
+                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
                 }
 
 
@@ -235,7 +235,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
                     _ranking[ORIGINFORTH] = _dummy;
 
-                    _commentText.CommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false);
+                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false);
                 }
 
 
