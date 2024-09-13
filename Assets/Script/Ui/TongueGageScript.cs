@@ -7,7 +7,9 @@ public class TongueGageScript : MonoBehaviour {
     [SerializeField] private float _abilityCooldownTimer;
     private float _abilityMeasureTimer;
     [SerializeField] private Image _circleGauge;
-    [SerializeField] private Image _eye;
+    [SerializeField] private Image _leftEye;
+    [SerializeField] private Image _rightEye = default;
+    [SerializeField] private Sprite _grayFrog = default;
     private bool _isCooldownActive = false;
 
     // Start is called before the first frame update
@@ -32,7 +34,8 @@ public class TongueGageScript : MonoBehaviour {
 
     // クールダウンを開始するメソッド
     public void TongueUIStartCooldown() {
-        _eye.enabled = false;
+        _leftEye.enabled = false;
+        _rightEye.enabled = false;
         _abilityMeasureTimer = _abilityCooldownTimer;
         _circleGauge.fillAmount = 0f; // ゲージを一気に減少させる
         _isCooldownActive = true;
@@ -40,11 +43,19 @@ public class TongueGageScript : MonoBehaviour {
 
     // クールダウンを停止するメソッド
     public void TongueUIStopCooldown() {
-        _eye.enabled = true;
+        _leftEye.enabled = true;
+        _rightEye.enabled = true;
         _isCooldownActive = false;
         _circleGauge.fillAmount = 1f; // クールダウンが手動で停止された場合にゲージを満タンにする
     }
     public void TongueCoolDownFloat(float cooldown) {
         _abilityCooldownTimer = cooldown;
+    }
+
+    public void DethFrog() {
+        _circleGauge.sprite = _grayFrog;
+        _leftEye.enabled = false;
+        _rightEye.enabled = false;
+
     }
 }

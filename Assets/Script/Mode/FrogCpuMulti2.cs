@@ -357,7 +357,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
 
         switch (_swicthRandomJump) {
             case SwicthRandomJump.Easy:
-                print(_randomJump + "easy");
+               
                 //確率計算
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
                 //90%でジャンプ
@@ -366,7 +366,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 }
                 break;
             case SwicthRandomJump.Hard:
-                print(_randomJump + "hard");
+              
                 //確率計算
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
                 //50%でジャンプ
@@ -375,7 +375,7 @@ public class FrogCpuMulti2 : MonoBehaviour {
                 }
                 break;
             case SwicthRandomJump.Harf:
-                print(_randomJump + "harf");
+           
                 //確率計算
                 _randomJump = Random.Range(MINRANDOMRANGE, MAXRANDOMRANGE);
                 //70%でジャンプ

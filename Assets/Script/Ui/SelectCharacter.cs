@@ -25,6 +25,7 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private GameObject _frogcutin;
     [SerializeField] private Image[] _playerIcon;
     [SerializeField] private Image[] _playerImage;
+    [SerializeField] private List<Image> _playerBackGrounds = new List<Image>();
     [SerializeField] private GameObject[] _eye;
     [SerializeField] CameraRankScript _cameraScript = default;
 
@@ -113,9 +114,14 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
+
                 _playerImage[0].enabled = true;
                 _playerImage[4].enabled = true;
-                _eye[0].GetComponent<Animator>().enabled = true;
+                _playerImage[5].enabled = true;
+
+                _playerImage[4].GetComponent<Animator>().enabled = true;
+                _playerImage[5].GetComponent<Animator>().enabled = true;
+
                 _clearManScript.InFrogs(_frog[0]);
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
@@ -143,7 +149,9 @@ public class SelectCharacter : MonoBehaviour {
                 _pauseManager.SetActive(true);
 
 
-                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(0, _positionY, 0);
+                _playerBackGrounds[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(0, _positionY, 0);
+                _playerBackGrounds[0].GetComponent<Image>().enabled = true;
+
 
 
                 _cameraScript.SceneStart();
@@ -156,17 +164,27 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
+
                 _playerImage[0].enabled = true;
                 _playerImage[4].enabled = true;
-                _eye[0].GetComponent<Animator>().enabled = true;
+                _playerImage[5].enabled = true;
+
+                _playerImage[4].GetComponent<Animator>().enabled = true;
+                _playerImage[5].GetComponent<Animator>().enabled = true;
+
                 _clearManScript.InFrogs(_frog[0]);
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
 
                 _playerIcon[1].enabled = true;
+
                 _playerImage[1].enabled = true;
-                _playerImage[5].enabled = true;
-                _eye[1].GetComponent<Animator>().enabled = true;
+                _playerImage[6].enabled = true;
+                _playerImage[7].enabled = true;
+
+                _playerImage[6].GetComponent<Animator>().enabled = true;
+                _playerImage[7].GetComponent<Animator>().enabled = true;
+
                 _frog[4].SetActive(true);
                 _cameraScript.SecondPlayerOn(_frog[4]);
 
@@ -198,8 +216,11 @@ public class SelectCharacter : MonoBehaviour {
                 _clearManScript.MaxPlayer(2);
 
 
-                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(secondPositionX, _positionY, 0);
-                _playerImage[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX, _positionY, 0);
+                _playerBackGrounds[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(secondPositionX, _positionY, 0);
+                _playerBackGrounds[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX, _positionY, 0);
+
+                _playerBackGrounds[0].GetComponent<Image>().enabled = true;
+                _playerBackGrounds[1].GetComponent<Image>().enabled = true;
 
                 break;
             case Sitiuation.Three:
@@ -207,18 +228,28 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[0].SetActive(true);
                 _playerIcon[0].enabled = true;
+
                 _playerImage[0].enabled = true;
                 _playerImage[4].enabled = true;
-                _eye[0].GetComponent<Animator>().enabled = true;
+                _playerImage[5].enabled = true;
+
+                _playerImage[4].GetComponent<Animator>().enabled = true;
+                _playerImage[5].GetComponent<Animator>().enabled = true;
+
                 _clearManScript.InFrogs(_frog[0]);
                 _gameoverManScript.InFrogs(_frog[0]);
                 _player = _frog[0];
 
                 _frog[4].SetActive(true);
                 _playerIcon[1].enabled = true;
+
                 _playerImage[1].enabled = true;
-                _playerImage[5].enabled = true;
-                _eye[1].GetComponent<Animator>().enabled = true;
+                _playerImage[6].enabled = true;
+                _playerImage[7].enabled = true;
+
+                _playerImage[6].GetComponent<Animator>().enabled = true;
+                _playerImage[7].GetComponent<Animator>().enabled = true;
+
                 _cameraScript.SecondPlayerOn(_frog[4]);
                 _cameraScript.ThirdPlayerOn(_frog[5]);
 
@@ -229,9 +260,14 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[5].SetActive(true);
                 _playerIcon[2].enabled = true;
+
                 _playerImage[2].enabled = true;
-                _playerImage[6].enabled = true;
-                _eye[2].GetComponent<Animator>().enabled = true;
+                _playerImage[8].enabled = true;
+                _playerImage[9].enabled = true;
+
+                _playerImage[8].GetComponent<Animator>().enabled = true;
+                _playerImage[9].GetComponent<Animator>().enabled = true;
+
                 _gameoverManScript.InFrogs(_frog[5]);
                 _clearManScript.InFrogs(_frog[5]);
                 _cpu = _frog[5];
@@ -254,18 +290,26 @@ public class SelectCharacter : MonoBehaviour {
                 float firstPositionX2 = -250;
                 float thirdPositionX2 = 250;
 
-                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(firstPositionX2, _positionY, 0);
-                _playerImage[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(0, _positionY, 0);
-                _playerImage[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX2, _positionY, 0);
+                _playerBackGrounds[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(firstPositionX2, _positionY, 0);
+                _playerBackGrounds[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(0, _positionY, 0);
+                _playerBackGrounds[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX2, _positionY, 0);
 
+                _playerBackGrounds[0].GetComponent<Image>().enabled = true;
+                _playerBackGrounds[1].GetComponent<Image>().enabled = true;
+                _playerBackGrounds[2].GetComponent<Image>().enabled = true;
 
                 break;
             case Sitiuation.Four:
                 _audiomanager.PlayAudio(3);
                 _playerIcon[0].enabled = true;
+
                 _playerImage[0].enabled = true;
                 _playerImage[4].enabled = true;
-                _eye[0].GetComponent<Animator>().enabled = true;
+                _playerImage[5].enabled = true;
+
+                _playerImage[4].GetComponent<Animator>().enabled = true;
+                _playerImage[5].GetComponent<Animator>().enabled = true;
+
                 _frog[0].SetActive(true);
 
                 _clearManScript.InFrogs(_frog[0]);
@@ -274,9 +318,14 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[4].SetActive(true);
                 _playerIcon[1].enabled = true;
+
                 _playerImage[1].enabled = true;
-                _playerImage[5].enabled = true;
-                _eye[1].GetComponent<Animator>().enabled = true;
+                _playerImage[6].enabled = true;
+                _playerImage[7].enabled = true;
+
+                _playerImage[6].GetComponent<Animator>().enabled = true;
+                _playerImage[7].GetComponent<Animator>().enabled = true;
+
                 _cameraScript.SecondPlayerOn(_frog[4]);
                 _cameraScript.ThirdPlayerOn(_frog[5]);
                 _cameraScript.FirthPlayerOn(_frog[6]);
@@ -290,9 +339,14 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[5].SetActive(true);
                 _playerIcon[2].enabled = true;
+
                 _playerImage[2].enabled = true;
-                _playerImage[6].enabled = true;
-                _eye[2].GetComponent<Animator>().enabled = true;
+                _playerImage[8].enabled = true;
+                _playerImage[9].enabled = true;
+
+                _playerImage[8].GetComponent<Animator>().enabled = true;
+                _playerImage[9].GetComponent<Animator>().enabled = true;
+
                 _gameoverManScript.InFrogs(_frog[5]);
                 _clearManScript.InFrogs(_frog[5]);
                 _player = _frog[5];
@@ -303,9 +357,15 @@ public class SelectCharacter : MonoBehaviour {
 
                 _frog[6].SetActive(true);
                 _playerIcon[3].enabled = true;
+
                 _playerImage[3].enabled = true;
-                _playerImage[7].enabled = true;
-                _eye[3].GetComponent<Animator>().enabled = true;
+                _playerImage[10].enabled = true;
+                _playerImage[11].enabled = true;
+
+                _playerImage[10].GetComponent<Animator>().enabled = true;
+                _playerImage[11].GetComponent<Animator>().enabled = true;
+
+
                 _gameoverManScript.InFrogs(_frog[6]);
                 _clearManScript.InFrogs(_frog[6]);
 
@@ -315,11 +375,15 @@ public class SelectCharacter : MonoBehaviour {
 
                 _clearManScript.MaxPlayer(4);
 
-                _playerImage[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(firstpositionX, _positionY, 0);
-                _playerImage[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(secondPositionX, _positionY, 0);
-                _playerImage[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX, _positionY, 0);
-                _playerImage[3].GetComponent<RectTransform>().anchoredPosition = new Vector3(forthPositionX, _positionY, 0);
+                _playerBackGrounds[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(firstpositionX, _positionY, 0);
+                _playerBackGrounds[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(secondPositionX, _positionY, 0);
+                _playerBackGrounds[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(thirdPositionX, _positionY, 0);
+                _playerBackGrounds[3].GetComponent<RectTransform>().anchoredPosition = new Vector3(forthPositionX, _positionY, 0);
 
+                _playerBackGrounds[0].GetComponent<Image>().enabled = true;
+                _playerBackGrounds[1].GetComponent<Image>().enabled = true;
+                _playerBackGrounds[2].GetComponent<Image>().enabled = true;
+                _playerBackGrounds[3].GetComponent<Image>().enabled = true;
 
                 break;
         }
@@ -328,3 +392,4 @@ public class SelectCharacter : MonoBehaviour {
 
     }
 }
+
