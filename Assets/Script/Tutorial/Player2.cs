@@ -588,10 +588,8 @@ public class Player2 : MonoBehaviour {
     private IEnumerator StartWait() {
         _rb.velocity = new Vector2(0, 0);
         _pridictionFrogAnim.SetBool("Run", false);
-        _isAlive = false;
-        _tongue.SetActive(false);
-        yield return new WaitForSeconds(3);
-        _tongue.SetActive(true);
+        _isAlive = false;      
+        yield return new WaitForSeconds(3);    
         _isAlive = true;
 
 

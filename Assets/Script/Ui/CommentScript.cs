@@ -288,27 +288,27 @@ public class CommentScript : MonoBehaviour {
         {
             case 1:
                 CommentatorCommentChange("ここではゲームのそうさほうほうについてせつめいしていくケロ", false);
-                StartCoroutine(LiveComment());
+                StartCoroutine(LiveComment(2));
                 break;
 
             case 2:
                
                     CommentatorCommentChange("Lスティックをみぎにたおしていどう、ひだりにたおすとブレーキがかかるケロ", false);
-                    StartCoroutine(LiveComment());
+                    StartCoroutine(LiveComment(2));
                     
                 
                 break;
             case 3:
                
                     CommentatorCommentChange("Aボタンでジャンプができるケロ", false);
-                    StartCoroutine(LiveComment());
+                    StartCoroutine(LiveComment(2));
                     
                 
                 break;
             case 4:
               
                     CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！いっきにまえへすすむことができるケロ", false);
-                    StartCoroutine(LiveComment());
+                    StartCoroutine(LiveComment(3));
                     
                 
 
@@ -316,22 +316,26 @@ public class CommentScript : MonoBehaviour {
             case 5:
                
                    CommentatorCommentChange("ステージちゅうにはさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false);
-                    StartCoroutine(LiveComment());
+                    StartCoroutine(LiveComment(3));
                     
                 
                 break;
             case 6:
+
+                StartCoroutine(LiveComment(0));
+
+                break; case 7:
                
-                    CommentatorCommentChange("そうさほうほうはいじょうケロ。おや、あそこでへびがおなかをすかせてまっているケロ！", false);
-                    StartCoroutine(LiveComment());
+                    CommentatorCommentChange("そうさほうほうはいじょうケロ。さあ、デスゲームかいじょうにとうちゃくケロ！", false);
+                    StartCoroutine(LiveComment(2));
                    
                 break;
         }
        
     }
-    private IEnumerator LiveComment() 
+    private IEnumerator LiveComment(float waitTime) 
     { 
-        float waitTime = 2f;
+       
 
         yield return new WaitForSeconds(waitTime);
 
@@ -365,7 +369,11 @@ public class CommentScript : MonoBehaviour {
                 break;
             case 6:
                 yield return new WaitForSeconds(waitTime);
-                LiveCommentatorCommentChange("ここまでのそうさをくしして、たべられないようにがんばるケロ～！！", false);
+                LiveCommentatorCommentChange("いままでのふくしゅうをしてみるケロ！", false);
+                break;
+            case 7:               
+                yield return new WaitForSeconds(waitTime);
+                LiveCommentatorCommentChange("ここでまなんだことをかつようして、たべられないようにがんばるケロ～！！", false);
                 break;
         }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class TutorialMnager : MonoBehaviour {
     [SerializeField] private GameObject _titlePanel;
+    [SerializeField] private GameObject _comentetar;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class TutorialMnager : MonoBehaviour {
         }
     }
     private IEnumerator FeedOut() {
+        _comentetar.SetActive(false);
         _titlePanel.gameObject.GetComponent<Animator>().enabled = true;
         float waittime = 1;
         yield return new WaitForSeconds(waittime);

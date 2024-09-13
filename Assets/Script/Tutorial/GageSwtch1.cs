@@ -19,6 +19,7 @@ public class GageSwitch1 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
             _gage.SetActive(false);
+         
         }
     }
 }

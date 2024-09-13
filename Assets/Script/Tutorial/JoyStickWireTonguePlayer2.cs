@@ -159,7 +159,7 @@ public class JoyStickWireTonguePlayer2 : MonoBehaviour {
 
 
 
-            if (_player.GetComponent<Player2>() != null && !collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle) {
+            if (_player.GetComponent<Player2>() != null) {
 
                 //ダッシュエフェクトを持っていなかったら
                 if (_dashSmokeClone == null) {
