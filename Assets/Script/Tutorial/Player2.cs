@@ -8,7 +8,7 @@ public class Player2 : MonoBehaviour {
     [SerializeField] private GameObject _mucusEffect;
     [SerializeField] private GameObject _pruduction;
     [SerializeField] private GameObject _enemyEffect;
-    [SerializeField] private GameObject _itemIcon = default;
+    [SerializeField] public GameObject _itemIcon = default;
     [SerializeField] private GameObject _player = default;
 
     public GameObject _projectile = default;
@@ -36,7 +36,7 @@ public class Player2 : MonoBehaviour {
     private bool _isJumping = false;
 
     private bool _isBeardItem = false;
-    private bool _isWaterItem = false;
+    public bool _isWaterItem = false;
     private bool _isPridictionItem = false;
     private bool _isMucasItem = false;
     private bool _isGetItem = false;
@@ -78,7 +78,7 @@ public class Player2 : MonoBehaviour {
     private const float TIMEDELTATIME = 1000f;
 
     private SpriteRenderer _pridictionSpriterenderer = default;
-    [SerializeField] private ItemSelects _itemSelectScript = default;
+    [SerializeField] public ItemSelects _itemSelectScript = default;
 
 
     [SerializeField] AudioClip _jumpSE = default;
@@ -104,8 +104,7 @@ public class Player2 : MonoBehaviour {
         _pridictionSpriterenderer = this.GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _pridictionFrogAnim = this.GetComponent<Animator>();
-        _isAlive = true;
-
+        StartCoroutine(StartWait());
     }
 
     private void FixedUpdate() {
@@ -123,6 +122,7 @@ public class Player2 : MonoBehaviour {
     void Update() {
 
         HandlePlayerInput(_playernumber);
+       
 
     }
     void HandlePlayerInput(int playerNumber) {
@@ -197,18 +197,21 @@ public class Player2 : MonoBehaviour {
             //else {
             //    _isJump = false;
             //}
+            
+            if (_movespeed <= MOVESPEED-10) {
 
+                if (!_isOneshot) {
+                    SpeedDownSE();
+                    //移動速度を徐々に元に戻す
+                    _downEffect.gameObject.SetActive(true);
+                    _isOneshot = true;
 
+                }
+                
+            }
             if (this._rb.velocity.x != 0) {
                 if (_movespeed <= MOVESPEED) {
 
-                    if (!_isOneshot) {
-                        SpeedDownSE();
-                        //移動速度を徐々に元に戻す
-                        _downEffect.gameObject.SetActive(true);
-                        _isOneshot = true;
-
-                    }
                     _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
                 } else {
                     SEReproduction();
@@ -532,12 +535,7 @@ public class Player2 : MonoBehaviour {
 
             StartCoroutine(SpeedUpReset());
         }
-        if (collision.gameObject.CompareTag("Fly")) {
-            collision.gameObject.SetActive(false);
-            _isWaterItem = true;
-            _itemIcon.SetActive(true);
-            _itemSelectScript.ItemIcon(1);
-        }
+       
     }
 
 
@@ -581,8 +579,16 @@ public class Player2 : MonoBehaviour {
         _pruduction.SetActive(false);
 
     }
+  
+    public void WaitStart() {
+        
+        StartCoroutine(StartWait());
 
+    }
     private IEnumerator StartWait() {
+        _rb.velocity = new Vector2(0, 0);
+        _pridictionFrogAnim.SetBool("Run", false);
+        _isAlive = false;
         _tongue.SetActive(false);
         yield return new WaitForSeconds(3);
         _tongue.SetActive(true);

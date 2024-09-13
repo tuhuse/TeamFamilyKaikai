@@ -19,8 +19,8 @@ public class JoyStickWireTonguePlayer2 : MonoBehaviour {
 
     private const float TIMEDELTATIME = 1000f;
     private const float PLUSSCALESPEEDY = 0.15f;
-    private const float FAILEDTONGUECATCH = 8f;
-    private const float SUCCESSTONGUECATCH = 8f;
+    private const float FAILEDTONGUECATCH = 2f;
+    private const float SUCCESSTONGUECATCH = 2f;
 
     private const float TONGUESCALEX = 3f;
     private const float TONGUESCALEY = 0.01f;

@@ -235,8 +235,8 @@ public class Tutorial : MonoBehaviour
 
 
                 //カメラの一定の場所まで来たら先頭のプレイヤーを追う
-                if (_ranking[ORIGINFIRST].transform.position.x >= this.transform.position.x + CAMERAMOVEVALUE) {
-                    _camera.transform.position = new Vector3(_ranking[ORIGINFIRST].transform.position.x - CAMERAMOVEVALUE, _camposiChangeY, CAMPOSIZ);
+                if (_ranking[ORIGINFIRST].transform.position.x >= this.transform.position.x /*+ CAMERAMOVEVALUE*/) {
+                    _camera.transform.position = new Vector3(_ranking[ORIGINFIRST].transform.position.x /*- CAMERAMOVEVALUE*/, _camposiChangeY, CAMPOSIZ);
                 }
 
 

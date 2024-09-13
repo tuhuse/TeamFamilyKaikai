@@ -199,17 +199,19 @@ public class PlayercontrollerScript : MonoBehaviour {
             //    _isJump = false;
             //}
 
+            if (_movespeed <= MOVESPEED - 10) {
 
+                if (!_isOneshot) {
+                    SpeedDownSE();
+                    //移動速度を徐々に元に戻す
+                    _downEffect.gameObject.SetActive(true);
+                    _isOneshot = true;
+
+                }
+
+            }
             if (this._rb.velocity.x != 0) {
                 if (_movespeed <= MOVESPEED) {
-
-                    if (!_isOneshot) {
-                        SpeedDownSE();
-                        //移動速度を徐々に元に戻す
-                        _downEffect.gameObject.SetActive(true);
-                        _isOneshot = true;
-
-                    }
                     _movespeed = Mathf.Abs(_movespeed) + (_returnSpeed * Time.deltaTime * TIMEDELTATIME);
                 } else {
                     SEReproduction();

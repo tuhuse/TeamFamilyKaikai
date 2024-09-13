@@ -95,7 +95,7 @@ public class TitleSceneMove : MonoBehaviour
 
 
 
-    IEnumerator TitleButtonStay()
+   private IEnumerator TitleButtonStay()
     {
         _gameClearText[0].SetActive(false);
         _gameClearText[1].SetActive(false);
@@ -103,6 +103,6 @@ public class TitleSceneMove : MonoBehaviour
         float stayTime = 1;
         //フェードアウト終了後にシーン移動
         yield return new WaitForSeconds(stayTime);
-        SceneManager.LoadScene("StageScene");
+        SceneManager.LoadScene("Tutorial");
     }
 }
