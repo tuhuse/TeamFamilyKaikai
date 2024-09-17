@@ -8,26 +8,24 @@ public class PlayerStop : MonoBehaviour {
     [SerializeField] private CommentScript _comment = default;
     [SerializeField] private bool _isStartObject = false;
     // Start is called before the first frame update
-    void Start() 
-    {
+    void Start() {
         if (_isStartObject) {
             _comment.TutorialCommentChange();
         }
-        
+
     }
 
     // Update is called once per frame
     void Update() {
 
     }
-    private void OnTriggerEnter2D(Collider2D collision) 
-    {
+    private void OnTriggerEnter2D(Collider2D collision) {
         string player = "Player";
-        if (collision.gameObject.CompareTag(player)) 
-        {
+        if (collision.gameObject.CompareTag(player)) {
             collision.gameObject.GetComponent<Player2>().WaitStart();
             _comment.TutorialCommentChange();
 
         }
     }
 }
+

@@ -104,7 +104,7 @@ public class Player2 : MonoBehaviour {
         _pridictionSpriterenderer = this.GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _pridictionFrogAnim = this.GetComponent<Animator>();
-        StartCoroutine(StartWait());
+        WaitStart();
     }
 
     private void FixedUpdate() {
@@ -122,7 +122,7 @@ public class Player2 : MonoBehaviour {
     void Update() {
 
         HandlePlayerInput(_playernumber);
-       
+
 
     }
     void HandlePlayerInput(int playerNumber) {
@@ -161,7 +161,7 @@ public class Player2 : MonoBehaviour {
                     _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
                 }
             }
-            
+
             //アイテム取得後
 
             //髭が出たら
@@ -197,8 +197,8 @@ public class Player2 : MonoBehaviour {
             //else {
             //    _isJump = false;
             //}
-            
-            if (_movespeed <= MOVESPEED-10) {
+
+            if (_movespeed <= MOVESPEED - 10) {
 
                 if (!_isOneshot) {
                     SpeedDownSE();
@@ -207,7 +207,7 @@ public class Player2 : MonoBehaviour {
                     _isOneshot = true;
 
                 }
-                
+
             }
             if (this._rb.velocity.x != 0) {
                 if (_movespeed <= MOVESPEED) {
@@ -492,7 +492,7 @@ public class Player2 : MonoBehaviour {
     }
 
     private void Water() {
-      
+
         _xButton.SetActive(true);
         if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
             _xButton.SetActive(false);
@@ -535,7 +535,7 @@ public class Player2 : MonoBehaviour {
 
             StartCoroutine(SpeedUpReset());
         }
-       
+
     }
 
 
@@ -579,20 +579,15 @@ public class Player2 : MonoBehaviour {
         _pruduction.SetActive(false);
 
     }
-  
+
     public void WaitStart() {
-        
-        StartCoroutine(StartWait());
+        _pridictionFrogAnim.SetBool("Run", false);
+        _rb.velocity = new Vector2(0, 0);
+        _isAlive = false;
 
     }
-    private IEnumerator StartWait() {
-        _rb.velocity = new Vector2(0, 0);
-        _pridictionFrogAnim.SetBool("Run", false);
-        _isAlive = false;      
-        yield return new WaitForSeconds(3);    
+    public void StartWait() {
         _isAlive = true;
-
-
     }
     private IEnumerator CollisionEffect() {
         _enemyEffect.SetActive(true);

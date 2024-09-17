@@ -61,6 +61,8 @@ public class CameraRankScript : MonoBehaviour {
     [SerializeField] private StageRoopManFixed _stageRoopManage;
     [SerializeField] private CommentScript _commentText = default;
 
+    [Header("ぬかしましたボイス"), SerializeField] private AudioClip _frogVoice = default;
+
     // Start is called before the first frame update
     void Awake() {
         _camposiChangeY = CAMPOSIY;
@@ -169,7 +171,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
                     _ranking[ORIGINSECOND] = _dummy;
 
-                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINFIRST].name + "が" + _ranking[ORIGINSECOND].name + "をぬかしました！！！", false);
+                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINFIRST].name + "が" + _ranking[ORIGINSECOND].name + "をぬかしました！！！", false,_frogVoice);
 
                     _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
                 }
@@ -202,7 +204,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _dummy;
 
 
-                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false);
+                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false, _frogVoice);
                 }
 
 
@@ -235,7 +237,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
                     _ranking[ORIGINFORTH] = _dummy;
 
-                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false);
+                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false, _frogVoice);
                 }
 
 

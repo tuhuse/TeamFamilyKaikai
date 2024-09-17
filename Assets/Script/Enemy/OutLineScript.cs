@@ -23,6 +23,8 @@ public class OutLineScript : MonoBehaviour {
     private int _countEat = 0;
 
     private BoxCollider2D _thisCollider = default;
+
+    [Header("脱落ボイス"),SerializeField] private AudioClip _frogVoice = default;
     // Start is called before the first frame update
     void Start() {
         _thisCollider = this.gameObject.GetComponent<BoxCollider2D>();
@@ -80,7 +82,7 @@ public class OutLineScript : MonoBehaviour {
             }
 
 
-            _commentScript.CommentatorCommentChange("ここで" + collision.gameObject.name + "がだつらく！！！", false);
+            _commentScript.CommentatorCommentChange("ここで" + collision.gameObject.name + "がだつらく！！！", false,_frogVoice);
 
             //collision.gameObject.SetActive(false);
             _sneakAnimScript.Attack();
