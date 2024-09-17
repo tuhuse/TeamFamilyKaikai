@@ -15,15 +15,20 @@ public class Difficulty : MonoBehaviour {
     [SerializeField] private SelectCharacter _selectCharacterScript = default;
     //[SerializeField] private MoveButtonScript _move;
     [SerializeField] private HumanPeople _human;
-
-
+    [SerializeField] private Animator[] _change;
     private enum Mode {
+        Easy,
+        Nomal,
+        Hard,
+        Return
+    } private enum ModeColor {
         Easy,
         Nomal,
         Hard,
         Return
     }
     private Mode _modes = default;
+    private ModeColor _modeColor = default;
     private bool _select = false;
 
     // Start is called before the first frame update
@@ -98,7 +103,48 @@ public class Difficulty : MonoBehaviour {
             }
         }
         DiffcultyNumber(_selectDefficultButton);
+        ChangeNumber();
+        ChangeColor();
+    }
+    private void ChangeNumber() {
+        if (_selectDefficultButton == 0) {
+            _modeColor = ModeColor.Easy;
+        } else if (_selectDefficultButton == 1) {
+            _modeColor = ModeColor.Nomal;
+        } else if (_selectDefficultButton == 2) {
+            _modeColor = ModeColor.Hard;
+        } else if (_selectDefficultButton == 3) {
+            _modeColor = ModeColor.Return;
+        }
+    }
+    private void ChangeColor() {
+        switch (_modeColor) {
+            case ModeColor.Easy:
+                _change[0].SetBool("Change", true);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", false);
 
+                break;
+            case ModeColor.Nomal:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", true);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", false);
+                break;
+            case ModeColor.Hard:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", true);
+                _change[3].SetBool("Change", false);
+                break;
+            case ModeColor.Return:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", true);
+                break;
+        }
     }
     public void OnClick() {
         Switch();
@@ -169,12 +215,14 @@ public class Difficulty : MonoBehaviour {
             DiffcultyNumber(0);
             _difficultButton[1].SetActive(true);
             _difficultButton[2].SetActive(true);
+            _difficultButton[3].SetActive(true);
             _difficultText.SetActive(true);
         } else {
             _selectDefficultButton = 0;
             _difficultButton[0].SetActive(false);
             _difficultButton[1].SetActive(false);
             _difficultButton[2].SetActive(false);
+            _difficultButton[3].SetActive(false);
             _difficultText.SetActive(false);
         }
     }

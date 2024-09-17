@@ -15,7 +15,7 @@ public class HumanPeople : MonoBehaviour {
     private int _humanPeople = default;  // 現在選択されている人数（ボタンインデックス）
     private bool _isMoveButton = false;  // 移動ボタンが押されているかどうか
     [SerializeField] private SpriteRenderer[] _frog;
-
+   [SerializeField] private Animator[] _change;
     private enum Human {
         One,    // 1人プレイ
         Two,    // 2人プレイ
@@ -23,17 +23,26 @@ public class HumanPeople : MonoBehaviour {
         Four,   // 4人プレイ
         Return  //戻る
     }
+    private enum ButtonColor {
+        One,    // 1人プレイ
+        Two,    // 2人プレイ
+        Three,  // 3人プレイ
+        Four,   // 4人プレイ
+        Return  //戻る
+    }
     private Human _humans = default;  // 現在選択されているプレイヤー人数
+    private ButtonColor _color = default;
     private bool _select = false;  // 選択状態を管理
     private Image _image;  // ボタンのImageコンポーネント（未使用）
 
     // Start is called before the first frame update
     void Start() {
-        
+
         _audio = GetComponent<AudioSource>();
         // 初期化処理（現在は空）
         Selecet(true);
         SelectNumberPeople(true);
+
     }
 
     // Update is called once per frame
@@ -50,28 +59,25 @@ public class HumanPeople : MonoBehaviour {
             float controllerStick = Input.GetAxis("L_Stick_Vartical") * -1;
             float crosskey = Input.GetAxis("Debug Vertical");
             // スティックが中心に戻ったときの処理
-            if (controllerStick == 0&&crosskey==0) {
+            if (controllerStick == 0 && crosskey == 0) {
                 _isMoveButton = false;
             }
 
             // スティックが下に動いたときの処理
-            if ((controllerStick < 0 && !_isMoveButton)|| (crosskey<0&&!_isMoveButton)) {
-                // 現在のボタンの色を変更
-                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
+            if ((controllerStick < 0 && !_isMoveButton) || (crosskey < 0 && !_isMoveButton)) {
+
                 _humanPeople++;
                 // リストの範囲外に出たら最初に戻す
                 if (_frogsButton.Count <= _humanPeople) {
                     _humanPeople = 0;
                 }
-                // 新しいボタンの色を変更
-                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
                 _isMoveButton = true;
             }
 
             // スティックが上に動いたときの処理
             if (((controllerStick > 0 && !_isMoveButton) || (crosskey > 0 && !_isMoveButton))) {
-                // 現在のボタンの色を変更
-                _frogsButton[_humanPeople].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
+
                 _humanPeople--;
                 // リストの範囲外に出たら最後に戻す
                 if (0 > _humanPeople) {
@@ -87,7 +93,7 @@ public class HumanPeople : MonoBehaviour {
 
             // 「1pA」ボタンが押されたときの処理
             if (Input.GetButtonDown("1pA")) {
-               
+
 
                 if (_humans == Human.Four) {
                     // 4人プレイの設定
@@ -95,8 +101,7 @@ public class HumanPeople : MonoBehaviour {
                     SelectNumberPeople(false);
                     _selectCharacterScript.SummonSneak();
                     Selecet(false);
-                }
-               else if (_humans == Human.Return) {
+                } else if (_humans == Human.Return) {
                     SceneManager.LoadScene("TitleScene");
                 } else {
                     _audio.PlayOneShot(_audio.clip);
@@ -108,6 +113,63 @@ public class HumanPeople : MonoBehaviour {
                     Selecet(false);
                 }
             }
+        }
+        SwitchChange();
+        SwitchNumber();
+    }
+
+    private void SwitchNumber() {
+        if (_humanPeople == 0) {
+            _color = ButtonColor.One;
+        } else if (_humanPeople == 1) {
+            _color = ButtonColor.Two;
+        } else if (_humanPeople == 2) {
+            _color = ButtonColor.Three;
+        } else if (_humanPeople == 3) {
+            _color = ButtonColor.Four;
+        } else if (_humanPeople == 4) {
+            _color = ButtonColor.Return;
+        }
+    }
+    private void SwitchChange() {
+        switch (_color) {
+            case ButtonColor.One:
+                _change[0].SetBool("Change", true);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", false);
+                _change[4].SetBool("Change", false);
+
+                break;
+            case ButtonColor.Two:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", true);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", false);
+                _change[4].SetBool("Change", false);
+                break;
+            case ButtonColor.Three:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", true);
+                _change[3].SetBool("Change", false);
+                _change[4].SetBool("Change", false);
+                break;
+            case ButtonColor.Four:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", true);
+                _change[4].SetBool("Change", false);
+                break;
+            case ButtonColor.Return:
+                _change[0].SetBool("Change", false);
+                _change[1].SetBool("Change", false);
+                _change[2].SetBool("Change", false);
+                _change[3].SetBool("Change", false);
+                _change[4].SetBool("Change", true);
+                break;
+
         }
     }
 
@@ -132,7 +194,7 @@ public class HumanPeople : MonoBehaviour {
                 _selectCharacterScript.Humans(4);  // 4人プレイ設定
                 break;
             case Human.Return:
-                
+
                 break;
         }
     }
@@ -182,7 +244,7 @@ public class HumanPeople : MonoBehaviour {
                 _frog[8].enabled = true;
                 _frog[9].enabled = true;
                 break;
-                case 4:
+            case 4:
                 _humans = Human.Return;
                 _frog[0].enabled = false;
                 _frog[1].enabled = false;
@@ -222,6 +284,7 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[1].SetActive(true);
             _frogsButton[2].SetActive(true);
             _frogsButton[3].SetActive(true);
+            _frogsButton[4].SetActive(true);
             _selectNumberOfPeople.SetActive(true);
         }
         if (!buttonActive) {
@@ -230,6 +293,7 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[1].SetActive(false);
             _frogsButton[2].SetActive(false);
             _frogsButton[3].SetActive(false);
+            _frogsButton[4].SetActive(false);
             _selectNumberOfPeople.SetActive(false);
         }
 
