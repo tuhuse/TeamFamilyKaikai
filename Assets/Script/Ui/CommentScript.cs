@@ -49,6 +49,7 @@ public class CommentScript : MonoBehaviour {
     [Header("チュートリアル中の実解説者のボイス"), SerializeField] private List<AudioClip> _tutorialLivementatorVoices = default;
 
     [SerializeField] private Player2 _player2Script = default;
+    [SerializeField] private GameObject _xButton = default;
     // Start is called before the first frame update
     private void Awake() {
         _commentatorAnim = _commentator.GetComponent<Animator>();
@@ -102,6 +103,8 @@ public class CommentScript : MonoBehaviour {
 
                     _player2Script.StartWait();
                     _isNextComment = false;
+                    _xButton.SetActive(false);
+                    
 
                     _nextCommentNumber++;
                     break;
@@ -121,7 +124,7 @@ public class CommentScript : MonoBehaviour {
                     }
                     _player2Script.StartWait();
                     _isNextComment = false;
-
+                    _xButton.SetActive(false);
 
                     _nextCommentNumber++;
 
@@ -143,6 +146,8 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _xButton.SetActive(false);
+
                     break;
                 case 8:
                     LiveCommentatorCommentChange("アイテムはぜんぶで4しゅるい、じぶんのあしがはやくなるなど、こうかはさまざまケロ。", false, _tutorialLivementatorVoices[_commentNumber - 1]);
@@ -160,6 +165,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _xButton.SetActive(false);
                     break;
                 case 10:
                     _commentText.text = "";
@@ -172,6 +178,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _xButton.SetActive(false);
                     break;
                 case 11:
                     LiveCommentatorCommentChange("ここでまなんだことをかつようして、たべられないようにがんばるケロ～！！", false, _tutorialLivementatorVoices[_commentNumber - 1]);
@@ -188,6 +195,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _xButton.SetActive(false);
                     break;
             }
         }
@@ -377,18 +385,21 @@ public class CommentScript : MonoBehaviour {
             case 1:
                 CommentatorCommentChange("ここではゲームのそうさほうほうについてせつめいしていくケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
                 _isNextComment = true;
+                _xButton.SetActive(true);
                 break;
 
 
             case 2:
 
                 CommentatorCommentChange("Aボタンでジャンプができるケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+                _xButton.SetActive(true);
                 _isNextComment = true;
 
                 break;
             case 3:
 
                 CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！いっきにまえへすすむことができるケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+                _xButton.SetActive(true);
                 _isNextComment = true;
 
 
@@ -396,16 +407,19 @@ public class CommentScript : MonoBehaviour {
             case 4:
 
                 CommentatorCommentChange("ステージちゅうにはさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+                _xButton.SetActive(true);
                 _isNextComment = true;
 
                 break;
             case 5:
                 LiveCommentatorCommentChange("いままでのふくしゅうをしてみるケロ！", false, _tutorialLivementatorVoices[_commentNumber - 1]);
+                _xButton.SetActive(true);
                 _isNextComment = true;
                 break;
             case 6:
 
                 CommentatorCommentChange("そうさほうほうはいじょうケロ。さあ、デスゲームかいじょうにとうちゃくケロ！", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+                _xButton.SetActive(true);
                 _isNextComment = true;
 
                 break;
