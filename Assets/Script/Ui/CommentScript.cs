@@ -39,17 +39,17 @@ public class CommentScript : MonoBehaviour {
     private Animator _liveCommentatorAnim = default;
 
     // Start is called before the first frame update
-    void Start() {
+    private void Awake() {
+        _commentatorAnim = _commentator.GetComponent<Animator>();
+        _liveCommentatorAnim = _liveCommentator.GetComponent<Animator>();
         _commentText = this.GetComponent<Text>();
         _getCommentatorRecttransform = _commentator.GetComponent<RectTransform>();
         _getLiveCommentatorRecttransform = _liveCommentator.GetComponent<RectTransform>();
 
         _commentatorImage = _commentator.GetComponent<Image>();
         _liveCommentatorImage = _liveCommentator.GetComponent<Image>();
-
-        _commentatorAnim = _commentator.GetComponent<Animator>();
-        _liveCommentatorAnim = _liveCommentator.GetComponent<Animator>();
     }
+   
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             _isStart = true;
