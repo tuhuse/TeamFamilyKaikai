@@ -20,7 +20,9 @@ public class TongueGageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (_isCooldownActive) {
+        if (_isCooldownActive) 
+        {
+            print("konnnitiwa");
             _abilityMeasureTimer -= Time.deltaTime;
             float fillValue = 1 - (_abilityMeasureTimer / _abilityCooldownTimer);
             _circleGauge.fillAmount = Mathf.Clamp01(fillValue);
@@ -48,7 +50,8 @@ public class TongueGageScript : MonoBehaviour {
         _isCooldownActive = false;
         _circleGauge.fillAmount = 1f; // クールダウンが手動で停止された場合にゲージを満タンにする
     }
-    public void TongueCoolDownFloat(float cooldown) {
+    public void TongueCoolDownFloat(float cooldown) 
+    {
         _abilityCooldownTimer = cooldown;
     }
 
