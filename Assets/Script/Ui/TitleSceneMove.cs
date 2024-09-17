@@ -10,10 +10,10 @@ public class TitleSceneMove : MonoBehaviour
     private bool _isStart = true;
     [SerializeField] List<GameObject> _gameClearText = new List<GameObject>(); //0にgo,1にreturnのテキストを入れる
     private int _selectButton = 2; //今見ているボタン
-    public GameObject _preButton = default;　//ひとつ前に選択していたボタン
-
+    public GameObject _preButton = default; //ひとつ前に選択していたボタン
+    private Animator _color;
     private bool _isSelect;
-
+    [SerializeField] private Animator[] _animator;
     private bool _isFarstSelect = false;
 
     //[SerializeField] private GameObject _selectParent;
@@ -22,12 +22,19 @@ public class TitleSceneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _selectButton = 0;
     }
 
     // Update is called once per frame
     void Update() {
+        if (_selectButton == 0) {
+            _animator[0].SetBool("Change", true);
+            _animator[1].SetBool("Change", false);
+        } else {
+            _animator[0].SetBool("Change", false);
+            _animator[1].SetBool("Change", true);
 
+        }
         if (!_isStart)
         {
             return;
@@ -39,12 +46,7 @@ public class TitleSceneMove : MonoBehaviour
             _isFarstSelect = true;
             _isSelect = true;
             _selectButton = 1;
-            _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-
-
-            _gameClearText[1].GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
-            _gameClearText[0].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+           
 
 
         }
@@ -54,12 +56,7 @@ public class TitleSceneMove : MonoBehaviour
             _isFarstSelect = true;
             _isSelect = true;
             _selectButton = 0;
-            _preButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-
-
-            _gameClearText[0].GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
-            _gameClearText[1].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            
 
         }
 
