@@ -55,7 +55,7 @@ public class JoyStickGameClearSelect : MonoBehaviour {
         }
 
         //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
-        if (Input.GetButton("Fire2") && _isFarstSelect) {
+        if ((Input.GetButton("Fire2") && _isFarstSelect)|| (Input.GetKeyDown(KeyCode.Return) && _isFarstSelect)) {
             _isFarstSelect = false;
             if (_selectButton == 0) //return‚ğŒ©‚Ä‚¢‚½ê‡
             {

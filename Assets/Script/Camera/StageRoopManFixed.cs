@@ -207,21 +207,11 @@ public class StageRoopManFixed : MonoBehaviour {
 
                 if (_countTime >= _nextTime) {
 
-
-                    for (int number = _prefabNumber; number < _addPrefabs.Count; number++) {
-                        _prefabs.Insert(_randomMax, _addPrefabs[number]);
-
-                    }
-
-
-                    if (!_isOneShot) {
-                        _isOneShot = true;
-                        _audio.PlayOneShot(_warningSE);
-
-                    }
+                    StartCoroutine(HurryUpText());
+                    
 
                     StartCoroutine(_outLineObject.GetComponent<ProgressScript>().StartProgress());
-                    StartCoroutine(HurryUpText());
+                    
 
                     _isCameraSize = true;
 
@@ -233,7 +223,7 @@ public class StageRoopManFixed : MonoBehaviour {
         }
     }
 
-
+    
     public void CameraHurryUp() {
         float timeRatio = _timer / _changeDuration;
         float targetY = _cameraTargetY;//cameraÇ™å¸Ç©Ç§Yç¿ïW
@@ -246,6 +236,17 @@ public class StageRoopManFixed : MonoBehaviour {
         _hurryUpText[0].SetActive(true);
         _hurryUpText[1].SetActive(true);
         yield return new WaitForSeconds(3);
+        for (int number = _prefabNumber; number < _addPrefabs.Count; number++) {
+            _prefabs.Insert(_randomMax, _addPrefabs[number]);
+
+        }
+
+
+        if (!_isOneShot) {
+            _isOneShot = true;
+            _audio.PlayOneShot(_warningSE);
+
+        }
         _cameraShake.StopCameraShake(false);
         _hurryUpText[0].SetActive(false);
         _hurryUpText[1].SetActive(false);

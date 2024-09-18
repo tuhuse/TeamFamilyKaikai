@@ -9,7 +9,7 @@ public class OutLineScript : MonoBehaviour {
     [SerializeField] private GameObject _cpu2;
     [SerializeField] private GameObject _cpu3;
     [SerializeField] private CommentScript _commentScript = default;
-    [SerializeField] private ParticleSystem _particle;
+
     [SerializeField] private ParticleSystem _deathBomb;
     [SerializeField] private ParticleSystem _eatFrogEffect;
     [SerializeField] private CameraRankScript _cameraRank = default;
@@ -50,40 +50,28 @@ public class OutLineScript : MonoBehaviour {
             _clearMan.DropOuts(collision.gameObject);
             //collision.gameObject.SetActive(false);
             _deathBomb.Play();
-            //_eatFrogEffect.Play();
-            ParticleSystem.MainModule main = _particle.main;
+            _eatFrogEffect.Play();
+          
             if (collision.gameObject.layer == 12) {//緑
-                main.startColor = new Color(0.625f, 0.772f, 0.47f, 1f);
-                _particle.Play();
+              
                 _coolDownGages[0].GetComponent<TongueGageScript>().DethFrog();
             }
             if (collision.gameObject.layer == 13) {//黄色
-                main.startColor = new Color(1f, 0.827f, 0.243f, 1f);
+                
                 _coolDownGages[1].GetComponent<TongueGageScript>().DethFrog();
-                _particle.Play();
+                
             }
             if (collision.gameObject.layer == 10) {//青
-                main.startColor = new Color(0.47f, 0.662f, 0.772f, 1f);
+                
                 _coolDownGages[2].GetComponent<TongueGageScript>().DethFrog();
-                _particle.Play();
+              
             }
             if (collision.gameObject.layer == 8) {//ピンク
-                main.startColor = new Color(0.96f, 0.713f, 0.839f, 1f);
+                
                 _coolDownGages[3].GetComponent<TongueGageScript>().DethFrog();
-                _particle.Play();
+               
             }
-            if (collision.gameObject == _cpu1) {//CPUピンク
-                main.startColor = new Color(0.96f, 0.713f, 0.839f, 1f);
-                _particle.Play();
-            }
-            if (collision.gameObject == _cpu2) {//CPU青
-                main.startColor = new Color(0.47f, 0.662f, 0.772f, 1f);
-                _particle.Play();
-            }
-            if (collision.gameObject == _cpu3) {//CPU黄色
-                main.startColor = new Color(1f, 0.827f, 0.243f, 1f);
-                _particle.Play();
-            }
+            
 
 
             string outFrogName = default;

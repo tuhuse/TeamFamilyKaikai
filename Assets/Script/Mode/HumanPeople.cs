@@ -14,6 +14,7 @@ public class HumanPeople : MonoBehaviour {
     private AudioSource _audio;
     private int _humanPeople = default;  // 現在選択されている人数（ボタンインデックス）
     private bool _isMoveButton = false;  // 移動ボタンが押されているかどうか
+    [SerializeField] private GameObject[] _spriteText;
     [SerializeField] private SpriteRenderer[] _frog;
    [SerializeField] private Animator[] _change;
     private enum Human {
@@ -92,7 +93,7 @@ public class HumanPeople : MonoBehaviour {
             HumanSwitch();
 
             // 「1pA」ボタンが押されたときの処理
-            if (Input.GetButtonDown("1pA")) {
+            if (Input.GetButtonDown("1pA")||Input.GetKeyDown(KeyCode.Return)) {
 
 
                 if (_humans == Human.Four) {
@@ -139,7 +140,10 @@ public class HumanPeople : MonoBehaviour {
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", false);
                 _change[4].SetBool("Change", false);
-
+                _spriteText[0].SetActive(true);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(false);
+                _spriteText[3].SetActive(false);
                 break;
             case ButtonColor.Two:
                 _change[0].SetBool("Change", false);
@@ -147,6 +151,10 @@ public class HumanPeople : MonoBehaviour {
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", false);
                 _change[4].SetBool("Change", false);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(true);
+                _spriteText[2].SetActive(false);
+                _spriteText[3].SetActive(false);
                 break;
             case ButtonColor.Three:
                 _change[0].SetBool("Change", false);
@@ -154,6 +162,10 @@ public class HumanPeople : MonoBehaviour {
                 _change[2].SetBool("Change", true);
                 _change[3].SetBool("Change", false);
                 _change[4].SetBool("Change", false);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(true);
+                _spriteText[3].SetActive(false);
                 break;
             case ButtonColor.Four:
                 _change[0].SetBool("Change", false);
@@ -161,6 +173,10 @@ public class HumanPeople : MonoBehaviour {
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", true);
                 _change[4].SetBool("Change", false);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(false);
+                _spriteText[3].SetActive(true);
                 break;
             case ButtonColor.Return:
                 _change[0].SetBool("Change", false);
@@ -168,6 +184,10 @@ public class HumanPeople : MonoBehaviour {
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", false);
                 _change[4].SetBool("Change", true);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(false);
+                _spriteText[3].SetActive(false);
                 break;
 
         }

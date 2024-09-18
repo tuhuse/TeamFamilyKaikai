@@ -82,19 +82,22 @@ public class Difficulty : MonoBehaviour {
 
 
 
-            if (Input.GetButtonDown("1pA") && _judgenumber == 0 && _modes != Mode.Return) {
+            if ((Input.GetButtonDown("1pA") && _judgenumber == 0 && _modes != Mode.Return) ||
+                (Input.GetKeyDown(KeyCode.Return) && _judgenumber == 0 && _modes != Mode.Return)) {
                 Switch();
                 _selectCharacterScript.SummonSneak();
                 Diffculty(false);
                 Selecet(false);
 
-            } else if (Input.GetButtonDown("1pA") && _judgenumber == 1 && _modes != Mode.Return) {
+            } else if ((Input.GetButtonDown("1pA") && _judgenumber == 1 && _modes != Mode.Return) ||
+                (Input.GetKeyDown(KeyCode.Return) && _judgenumber == 1 && _modes != Mode.Return)) {
                 Switch();
                 _selectCharacterScript.SummonSneak();
                 Diffculty(false);
                 Selecet(false);
 
-            } else if ((Input.GetButtonDown("1pA") && _modes == Mode.Return)) {
+            } else if ((Input.GetButtonDown("1pA") && _modes == Mode.Return) ||
+                (Input.GetKeyDown(KeyCode.Return) && _modes == Mode.Return)) {
                
                 Diffculty(false);
                 _human.Selecet(true);

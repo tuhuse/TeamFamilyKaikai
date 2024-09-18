@@ -22,6 +22,7 @@ public class TitleSceneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         _selectButton = 0;
     }
 
@@ -67,7 +68,7 @@ public class TitleSceneMove : MonoBehaviour
         }
 
     
-        if (Input.GetButtonDown("Fire2") && _isFarstSelect) {
+        if ((Input.GetButtonDown("Fire2") && _isFarstSelect)||(Input.GetKeyDown(KeyCode.Return) && _isFarstSelect)) {
 
             _isFarstSelect = false;
             if (_selectButton == 0) //returnÇå©ÇƒÇ¢ÇΩèÍçá
