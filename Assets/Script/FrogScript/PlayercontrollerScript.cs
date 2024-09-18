@@ -47,7 +47,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private string _nameJoyStick = default;
 
-    [SerializeField]private int _playernumber;// プレイヤー番号（1から始まる）
+    [SerializeField] private int _playernumber;// プレイヤー番号（1から始まる）
     [SerializeField] private int _rank = default;
     [SerializeField]
     private int _joynumber;
@@ -79,7 +79,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private SpriteRenderer _pridictionSpriterenderer = default;
     [SerializeField] private ItemSelects _itemSelectScript = default;
-   
+
 
     [SerializeField] AudioClip _jumpSE = default;
     [SerializeField] AudioClip _speeddownSE = default;
@@ -98,14 +98,14 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private Animator _pridictionFrogAnim;
     void Start() {
-        
-     
+
+
         _frogSE = this.GetComponent<AudioSource>();
         _pridictionSpriterenderer = this.GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         StartCoroutine(StartWait());
         _pridictionFrogAnim = this.GetComponent<Animator>();
-       
+
 
     }
 
@@ -124,7 +124,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     void Update() {
 
         HandlePlayerInput(_playernumber);
-        
+
     }
     void HandlePlayerInput(int playerNumber) {
 
@@ -141,11 +141,11 @@ public class PlayercontrollerScript : MonoBehaviour {
             //移動
             if (Input.GetKey(KeyCode.A) || horizontalInput < 0) {
                 _brake.SetActive(true);
-                
+
                 MoveLeftControll();
             }
             if (Input.GetKey(KeyCode.D) || horizontalInput > 0) {
-              
+
                 _brake.SetActive(false);
                 MoveRightControll();
             }
@@ -162,37 +162,37 @@ public class PlayercontrollerScript : MonoBehaviour {
                     _rb.velocity = new Vector2(_rb.velocity.x, _jumppower);
                 }
             }
-           
+
             //アイテム取得後
 
             //髭が出たら
             if (_isBeardItem) {
                 Beard();
-               
+
             }
 
             //水が出たら
             if (_isWaterItem) {
                 Water();
-              
+
             }
 
             //無敵が出たら
             if (_isPridictionItem) {
                 Pridiction();
-               
+
             }
 
             //粘液が出たら
             if (_isMucasItem) {
                 Mucas();
-               
+
             }
 
             //}
 
 
-            if ( !_isJump && !_isJumping) {
+            if (!_isJump && !_isJumping) {
                 _isJump = true;
             }
             //else {
@@ -226,8 +226,39 @@ public class PlayercontrollerScript : MonoBehaviour {
                 //_pridictionFrogAnim.SetBool("Jump", false);
 
             }
-          
+
         }
+
+
+    }
+    public void ShineAnime(bool sine) {
+        if (sine) {
+            sine = false;
+            StartCoroutine(ShineTime());
+        }
+    }
+    private IEnumerator ShineTime() {
+        string run = "Run";
+        string shineRun = "SineRun";
+        string jump = "Jump";
+        string shineJump = "SineJump";
+        string brake = "Brake";
+        string shineBrake = "SineBrake";
+        if (_pridictionFrogAnim.GetBool(run)) {
+            _pridictionFrogAnim.SetBool(shineRun, true);
+        } else if (_pridictionFrogAnim.GetBool(jump)) {
+            _pridictionFrogAnim.SetBool(shineJump, true);
+        } else if (_pridictionFrogAnim.GetBool(brake)) {
+            _pridictionFrogAnim.SetBool(shineBrake, true);
+        }
+        float wait = 1;
+        yield return new WaitForSeconds(wait);
+
+        _pridictionFrogAnim.SetBool(shineRun, false);
+
+        _pridictionFrogAnim.SetBool(shineJump, false);
+
+        _pridictionFrogAnim.SetBool(shineBrake, false);
 
 
     }
@@ -240,7 +271,7 @@ public class PlayercontrollerScript : MonoBehaviour {
         _pridictionFrogAnim.SetBool("Brake", true);
         float brake = -50;
         //通常の移動
-        _rb.velocity = new Vector3(_movespeed +brake, _rb.velocity.y, 0); //* Time.deltaTime ;
+        _rb.velocity = new Vector3(_movespeed + brake, _rb.velocity.y, 0); //* Time.deltaTime ;
     }
     private void MoveRightControll() {
         //反対に向かせる
@@ -252,9 +283,9 @@ public class PlayercontrollerScript : MonoBehaviour {
         _pridictionFrogAnim.SetBool("Run", true);
 
         _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
-        
 
-       
+
+
     }
     private void OnCollisionStay2D(Collision2D collision) {
         //床に足が着いてるとき
@@ -263,17 +294,17 @@ public class PlayercontrollerScript : MonoBehaviour {
             _jumppower = JUMPMAX;
             _pridictionFrogAnim.SetBool("Jump", false);
             _isJumping = false;
-           
+
         }
 
 
     }
-   
+
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Flor") {
             _isFrogjump = false;
-            
+
         }
 
     }
@@ -306,27 +337,24 @@ public class PlayercontrollerScript : MonoBehaviour {
     }
 
     private void SEReproduction() {
-        if (_isOneshot) 
-        {
+        if (_isOneshot) {
             _isOneshot = false;
 
         }
 
     }
 
-    public void CallCoroutine() 
-    {
+    public void CallCoroutine() {
         StartCoroutine(RandomItem());
-    
+
     }
 
 
 
     public IEnumerator RandomItem() //アイテム抽選
     {
-        if (!_isGetItem) 
-        {
-            
+        if (!_isGetItem) {
+
             _itemIcon.SetActive(true);
             _itemSelectScript.ItemIcon(0);
             //アイテムを持った状態に変える
@@ -336,7 +364,7 @@ public class PlayercontrollerScript : MonoBehaviour {
             yield return new WaitForSeconds(ITEMSELECTWAIT);
 
             //アイテムを持っていなかったら抽選する
-            
+
 
 
 
@@ -446,7 +474,7 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     private void Beard() {
         _xButton.SetActive(true);
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber+"pX")) {
+        if (Input.GetKeyDown(KeyCode.G) || Input.GetButtonDown(_joynumber + "pX")) {
             _xButton.SetActive(false);
             _itemIcon.SetActive(false);
             _frogSE.PlayOneShot(_beardSE);
@@ -513,19 +541,19 @@ public class PlayercontrollerScript : MonoBehaviour {
             _isGetWater = true;
         }
     }
-    
+
 
     public void BeardCollision() {
-        
-            _frogSE.PlayOneShot(_damageSE);
-            _movespeed = SPEEDMIN;     
+
+        _frogSE.PlayOneShot(_damageSE);
+        _movespeed = SPEEDMIN;
     }
     public void MucusCollision() {
-        
+
         _isMucusJump = true;
         StartCoroutine(MucusJumpTime());
     }
-   
+
 
     private void OnTriggerEnter2D(Collider2D collision) {
 
@@ -596,23 +624,22 @@ public class PlayercontrollerScript : MonoBehaviour {
         SpeedDown(false);
     }
 
-    public void RankChange(int nowrank) 
-    {    
+    public void RankChange(int nowrank) {
         _rank = nowrank;
     }
 
 
     public void SpeedUp(bool speed) {
-      
-            if (speed) {
-                _movespeed = MOVESPEED;
-                _speedUp = 100f;
-                StartCoroutine(Timecount());
-            } else {
+
+        if (speed) {
+            _movespeed = MOVESPEED;
+            _speedUp = 100f;
+            StartCoroutine(Timecount());
+        } else {
             _rb.velocity = new Vector2(_movespeed, _rb.velocity.y);
-                _speedUp = 0;
-            }
-        
+            _speedUp = 0;
+        }
+
     }
     private IEnumerator Timecount() {
         yield return new WaitForSeconds(0.3f);

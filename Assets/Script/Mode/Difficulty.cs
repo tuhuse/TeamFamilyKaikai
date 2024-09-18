@@ -50,14 +50,14 @@ public class Difficulty : MonoBehaviour {
             if ((controllerStick < 0 && !_isButtonMove) || (crosskey < 0 && !_isButtonMove)) //â∫Ç…çsÇ≠
              {
 
-                _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+
                 _selectDefficultButton++;
                 if (_difficultButton.Count <= _selectDefficultButton) {
                     _selectDefficultButton = 0;
 
                 }
 
-                _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 1);
+           
                 _isButtonMove = true;
 
             }
@@ -65,7 +65,7 @@ public class Difficulty : MonoBehaviour {
             if (((controllerStick > 0 && !_isButtonMove) || (crosskey > 0 && !_isButtonMove))) //è„Ç…çsÇ≠
             {
 
-                _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            
                 _selectDefficultButton--;
 
                 //print(_selectDefficultButton);
@@ -74,7 +74,7 @@ public class Difficulty : MonoBehaviour {
 
                     _selectDefficultButton = _difficultButton.Count - 1;
                 }
-                _difficultButton[_selectDefficultButton].GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                
                 _isButtonMove = true;
             }
 
@@ -95,7 +95,7 @@ public class Difficulty : MonoBehaviour {
                 Selecet(false);
 
             } else if ((Input.GetButtonDown("1pA") && _modes == Mode.Return)) {
-                _difficultButton[3].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+               
                 Diffculty(false);
                 _human.Selecet(true);
                 _human.SelectNumberPeople(true);

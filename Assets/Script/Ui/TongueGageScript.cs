@@ -22,7 +22,7 @@ public class TongueGageScript : MonoBehaviour {
     void Update() {
         if (_isCooldownActive) 
         {
-            print("konnnitiwa");
+            
             _abilityMeasureTimer -= Time.deltaTime;
             float fillValue = 1 - (_abilityMeasureTimer / _abilityCooldownTimer);
             _circleGauge.fillAmount = Mathf.Clamp01(fillValue);
@@ -49,6 +49,11 @@ public class TongueGageScript : MonoBehaviour {
         _rightEye.enabled = true;
         _isCooldownActive = false;
         _circleGauge.fillAmount = 1f; // クールダウンが手動で停止された場合にゲージを満タンにする
+        if (this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>() != null) {
+            PlayercontrollerScript player = this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>();
+            player.ShineAnime(true);
+        }
+     
     }
     public void TongueCoolDownFloat(float cooldown) 
     {

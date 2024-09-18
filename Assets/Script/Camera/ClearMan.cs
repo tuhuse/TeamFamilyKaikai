@@ -89,10 +89,12 @@ public class ClearMan : MonoBehaviour {
             {
                 while (_frogs.Count > 1) {
                     int randomValue = Random.Range(0, _frogs.Count - 1);
-
+                    
                     _rankingList.Insert(0, _frogs[randomValue]);
                     _frogs.Remove(_frogs[randomValue]);
+                    _frogs[randomValue].SetActive(false);
                     _switchNumber = 5;
+
                 }
                 _isSpeedUP = false;
                 _doubleObjectImage.GetComponent<Image>().enabled = false;
@@ -100,6 +102,7 @@ public class ClearMan : MonoBehaviour {
                 _rankingList.Insert(0, _frogs[0]);
                 _cameraRank.CameeeraRank(false);
                 _sneak.Access(true);
+                
                 _cameraShake.StopCameraShake(true);
 
             }

@@ -25,6 +25,10 @@ public class OutLineScript : MonoBehaviour {
     private BoxCollider2D _thisCollider = default;
 
     [Header("脱落ボイス"),SerializeField] private AudioClip _frogVoice = default;
+    private string _1pName = "けろこ";
+    private string _2pName = "けろせい";
+    private string _3pName = "けろれお";
+    private string _4pName = "けろや";
     // Start is called before the first frame update
     void Start() {
         _thisCollider = this.gameObject.GetComponent<BoxCollider2D>();
@@ -82,7 +86,18 @@ public class OutLineScript : MonoBehaviour {
             }
 
 
-            _commentScript.CommentatorCommentChange("ここで" + collision.gameObject.name + "がだつらく！！！", false,_frogVoice);
+            string outFrogName = default;
+
+            if (collision.gameObject.name == _1pName) {
+                outFrogName = "<color=green>" + collision.gameObject.name + "</color>";
+            } else if (collision.gameObject.name == _2pName) {
+                outFrogName = "<color=#F0F121>" + collision.gameObject.name + "</color>";
+            } else if (collision.gameObject.name == _3pName) {
+                outFrogName = "<color=blue>" + collision.gameObject.name + "</color>";
+            } else if (collision.gameObject.name == _4pName) {
+                outFrogName = "<color=#E030C4>" + collision.gameObject.name + "</color>";
+            }
+            _commentScript.CommentatorCommentChange("ここで" + outFrogName + "がだつらく！！！", false, _frogVoice);
 
             //collision.gameObject.SetActive(false);
             _sneakAnimScript.Attack();

@@ -34,6 +34,10 @@ public class CameraRankScript : MonoBehaviour {
     private float _forthPosition = default;
 
 
+    private string _1Pname = "けろこ";
+    private string _2Pname = "けろせい";
+    private string _3Pname = "けろれお";
+    private string _4Pname = "けろや";
 
     private const float CAMPOSIY = -10f;
     private const float CAMPOSIZ = -10;
@@ -144,6 +148,8 @@ public class CameraRankScript : MonoBehaviour {
         _frogs[3] = player4;
     }
     public void CameeeraRank(bool alive) {
+        string pullOutPlayer = default;
+        string bePullOutPlayer = default;
         if (alive) {
             {
                 //１位の場所の計算
@@ -171,7 +177,28 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
                     _ranking[ORIGINSECOND] = _dummy;
 
-                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINFIRST].name + "が" + _ranking[ORIGINSECOND].name + "をぬかしました！！！", false,_frogVoice);
+                    if (_ranking[ORIGINFIRST].name == _1Pname) {
+                        pullOutPlayer = "<color=green>" + _ranking[ORIGINFIRST].name + "</color>";
+                    } else if (_ranking[ORIGINFIRST].name == _2Pname) {
+                        pullOutPlayer = "<color=#F0F121>" + _ranking[ORIGINFIRST].name + "</color>";
+                    } else if (_ranking[ORIGINFIRST].name == _3Pname) {
+                        pullOutPlayer = "<color=blue>" + _ranking[ORIGINFIRST].name + "</color>";
+                    } else if (_ranking[ORIGINFIRST].name == _4Pname) {
+                        pullOutPlayer = "<color=#E030C4>" + _ranking[ORIGINFIRST].name + "</color>";
+                    }
+
+                    if (_ranking[ORIGINSECOND].name == _1Pname) {
+                        bePullOutPlayer = "<color=green>" + _ranking[ORIGINSECOND].name + "</color>";
+                    } else if (_ranking[ORIGINSECOND].name == _2Pname) {
+                        bePullOutPlayer = "<color=#F0F121>" + _ranking[ORIGINSECOND].name + "</color>";
+                    } else if (_ranking[ORIGINSECOND].name == _3Pname) {
+                        bePullOutPlayer = "<color=blue>" + _ranking[ORIGINSECOND].name + "</color>";
+                    } else if (_ranking[ORIGINSECOND].name == _4Pname) {
+                        bePullOutPlayer = "<color=#E030C4>" + _ranking[ORIGINSECOND].name + "</color>";
+                    }
+
+
+                    _commentText.CommentatorCommentChange("ここで" + pullOutPlayer + "が" + bePullOutPlayer + "をおいこし、1いにおどりでました!!!", false, _frogVoice);
 
                     _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
                 }
@@ -204,7 +231,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _dummy;
 
 
-                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false, _frogVoice);
+                    //_commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINSECOND].name + "が" + _ranking[ORIGINTHIRD].name + "をぬかしました！！！", false, _frogVoice);
                 }
 
 
@@ -237,7 +264,7 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINTHIRD] = _ranking[ORIGINFORTH];
                     _ranking[ORIGINFORTH] = _dummy;
 
-                    _commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false, _frogVoice);
+                    //_commentText.CommentatorCommentChange("おぉっと！" + _ranking[ORIGINTHIRD].name + "が" + _ranking[ORIGINFORTH].name + "をぬかしました！！！", false, _frogVoice);
                 }
 
 
