@@ -19,7 +19,6 @@ public class StartTextScript : MonoBehaviour
     [SerializeField] private StageRoopManFixed _stage;
    //[SerializeField] private Animator _ani;
    [SerializeField] private Image[] _text;
-    [SerializeField] private ParticleSystem[] _fireWorks;
     [Header("スタートのボイス"), SerializeField] private AudioClip _frogVoice = default;
     // Start is called before the first frame update
 
