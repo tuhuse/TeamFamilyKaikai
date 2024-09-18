@@ -44,7 +44,7 @@ public class Player2 : MonoBehaviour {
     private bool _isMucusJump = false;
     private bool _isFrogjump = false; //斜め飛びをしているか
     public bool _isGetWater = false;
-
+    private bool _isShine = false;
     private string _nameJoyStick = default;
 
     [SerializeField] private int _playernumber;// プレイヤー番号（1から始まる）
@@ -223,11 +223,51 @@ public class Player2 : MonoBehaviour {
                 _brake.SetActive(false);
                 _pridictionFrogAnim.SetBool("Brake", false);
                 _pridictionFrogAnim.SetBool("Run", false);
+                _pridictionFrogAnim.SetBool("ShineRun", false);
+                _pridictionFrogAnim.SetBool("ShineBrake", false);
+                _pridictionFrogAnim.SetBool("ShineJump", false);
                 //_pridictionFrogAnim.SetBool("Jump", false);
 
             }
 
         }
+        if (_isShine) {
+            ShineTime();
+        } else {
+            _pridictionFrogAnim.SetBool("ShineRun", false);
+            _pridictionFrogAnim.SetBool("ShineBrake", false);
+            _pridictionFrogAnim.SetBool("ShineJump", false);
+        }
+
+    }
+    public void ShineAnime(bool sine) {
+        if (sine) {
+            _isShine = true;
+        } else {
+            _isShine = false;
+        }
+    }
+    private void ShineTime() {
+        string run = "Run";
+        string shineRun = "ShineRun";
+        string jump = "Jump";
+        string shineJump = "ShineJump";
+        string brake = "Brake";
+        string shineBrake = "ShineBrake";
+        if (_pridictionFrogAnim.GetBool(run)) {
+            _pridictionFrogAnim.SetBool(shineRun, true);
+            _pridictionFrogAnim.SetBool(shineBrake, false);
+            _pridictionFrogAnim.SetBool(shineJump, false);
+        } else if (_pridictionFrogAnim.GetBool(jump)) {
+            _pridictionFrogAnim.SetBool(shineJump, true);
+            _pridictionFrogAnim.SetBool(shineBrake, false);
+            _pridictionFrogAnim.SetBool(shineRun, false);
+        } else if (_pridictionFrogAnim.GetBool(brake)) {
+            _pridictionFrogAnim.SetBool(shineBrake, true);
+            _pridictionFrogAnim.SetBool(shineRun, false);
+            _pridictionFrogAnim.SetBool(shineJump, false);
+        }
+
 
 
     }
@@ -237,7 +277,15 @@ public class Player2 : MonoBehaviour {
         //    _pridictionSpriterenderer.flipX = true;
         //}
 
-        _pridictionFrogAnim.SetBool("Brake", true);
+        if (!_pridictionFrogAnim.GetBool("Jump")) {
+
+            _pridictionFrogAnim.SetBool("Brake", true);
+            _pridictionFrogAnim.SetBool("Run", false);
+        } else {
+            _pridictionFrogAnim.SetBool("Brake", false);
+            _pridictionFrogAnim.SetBool("Run", false);
+        }
+
         float brake = -100;
         //通常の移動
         _rb.velocity = new Vector3(_movespeed + brake, _rb.velocity.y, 0); //* Time.deltaTime ;
@@ -247,10 +295,14 @@ public class Player2 : MonoBehaviour {
         if (_pridictionSpriterenderer.flipX) {
             _pridictionSpriterenderer.flipX = false;
         }
-        _pridictionFrogAnim.SetBool("Brake", false);
-        //通常の移動
-        _pridictionFrogAnim.SetBool("Run", true);
-
+        //通常の移動       
+        if (!_pridictionFrogAnim.GetBool("Jump")) {
+            _pridictionFrogAnim.SetBool("Brake", false);
+            _pridictionFrogAnim.SetBool("Run", true);
+        } else {
+            _pridictionFrogAnim.SetBool("Brake", false);
+            _pridictionFrogAnim.SetBool("Run", false);
+        }
         _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
 
 

@@ -40,8 +40,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
     private SpriteRenderer _thisSprite = default;
 
     // Update is called once per frame
-    private void Start() 
-    {
+    private void Start() {
         _thisSprite = this.GetComponent<SpriteRenderer>();
         _playerRB = GetComponentInParent<Rigidbody2D>();
         _tongueScaleY = this.transform.localScale.y;
@@ -57,13 +56,10 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
         else if (!_isFrogCatch) {
             //ベロの縮小
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) 
-            {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
-            }
-            else if (_isAttack && !_isJustOnes) 
-            {
+            } else if (_isAttack && !_isJustOnes) {
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
                 _isJustOnes = true;
                 _thisSprite.enabled = false;
@@ -73,12 +69,10 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
         } else {
             _underAttack = false;
-            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) 
-            {
+            if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 _isJustOnes = false;
                 this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
-            } else if (_isAttack && !_isJustOnes) 
-            {
+            } else if (_isAttack && !_isJustOnes) {
                 _thisSprite.enabled = false;
                 _isJustOnes = true;
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
@@ -94,22 +88,28 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
 
         if (_player.gameObject != null) {
-            
-                if (Input.GetButtonDown(_joynumber+"pRB")) 
-                {
-                    //ベロを伸ばし始める
-                    if (!_isAttack) 
-                    {
+
+            if (Input.GetButtonDown(_joynumber + "pRB")) {
+                //ベロを伸ばし始める
+                if (!_isAttack) {
                     _aqua.TongueUIStartCooldown();
+
+
+
                     _aqua.TongueCoolDownFloat(SUCCESSTONGUECATCH);
                     _isAttack = true;
-                        _isExtension = true;
-                        _underAttack = true;
+                    _isExtension = true;
+                    _underAttack = true;
                     _thisSprite.enabled = true;
-                    }
+                }
+                if (this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>() != null) {
+                    PlayercontrollerScript player = this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>();
+                    player.ShineAnime(false);
 
                 }
-             
+
+            }
+
             //else if (_player.gameObject.layer == 13) {
             //    if (Input.GetButtonDown("2pRB")) {
             //        //ベロを伸ばし始める
@@ -123,8 +123,8 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
             //}
         }
-         
-      
+
+
 
 
     }
@@ -137,17 +137,14 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _isExtension = false;
         }
 
-        if (collision.gameObject.tag == "CPU" && _underAttack)
-            
-        {
-            
+        if (collision.gameObject.tag == "CPU" && _underAttack) {
 
-            
-            if (_player.GetComponent<PlayercontrollerScript>() != null&& 
+
+
+            if (_player.GetComponent<PlayercontrollerScript>() != null &&
                 ((collision.gameObject.GetComponent<FrogCpu>() && collision.gameObject.GetComponent<FrogCpu>()._isPridictionStart) ||
              (collision.gameObject.GetComponent<FrogCpuMulti>() && collision.gameObject.GetComponent<FrogCpuMulti>()._isPridictionStart) ||
-             (collision.gameObject.GetComponent<FrogCpuMulti2>() && collision.gameObject.GetComponent<FrogCpuMulti2>()._isPridictionStart)))
-            {
+             (collision.gameObject.GetComponent<FrogCpuMulti2>() && collision.gameObject.GetComponent<FrogCpuMulti2>()._isPridictionStart))) {
                 //ダッシュエフェクトを持っていなかったら
                 if (_dashSmokeClone == null) {
                     //煙を生成して、コンポーネントを取得する
@@ -163,17 +160,15 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
                 _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
 
             }
-           
+
             _isExtension = false;
             _isFrogCatch = true;
-        } 
-        if (collision.gameObject.tag == "Player" && _underAttack) 
-        {
-            
+        }
+        if (collision.gameObject.tag == "Player" && _underAttack) {
 
 
-            if (_player.GetComponent<PlayercontrollerScript>() != null&&!collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle)
-            {
+
+            if (_player.GetComponent<PlayercontrollerScript>() != null && !collision.gameObject.GetComponent<PlayercontrollerScript>()._isInvincivle) {
 
                 //ダッシュエフェクトを持っていなかったら
                 if (_dashSmokeClone == null) {
@@ -188,7 +183,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
 
                 _player.GetComponent<PlayercontrollerScript>().SpeedUp(true);
             }
-           
+
             _isExtension = false;
             _isFrogCatch = true;
         }
@@ -206,15 +201,15 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
     }
 
     private void ControllScriptOn() {
-        
+
         //コントロールスクリプトの復活
         if (_player != null) {
             if (_player.GetComponent<PlayercontrollerScript>() != null) {
                 GetComponentInParent<PlayercontrollerScript>().enabled = true;
             }
-           
+
         }
-        
+
 
     }
 
@@ -223,15 +218,23 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
         _aqua.TongueUIStopCooldown();
         _isAttack = false;
         _isJustOnes = false;
-        
+        if (this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>() != null) {
+            PlayercontrollerScript player = this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>();
+            player.ShineAnime(true);
+        }
+
     }
 
     private IEnumerator Success() {
         yield return new WaitForSeconds(SUCCESSTONGUECATCH);
-        
+
         _aqua.TongueUIStopCooldown();
         _isAttack = false;
         _isJustOnes = false;
         _isFrogCatch = false;
+        if (this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>() != null) {
+            PlayercontrollerScript player = this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>();
+            player.ShineAnime(true);
+        }
     }
 }

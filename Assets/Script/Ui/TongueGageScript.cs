@@ -49,10 +49,7 @@ public class TongueGageScript : MonoBehaviour {
         _rightEye.enabled = true;
         _isCooldownActive = false;
         _circleGauge.fillAmount = 1f; // クールダウンが手動で停止された場合にゲージを満タンにする
-        if (this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>() != null) {
-            PlayercontrollerScript player = this.gameObject.transform.parent.GetComponent<PlayercontrollerScript>();
-            player.ShineAnime(true);
-        }
+      
      
     }
     public void TongueCoolDownFloat(float cooldown) 

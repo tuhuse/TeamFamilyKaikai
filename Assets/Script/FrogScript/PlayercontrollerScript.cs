@@ -44,7 +44,7 @@ public class PlayercontrollerScript : MonoBehaviour {
     private bool _isMucusJump = false;
     private bool _isFrogjump = false; //斜め飛びをしているか
     public bool _isGetWater = false;
-
+    private bool _isShine = false;
     private string _nameJoyStick = default;
 
     [SerializeField] private int _playernumber;// プレイヤー番号（1から始まる）
@@ -96,7 +96,15 @@ public class PlayercontrollerScript : MonoBehaviour {
 
     // Start is called before the first frame update
 
-    private Animator _pridictionFrogAnim;
+    public Animator _pridictionFrogAnim;
+
+    private enum Sitiuation {
+        Stay,
+        Run,
+        Jump,
+        Brake
+    }
+    private Sitiuation _sitiuation = default;
     void Start() {
 
 
@@ -223,52 +231,69 @@ public class PlayercontrollerScript : MonoBehaviour {
                 _brake.SetActive(false);
                 _pridictionFrogAnim.SetBool("Brake", false);
                 _pridictionFrogAnim.SetBool("Run", false);
+                _pridictionFrogAnim.SetBool("ShineRun", false);
+                _pridictionFrogAnim.SetBool("ShineBrake", false);
+                _pridictionFrogAnim.SetBool("ShineJump", false);
                 //_pridictionFrogAnim.SetBool("Jump", false);
 
             }
 
         }
-
+        if (_isShine) {
+            ShineTime();
+        } else {
+            _pridictionFrogAnim.SetBool("ShineRun", false);
+            _pridictionFrogAnim.SetBool("ShineBrake", false);
+            _pridictionFrogAnim.SetBool("ShineJump", false);
+        }
 
     }
     public void ShineAnime(bool sine) {
         if (sine) {
-            sine = false;
-            StartCoroutine(ShineTime());
+            _isShine = true;
+        } else {
+            _isShine = false;
         }
     }
-    private IEnumerator ShineTime() {
+    private void ShineTime() {
         string run = "Run";
-        string shineRun = "SineRun";
+        string shineRun = "ShineRun";
         string jump = "Jump";
-        string shineJump = "SineJump";
+        string shineJump = "ShineJump";
         string brake = "Brake";
-        string shineBrake = "SineBrake";
+        string shineBrake = "ShineBrake";
         if (_pridictionFrogAnim.GetBool(run)) {
             _pridictionFrogAnim.SetBool(shineRun, true);
+            _pridictionFrogAnim.SetBool(shineBrake, false);
+            _pridictionFrogAnim.SetBool(shineJump, false);
         } else if (_pridictionFrogAnim.GetBool(jump)) {
             _pridictionFrogAnim.SetBool(shineJump, true);
+            _pridictionFrogAnim.SetBool(shineBrake, false);
+            _pridictionFrogAnim.SetBool(shineRun, false);
         } else if (_pridictionFrogAnim.GetBool(brake)) {
             _pridictionFrogAnim.SetBool(shineBrake, true);
+            _pridictionFrogAnim.SetBool(shineRun, false);
+            _pridictionFrogAnim.SetBool(shineJump, false);
         }
-        float wait = 1;
-        yield return new WaitForSeconds(wait);
 
-        _pridictionFrogAnim.SetBool(shineRun, false);
-
-        _pridictionFrogAnim.SetBool(shineJump, false);
-
-        _pridictionFrogAnim.SetBool(shineBrake, false);
 
 
     }
+   
     private void MoveLeftControll() {
         ////反対に向かせる
         //if (!_pridictionSpriterenderer.flipX) {
         //    _pridictionSpriterenderer.flipX = true;
         //}
+        if (!_pridictionFrogAnim.GetBool("Jump")) {
 
-        _pridictionFrogAnim.SetBool("Brake", true);
+            _pridictionFrogAnim.SetBool("Brake", true);
+            _pridictionFrogAnim.SetBool("Run", false);
+        } else {
+            _pridictionFrogAnim.SetBool("Brake", false);
+            _pridictionFrogAnim.SetBool("Run", false);
+        }
+
         float brake = -50;
         //通常の移動
         _rb.velocity = new Vector3(_movespeed + brake, _rb.velocity.y, 0); //* Time.deltaTime ;
@@ -278,9 +303,14 @@ public class PlayercontrollerScript : MonoBehaviour {
         if (_pridictionSpriterenderer.flipX) {
             _pridictionSpriterenderer.flipX = false;
         }
-        _pridictionFrogAnim.SetBool("Brake", false);
-        //通常の移動
-        _pridictionFrogAnim.SetBool("Run", true);
+        //通常の移動       
+        if (!_pridictionFrogAnim.GetBool("Jump")) {
+            _pridictionFrogAnim.SetBool("Brake", false);
+            _pridictionFrogAnim.SetBool("Run", true);
+        } else {
+            _pridictionFrogAnim.SetBool("Brake", false);
+            _pridictionFrogAnim.SetBool("Run", false);
+        }
 
         _rb.velocity = new Vector3(_movespeed + _speedUp, _rb.velocity.y, 0); //* Time.deltaTime ;
 

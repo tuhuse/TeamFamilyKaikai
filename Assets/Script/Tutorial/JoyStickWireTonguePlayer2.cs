@@ -97,6 +97,11 @@ public class JoyStickWireTonguePlayer2 : MonoBehaviour {
                     _isExtension = true;
                     _underAttack = true;
                     _thisSprite.enabled = true;
+
+                }
+                if (this.gameObject.transform.parent.GetComponent<Player2>() != null) {
+                    Player2 player = this.gameObject.transform.parent.GetComponent<Player2>();
+                    player.ShineAnime(false);
                 }
 
             }
@@ -209,7 +214,10 @@ public class JoyStickWireTonguePlayer2 : MonoBehaviour {
         _aqua.TongueUIStopCooldown();
         _isAttack = false;
         _isJustOnes = false;
-
+        if (this.gameObject.transform.parent.GetComponent<Player2>() != null) {
+            Player2 player = this.gameObject.transform.parent.GetComponent<Player2>();
+            player.ShineAnime(true);
+        }
     }
 
     private IEnumerator Success() {
@@ -219,5 +227,9 @@ public class JoyStickWireTonguePlayer2 : MonoBehaviour {
         _isAttack = false;
         _isJustOnes = false;
         _isFrogCatch = false;
+        if (this.gameObject.transform.parent.GetComponent<Player2>() != null) {
+            Player2 player = this.gameObject.transform.parent.GetComponent<Player2>();
+            player.ShineAnime(true);
+        }
     }
 }
