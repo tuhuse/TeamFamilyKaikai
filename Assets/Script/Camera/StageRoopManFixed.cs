@@ -11,7 +11,7 @@ public class StageRoopManFixed : MonoBehaviour {
     [SerializeField] private GameObject _stageParents;
     [SerializeField] private GameObject _outLineObject = default;
     [SerializeField] private float _cameraTargetY;
-    [SerializeField] private GameObject _hurryUpText;
+    [SerializeField] private GameObject[] _hurryUpText;
     [SerializeField] private GameOverMan _gameOverMan;
     [SerializeField] private ClearMan _gameClearMan;
     [SerializeField] private GameObject _farstStage = default;
@@ -243,10 +243,13 @@ public class StageRoopManFixed : MonoBehaviour {
     private IEnumerator HurryUpText() {
         yield return new WaitForSeconds(1);
         _cameraShake.StartCameraShake();
-        _hurryUpText.SetActive(true);
+        _hurryUpText[0].SetActive(true);
+        _hurryUpText[1].SetActive(true);
         yield return new WaitForSeconds(3);
         _cameraShake.StopCameraShake(false);
-        _hurryUpText.SetActive(false);
+        _hurryUpText[0].SetActive(false);
+        _hurryUpText[1].SetActive(false);
+        ;
         _count._bgm.pitch = 1.4f;
         _count._bgm.volume = 1;
     }

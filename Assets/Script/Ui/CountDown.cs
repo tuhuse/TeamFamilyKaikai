@@ -20,6 +20,7 @@ public class CountDown : MonoBehaviour
         
     }
     public void Count1() {
+        _startText.SetActive(true);
         _count1.SetActive(false);
     }
     public void Count2() {
@@ -29,6 +30,6 @@ public class CountDown : MonoBehaviour
     public void Count3() {
         _count3.SetActive(false);
         _count2.SetActive(true);
-        _startText.SetActive(true);
+        
     }
 }

@@ -28,6 +28,8 @@ public class SelectCharacter : MonoBehaviour {
     [SerializeField] private List<Image> _playerBackGrounds = new List<Image>();
     [SerializeField] private GameObject[] _eye;
     [SerializeField] CameraRankScript _cameraScript = default;
+    [SerializeField] private ParticleSystem[] _fireWorks;
+    private float _fireworksSeconds = 0.1f;
 
     private enum Sitiuation {
         One,
@@ -53,6 +55,7 @@ public class SelectCharacter : MonoBehaviour {
 
     public void GoTxt()//GoButton‚ğ‰Ÿ‚µ‚½‚çƒƒCƒ“‰æ–Ê‚És‚­
     {
+        
         _countDown.SetActive(true);
         _birdCanvas.SetActive(true);
         _commentator.SetActive(true);
@@ -390,6 +393,9 @@ public class SelectCharacter : MonoBehaviour {
 
 
 
+       
+
     }
+   
 }
 

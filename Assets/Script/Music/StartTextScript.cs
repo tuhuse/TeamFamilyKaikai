@@ -18,8 +18,8 @@ public class StartTextScript : MonoBehaviour
     [SerializeField] CommentScript _commentScript = default;
     [SerializeField] private StageRoopManFixed _stage;
    //[SerializeField] private Animator _ani;
-   [SerializeField] private TextMeshProUGUI _text;
-
+   [SerializeField] private Image[] _text;
+    [SerializeField] private ParticleSystem[] _fireWorks;
     [Header("スタートのボイス"), SerializeField] private AudioClip _frogVoice = default;
     // Start is called before the first frame update
 
@@ -54,12 +54,16 @@ public class StartTextScript : MonoBehaviour
         }
         
     }
+
     private IEnumerator StartAnimation() {
+       
         yield return new WaitForSeconds(2);
-        _text.enabled = true;
+        _text[0].enabled = true;
+        _text[1].enabled = true;
         //_ani.enabled = true;
         yield return new WaitForSeconds(2);
-        _text.enabled = false;
+        _text[0].enabled = false;
+        _text[1].enabled = false;
         //_ani.enabled = false;
     }
 }

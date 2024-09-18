@@ -39,9 +39,13 @@ public class SneakAnim : MonoBehaviour
 
     [SerializeField] private BoxCollider2D _childBoxcollider = default;
 
+    [SerializeField] private ParticleSystem[] _fireWorks;
+    private float _fireworksSeconds = 0.1f;
+    [SerializeField] private AudioClip _fireworkSound;
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(Firework());
         _sneakAudio = this.GetComponent<AudioSource>();
        _sneakAnim = GetComponent<Animator>();
         _sneakAnim.SetBool("Intimidation", true);
@@ -162,5 +166,39 @@ public class SneakAnim : MonoBehaviour
     {
         _outStopPosition -= value;
         _inStopPosition -= value;
+    }
+    private IEnumerator Firework() {
+
+
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[0].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[1].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[2].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[3].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[4].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[5].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[6].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[7].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[8].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
+        yield return new WaitForSeconds(_fireworksSeconds);
+        _fireWorks[9].Play();
+        _sneakAudio.PlayOneShot(_fireworkSound);
     }
 }
