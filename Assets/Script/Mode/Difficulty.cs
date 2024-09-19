@@ -104,10 +104,12 @@ public class Difficulty : MonoBehaviour {
                 _human.SelectNumberPeople(true);
                 Selecet(false);
             }
+            ChangeNumber();
+            ChangeColor();
         }
         DiffcultyNumber(_selectDefficultButton);
-        ChangeNumber();
-        ChangeColor();
+       
+       
     }
     private void ChangeNumber() {
         if (_selectDefficultButton == 0) {
