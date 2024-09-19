@@ -8,7 +8,6 @@ public class CommentScript : MonoBehaviour {
 
     private float _commentChangeTime = default;
     private int _randomValue = default;
-    private int _commentNumber = 0;
     private int _nextCommentNumber = 0;
     private bool _isStart = false;
     private bool _isStartComment = false;
@@ -45,8 +44,7 @@ public class CommentScript : MonoBehaviour {
     [Header("レース中の実況者のボイス"), SerializeField] private List<AudioClip> _commentatorVoices = default;
     [Header("レース中の実況者のボイス"), SerializeField] private List<AudioClip> _liveCommentatorVoices = default;
 
-    [Header("チュートリアル中の実況者のボイス"), SerializeField] private List<AudioClip> _tutorialCommentatorVoices = default;
-    [Header("チュートリアル中の実解説者のボイス"), SerializeField] private List<AudioClip> _tutorialLivementatorVoices = default;
+    [Header("チュートリアル中の声"), SerializeField] private List<AudioClip> _tutolialVoices = default;
 
     [SerializeField] private Player2 _player2Script = default;
     [SerializeField] private GameObject _xButton = default;
@@ -71,27 +69,30 @@ public class CommentScript : MonoBehaviour {
 
         if (_isNextComment && Input.GetButtonDown("Fire1")) {
             switch (_nextCommentNumber) {
-                case 0:
-
-
-                    LiveCommentatorCommentChange("そうさほうほうをおぼえて、デスゲームでいきのこれるようにするケロ", false, _tutorialLivementatorVoices[_commentNumber - 1]);
-                    _nextCommentNumber++;
-                    break;
-
                 case 1:
-                    CommentatorCommentChange("Lスティックをみぎにたおしていどう、ひだりにたおすとブレーキがかかるケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+                    _frogVoice.Stop();
+
+                    LiveCommentatorCommentChange("そうさほうほうをおぼえて、デスゲームでいきのこれるようにするケロ", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
                     break;
 
                 case 2:
-                    LiveCommentatorCommentChange("ブレーキをかけてわざとうしろにさがるなど、かわったせんぽうがたのしめるケロ", false, _tutorialLivementatorVoices[_commentNumber - 1]);
+                    _frogVoice.Stop();
+                    CommentatorCommentChange("Lスティックをみぎにたおしていどう、ひだりにたおすとブレーキがかかるケロ", false, _tutolialVoices[_nextCommentNumber]);
+                    _nextCommentNumber++;
+                    break;
+
+                case 3:
+                    _frogVoice.Stop();
+                    LiveCommentatorCommentChange("ブレーキをかけてわざとうしろにさがるなど、かわったせんぽうがたのしめるケロ", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
 
 
 
                     break;
 
-                case 3:
+                case 4:
+                    _frogVoice.Stop();
                     _commentText.text = "";
 
                     if (_isCommentatorSpeak) {
@@ -108,34 +109,14 @@ public class CommentScript : MonoBehaviour {
 
                     _nextCommentNumber++;
                     break;
-                case 4:
-                    LiveCommentatorCommentChange("タイミングをみてしょうがいぶつをよけるケロ！さっそくとんでみるケロ", false, _tutorialLivementatorVoices[_commentNumber - 1]);
-
-                    _nextCommentNumber++;
-                    break;
-                case 5:
-
-                    _commentText.text = "";
-                    if (_isCommentatorSpeak) {
-                        CommentatorReduction();
-                    }
-                    if (_isLiveCommentatorSpeak) {
-                        LiveCommentatorReduction();
-                    }
-                    _player2Script.StartWait();
-                    _isNextComment = false;
-                    _xButton.SetActive(false);
-
-                    _nextCommentNumber++;
-
-                    break;
                 case 6:
-                    LiveCommentatorCommentChange("いちどだすとクールダウンがはっせいするので、ここぞというタイミングでつかうケロ", false, _tutorialLivementatorVoices[_commentNumber - 1]);
+                    _frogVoice.Stop();
+                    LiveCommentatorCommentChange("タイミングをみてしょうがいぶつをよけるケロ！さっそくとんでみるケロ", false, _tutolialVoices[_nextCommentNumber]);
 
                     _nextCommentNumber++;
-
                     break;
                 case 7:
+                    _frogVoice.Stop();
                     _commentText.text = "";
                     if (_isCommentatorSpeak) {
                         CommentatorReduction();
@@ -145,29 +126,41 @@ public class CommentScript : MonoBehaviour {
                     }
                     _player2Script.StartWait();
                     _isNextComment = false;
-                    _nextCommentNumber++;
                     _xButton.SetActive(false);
 
-                    break;
-                case 8:
-                    LiveCommentatorCommentChange("アイテムはぜんぶで4しゅるい、じぶんのあしがはやくなるなど、こうかはさまざまケロ。", false, _tutorialLivementatorVoices[_commentNumber - 1]);
-
                     _nextCommentNumber++;
+
                     break;
                 case 9:
-                    _commentText.text = "";
-                    if (_isCommentatorSpeak) {
-                        CommentatorReduction();
-                    }
-                    if (_isLiveCommentatorSpeak) {
-                        LiveCommentatorReduction();
-                    }
-                    _player2Script.StartWait();
-                    _isNextComment = false;
+                    _frogVoice.Stop();
+                    LiveCommentatorCommentChange("いちどだすとクールダウンがはっせいするので、ここぞというタイミングでつかうケロ", false, _tutolialVoices[_nextCommentNumber]);
+
                     _nextCommentNumber++;
-                    _xButton.SetActive(false);
+
                     break;
                 case 10:
+                    _frogVoice.Stop();
+                    _commentText.text = "";
+                    if (_isCommentatorSpeak) {
+                        CommentatorReduction();
+                    }
+                    if (_isLiveCommentatorSpeak) {
+                        LiveCommentatorReduction();
+                    }
+                    _player2Script.StartWait();
+                    _isNextComment = false;
+                    _nextCommentNumber++;
+                    _xButton.SetActive(false);
+
+                    break;
+                case 12:
+                    _frogVoice.Stop();
+                    LiveCommentatorCommentChange("アイテムはぜんぶで4しゅるい、じぶんのあしがはやくなるなど、こうかはさまざまケロ。", false, _tutolialVoices[_nextCommentNumber]);
+
+                    _nextCommentNumber++;
+                    break;
+                case 13:
+                    _frogVoice.Stop();
                     _commentText.text = "";
                     if (_isCommentatorSpeak) {
                         CommentatorReduction();
@@ -180,11 +173,27 @@ public class CommentScript : MonoBehaviour {
                     _nextCommentNumber++;
                     _xButton.SetActive(false);
                     break;
-                case 11:
-                    LiveCommentatorCommentChange("ここでまなんだことをかつようして、たべられないようにがんばるケロ～！！", false, _tutorialLivementatorVoices[_commentNumber - 1]);
+                case 15:
+                    _frogVoice.Stop();
+                    _commentText.text = "";
+                    if (_isCommentatorSpeak) {
+                        CommentatorReduction();
+                    }
+                    if (_isLiveCommentatorSpeak) {
+                        LiveCommentatorReduction();
+                    }
+                    _player2Script.StartWait();
+                    _isNextComment = false;
+                    _nextCommentNumber++;
+                    _xButton.SetActive(false);
+                    break;
+                case 17:
+                    _frogVoice.Stop();
+                    LiveCommentatorCommentChange("ここでまなんだことをかつようして、たべられないようにがんばるケロ～！！", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
                     break;
-                case 12:
+                case 18:
+                    _frogVoice.Stop();
                     _commentText.text = "";
                     if (_isCommentatorSpeak) {
                         CommentatorReduction();
@@ -379,49 +388,53 @@ public class CommentScript : MonoBehaviour {
 
 
     public void TutorialCommentChange() {
-        _commentNumber++;
 
-        switch (_commentNumber) {
-            case 1:
-                CommentatorCommentChange("ここではゲームのそうさほうほうについてせつめいしていくケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+        switch (_nextCommentNumber) {
+            case 0:
+                _frogVoice.Stop();
+                CommentatorCommentChange("ここではゲームのそうさほうほうについてせつめいしていくケロ", false, _tutolialVoices[_nextCommentNumber]);
                 _isNextComment = true;
                 _xButton.SetActive(true);
+                _nextCommentNumber++;
                 break;
 
 
-            case 2:
-
-                CommentatorCommentChange("Aボタンでジャンプができるケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
-                _xButton.SetActive(true);
-                _isNextComment = true;
-
-                break;
-            case 3:
-
-                CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！いっきにまえへすすむことができるケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
-                _xButton.SetActive(true);
-                _isNextComment = true;
-
-
-                break;
-            case 4:
-
-                CommentatorCommentChange("ステージちゅうにはさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false, _tutorialCommentatorVoices[_commentNumber - 1]);
-                _xButton.SetActive(true);
-                _isNextComment = true;
-
-                break;
             case 5:
-                LiveCommentatorCommentChange("いままでのふくしゅうをしてみるケロ！", false, _tutorialLivementatorVoices[_commentNumber - 1]);
+                _frogVoice.Stop();
+                CommentatorCommentChange("Aボタンでジャンプができるケロ", false, _tutolialVoices[_nextCommentNumber]);
                 _xButton.SetActive(true);
                 _isNextComment = true;
+                _nextCommentNumber++;
                 break;
-            case 6:
-
-                CommentatorCommentChange("そうさほうほうはいじょうケロ。さあ、デスゲームかいじょうにとうちゃくケロ！", false, _tutorialCommentatorVoices[_commentNumber - 1]);
+            case 8:
+                _frogVoice.Stop();
+                CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！いっきにまえへすすむことができるケロ", false, _tutolialVoices[_nextCommentNumber]);
                 _xButton.SetActive(true);
                 _isNextComment = true;
+                _nextCommentNumber++;
 
+
+                break;
+            case 11:
+                _frogVoice.Stop();
+                CommentatorCommentChange("ステージちゅうにはさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false, _tutolialVoices[_nextCommentNumber]);
+                _xButton.SetActive(true);
+                _isNextComment = true;
+                _nextCommentNumber++;
+                break;
+            case 14:
+                _frogVoice.Stop();
+                LiveCommentatorCommentChange("いままでのふくしゅうをしてみるケロ！", false, _tutolialVoices[_nextCommentNumber]);
+                _xButton.SetActive(true);
+                _isNextComment = true;
+                _nextCommentNumber++;
+                break;
+            case 16:
+                _frogVoice.Stop();
+                CommentatorCommentChange("そうさほうほうはいじょうケロ。さあ、デスゲームかいじょうにとうちゃくケロ！", false, _tutolialVoices[_nextCommentNumber]);
+                _xButton.SetActive(true);
+                _isNextComment = true;
+                _nextCommentNumber++;
                 break;
         }
 
