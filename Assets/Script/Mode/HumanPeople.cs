@@ -305,6 +305,7 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[2].SetActive(true);
             _frogsButton[3].SetActive(true);
             _frogsButton[4].SetActive(true);
+            _spriteText[4].SetActive(true);
             _selectNumberOfPeople.SetActive(true);
         }
         if (!buttonActive) {
@@ -314,6 +315,8 @@ public class HumanPeople : MonoBehaviour {
             _frogsButton[2].SetActive(false);
             _frogsButton[3].SetActive(false);
             _frogsButton[4].SetActive(false);
+            _spriteText[4].SetActive(false);
+           
             _selectNumberOfPeople.SetActive(false);
         }
 

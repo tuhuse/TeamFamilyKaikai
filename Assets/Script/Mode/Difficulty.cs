@@ -16,6 +16,7 @@ public class Difficulty : MonoBehaviour {
     //[SerializeField] private MoveButtonScript _move;
     [SerializeField] private HumanPeople _human;
     [SerializeField] private Animator[] _change;
+    [SerializeField] private GameObject[] _spriteText;
     private enum Mode {
         Easy,
         Nomal,
@@ -84,6 +85,7 @@ public class Difficulty : MonoBehaviour {
 
             if ((Input.GetButtonDown("1pA") && _judgenumber == 0 && _modes != Mode.Return) ||
                 (Input.GetKeyDown(KeyCode.Return) && _judgenumber == 0 && _modes != Mode.Return)) {
+
                 Switch();
                 _selectCharacterScript.SummonSneak();
                 Diffculty(false);
@@ -129,25 +131,36 @@ public class Difficulty : MonoBehaviour {
                 _change[1].SetBool("Change", false);
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", false);
-
+                _spriteText[0].SetActive(true);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(false);
                 break;
             case ModeColor.Nomal:
                 _change[0].SetBool("Change", false);
                 _change[1].SetBool("Change", true);
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", false);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(true);
+                _spriteText[2].SetActive(false);
                 break;
             case ModeColor.Hard:
                 _change[0].SetBool("Change", false);
                 _change[1].SetBool("Change", false);
                 _change[2].SetBool("Change", true);
                 _change[3].SetBool("Change", false);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(true);
                 break;
             case ModeColor.Return:
                 _change[0].SetBool("Change", false);
                 _change[1].SetBool("Change", false);
                 _change[2].SetBool("Change", false);
                 _change[3].SetBool("Change", true);
+                _spriteText[0].SetActive(false);
+                _spriteText[1].SetActive(false);
+                _spriteText[2].SetActive(false);
                 break;
         }
     }
@@ -221,6 +234,7 @@ public class Difficulty : MonoBehaviour {
             _difficultButton[1].SetActive(true);
             _difficultButton[2].SetActive(true);
             _difficultButton[3].SetActive(true);
+            _spriteText[3].SetActive(true);
             _difficultText.SetActive(true);
         } else {
             _selectDefficultButton = 0;
@@ -228,6 +242,7 @@ public class Difficulty : MonoBehaviour {
             _difficultButton[1].SetActive(false);
             _difficultButton[2].SetActive(false);
             _difficultButton[3].SetActive(false);
+            _spriteText[3].SetActive(false);
             _difficultText.SetActive(false);
         }
     }
