@@ -11,7 +11,7 @@ public class SneakAnim : MonoBehaviour
     private bool _isPositionMoveIn = false;
     private bool _isPositionLastMoveIn = false;
     private bool _isOneShot = default;
-
+    private bool _isFinal = false;
     private float _positionX = default;
     private float _outStopPosition = 154f;
     private float _inStopPosition = 109.5f;
@@ -62,19 +62,20 @@ public class SneakAnim : MonoBehaviour
             ScreenOut();
         }
 
-        if (_isPositionMoveIn && !_isPositionLastMoveIn) {
+        if (_isPositionMoveIn && !_isPositionLastMoveIn&&!_isFinal) {
             //ÉJÉÅÉâÇÃíÜÇ…ì¸Ç¡ÇƒÇ≠ÇÈ
             ScreenIn(true);
-        } else if (_isPositionLastMoveIn && _isPositionLastMoveIn) {
+        } else if (_isPositionLastMoveIn && _isPositionLastMoveIn && !_isFinal) {
             ScreenIn(false);
         }
-
+        
 
         if (_isStartPositionMoveOut) 
         {
             //àÍî‘ç≈èâÇÃà–ädçsìÆ
             StartScreenOUT();
         }
+        
     }
 
     public void Attack() 
@@ -150,7 +151,7 @@ public class SneakAnim : MonoBehaviour
                 _isPositionMoveOut = true;
             }
         } else {
-            float move = 0.2f;
+            float move = 0;
             if (this.transform.position.x <= _camera.transform.position.x - _inStopPosition) {
                 this.transform.position += new Vector3(move, 0, 0) * Time.deltaTime * TIMEDELTATIMEMULTIPLE;
                 
@@ -160,8 +161,9 @@ public class SneakAnim : MonoBehaviour
             }
         }
 
-    }
 
+    }
+  
     public void StopPositionIncrease(float value)
     {
         _outStopPosition -= value;
