@@ -84,12 +84,10 @@ public class ClearMan : MonoBehaviour {
             } else if (Input.GetAxis("1pLstickHorizontal") == 0 && _isSelect) {
                 _isSelect = false;
             }
-
-            if (Input.GetButtonDown("Fire1")) 
-            {
+            if (Input.GetButtonDown("Skip")) {
                 while (_frogs.Count > 1) {
                     int randomValue = Random.Range(0, _frogs.Count - 1);
-                    
+
                     _rankingList.Insert(0, _frogs[randomValue]);
                     _frogs.Remove(_frogs[randomValue]);
                     _frogs[randomValue].SetActive(false);
@@ -102,10 +100,10 @@ public class ClearMan : MonoBehaviour {
                 _rankingList.Insert(0, _frogs[0]);
                 _cameraRank.CameeeraRank(false);
                 _sneak.Access(true);
-                
-                _cameraShake.StopCameraShake(true);
 
+                _cameraShake.StopCameraShake(true);
             }
+           
 
         }
         // カメラスケールの調整
@@ -287,8 +285,7 @@ public class ClearMan : MonoBehaviour {
         // Frogsリストから脱落したFrogを削除
         for (int frogCount = 0; frogCount < _frogs.Count; frogCount++) {
             if (_frogs[frogCount] == dropOutFrog) 
-            {
-              
+            {              
                 _frogs.Remove(_frogs[frogCount]);
             }
         }
