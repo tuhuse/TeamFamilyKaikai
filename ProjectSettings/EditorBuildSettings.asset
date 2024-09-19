@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/NotPullObjects/Scenes/TitleScene.unity
     guid: ae8adf7190a643d40a2c1c6dd73eceee
   - enabled: 1
+    path: Assets/NotPullObjects/Scenes/Tutorial.unity
+    guid: 15e3a6a8310b11144b04c5dad244e2cd
+  - enabled: 1
     path: Assets/NotPullObjects/Scenes/StageScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

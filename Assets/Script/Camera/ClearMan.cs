@@ -23,6 +23,7 @@ public class ClearMan : MonoBehaviour {
     private List<GameObject> _rankingList = new List<GameObject>(); // ランキングのリスト
    [SerializeField] private Image[] _podiumfrog;
     [SerializeField] private Image _doubleObjectImage = default;//倍速の矢印
+    [SerializeField] private GameObject _skip;
     [SerializeField] private Image[] _nameFrog;
     [SerializeField] private List<Sprite> _doubleSpeedImage = new List<Sprite>();
    [SerializeField] private GameObject[] _podiumfrogs;
@@ -69,6 +70,7 @@ public class ClearMan : MonoBehaviour {
 
         if (_isSpeedUP) 
         {
+            _skip.SetActive(true);
             int maxGameSpeed = 3;
             int minGameSpeed = 0;
             if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect && _gameSpeed < maxGameSpeed) {
@@ -96,6 +98,7 @@ public class ClearMan : MonoBehaviour {
                 }
                 _isSpeedUP = false;
                 _doubleObjectImage.GetComponent<Image>().enabled = false;
+                _skip.SetActive(false);
                 // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
                 _rankingList.Insert(0, _frogs[0]);
                 _cameraRank.CameeeraRank(false);
