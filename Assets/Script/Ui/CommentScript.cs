@@ -374,7 +374,7 @@ public class CommentScript : MonoBehaviour {
                 _isCommentStop = false;
                 _commentChangeTime = 0;
                 if (!_isInterrupt) {
-                    LiveCommentatorCommentChange("かいせつのけろちーばでおおくりするケロ！", false, _liveCommentatorVoices[6]);
+                    LiveCommentatorCommentChange("かいせつの「けろちーば」でおおくりするケロ！", false, _liveCommentatorVoices[6]);
                 }
 
                 break;

@@ -255,7 +255,7 @@ public class CameraRankScript : MonoBehaviour {
 
                     if (_rankChangeCommentTime >= 25) {
                         _commentText.Interrupt();
-                        _commentText.CommentatorCommentChange("Ç±Ç±Ç≈" + pullOutPlayer + "Ç™" + bePullOutPlayer + "ÇÇ®Ç¢Ç±ÇµÅA1Ç¢Ç…Ç®Ç«ÇËÇ≈Ç‹ÇµÇΩ!!!", false, frogVoice);
+                        _commentText.CommentatorCommentChange("Ç±Ç±Ç≈" + pullOutPlayer + "Ç™" + bePullOutPlayer + "ÇÇ®Ç¢Ç±ÇµÅA1Ç¢Ç…Ç®Ç«ÇËÇ≈ÇΩÉPÉç!!!", false, frogVoice);
                         _rankChangeCommentTime = 0;
 
                         _is1Pvoices = false;

@@ -17,7 +17,7 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private float _cameraSizeAdjust = default; // カメラサイズ調整の値
     [SerializeField] private List<GameObject> _frogs = new List<GameObject>(); // プレイヤーおよびCPUオブジェクトのリスト
     private List<Rigidbody2D> _frogsrb2d = new List<Rigidbody2D>(); // プレイヤーおよびCPUオブジェクトのRigidbody2Dコンポーネントのリスト
-
+    [SerializeField] private GameObject _skip;
     [SerializeField] private List<GameObject> _anotherEnemys = new List<GameObject>(); // 他の敵オブジェクトのリスト
     [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>(); // 他のプレイヤーオブジェクトのリスト
     private List<GameObject> _rankingList = new List<GameObject>(); // ランキングのリスト
@@ -48,7 +48,7 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private CameraShake _cameraShake; // カメラシェイクのスクリプト
     [SerializeField] private CameraRankScript _cameraRank = default; // カメラランキングのスクリプト
     [SerializeField] private StageRoopManFixed _stageRoopScript = default; // ステージループ管理スクリプト
-
+    
     [SerializeField] private CommentScript _clearCommentScript = default;
 
     private enum Rank {
@@ -74,6 +74,7 @@ public class ClearMan : MonoBehaviour {
     void Update() {
 
         if (_isSpeedUP) {
+            _skip.SetActive(true);
             int maxGameSpeed = 3;
             int minGameSpeed = 0;
             if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect && _gameSpeed < maxGameSpeed) {
@@ -105,7 +106,7 @@ public class ClearMan : MonoBehaviour {
                 _rankingList.Insert(0, _frogs[0]);
                 _cameraRank.CameeeraRank(false);
                 _sneak.Access(true);
-
+                _skip.SetActive(false);
                 _cameraShake.StopCameraShake(true);
             }
 

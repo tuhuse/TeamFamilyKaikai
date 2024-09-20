@@ -17,6 +17,13 @@ public class Mucus : MonoBehaviour {
     void Update() { //—Ž‰º
         _rb.velocity = (Vector2.right * _movemucus * 3) + (Vector2.down * _movemucus);
     }
+    private void OnTriggerStay2D(Collider2D collision) {
+
+        if (collision.gameObject.CompareTag("Flor")) {
+            _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Flor")) {
             _movemucus = 0;
