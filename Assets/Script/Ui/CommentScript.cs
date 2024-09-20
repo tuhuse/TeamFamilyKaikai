@@ -15,6 +15,13 @@ public class CommentScript : MonoBehaviour {
 
     private bool _isCommentatorSpeak = false;
     private bool _isLiveCommentatorSpeak = false;
+    private bool _isCommentStop = false;
+    private bool _isInterrupt = false;
+
+    private string _1Pname = "けろこ";
+    private string _2Pname = "けろせい";
+    private string _3Pname = "けろれお";
+    private string _4Pname = "けろや";
 
     [SerializeField] GameObject _commentator = default;
     [SerializeField] GameObject _liveCommentator = default;
@@ -48,6 +55,10 @@ public class CommentScript : MonoBehaviour {
 
     [SerializeField] private Player2 _player2Script = default;
     [SerializeField] private GameObject _xButton = default;
+
+    [SerializeField] private CameraRankScript _rankScript = default;
+    [Header("トップカエル名ボイス"), SerializeField] private List<AudioClip> _topFrogNameVoices = default;
+    [Header("蛇に近いカエル名ボイス"), SerializeField] private List<AudioClip> _lowestFrogNameVoices = default;
     // Start is called before the first frame update
     private void Awake() {
         _commentatorAnim = _commentator.GetComponent<Animator>();
@@ -72,19 +83,19 @@ public class CommentScript : MonoBehaviour {
                 case 1:
                     _frogVoice.Stop();
 
-                    LiveCommentatorCommentChange("そうさほうほうをおぼえて、デスゲームでいきのこれるようにするケロ", false, _tutolialVoices[_nextCommentNumber]);
+                    LiveCommentatorCommentChange("そうさほうほうをおぼえて、デスレースでいきのこれるようにするケロ", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
                     break;
 
                 case 2:
                     _frogVoice.Stop();
-                    CommentatorCommentChange("Lスティックをみぎにたおしていどう、ひだりにたおすとブレーキがかかるケロ", false, _tutolialVoices[_nextCommentNumber]);
+                    CommentatorCommentChange("Lスティックをみぎにたおしていどう、" + "\n" + "ひだりにたおすとブレーキがかかるケロ", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
                     break;
 
                 case 3:
                     _frogVoice.Stop();
-                    LiveCommentatorCommentChange("ブレーキをかけてわざとうしろにさがるなど、かわったせんぽうがたのしめるケロ", false, _tutolialVoices[_nextCommentNumber]);
+                    LiveCommentatorCommentChange("ブレーキをかけてわざととまるなど、かわったせんぽうがたのしめるケロ", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
 
 
@@ -105,7 +116,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _xButton.SetActive(false);
-                    
+
 
                     _nextCommentNumber++;
                     break;
@@ -211,11 +222,11 @@ public class CommentScript : MonoBehaviour {
 
         _commentChangeTime += Time.deltaTime;
 
-        if (_commentChangeTime >= 5 && _isStart) {
+        if (_commentChangeTime >= 5 && _isStart && !_isCommentStop) {
             //５秒に一回コメントを変更する
             _commentChangeTime = 0;
             GiveMessage();
-        } else if (_commentChangeTime >= 5 && _isStartComment) {
+        } else if (_commentChangeTime >= 5 && _isStartComment && !_isCommentStop) {
             _isStart = true;
             _commentChangeTime = 0;
             _isStartComment = false;
@@ -225,100 +236,149 @@ public class CommentScript : MonoBehaviour {
     }
 
     private void GiveMessage() {
-        _randomValue = Random.Range(1, 6);
-        if (_randomValue == 1) {
-            //コメントの表示
-            CommentatorCommentChange("さあ、せっせんがつづいています！", false, _commentatorVoices[0]);
+        int kerokoVoice = 0;
+        int keroseiVoice = 1;
+        int keroreoVoice = 2;
+        int keroyaVoice = 3;
 
-            if (!_isCommentatorSpeak) {
-                //実況者を大きくする
-                CommentatorExpansion();
-            }
+        _isInterrupt = false;
+        _randomValue = Random.Range(0, 9);
+        switch (_randomValue) {
+            case 0:
+                //実況者
+                CommentatorCommentChange("さあ、せっせんがつづいているケロ！", false, _commentatorVoices[0]);
 
-            //解説者が大きくなっていたら
-            if (_isLiveCommentatorSpeak) {
-                //解説者を小さくする
-                LiveCommentatorReduction();
-            }
+                break;
+            case 1:
+                //実況者
+                CommentatorCommentChange("こんかいはだれがいきのこるケロ！？", false, _commentatorVoices[1]);
+                break;
 
-        } else if (_randomValue == 2) {
-            //実況者
-            CommentatorCommentChange("こんかいはだれがいきのこるのでしょうか！", false, _commentatorVoices[1]);
+            case 2:
+                //実況者
+                LiveCommentatorCommentChange("いわやとげにきをつけてがんばるケロ！", false, _liveCommentatorVoices[0]);
+                break;
 
-            if (!_isCommentatorSpeak) {
-                //実況者を大きくする
-                CommentatorExpansion();
-            }
+            case 3:
 
+                //解説者
+                LiveCommentatorCommentChange("あぶないとき、いかにしたをつかうかがたいせつケロ！", false, _liveCommentatorVoices[1]);
 
-            //解説者が大きくなっていたら
-            if (_isLiveCommentatorSpeak) {
-                //解説者を小さくする
-                LiveCommentatorReduction();
-            }
-        } else if (_randomValue == 3) {
-            //実況者
-            LiveCommentatorCommentChange("いわやとげにきをつけてがんばってください", false, _liveCommentatorVoices[0]);
+                break;
 
-            //if (!_isCommentatorSpeak) {
-            //    //実況者を大きくする
-            //    CommentatorExpansion();
-            //}
+            case 4:
 
-            ////解説者が大きくなっていたら
-            //if (_isLiveCommentatorSpeak) {
-            //    //解説者を小さくする
-            //    LiveCommentatorReduction();
-            //}
+                //解説者
+                LiveCommentatorCommentChange("どのタイミングでアイテムをつかうか、ちゅうもくケロ", false, _liveCommentatorVoices[2]);
 
-        } else if (_randomValue == 4) {
-            //解説者
-            CommentatorCommentChange("あぶないとき、いかにしたをつかうかがたいせつですね", false, _liveCommentatorVoices[1]);
+                break;
 
-            if (!_isLiveCommentatorSpeak) {
-                //解説者を拡大
-                LiveCommentatorExpansion();
-            }
+            case 5:
+
+                //解説者
+                LiveCommentatorCommentChange("このコースには、おとしあながあるケロ！きをつけて！", false, _liveCommentatorVoices[3]);
+
+                break;
+
+            case 6:
+                _isCommentStop = true;
+                string topFrogName = _rankScript._ranking[0].name;
 
 
 
-            //実況者が大きくなっていたら
-            if (_isCommentatorSpeak) {
-                //実況者を縮小
-                CommentatorReduction();
 
-            }
+                int case6VoiceNumber = 2;
+                if (topFrogName == _1Pname) {
+                    topFrogName = "<color=green>" + topFrogName + "</color>";
+                    _commentatorVoices[case6VoiceNumber] = _topFrogNameVoices[kerokoVoice];
+                } else if (topFrogName == _2Pname) {
+                    topFrogName = "<color=#F0F121>" + topFrogName + "</color>";
+                    _commentatorVoices[case6VoiceNumber] = _topFrogNameVoices[keroseiVoice];
+                } else if (topFrogName == _3Pname) {
+                    topFrogName = "<color=blue>" + topFrogName + "</color>";
+                    _commentatorVoices[case6VoiceNumber] = _topFrogNameVoices[keroreoVoice];
+                } else if (topFrogName == _4Pname) {
+                    topFrogName = "<color=#E030C4>" + topFrogName + "</color>";
+                    _commentatorVoices[case6VoiceNumber] = _topFrogNameVoices[keroyaVoice];
+                }
 
-        } else if (_randomValue == 5) {
-            //解説者
-            LiveCommentatorCommentChange("どのタイミングでアイテムをつかうか、ちゅうもくです", false, _liveCommentatorVoices[2]);
 
-            //if (!_isLiveCommentatorSpeak) {
-            //    //解説者を拡大
-            //    LiveCommentatorExpansion();
-            //}
+                CommentatorCommentChange("げんざい、トップをはしっているのは" + topFrogName + "だケロ", false, _commentatorVoices[case6VoiceNumber]);
+                StartCoroutine(CommentDialogue());
+                break;
 
-            ////実況者が大きくなっていたら
-            //if (_isCommentatorSpeak) {
-            //    //実況者を縮小
-            //    CommentatorReduction();
-            //}
-        } else if (_randomValue == 6) {
-            //解説者
-            LiveCommentatorCommentChange("このコースには、おとしあなあるそうです！きをつけて！", false, _liveCommentatorVoices[1]);
+            case 7:
+                _isCommentStop = true;
+                string lowestFrogName = _rankScript._ranking[3].name;
+                if (!_rankScript._ranking[3].activeSelf) {
+                    lowestFrogName = _rankScript._ranking[2].name;
+                }
+                if (!_rankScript._ranking[2].activeSelf) {
+                    lowestFrogName = _rankScript._ranking[1].name;
+                }
 
-            if (!_isLiveCommentatorSpeak) {
-                //解説者を拡大
-                LiveCommentatorExpansion();
-            }
 
-            //実況者が大きくなっていたら
-            if (_isCommentatorSpeak) {
-                //実況者を縮小
-                CommentatorReduction();
-            }
+
+
+                int case7VoiceNumber = 3;
+                if (lowestFrogName == _1Pname) {
+                    lowestFrogName = "<color=green>" + lowestFrogName + "</color>";
+                    _commentatorVoices[case7VoiceNumber] = _lowestFrogNameVoices[kerokoVoice];
+                } else if (lowestFrogName == _2Pname) {
+                    lowestFrogName = "<color=#F0F121>" + lowestFrogName + "</color>";
+                    _commentatorVoices[case7VoiceNumber] = _lowestFrogNameVoices[keroseiVoice];
+                } else if (lowestFrogName == _3Pname) {
+                    lowestFrogName = "<color=blue>" + lowestFrogName + "</color>";
+                    _commentatorVoices[case7VoiceNumber] = _lowestFrogNameVoices[keroreoVoice];
+                } else if (lowestFrogName == _4Pname) {
+                    lowestFrogName = "<color=#E030C4>" + lowestFrogName + "</color>";
+                    _commentatorVoices[case7VoiceNumber] = _lowestFrogNameVoices[keroyaVoice];
+                }
+
+
+                CommentatorCommentChange("げんざい、へびにもっともちかいのは" + lowestFrogName + "だケロ", false, _commentatorVoices[case7VoiceNumber]);
+                StartCoroutine(CommentDialogue());
+                break;
+
+            case 8:
+                _isCommentStop = true;
+                CommentatorCommentChange("じっきょうは、わたくし「けろてつ」と", false, _commentatorVoices[4]);
+                StartCoroutine(CommentDialogue());
+                break;
         }
 
+    }
+    private IEnumerator CommentDialogue() {
+        float waitTime = 3f;
+        yield return new WaitForSeconds(waitTime);
+        switch (_randomValue) {
+
+            case 6:
+                _isCommentStop = false;
+                _commentChangeTime = 0;
+                if (!_isInterrupt) {
+                    LiveCommentatorCommentChange("このままはしりぬいてほしいケロ！", false, _liveCommentatorVoices[4]);
+                }
+
+                break;
+            case 7:
+                _isCommentStop = false;
+                _commentChangeTime = 0;
+                if (!_isInterrupt) {
+                    LiveCommentatorCommentChange("もうあとがないケロ、いそいでまえへでるケロ！！", false, _liveCommentatorVoices[5]);
+                }
+
+
+                break;
+            case 8:
+                _isCommentStop = false;
+                _commentChangeTime = 0;
+                if (!_isInterrupt) {
+                    LiveCommentatorCommentChange("かいせつのけろちーばでおおくりするケロ！", false, _liveCommentatorVoices[6]);
+                }
+
+                break;
+        }
     }
 
     /// <summary>
@@ -408,7 +468,7 @@ public class CommentScript : MonoBehaviour {
                 break;
             case 8:
                 _frogVoice.Stop();
-                CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！いっきにまえへすすむことができるケロ", false, _tutolialVoices[_nextCommentNumber]);
+                CommentatorCommentChange("Rボタンでベロをだすケロ。あいてにあてることができればけいせいぎゃくてんのチャンス！" + "\n" + "いっきにまえへすすむことができるケロ", false, _tutolialVoices[_nextCommentNumber]);
                 _xButton.SetActive(true);
                 _isNextComment = true;
                 _nextCommentNumber++;
@@ -417,7 +477,7 @@ public class CommentScript : MonoBehaviour {
                 break;
             case 11:
                 _frogVoice.Stop();
-                CommentatorCommentChange("ステージちゅうにはさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false, _tutolialVoices[_nextCommentNumber]);
+                CommentatorCommentChange("レースちゅうでつかえるさまざまなアイテムがあるケロ。にじいろにひかるハエをとり、アイテムをゲットするケロ", false, _tutolialVoices[_nextCommentNumber]);
                 _xButton.SetActive(true);
                 _isNextComment = true;
                 _nextCommentNumber++;
@@ -431,7 +491,7 @@ public class CommentScript : MonoBehaviour {
                 break;
             case 16:
                 _frogVoice.Stop();
-                CommentatorCommentChange("そうさほうほうはいじょうケロ。さあ、デスゲームかいじょうにとうちゃくケロ！", false, _tutolialVoices[_nextCommentNumber]);
+                CommentatorCommentChange("そうさほうほうはいじょうケロ。" + "\n" + "さあ、デスレースかいじょうにとうちゃくケロ！", false, _tutolialVoices[_nextCommentNumber]);
                 _xButton.SetActive(true);
                 _isNextComment = true;
                 _nextCommentNumber++;
@@ -440,8 +500,13 @@ public class CommentScript : MonoBehaviour {
 
     }
 
-    public void CommentatorCommentChange(string message, bool isGameStart, AudioClip frogVoiceClip) {
+    public void Interrupt() {
+        _isInterrupt = true;
+    }
 
+    public void CommentatorCommentChange(string message, bool isGameStart, AudioClip frogVoiceClip) {
+        _commentChangeTime = 0;
+        _frogVoice.Stop();
         _frogVoice.PlayOneShot(frogVoiceClip);
         if (!_isStartComment) {
 
@@ -458,7 +523,7 @@ public class CommentScript : MonoBehaviour {
             }
 
             _isStartComment = isGameStart;
-            _commentChangeTime = 0;
+
             _commentText.text = message;
         }
 
@@ -466,6 +531,8 @@ public class CommentScript : MonoBehaviour {
     }
 
     public void LiveCommentatorCommentChange(string message, bool isGameStart, AudioClip frogVoiceClip) {
+        _frogVoice.Stop();
+
         if (!_isStartComment) {
             _frogVoice.PlayOneShot(frogVoiceClip);
             if (_isCommentatorSpeak) {

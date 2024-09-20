@@ -3,41 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class StartTextScript : MonoBehaviour
-{[SerializeField]
+public class StartTextScript : MonoBehaviour {
+    [SerializeField]
     private AudioClip[] _audio;
     private AudioSource[] _audioSource;
     [SerializeField]
     private ClearMan _clear;
     [SerializeField]
     private GameOverMan _gameOver;
-    private bool _isPlay=true;
+    private bool _isPlay = true;
     private bool _isStart = true;
     [SerializeField]
     private CountDowntext _count;
     [SerializeField] CommentScript _commentScript = default;
     [SerializeField] private StageRoopManFixed _stage;
-   //[SerializeField] private Animator _ani;
-   [SerializeField] private Image[] _text;
+    //[SerializeField] private Animator _ani;
+    [SerializeField] private Image[] _text;
     [Header("スタートのボイス"), SerializeField] private AudioClip _frogVoice = default;
     // Start is called before the first frame update
 
-    private void Start() 
-    {
+    private void Start() {
         _audioSource = GetComponents<AudioSource>();
-        
-      _audioSource[0].clip = _audio[0];
-        _audioSource[1].clip = _audio[1];      
+
+        _audioSource[0].clip = _audio[0];
+        _audioSource[1].clip = _audio[1];
         _count._bgm.Play();
         //_audioSource[0].PlayOneShot(_audio[0]);
-        _commentScript.CommentatorCommentChange("さあ、今回もやってまいりましたカエルデスレース！！！", true,_frogVoice);
+        _commentScript.CommentatorCommentChange("さあ、こんかいもやってまいりましたカエルデスレース！！！", true, _frogVoice);
         _stage.ReadyGo(true);
     }
     private void Update() {
-      
+
         if (_isStart) {
             StartCoroutine(StartAnimation());
-            _isStart = false;       
+            _isStart = false;
         }
         if (_isPlay) {
             if (_clear._switchNumber == 6) {
@@ -51,11 +50,11 @@ public class StartTextScript : MonoBehaviour
             }
 
         }
-        
+
     }
 
     private IEnumerator StartAnimation() {
-       
+
         yield return new WaitForSeconds(2);
         _text[0].enabled = true;
         _text[1].enabled = true;

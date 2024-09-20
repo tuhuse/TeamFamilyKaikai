@@ -22,16 +22,25 @@ public class CameraRankScript : MonoBehaviour {
     private bool _isDown = default;
     private bool _isStart = false;
 
+    private bool _is1Pvoices = default;
+    private bool _is2Pvoices = default;
+    private bool _is3Pvoices = default;
+    private bool _is4Pvoices = default;
+
+
 
 
     //private float _playerDistance = default;
     private float _camposiChangeY = default;
 
+    private float _rankChangeCommentTime = 0;
 
     private float _firstPosition = default;
     private float _secondPosition = default;
     private float _thirdPosition = default;
     private float _forthPosition = default;
+
+    private int _voiceNumber = 0;
 
 
     private string _1Pname = "けろこ";
@@ -65,7 +74,10 @@ public class CameraRankScript : MonoBehaviour {
     [SerializeField] private StageRoopManFixed _stageRoopManage;
     [SerializeField] private CommentScript _commentText = default;
 
-    [Header("ぬかしましたボイス"), SerializeField] private AudioClip _frogVoice = default;
+    [Header("ぬかしましたボイス"), SerializeField] private List<AudioClip> _1pfrogVoices = default;
+    [Header("ぬかしましたボイス"), SerializeField] private List<AudioClip> _2pfrogVoices = default;
+    [Header("ぬかしましたボイス"), SerializeField] private List<AudioClip> _3pfrogVoices = default;
+    [Header("ぬかしましたボイス"), SerializeField] private List<AudioClip> _4pfrogVoices = default;
 
     // Start is called before the first frame update
     void Awake() {
@@ -81,6 +93,11 @@ public class CameraRankScript : MonoBehaviour {
         if (_isGameStart) {
             CameeeraRank(true);
         }
+
+        if (_rankChangeCommentTime <= 25) {
+            _rankChangeCommentTime += Time.deltaTime;
+        }
+
     }
     public void SceneStart() {
         _isStart = false;
@@ -152,13 +169,14 @@ public class CameraRankScript : MonoBehaviour {
         string bePullOutPlayer = default;
         if (alive) {
             {
+
                 //１位の場所の計算
                 _firstPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINFIRST].transform.position.x;
 
                 //２位のカエルが１位のカエルよりも前に行ったら
                 if (_firstPosition >= _cameraEdgeObject.transform.position.x - _ranking[ORIGINSECOND].transform.position.x) {
 
-
+                    AudioClip frogVoice = default;
                     //プレイヤーが一位だったら
                     if (_ranking[ORIGINFIRST].gameObject.CompareTag(_playerTag)) {
                         //プレイヤーを２位に下げる
@@ -177,28 +195,76 @@ public class CameraRankScript : MonoBehaviour {
                     _ranking[ORIGINFIRST] = _ranking[ORIGINSECOND];
                     _ranking[ORIGINSECOND] = _dummy;
 
+                    //抜いたカエルの名前の色変更
+                    //緑
                     if (_ranking[ORIGINFIRST].name == _1Pname) {
+
                         pullOutPlayer = "<color=green>" + _ranking[ORIGINFIRST].name + "</color>";
-                    } else if (_ranking[ORIGINFIRST].name == _2Pname) {
+                        _is1Pvoices = true;
+                    }
+                    //黄色
+                    else if (_ranking[ORIGINFIRST].name == _2Pname) {
                         pullOutPlayer = "<color=#F0F121>" + _ranking[ORIGINFIRST].name + "</color>";
-                    } else if (_ranking[ORIGINFIRST].name == _3Pname) {
+                        _is2Pvoices = true;
+                    }
+                    //青
+                    else if (_ranking[ORIGINFIRST].name == _3Pname) {
                         pullOutPlayer = "<color=blue>" + _ranking[ORIGINFIRST].name + "</color>";
-                    } else if (_ranking[ORIGINFIRST].name == _4Pname) {
+                        _is3Pvoices = true;
+                    }
+                    //ピンク
+                    else if (_ranking[ORIGINFIRST].name == _4Pname) {
                         pullOutPlayer = "<color=#E030C4>" + _ranking[ORIGINFIRST].name + "</color>";
+                        _is4Pvoices = true;
                     }
 
+                    //ぬかされたカエルの名前の色変更
+                    //緑
                     if (_ranking[ORIGINSECOND].name == _1Pname) {
                         bePullOutPlayer = "<color=green>" + _ranking[ORIGINSECOND].name + "</color>";
-                    } else if (_ranking[ORIGINSECOND].name == _2Pname) {
+                        _voiceNumber = 0;
+                    }
+                    //黄色
+                    else if (_ranking[ORIGINSECOND].name == _2Pname) {
                         bePullOutPlayer = "<color=#F0F121>" + _ranking[ORIGINSECOND].name + "</color>";
-                    } else if (_ranking[ORIGINSECOND].name == _3Pname) {
+                        _voiceNumber = 1;
+                    }
+                    //青
+                    else if (_ranking[ORIGINSECOND].name == _3Pname) {
                         bePullOutPlayer = "<color=blue>" + _ranking[ORIGINSECOND].name + "</color>";
-                    } else if (_ranking[ORIGINSECOND].name == _4Pname) {
+                        _voiceNumber = 2;
+                    }
+                    //ピンク
+                    else if (_ranking[ORIGINSECOND].name == _4Pname) {
                         bePullOutPlayer = "<color=#E030C4>" + _ranking[ORIGINSECOND].name + "</color>";
+                        _voiceNumber = 3;
                     }
 
 
-                    _commentText.CommentatorCommentChange("ここで" + pullOutPlayer + "が" + bePullOutPlayer + "をおいこし、1いにおどりでました!!!", false, _frogVoice);
+                    //追い越しボイスの設定
+                    if (_is1Pvoices) {
+                        frogVoice = _1pfrogVoices[_voiceNumber];
+                    } else if (_is2Pvoices) {
+                        frogVoice = _2pfrogVoices[_voiceNumber];
+                    } else if (_is3Pvoices) {
+                        frogVoice = _3pfrogVoices[_voiceNumber];
+                    } else if (_is4Pvoices) {
+                        frogVoice = _4pfrogVoices[_voiceNumber];
+                        print(_4pfrogVoices[_voiceNumber]);
+                    }
+
+                    if (_rankChangeCommentTime >= 25) {
+                        _commentText.Interrupt();
+                        _commentText.CommentatorCommentChange("ここで" + pullOutPlayer + "が" + bePullOutPlayer + "をおいこし、1いにおどりでました!!!", false, frogVoice);
+                        _rankChangeCommentTime = 0;
+
+                        _is1Pvoices = false;
+                        _is2Pvoices = false;
+                        _is3Pvoices = false;
+                        _is4Pvoices = false;
+
+
+                    }
 
                     _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
                 }

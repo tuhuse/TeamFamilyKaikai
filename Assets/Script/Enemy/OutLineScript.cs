@@ -24,7 +24,7 @@ public class OutLineScript : MonoBehaviour {
 
     private BoxCollider2D _thisCollider = default;
 
-    [Header("脱落ボイス"),SerializeField] private AudioClip _frogVoice = default;
+    [Header("脱落ボイス"), SerializeField] private List<AudioClip> _outFrogVoices = default;
     private string _1pName = "けろこ";
     private string _2pName = "けろせい";
     private string _3pName = "けろれお";
@@ -41,7 +41,7 @@ public class OutLineScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
 
-
+        int voiceNumber = 0;
         //collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         //collision.gameObject.GetComponent<PlayercontrollerScript>().enabled = false;
         if (((collision.gameObject.tag == "Player") || collision.gameObject.tag == "CPU") && _countEat < 3) {
@@ -51,41 +51,51 @@ public class OutLineScript : MonoBehaviour {
             //collision.gameObject.SetActive(false);
             _deathBomb.Play();
             _eatFrogEffect.Play();
-          
+
             if (collision.gameObject.layer == 12) {//緑
-              
+
                 _coolDownGages[0].GetComponent<TongueGageScript>().DethFrog();
             }
             if (collision.gameObject.layer == 13) {//黄色
-                
+
                 _coolDownGages[1].GetComponent<TongueGageScript>().DethFrog();
-                
+
             }
             if (collision.gameObject.layer == 10) {//青
-                
+
                 _coolDownGages[2].GetComponent<TongueGageScript>().DethFrog();
-              
+
             }
             if (collision.gameObject.layer == 8) {//ピンク
-                
+
                 _coolDownGages[3].GetComponent<TongueGageScript>().DethFrog();
-               
+
             }
-            
+
 
 
             string outFrogName = default;
 
-            if (collision.gameObject.name == _1pName) {
-                outFrogName = "<color=green>" + collision.gameObject.name + "</color>";
-            } else if (collision.gameObject.name == _2pName) {
-                outFrogName = "<color=#F0F121>" + collision.gameObject.name + "</color>";
-            } else if (collision.gameObject.name == _3pName) {
-                outFrogName = "<color=blue>" + collision.gameObject.name + "</color>";
-            } else if (collision.gameObject.name == _4pName) {
-                outFrogName = "<color=#E030C4>" + collision.gameObject.name + "</color>";
+            if (_countEat < 3) {
+                if (collision.gameObject.name == _1pName) {
+                    outFrogName = "<color=green>" + collision.gameObject.name + "</color>";
+                    voiceNumber = 0;
+                } else if (collision.gameObject.name == _2pName) {
+                    outFrogName = "<color=#F0F121>" + collision.gameObject.name + "</color>";
+                    voiceNumber = 1;
+                } else if (collision.gameObject.name == _3pName) {
+                    outFrogName = "<color=blue>" + collision.gameObject.name + "</color>";
+                    voiceNumber = 2;
+                } else if (collision.gameObject.name == _4pName) {
+                    outFrogName = "<color=#E030C4>" + collision.gameObject.name + "</color>";
+                    voiceNumber = 3;
+                }
+
+                _commentScript.CommentatorCommentChange("ここで" + outFrogName + "がだつらく！！！", false, _outFrogVoices[voiceNumber]);
             }
-            _commentScript.CommentatorCommentChange("ここで" + outFrogName + "がだつらく！！！", false, _frogVoice);
+
+
+
 
             //collision.gameObject.SetActive(false);
             _sneakAnimScript.Attack();

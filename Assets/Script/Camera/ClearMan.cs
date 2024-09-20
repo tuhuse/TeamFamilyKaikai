@@ -21,12 +21,11 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private List<GameObject> _anotherEnemys = new List<GameObject>(); // 他の敵オブジェクトのリスト
     [SerializeField] private List<GameObject> _anotherPlayers = new List<GameObject>(); // 他のプレイヤーオブジェクトのリスト
     private List<GameObject> _rankingList = new List<GameObject>(); // ランキングのリスト
-   [SerializeField] private Image[] _podiumfrog;
+    [SerializeField] private Image[] _podiumfrog;
     [SerializeField] private Image _doubleObjectImage = default;//倍速の矢印
-    [SerializeField] private GameObject _skip;
     [SerializeField] private Image[] _nameFrog;
     [SerializeField] private List<Sprite> _doubleSpeedImage = new List<Sprite>();
-   [SerializeField] private GameObject[] _podiumfrogs;
+    [SerializeField] private GameObject[] _podiumfrogs;
     private float _fallMin = -60f; // オブジェクトが落下する最小Y座標
     public int _switchNumber = 0; // スイッチ番号（状態管理）
     private float _sizeLimit = 20; // サイズ制限（未使用）
@@ -50,8 +49,15 @@ public class ClearMan : MonoBehaviour {
     [SerializeField] private CameraRankScript _cameraRank = default; // カメラランキングのスクリプト
     [SerializeField] private StageRoopManFixed _stageRoopScript = default; // ステージループ管理スクリプト
 
-    private enum Rank {First,Second,Three,Four}
+    [SerializeField] private CommentScript _clearCommentScript = default;
+
+    private enum Rank {
+        First, Second, Three, Four
+    }
     private Rank _rank = default;
+
+    [SerializeField] private AudioClip _commentatorAudio = default;
+    [SerializeField] private AudioClip _liveCommentatorAudio = default;
     // Start is called before the first frame update
     void Start() {
         // CPUとプレイヤーオブジェクトをリストに追加
@@ -65,12 +71,9 @@ public class ClearMan : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() 
-    {
+    void Update() {
 
-        if (_isSpeedUP) 
-        {
-            _skip.SetActive(true);
+        if (_isSpeedUP) {
             int maxGameSpeed = 3;
             int minGameSpeed = 0;
             if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect && _gameSpeed < maxGameSpeed) {
@@ -98,7 +101,6 @@ public class ClearMan : MonoBehaviour {
                 }
                 _isSpeedUP = false;
                 _doubleObjectImage.GetComponent<Image>().enabled = false;
-                _skip.SetActive(false);
                 // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
                 _rankingList.Insert(0, _frogs[0]);
                 _cameraRank.CameeeraRank(false);
@@ -106,7 +108,7 @@ public class ClearMan : MonoBehaviour {
 
                 _cameraShake.StopCameraShake(true);
             }
-           
+
 
         }
         // カメラスケールの調整
@@ -141,11 +143,11 @@ public class ClearMan : MonoBehaviour {
                 // ランキングの表示
                 Time.timeScale = 1f;
                 foreach (GameObject rank in _rankingList) {
-                    
+
                     switch (_rank) {
                         case Rank.First:
                             if (_rankingList[0] == _podiumfrogs[0]) {
-                                _podiumfrog[0].enabled=true;
+                                _podiumfrog[0].enabled = true;
                                 _podiumfrog[0].GetComponent<Animator>().enabled = true;
                                 _nameFrog[0].enabled = true;
                             } else if (_rankingList[0] == _podiumfrogs[1] || _rankingList[0] == _podiumfrogs[4]) {
@@ -161,10 +163,10 @@ public class ClearMan : MonoBehaviour {
                                 _podiumfrog[3].GetComponent<Animator>().enabled = true;
                                 _nameFrog[3].enabled = true;
                             }
-                          
+
                             _rank = Rank.Second;
 
-                            
+
                             break;
                         case Rank.Second:
                             if (_rankingList[1] == _podiumfrogs[0]) {
@@ -184,9 +186,9 @@ public class ClearMan : MonoBehaviour {
                                 _podiumfrog[7].GetComponent<Animator>().enabled = true;
                                 _nameFrog[7].enabled = true;
                             }
-                         
+
                             _rank = Rank.Three;
-                            
+
                             break;
                         case Rank.Three:
                             if (_rankingList[2] == _podiumfrogs[0]) {
@@ -206,7 +208,7 @@ public class ClearMan : MonoBehaviour {
                                 _podiumfrog[11].GetComponent<Animator>().enabled = true;
                                 _nameFrog[11].enabled = true;
                             }
-                          
+
                             _rank = Rank.Four;
                             break;
                         case Rank.Four:
@@ -225,7 +227,7 @@ public class ClearMan : MonoBehaviour {
                                 _nameFrog[15].enabled = true;
 
                             }
-                            
+
                             break;
                     }
                     _rankingList[0].SetActive(false);
@@ -263,12 +265,10 @@ public class ClearMan : MonoBehaviour {
     }
 
     // プレイヤーまたはCPUの脱落処理
-    public void DropOuts(GameObject dropOutFrog) 
-     {
+    public void DropOuts(GameObject dropOutFrog) {
         // プレイヤーがタグ「Player」の場合、人数をカウント
         foreach (GameObject players in _frogs) {
-            if (players.CompareTag("Player")) 
-            {
+            if (players.CompareTag("Player")) {
                 _alivePlayersCount++;
             }
         }
@@ -277,8 +277,7 @@ public class ClearMan : MonoBehaviour {
         }
 
         // プレイヤーが3人以上残っている場合のフラグ設定
-        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) 
-        {
+        if (_alivePlayersCount == 3 || _alivePlayersCount == 4) {
             _threeOrMorePeople = true;
         }
 
@@ -287,34 +286,29 @@ public class ClearMan : MonoBehaviour {
 
         // Frogsリストから脱落したFrogを削除
         for (int frogCount = 0; frogCount < _frogs.Count; frogCount++) {
-            if (_frogs[frogCount] == dropOutFrog) 
-            {              
+            if (_frogs[frogCount] == dropOutFrog) {
                 _frogs.Remove(_frogs[frogCount]);
             }
         }
 
         // プレイヤーまたはCPUのカウントを減らす
-        if (dropOutFrog.gameObject.CompareTag("Player")) 
-        {
+        if (dropOutFrog.gameObject.CompareTag("Player")) {
             _playerCount--;
-        } 
-        else if (dropOutFrog.gameObject.CompareTag("CPU"))
-        {
+        } else if (dropOutFrog.gameObject.CompareTag("CPU")) {
             _cpuCount--;
         }
 
         // プレイヤーとCPUの合計が4を超える場合、Frogを非アクティブにする
-        if (_cpuCount + _playerCount > 4) 
-        {
-          
+        if (_cpuCount + _playerCount > 4) {
+
             dropOutFrog.SetActive(false);
         }
 
         // ゲームの終了条件に達した場合の処理
         int gameEndPlayerCount = 1;
-       
-        if (_cpuCount + _playerCount <= 4) 
-        {
+
+        if (_cpuCount + _playerCount <= 4) {
+            _clearCommentScript.CommentatorCommentChange("しゅう～～～～～りょう～～～～～！！！", false, _commentatorAudio);
             _isSpeedUP = false;
             // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
             _rankingList.Insert(0, _frogs[0]);
@@ -322,12 +316,11 @@ public class ClearMan : MonoBehaviour {
             _cameraRank.CameeeraRank(false);
             _sneak.Access(true);
             _cameraShake.StopCameraShake(true);
-         
-        }
-        else if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
+
+        } else if (_isPlayerDeth && _alivePlayersCount == gameEndPlayerCount && !_threeOrMorePeople) {
             Time.timeScale = _gameSpeed;
             _isSpeedUP = true;
-            _doubleObjectImage.GetComponent<Image>().enabled =true;
+            _doubleObjectImage.GetComponent<Image>().enabled = true;
             _stageRoopScript.CompulsionHarryUP();
         }
 
@@ -343,17 +336,20 @@ public class ClearMan : MonoBehaviour {
         // カメラをFrogの位置に移動
         _camera.transform.position = new Vector3(leaveFrog.transform.position.x, leaveFrog.transform.position.y, -10);
         _cameraScale = true;
-        leaveFrog.GetComponent<SpriteRenderer>().enabled=false;
+        leaveFrog.GetComponent<SpriteRenderer>().enabled = false;
         // 脱落したFrogの周りにアウトラインを表示
         _outLineParent.transform.SetParent(leaveFrog.transform, true);
         _outLineParent.transform.position = new Vector3(leaveFrog.transform.position.x + 5, leaveFrog.transform.position.y, 0);
-       
+
         yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0.1f;
+
+        yield return new WaitForSeconds(0.3f);
+        _clearCommentScript.LiveCommentatorCommentChange("それでは、こんかいのけっかをみてみましょう", false, _liveCommentatorAudio);
         yield return new WaitForSeconds(0.4f);
         leaveFrog.SetActive(false);
         _switchNumber = 5;
-        
+
     }
 
 }
