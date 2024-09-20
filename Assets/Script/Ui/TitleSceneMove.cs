@@ -27,14 +27,16 @@ public class TitleSceneMove : MonoBehaviour {
         _selectButton = 0;
         _audio = this.GetComponent<AudioSource>();
 
-        int randomValue = Random.Range(0, 4);
+        int randomValue = Random.Range(0, 5);
         _audio.PlayOneShot(_titleColl[randomValue]);
-        print(_titleColl[randomValue]);
+     
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update() 
+    {
+       
         if (_selectButton == 0) {
             _animator[0].SetBool("Change", true);
             _animator[1].SetBool("Change", false);

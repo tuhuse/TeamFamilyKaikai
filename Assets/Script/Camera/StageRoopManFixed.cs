@@ -234,7 +234,12 @@ public class StageRoopManFixed : MonoBehaviour {
         yield return new WaitForSeconds(1);
         _cameraShake.StartCameraShake();
         _hurryUpText[0].SetActive(true);
-       
+
+        if (!_isOneShot) {
+            _isOneShot = true;
+            _audio.PlayOneShot(_warningSE);
+
+        }
         yield return new WaitForSeconds(3);
         for (int number = _prefabNumber; number < _addPrefabs.Count; number++) {
             _prefabs.Insert(_randomMax, _addPrefabs[number]);
@@ -242,17 +247,12 @@ public class StageRoopManFixed : MonoBehaviour {
         }
 
 
-        if (!_isOneShot) {
-            _isOneShot = true;
-            _audio.PlayOneShot(_warningSE);
-
-        }
         _cameraShake.StopCameraShake(false);
         _hurryUpText[0].SetActive(false);
         
         
         _count._bgm.pitch = 1.4f;
-        _count._bgm.volume = 1;
+        _count._bgm.volume = 0.7f;
     }
     public void ReadyGo(bool isGo) {
         if (isGo) {

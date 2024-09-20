@@ -73,8 +73,10 @@ public class ClearMan : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (_isSpeedUP) {
+        if (_isSpeedUP) 
+        {
             _skip.SetActive(true);
+            _clearCommentScript.enabled = false;
             int maxGameSpeed = 3;
             int minGameSpeed = 0;
             if (Input.GetAxis("1pLstickHorizontal") > 0 && !_isSelect && _gameSpeed < maxGameSpeed) {
@@ -308,8 +310,9 @@ public class ClearMan : MonoBehaviour {
         // ゲームの終了条件に達した場合の処理
         int gameEndPlayerCount = 1;
 
-        if (_cpuCount + _playerCount <= 4) {
-            _clearCommentScript.CommentatorCommentChange("しゅう～～～～～りょう～～～～～！！！", false, _commentatorAudio);
+        if (_cpuCount + _playerCount <= 4) 
+        {
+            _clearCommentScript.CommentatorCommentChange("ここでレースのしょうしゃがきまりました！！！", false, _commentatorAudio);
             _isSpeedUP = false;
             // ランキングリストに残りのFrogを追加し、タイムスケールをリセットする
             _rankingList.Insert(0, _frogs[0]);
@@ -346,10 +349,11 @@ public class ClearMan : MonoBehaviour {
         Time.timeScale = 0.1f;
 
         yield return new WaitForSeconds(0.3f);
-        _clearCommentScript.LiveCommentatorCommentChange("それでは、こんかいのけっかをみてみましょう", false, _liveCommentatorAudio);
+        _clearCommentScript.LiveCommentatorCommentChange("それでは、こんかいのけっかをみてみるケロ", false, _liveCommentatorAudio);
         yield return new WaitForSeconds(0.4f);
         leaveFrog.SetActive(false);
         _switchNumber = 5;
+        _clearCommentScript.enabled = false;
 
     }
 

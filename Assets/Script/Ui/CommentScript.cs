@@ -74,7 +74,7 @@ public class CommentScript : MonoBehaviour {
     }
 
     void Update() {
-        print(_nextCommentNumber);
+
         if (Input.GetKeyDown(KeyCode.Escape)) {
             _isStart = true;
         }
@@ -286,9 +286,6 @@ public class CommentScript : MonoBehaviour {
             case 6:
                 _isCommentStop = true;
                 string topFrogName = _rankScript._ranking[0].name;
-
-
-
 
                 int case6VoiceNumber = 2;
                 if (topFrogName == _1Pname) {
@@ -513,7 +510,8 @@ public class CommentScript : MonoBehaviour {
         _frogVoice.PlayOneShot(frogVoiceClip);
         if (!_isStartComment) {
 
-            if (!_isCommentatorSpeak) {
+            if (!_isCommentatorSpeak) 
+            {
                 //ŽÀ‹µŽÒ‚ð‘å‚«‚­‚·‚é
                 CommentatorExpansion();
             }
@@ -528,6 +526,7 @@ public class CommentScript : MonoBehaviour {
             _isStartComment = isGameStart;
 
             _commentText.text = message;
+            print(message);
         }
 
 

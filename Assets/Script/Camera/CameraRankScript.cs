@@ -169,7 +169,7 @@ public class CameraRankScript : MonoBehaviour {
         string bePullOutPlayer = default;
         if (alive) {
             {
-
+                
                 //ÇPà ÇÃèÍèäÇÃåvéZ
                 _firstPosition = _cameraEdgeObject.transform.position.x - _ranking[ORIGINFIRST].transform.position.x;
 
@@ -250,21 +250,24 @@ public class CameraRankScript : MonoBehaviour {
                         frogVoice = _3pfrogVoices[_voiceNumber];
                     } else if (_is4Pvoices) {
                         frogVoice = _4pfrogVoices[_voiceNumber];
-                        print(_4pfrogVoices[_voiceNumber]);
+                        
                     }
 
-                    if (_rankChangeCommentTime >= 25) {
+                    if (_rankChangeCommentTime >= 25) 
+                    {
                         _commentText.Interrupt();
                         _commentText.CommentatorCommentChange("Ç±Ç±Ç≈" + pullOutPlayer + "Ç™" + bePullOutPlayer + "ÇÇ®Ç¢Ç±ÇµÅA1Ç¢Ç…Ç®Ç«ÇËÇ≈ÇΩÉPÉç!!!", false, frogVoice);
                         _rankChangeCommentTime = 0;
 
-                        _is1Pvoices = false;
-                        _is2Pvoices = false;
-                        _is3Pvoices = false;
-                        _is4Pvoices = false;
+                        
 
 
                     }
+
+                    _is1Pvoices = false;
+                    _is2Pvoices = false;
+                    _is3Pvoices = false;
+                    _is4Pvoices = false;
 
                     _stageRoopManage.FirstChange(_ranking[ORIGINFIRST]);
                 }
