@@ -253,7 +253,7 @@ public class CommentScript : MonoBehaviour {
         int keroyaVoice = 3;
 
         _isInterrupt = false;
-        _randomValue = Random.Range(8, 9);
+        _randomValue = Random.Range(0, 9);
         switch (_randomValue) {
             case 0:
                 //ŽÀ‹µŽÒ
