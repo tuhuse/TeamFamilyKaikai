@@ -13,8 +13,8 @@ public class TitleSceneMove : MonoBehaviour {
     private Animator _color;
     private bool _isSelect;
     [SerializeField] private Animator[] _animator;
-    private bool _isFarstSelect = false;
 
+    private bool _isFirstSelect = false;
     //[SerializeField] private GameObject _selectParent;
     //[SerializeField] private GameObject _titleParent;
 
@@ -26,7 +26,7 @@ public class TitleSceneMove : MonoBehaviour {
         Time.timeScale = 1;
         _selectButton = 0;
         _audio = this.GetComponent<AudioSource>();
-
+        StartCoroutine(Wait());
         int randomValue = Random.Range(0, 5);
         _audio.PlayOneShot(_titleColl[randomValue]);
      
@@ -48,58 +48,65 @@ public class TitleSceneMove : MonoBehaviour {
         if (!_isStart) {
             return;
         }
-        float lstick = Input.GetAxis("L_Stick_Horizontal");
-        float crosskey = Input.GetAxis("Debug Horizontal");
-        //右矢印を押したら
-        if ((lstick > 0 && !_isSelect) || (crosskey > 0 && !_isSelect)) {
-            _isFarstSelect = true;
-            _isSelect = true;
-            _selectButton = 1;
+        if (_isFirstSelect) {
+            float lstick = Input.GetAxis("L_Stick_Horizontal");
+            float crosskey = Input.GetAxis("Debug Horizontal");
+            //右矢印を押したら
+            if ((lstick > 0 && !_isSelect) || (crosskey > 0 && !_isSelect)) {
+                
+                _isSelect = true;
+                _selectButton = 1;
 
 
-
-        }
-
-        //左矢印を押した場合
-        if ((lstick < 0 && !_isSelect) || (crosskey < 0 && !_isSelect)) {
-            _isFarstSelect = true;
-            _isSelect = true;
-            _selectButton = 0;
-
-
-        }
-
-        //矢印ボタンを離したら
-        if (lstick == 0 && crosskey == 0) {
-            //また選択できるようにする
-            _isSelect = false;
-        }
-
-
-        if ((Input.GetButtonDown("Fire2") && _isFarstSelect) || (Input.GetKeyDown(KeyCode.Return) && _isFarstSelect)) {
-
-            _isFarstSelect = false;
-            if (_selectButton == 0) //returnを見ていた場合
-            {
-                _titlePanel.gameObject.GetComponent<Animator>().enabled = true;
-
-                _isStart = false;
-                StartCoroutine(TitleButtonStay());
-            } else //returnを見ていた場合
-              {
-                Application.Quit();
-                //ゲームを終了する
 
             }
 
+            //左矢印を押した場合
+            if ((lstick < 0 && !_isSelect) || (crosskey < 0 && !_isSelect)) {
+                
+                _isSelect = true;
+                _selectButton = 0;
+
+
+            }
+
+            //矢印ボタンを離したら
+            if (lstick == 0 && crosskey == 0) {
+                //また選択できるようにする
+                _isSelect = false;
+            }
+
+
+            if ((Input.GetButtonDown("Fire2")  || Input.GetKeyDown(KeyCode.Return))) {
+
+                
+                if (_selectButton == 0) //returnを見ていた場合
+                {
+                    _titlePanel.gameObject.GetComponent<Animator>().enabled = true;
+
+                    _isStart = false;
+                    StartCoroutine(TitleButtonStay());
+                } else //returnを見ていた場合
+                  {
+                    Application.Quit();
+                    //ゲームを終了する
+
+                }
+
+
+            }
 
         }
+
 
 
 
     }
 
-
+    private IEnumerator Wait() {
+        yield return new WaitForSeconds(1);
+        _isFirstSelect = true;
+    }
 
     private IEnumerator TitleButtonStay() {
         _gameClearText[0].SetActive(false);
