@@ -44,6 +44,15 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
         _thisSprite = this.GetComponent<SpriteRenderer>();
         _playerRB = GetComponentInParent<Rigidbody2D>();
         _tongueScaleY = this.transform.localScale.y;
+        
+        if (!_isAttack) {
+            _aqua.TongueUIStartCooldown();
+            _aqua.TongueCoolDownFloat(SUCCESSTONGUECATCH);
+            _isAttack = true;
+            _isExtension = true;
+            _underAttack = true;
+            _thisSprite.enabled = true;
+        }
     }
     void Update() {
 
@@ -93,9 +102,6 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
                 //ÉxÉçÇêLÇŒÇµénÇﬂÇÈ
                 if (!_isAttack) {
                     _aqua.TongueUIStartCooldown();
-
-
-
                     _aqua.TongueCoolDownFloat(SUCCESSTONGUECATCH);
                     _isAttack = true;
                     _isExtension = true;
