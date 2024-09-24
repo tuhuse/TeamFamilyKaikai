@@ -10,7 +10,6 @@ public class TitleSceneMove : MonoBehaviour {
     [SerializeField] List<GameObject> _gameClearText = new List<GameObject>(); //0にgo,1にreturnのテキストを入れる
     private int _selectButton = 2; //今見ているボタン
     public GameObject _preButton = default; //ひとつ前に選択していたボタン
-    private Animator _color;
     private bool _isSelect;
     [SerializeField] private Animator[] _animator;
 
@@ -56,8 +55,6 @@ public class TitleSceneMove : MonoBehaviour {
                 
                 _isSelect = true;
                 _selectButton = 1;
-
-
 
             }
 
