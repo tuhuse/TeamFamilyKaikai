@@ -14,7 +14,7 @@ public class TutorialMnager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Skip")) {
+        if (Input.GetButtonDown("Skip")||Input.GetKeyDown(KeyCode.Return)) {
             StartCoroutine(FeedOut());
         }
     }
