@@ -49,9 +49,9 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _aqua.TongueUIStartCooldown();
             _aqua.TongueCoolDownFloat(SUCCESSTONGUECATCH);
             _isAttack = true;
-            _isExtension = true;
-            _underAttack = true;
-            _thisSprite.enabled = true;
+            _isExtension = false;
+            _underAttack = false;
+            _thisSprite.enabled = false;
         }
     }
     void Update() {

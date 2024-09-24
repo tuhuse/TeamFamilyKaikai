@@ -23,8 +23,9 @@ public class CommentScript : MonoBehaviour {
     private string _3Pname = "けろれお";
     private string _4Pname = "けろや";
 
-    [SerializeField] GameObject _commentator = default;
-    [SerializeField] GameObject _liveCommentator = default;
+    [SerializeField]private GameObject _commentator = default;
+    [SerializeField]private GameObject _liveCommentator = default;
+    [SerializeField]private Image _frame;
 
     private RectTransform _getCommentatorRecttransform = default;
     private RectTransform _getLiveCommentatorRecttransform = default;
@@ -83,7 +84,6 @@ public class CommentScript : MonoBehaviour {
             switch (_nextCommentNumber) {
                 case 1:
                     _frogVoice.Stop();
-
                     LiveCommentatorCommentChange("そうさほうほうをおぼえて、デスレースでいきのこれるようにするケロ", false, _tutolialVoices[_nextCommentNumber]);
                     _nextCommentNumber++;
                     break;
@@ -114,6 +114,7 @@ public class CommentScript : MonoBehaviour {
                         LiveCommentatorReduction();
                     }
 
+                    _frame.color= new Color(HURFCOLOR, HURFCOLOR, HURFCOLOR, COLOR_A);
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _xButton.SetActive(false);
@@ -122,6 +123,7 @@ public class CommentScript : MonoBehaviour {
                     _nextCommentNumber++;
                     break;
                 case 6:
+                    _frame.color = new Color(MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE);
                     _frogVoice.Stop();
                     LiveCommentatorCommentChange("タイミングをみてしょうがいぶつをよけるケロ！さっそくとんでみるケロ", false, _tutolialVoices[_nextCommentNumber]);
 
@@ -139,6 +141,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _xButton.SetActive(false);
+                    _frame.color = new Color(HURFCOLOR, HURFCOLOR, HURFCOLOR, COLOR_A);
 
                     _nextCommentNumber++;
 
@@ -165,6 +168,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _xButton.SetActive(false);
+                    _frame.color = new Color(HURFCOLOR, HURFCOLOR, HURFCOLOR, COLOR_A);
                     _nextCommentNumber++;
                     break;
                 case 13:
@@ -185,6 +189,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _frame.color = new Color(HURFCOLOR, HURFCOLOR, HURFCOLOR, COLOR_A);
                     _xButton.SetActive(false);
                     break;
                 case 16:
@@ -199,11 +204,13 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _frame.color = new Color(HURFCOLOR, HURFCOLOR, HURFCOLOR, COLOR_A);
                     _xButton.SetActive(false);
                     break;
                 case 18:
                     _frogVoice.Stop();
                     LiveCommentatorCommentChange("ここでまなんだことをかつようして、たべられないようにがんばるケロ～！！", false, _tutolialVoices[_nextCommentNumber]);
+                    print(_nextCommentNumber);
                     _nextCommentNumber++;
                     break;
                 case 19:
@@ -218,6 +225,7 @@ public class CommentScript : MonoBehaviour {
                     _player2Script.StartWait();
                     _isNextComment = false;
                     _nextCommentNumber++;
+                    _frame.color = new Color(HURFCOLOR, HURFCOLOR, HURFCOLOR, COLOR_A);
                     _xButton.SetActive(false);
                     break;
             }
@@ -250,7 +258,7 @@ public class CommentScript : MonoBehaviour {
             case 0:
                 //実況者
                 CommentatorCommentChange("さあ、せっせんがつづいているケロ！", false, _commentatorVoices[0]);
-
+                
                 break;
             case 1:
                 //実況者
@@ -394,7 +402,6 @@ public class CommentScript : MonoBehaviour {
 
         //色を濃くする
         _commentatorImage.color = new Color(MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE);
-
     }
 
     /// <summary>
@@ -448,14 +455,17 @@ public class CommentScript : MonoBehaviour {
 
 
     public void TutorialCommentChange() {
+        _frame.color = new Color(MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE, MAXCOLORVALUE);
+        switch (_nextCommentNumber) 
+        {
 
-        switch (_nextCommentNumber) {
             case 0:
                 _frogVoice.Stop();
                 CommentatorCommentChange("ここではゲームのそうさほうほうについてせつめいしていくケロ", false, _tutolialVoices[_nextCommentNumber]);
                 _isNextComment = true;
                 _xButton.SetActive(true);
                 _nextCommentNumber++;
+
                 break;
 
 
