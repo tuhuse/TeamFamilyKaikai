@@ -253,7 +253,7 @@ public class CommentScript : MonoBehaviour {
         int keroyaVoice = 3;
 
         _isInterrupt = false;
-        _randomValue = Random.Range(0, 9);
+        _randomValue = Random.Range(8, 9);
         switch (_randomValue) {
             case 0:
                 //実況者
@@ -350,7 +350,7 @@ public class CommentScript : MonoBehaviour {
 
             case 8:
                 _isCommentStop = true;
-                CommentatorCommentChange("じっきょうは、わたくし「けろてつ」と", false, _commentatorVoices[4]);
+                CommentatorCommentChange("じっきょうは"+"\n"+"わたくし「けろてつ」と", false, _commentatorVoices[4]);
                 StartCoroutine(CommentDialogue());
                 break;
         }
@@ -382,7 +382,7 @@ public class CommentScript : MonoBehaviour {
                 _isCommentStop = false;
                 _commentChangeTime = 0;
                 if (!_isInterrupt) {
-                    LiveCommentatorCommentChange("かいせつの「けろちーば」でおおくりするケロ！", false, _liveCommentatorVoices[6]);
+                    LiveCommentatorCommentChange("かいせつの「けろちーば」で"+"\n"+"おおくりするケロ！", false, _liveCommentatorVoices[6]);
                 }
 
                 break;
