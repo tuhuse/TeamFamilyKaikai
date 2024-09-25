@@ -67,7 +67,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _underAttack = false;
             if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 _isJustOnes = false;
-                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
+                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * 500;
             } else if (_isAttack && !_isJustOnes) {
                 this.transform.localScale = new Vector3(TONGUESCALEX, TONGUESCALEY, 0);
                 _isJustOnes = true;
@@ -80,7 +80,7 @@ public class JoyStickWireTonguePlayer : MonoBehaviour {
             _underAttack = false;
             if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes && _isAttack) {
                 _isJustOnes = false;
-                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * TIMEDELTATIME;
+                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * 500;
             } else if (_isAttack && !_isJustOnes) {
                 _thisSprite.enabled = false;
                 _isJustOnes = true;

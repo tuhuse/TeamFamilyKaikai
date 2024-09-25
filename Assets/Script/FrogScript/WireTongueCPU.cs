@@ -58,7 +58,7 @@ public class WireTongueCPU : MonoBehaviour {
         {
             if (this.transform.localScale.y > _tongueScaleY && !_isJustOnes) 
             {
-                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMEMULTIPLE;
+                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * 500;
 
             } 
             else if (_isCoolDown && !_isJustOnes) 
@@ -73,7 +73,7 @@ public class WireTongueCPU : MonoBehaviour {
             _underAttack = false;
             if (this.transform.localScale.y >= _tongueScaleY && !_isJustOnes) 
             {
-                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * DELTATIMEMULTIPLE;
+                this.transform.localScale -= new Vector3(0, PLUSSCALESPEEDY, 0) * Time.deltaTime * 500;
             } else if (_isCoolDown && !_isJustOnes) {
                 _isJustOnes = true;
                 _thisSprite.enabled = false;
