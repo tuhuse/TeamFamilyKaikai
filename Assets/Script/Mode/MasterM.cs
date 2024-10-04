@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MasterM : MonoBehaviour {
     [SerializeField] private GameObject _masterMButton;
@@ -53,7 +54,7 @@ public class MasterM : MonoBehaviour {
                 Command4();
                 break;
             case Command.LB:
-                _masterMButton.SetActive(true);
+                //_masterMButton.SetActive(true);
                 _challengeText.SetActive(true);
                 _challengeTextScript.RestartText();
                 _menu.SetActive(false);
@@ -91,6 +92,7 @@ public class MasterM : MonoBehaviour {
                     }
                     if (_buttonValue == 0 && Input.GetButtonDown("1pA")) //yes
                        {
+                        SceneManager.LoadScene("MasterMmode");
                         _isSousa = false;
                         _command = Command.Null;
                         _challengeText.SetActive(false);
