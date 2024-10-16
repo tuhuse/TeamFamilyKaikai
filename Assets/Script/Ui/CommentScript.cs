@@ -536,7 +536,6 @@ public class CommentScript : MonoBehaviour {
             _isStartComment = isGameStart;
 
             _commentText.text = message;
-            print(message);
         }
 
 

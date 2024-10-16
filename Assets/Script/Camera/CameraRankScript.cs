@@ -365,10 +365,10 @@ public class CameraRankScript : MonoBehaviour {
 
                 //’N‚©‚ª—Ž‚Æ‚µŒŠ‚É—Ž‚¿‚½‚ç
 
-                if (_ranking[0].transform.position.y < _cameraLowerLimit.transform.position.y ||
-                   _ranking[1].transform.position.y < _cameraLowerLimit.transform.position.y ||
-                   _ranking[2].transform.position.y < _cameraLowerLimit.transform.position.y ||
-                   _ranking[3].transform.position.y < _cameraLowerLimit.transform.position.y) {
+                if (_ranking[0].transform.localPosition.y < _cameraLowerLimit.transform.position.y ||
+                   _ranking[1].transform.localPosition.y < _cameraLowerLimit.transform.position.y ||
+                   _ranking[2].transform.localPosition.y < _cameraLowerLimit.transform.position.y ||
+                   _ranking[3].transform.localPosition.y < _cameraLowerLimit.transform.position.y) {
                     _isDown = true;
                     if (this.transform.position.y > CAMPOSIY - MAXDOWNCAMERAYMOVE) {
                         _camposiChangeY -= CAMERAYDOWNMOVE;
