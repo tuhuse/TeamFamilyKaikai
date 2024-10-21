@@ -15,7 +15,7 @@ public class MasterM : MonoBehaviour {
     private int _buttonValue = 0;
     private float _crosskey;
     private bool _isButton  = false;
-    private bool _isSousa = false;
+    private bool _isOperation = false;
 
     private enum Command {
         Null,
@@ -41,7 +41,7 @@ public class MasterM : MonoBehaviour {
         switch (_command) {
 
             case Command.Null://隠しコマンド1個目
-                _isSousa = false;
+                _isOperation = false;
                 Command1();
                 break;
             case Command.Up:  //隠しコマンド2個目
@@ -61,7 +61,7 @@ public class MasterM : MonoBehaviour {
                 _command = Command.selectYesNo;
                 break;
             case Command.selectYesNo:
-                if (_isSousa) {
+                if (_isOperation) {
                     if (Input.GetAxis("1pLstickHorizontal") < 0 && _isButton)//左
                    {
                         _isButton = false;
@@ -90,12 +90,12 @@ public class MasterM : MonoBehaviour {
                         _menu.SetActive(true);
                         _command = Command.Null;
                     }
-                    if (_buttonValue == 0 && Input.GetButtonDown("1pA")) //yes
+                    if (_buttonValue == 0 && Input.GetButtonDown("1pA") || Input.GetKeyDown(KeyCode.Return)) //yes
                        {
                         SceneManager.LoadScene("MasterMmode");
-                        _isSousa = false;
+                        _isOperation = false;
                         _command = Command.Null;
-                        _challengeText.SetActive(false);
+                        //_challengeText.SetActive(false);
                         _command = Command.MasterM;
                     }
                 }
@@ -149,7 +149,7 @@ public class MasterM : MonoBehaviour {
     }
 
     public void Button() {
-        _isSousa = true;
+        _isOperation = true;
     }
 
 }
