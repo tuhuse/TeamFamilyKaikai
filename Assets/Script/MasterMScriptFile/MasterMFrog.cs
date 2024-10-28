@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MasterMFrog : MonoBehaviour {
-   
+
     [Header("ƒXƒLƒ‹”­ŽËˆÊ’u")]
     [SerializeField]
     private Transform _spawn;
@@ -37,18 +37,35 @@ public class MasterMFrog : MonoBehaviour {
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpPower;
-    
+
+    private int _randomValue;
+    private const int MAXVALUE = 10000;
+    private const int MINVALUE = 0;
+
     private Rigidbody2D _rb;
+
+    private enum ItemProbability {
+        First,
+        Second
+    }
+    private enum Item {
+        Water,
+        Invincible,
+        Beard,
+        Mucus,
+        Null
+    }
+    private ItemProbability _itemProbability = default;
+    private Item _getItem = default;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _rb = GetComponent<Rigidbody2D>();
         _isAlive = true;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        RankChange();
         DistanceMonoBehaviour();
     }
     private void DistanceMonoBehaviour() {
@@ -56,12 +73,93 @@ public class MasterMFrog : MonoBehaviour {
             _rb.velocity = new Vector2(_moveSpeed, _rb.velocity.y);
         }
     }
-    private void Jump() {
+    public void Jump() {
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
     }
+
+    private void RankChange() {
+        float player = _player.transform.localPosition.x;
+        float mySelf = this.transform.localPosition.x;
+
+        if (mySelf > player) {
+            _itemProbability = ItemProbability.First;
+        } else {
+            _itemProbability = ItemProbability.Second;
+        }
+    }
+    private void ItemLottery() {
+        _randomValue = Random.Range(MINVALUE, MAXVALUE);
+        if (_itemProbability == ItemProbability.First) {
+            if (_randomValue >= 6000) {
+                _getItem = Item.Water;
+            } else if (_randomValue >= 4000) {
+                _getItem = Item.Invincible;
+            } else if (_randomValue >= 3000) {
+                _getItem = Item.Beard;
+            } else {
+                _getItem = Item.Mucus;
+            }
+        } else if (_itemProbability == ItemProbability.Second) {
+            if (_randomValue >= 1000) {
+                _getItem = Item.Water;
+            } else if (_randomValue >= 800) {
+                _getItem = Item.Invincible;
+            } else {
+                _getItem = Item.Beard;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Enemy")) {
             Jump();
         }
+        if (collision.gameObject.CompareTag("Fly")) {
+            StartCoroutine(GetItem());
+        }
     }
+    private void UseItem() {
+        switch (_getItem) {
+            case Item.Water:
+                if (_itemProbability == ItemProbability.First) {
+                    Instantiate(_beard, _spawn.position, Quaternion.identity);
+                    _getItem = Item.Null;
+                } else {
+                    Instantiate(_beard, _spawn.position, Quaternion.identity);
+                    _getItem = Item.Null;
+                }
+                break;
+            case Item.Invincible:
+                if (_itemProbability == ItemProbability.First) {
+                    Instantiate(_beard, _spawn.position, Quaternion.identity);
+                    _getItem = Item.Null;
+                } else {
+                
+                }
+                break;
+            case Item.Beard:
+                if (_itemProbability == ItemProbability.First) {
+                    Instantiate(_beard, _spawn.position, Quaternion.identity);
+                    _getItem = Item.Null;
+                }
+                break;
+
+            case Item.Mucus:
+                if (_itemProbability == ItemProbability.First) {
+                    Instantiate(_beard, _spawn.position, Quaternion.identity);
+                    _getItem = Item.Null;
+                }
+                break;
+            case Item.Null:
+
+                break;
+
+        }
+    }
+    private IEnumerator GetItem() {
+        int waitTime = 2;
+        yield return new WaitForSeconds(waitTime);
+        ItemLottery();
+    }
+
 }

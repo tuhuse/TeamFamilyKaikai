@@ -150,7 +150,6 @@ public class FrogCpuMulti2 : MonoBehaviour {
         } else if (_select._enemyNumber == 2) {
             _difficultynumber = Difficultys.hard;
         }
-
     }
     private void FixedUpdate() {
         if (_isJumping && !_isMucusJump) {
