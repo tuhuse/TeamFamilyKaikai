@@ -37,10 +37,17 @@ public class MasterMFrog : MonoBehaviour {
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpPower;
+    private const float MOVESPEED = 100f;
+    private const float MOVEJUMPMAX = 200f;
 
     private int _randomValue;
     private const int MAXVALUE = 10000;
     private const int MINVALUE = 0;
+    private const float JUMPMIN = 17f;//îSâtì•ÇÒÇæéûÇÃÉWÉÉÉìÉvóÕ
+    private const float MOVEJUMP = 35f;
+
+    private bool _isJumping = false;
+    private bool _isMucusJump = false;
 
     private Rigidbody2D _rb;
 
@@ -62,11 +69,21 @@ public class MasterMFrog : MonoBehaviour {
         _rb = GetComponent<Rigidbody2D>();
         _isAlive = true;
     }
+    private void FixedUpdate() {
+        //ÉWÉÉÉìÉvç~â∫èàóù
+        if (_isJumping && !_isMucusJump) {
 
+            _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_jumpPower / MOVEJUMP));//* Time.deltaTime)
+        }
+        if (_isJumping && _isMucusJump) {
+            _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y - (_jumpPower / JUMPMIN));//* Time.deltaTime)
+        }
+    }
     // Update is called once per frame
     void Update() {
         RankChange();
         DistanceMonoBehaviour();
+        UseItem();
     }
     private void DistanceMonoBehaviour() {
         if (_isAlive) {
